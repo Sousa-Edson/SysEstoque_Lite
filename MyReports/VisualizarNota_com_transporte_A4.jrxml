@@ -1,0 +1,914 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2018-08-23T00:54:40 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Visualizar_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="086e3ca2-7f5d-4170-a429-c08a53ea1ca4">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter2.xml"/>
+	<subDataset name="Dataset1" uuid="9e6cf89a-01c9-4e3a-834f-255541cc7fcb">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT natureza,nota_documento,nota_nota,desc_prod,nota_mov,qtd_prod , qtd_mov ,calc_mov,op_mov,exi_qtd_prod,
+calc_mov,  complemento,nota_total,nota_fornecedor,nota_data,un_prod_ex
+ from movproduto 
+  Inner Join  cadproduto  on id_prod_ent = id_prod 
+  Inner Join  nota  on id_nota = nota_mov 
+  
+    GROUP BY
+     cadproduto.desc_prod,movproduto.nota_mov,movproduto.complemento,movproduto.calc_mov,movproduto.op_mov,movproduto.exi_qtd_prod,
+     nota.nota_total,nota.nota_fornecedor,nota.nota_data,cadproduto.un_prod_ex,nota.natureza,nota.nota_documento,nota.nota_nota,
+     movproduto.qtd_prod,movproduto.qtd_mov
+       ORDER BY nota_mov]]>
+		</queryString>
+		<field name="desc_prod" class="java.lang.String"/>
+		<field name="complemento" class="java.lang.String"/>
+		<field name="exi_qtd_prod" class="java.lang.String"/>
+		<field name="un_prod_ex" class="java.lang.String"/>
+		<group name="desc_prod">
+			<groupExpression><![CDATA[$F{desc_prod}]]></groupExpression>
+		</group>
+		<group name="complemento">
+			<groupExpression><![CDATA[$F{complemento}]]></groupExpression>
+		</group>
+		<group name="exi_qtd_prod">
+			<groupExpression><![CDATA[$F{exi_qtd_prod}]]></groupExpression>
+		</group>
+		<group name="un_prod_ex">
+			<groupExpression><![CDATA[$F{un_prod_ex}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="Dataset2" uuid="93b1f835-e8cf-46c1-8feb-11acdaf4dbe1">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT natureza,nota_documento,nota_nota,desc_prod,nota_mov,qtd_prod , qtd_mov ,calc_mov,op_mov,exi_qtd_prod,
+calc_mov,  complemento,nota_total,nota_fornecedor,nota_data,un_prod_ex
+ from movproduto 
+  Inner Join  cadproduto  on id_prod_ent = id_prod 
+  Inner Join  nota  on id_nota = nota_mov 
+  where id_nota=3
+    GROUP BY
+     cadproduto.desc_prod,movproduto.nota_mov,movproduto.complemento,movproduto.calc_mov,movproduto.op_mov,movproduto.exi_qtd_prod,
+     nota.nota_total,nota.nota_fornecedor,nota.nota_data,cadproduto.un_prod_ex,nota.natureza,nota.nota_documento,nota.nota_nota,
+     movproduto.qtd_prod,movproduto.qtd_mov
+       ORDER BY nota_mov]]>
+		</queryString>
+		<field name="desc_prod" class="java.lang.String"/>
+		<field name="complemento" class="java.lang.String"/>
+		<field name="exi_qtd_prod" class="java.lang.String"/>
+		<field name="un_prod_ex" class="java.lang.String"/>
+		<group name="desc_prod">
+			<groupExpression><![CDATA[$F{desc_prod}]]></groupExpression>
+		</group>
+		<group name="complemento">
+			<groupExpression><![CDATA[$F{complemento}]]></groupExpression>
+		</group>
+		<group name="exi_qtd_prod">
+			<groupExpression><![CDATA[$F{exi_qtd_prod}]]></groupExpression>
+		</group>
+		<group name="un_prod_ex">
+			<groupExpression><![CDATA[$F{un_prod_ex}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="lista produto" uuid="86cab00a-1596-4a31-b031-645094f9e379">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+		<queryString language="SQL">
+			<![CDATA[select row_number() OVER (PARTITION by 0) as contador, nota_mov,id_prod,desc_prod,qtd_mov,qtd_prod,
+id_mov,valor_prod_ex,valor_prod_ca,valor_real,valor_moeda,calc_mov,destino,op_mov,mov_status,mov_usu,data_mov,
+ un_prod_ex,complemento,exi_qtd_calc,exi_qtd_prod ,mov_registro
+ from movproduto Inner Join  cadproduto  on id_prod_ent = id_prod
+ where nota_mov ='1'   and op_mov!='COMPLEMENTO' order by  contador asc ,id_mov]]>
+		</queryString>
+		<field name="contador" class="java.lang.Long"/>
+		<field name="desc_prod" class="java.lang.String"/>
+		<field name="complemento" class="java.lang.String"/>
+		<field name="exi_qtd_prod" class="java.lang.String"/>
+		<field name="destino" class="java.lang.String"/>
+		<field name="un_prod_ex" class="java.lang.String"/>
+		<field name="valor_prod_ex" class="java.lang.String"/>
+		<field name="valor_moeda" class="java.lang.String"/>
+		<group name="contador">
+			<groupExpression><![CDATA[$F{contador}]]></groupExpression>
+		</group>
+		<group name="desc_prod">
+			<groupExpression><![CDATA[$F{desc_prod}]]></groupExpression>
+		</group>
+		<group name="complemento">
+			<groupExpression><![CDATA[$F{complemento}]]></groupExpression>
+		</group>
+		<group name="exi_qtd_prod">
+			<groupExpression><![CDATA[$F{exi_qtd_prod}]]></groupExpression>
+		</group>
+		<group name="destino">
+			<groupExpression><![CDATA[$F{destino}]]></groupExpression>
+		</group>
+		<group name="un_prod_ex">
+			<groupExpression><![CDATA[$F{un_prod_ex}]]></groupExpression>
+		</group>
+		<group name="valor_prod_ex">
+			<groupExpression><![CDATA[$F{valor_prod_ex}]]></groupExpression>
+		</group>
+		<group name="valor_moeda">
+			<groupExpression><![CDATA[$F{valor_moeda}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[select nota_mov,nota_situacao,obsprotocolo,nota_operacao,natureza,nota_data,sis_prod,tipo_prod,nome_prod,guia,edicao_prod,SUM(qtd_mov) AS qtd_mov,
+idreferenciaprotocolo, empresaprotocolo, enderecoprotocolo, noprotocolo, 
+       complementoprotocolo, bairroprotocolo, cidadeprotocolo, telefoneprotocolo, 
+       clienteprotocolo, idreferenciaprotocolo, notausuprotocolo,  
+       quantidadeprotocolo, especieprotocolo,valor_moeda,total_mov,
+     un_prod,qtd_prod_ex,qtd_calc_ex,destino_mov,complemento_mov, modalidade, transportadora, motorista, placa, 
+       uf, quantidade, especie, numeracao, pesobruto, pesoliquido, ecft_cnpj, ecft_inscricao, 
+       ecft_descricao, ecft_telefone, ecft_endereco, ecft_no, ecft_cep, 
+       ecft_complemento, ecft_bairro, ecft_cidade,nota_registro,inscricaoprotocolo, cnpjprotocolo,
+       nota_data ,  nota_hora , nota_total,uf,
+        tr_cnpj, tr_descricao,tr_telefone, tr_endereco, tr_no, tr_cep, tr_complemento, tr_bairro,tr_cidade, tr_inscricao,nota_chave
+From movprodutobase  
+Inner Join produto on id_prod_ent = sis_prod  
+ inner join protocolotopo on idreferenciaprotocolo = nota_mov 
+inner join nota on id_referencia=nota_mov 
+inner join transporte on osnota=nota_mov 
+inner join ecft on ecft_nome = clienteprotocolo
+where  status_mov like'%ATIVO%' and nota_status like'%ATIVO%' and status_prod like'%ATIVO%' and online=1
+and idreferenciaprotocolo=9
+GROUP BY ecft.ecft_cnpj,ecft.ecft_inscricao,ecft.ecft_descricao,ecft.ecft_telefone,ecft.ecft_endereco,
+ecft.ecft_no,ecft.ecft_cep,ecft.ecft_complemento,ecft.ecft_bairro,ecft.ecft_cidade,nota.nota_registro,
+ produto.id_prod,nota.nota_data,nota.nota_operacao,nota.natureza,nota.nota_total,movprodutobase.valor_moeda,movprodutobase.total_mov,
+transporte.modalidade,transporte.transportadora,transporte.motorista,transporte.placa,
+transporte.uf,transporte.quantidade,transporte.especie,transporte.numeracao,transporte.pesobruto,transporte.pesoliquido,
+protocolotopo.idreferenciaprotocolo,protocolotopo.empresaprotocolo,protocolotopo.enderecoprotocolo,
+protocolotopo.noprotocolo,protocolotopo.complementoprotocolo,protocolotopo.bairroprotocolo,protocolotopo.cidadeprotocolo,
+protocolotopo.telefoneprotocolo,protocolotopo.clienteprotocolo,protocolotopo.notausuprotocolo,protocolotopo.obsprotocolo,
+protocolotopo.quantidadeprotocolo,protocolotopo.especieprotocolo,protocolotopo.idprotocolo,
+ movprodutobase.qtd_prod_ex,movprodutobase.qtd_calc_ex ,movprodutobase.destino_mov,movprodutobase.nota_mov ,nota.nota_situacao,
+ movprodutobase.complemento_mov,movprodutobase.destino_mov ,nota.nota_hora,nota.nota_chave
+  order by idprotocolo desc]]>
+	</queryString>
+	<field name="nota_mov" class="java.lang.Integer"/>
+	<field name="nota_situacao" class="java.lang.String"/>
+	<field name="obsprotocolo" class="java.lang.String"/>
+	<field name="nota_operacao" class="java.lang.String"/>
+	<field name="natureza" class="java.lang.String"/>
+	<field name="nota_data" class="java.lang.String"/>
+	<field name="sis_prod" class="java.lang.Integer"/>
+	<field name="tipo_prod" class="java.lang.String"/>
+	<field name="nome_prod" class="java.lang.String"/>
+	<field name="guia" class="java.lang.String"/>
+	<field name="edicao_prod" class="java.lang.String"/>
+	<field name="qtd_mov" class="java.lang.Double"/>
+	<field name="idreferenciaprotocolo" class="java.lang.Integer"/>
+	<field name="empresaprotocolo" class="java.lang.String"/>
+	<field name="enderecoprotocolo" class="java.lang.String"/>
+	<field name="noprotocolo" class="java.lang.String"/>
+	<field name="complementoprotocolo" class="java.lang.String"/>
+	<field name="bairroprotocolo" class="java.lang.String"/>
+	<field name="cidadeprotocolo" class="java.lang.String"/>
+	<field name="telefoneprotocolo" class="java.lang.String"/>
+	<field name="clienteprotocolo" class="java.lang.String"/>
+	<field name="COLUMN_22" class="java.lang.Integer"/>
+	<field name="notausuprotocolo" class="java.lang.String"/>
+	<field name="quantidadeprotocolo" class="java.lang.String"/>
+	<field name="especieprotocolo" class="java.lang.String"/>
+	<field name="valor_moeda" class="java.lang.String"/>
+	<field name="total_mov" class="java.lang.String"/>
+	<field name="un_prod" class="java.lang.String"/>
+	<field name="qtd_prod_ex" class="java.lang.String"/>
+	<field name="qtd_calc_ex" class="java.lang.String"/>
+	<field name="destino_mov" class="java.lang.String"/>
+	<field name="complemento_mov" class="java.lang.String"/>
+	<field name="modalidade" class="java.lang.String"/>
+	<field name="transportadora" class="java.lang.String"/>
+	<field name="motorista" class="java.lang.String"/>
+	<field name="placa" class="java.lang.String"/>
+	<field name="uf" class="java.lang.String"/>
+	<field name="quantidade" class="java.lang.String"/>
+	<field name="especie" class="java.lang.String"/>
+	<field name="numeracao" class="java.lang.String"/>
+	<field name="pesobruto" class="java.lang.String"/>
+	<field name="pesoliquido" class="java.lang.String"/>
+	<field name="ecft_cnpj" class="java.lang.String"/>
+	<field name="ecft_inscricao" class="java.lang.String"/>
+	<field name="ecft_descricao" class="java.lang.String"/>
+	<field name="ecft_telefone" class="java.lang.String"/>
+	<field name="ecft_endereco" class="java.lang.String"/>
+	<field name="ecft_no" class="java.lang.String"/>
+	<field name="ecft_cep" class="java.lang.String"/>
+	<field name="ecft_complemento" class="java.lang.String"/>
+	<field name="ecft_bairro" class="java.lang.String"/>
+	<field name="ecft_cidade" class="java.lang.String"/>
+	<field name="nota_registro" class="java.lang.String"/>
+	<field name="inscricaoprotocolo" class="java.lang.String"/>
+	<field name="cnpjprotocolo" class="java.lang.String"/>
+	<field name="COLUMN_56" class="java.lang.String"/>
+	<field name="nota_hora" class="java.lang.String"/>
+	<field name="nota_total" class="java.lang.String"/>
+	<field name="COLUMN_59" class="java.lang.String"/>
+	<field name="tr_cnpj" class="java.lang.String"/>
+	<field name="tr_descricao" class="java.lang.String"/>
+	<field name="tr_telefone" class="java.lang.String"/>
+	<field name="tr_endereco" class="java.lang.String"/>
+	<field name="tr_no" class="java.lang.String"/>
+	<field name="tr_cep" class="java.lang.String"/>
+	<field name="tr_complemento" class="java.lang.String"/>
+	<field name="tr_bairro" class="java.lang.String"/>
+	<field name="tr_cidade" class="java.lang.String"/>
+	<field name="tr_inscricao" class="java.lang.String"/>
+	<field name="nota_chave" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="325" splitType="Stretch">
+			<textField>
+				<reportElement x="151" y="0" width="409" height="30" uuid="e3d137e8-b127-474f-aff4-e10514b57507"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["OS : 0"+$F{idreferenciaprotocolo}+"  "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-10" y="40" width="190" height="45" uuid="d0def966-52ff-4ee3-988b-d2db80e84e9d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Empresa : "+$F{empresaprotocolo}+
+"\n   Telefone : "+$F{telefoneprotocolo}+"\n   Endereço  : "+$F{enderecoprotocolo}+
+"   N° : "+$F{noprotocolo}+"\n   "+$F{complementoprotocolo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="180" y="40" width="100" height="45" uuid="51c5cd62-c8cb-4292-99dd-78811cc4fe88"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  :  "+""+"\n   "+""+"\n   "+""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="280" y="40" width="281" height="45" uuid="5f5e6519-8e9c-4585-9b71-8dc61e040e5d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  Data registro : "+""+$F{nota_registro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-10" y="85" width="290" height="12" uuid="e90c735a-bb45-4314-ac83-47ec24b64a21"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Natureza da operação  : "+$F{nota_operacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="85" width="281" height="12" uuid="a8de18d0-91cd-4d0b-9304-b90b6a069f39"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  Chave  :   "+$F{nota_chave}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-10" y="97" width="230" height="12" uuid="074b7e7d-2a61-4134-8c44-66455e375008"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Inscrição Estadual  : "+$F{inscricaoprotocolo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="331" y="97" width="230" height="12" uuid="0077729e-6fea-42c5-ba2e-4e14e1fad5d0"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   CNPJ  : "+$F{cnpjprotocolo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="97" width="111" height="12" uuid="19c01106-89a3-4efc-9cc0-350d123429ec"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-10" y="121" width="310" height="24" uuid="1e28145b-30a0-4ee0-a1ea-5649d2c3396d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Nome/Razão Social  : \n  "+$F{ecft_descricao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-10" y="110" width="210" height="11" uuid="286e3016-d9f2-4832-8e1c-b424c340e8b0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[DESTINATÁRIO / REMETENTE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="121" width="131" height="24" uuid="e6070dad-d0b9-49d1-b871-584a5b301eab"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   CNPJ/CPF  : \n  "+$F{ecft_cnpj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="431" y="121" width="130" height="24" uuid="b516ba70-3d2f-4bea-87f4-7f515e298076"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Data de emissão  : \n  "+$F{nota_registro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-10" y="145" width="250" height="24" uuid="eb28e4bb-acab-4e09-802c-e02e62642433"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Endereço  : \n  "+$F{ecft_endereco}+"   "+$F{ecft_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="145" width="81" height="24" uuid="75b62bcc-2679-4d7d-aecc-5885837ede07"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   CEP  : \n  "+$F{ecft_cep}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="431" y="145" width="130" height="24" uuid="ea883e67-5ef1-4bdf-b183-024e8712db3a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Data de Saida/Entrada  : \n  "+$F{nota_data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="145" width="110" height="24" uuid="32584c42-4610-439c-8dff-4f6bbd301101"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Bairro/Distrito  : \n  "+$F{ecft_bairro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-10" y="169" width="250" height="24" uuid="6a61e928-12f1-430b-897a-4e4cd6d704c3"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Endereço  : \n  "+$F{ecft_cidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="339" y="169" width="92" height="24" uuid="d837fc17-3d51-4020-833d-70ca33beaa1b"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Inscrição Estadual  : \n  "+$F{ecft_inscricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="431" y="169" width="130" height="24" uuid="fc64353c-1730-4cc2-b071-3c7a6be81176"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Hora da Saida/Entrada  : \n  "+$F{nota_hora}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="169" width="99" height="24" uuid="aeca8a39-7b21-4f28-9e2e-7a5497bff371"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Telefone/Fax  : \n  "+$F{ecft_telefone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-10" y="196" width="210" height="11" uuid="7c192f05-3f7a-4fcc-a055-616b6e09cb38"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[FATURA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="-10" y="207" width="571" height="24" uuid="8bb56002-1000-40dd-af22-c897aecec7eb"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   VALOR TOTAL DA NOTA  : \n  "+$F{nota_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-9" y="245" width="219" height="24" uuid="c7f4c70f-f104-47f3-8fc4-8e23b5842263"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Nome/Razão Social  : \n  "+$F{transportadora}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-9" y="234" width="210" height="11" uuid="d4ce4935-5ab2-4a4b-b806-5974cd75b6c8"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[TRANSPORTADOR / VOLUMES TRANSPORTADOS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="310" y="245" width="91" height="24" uuid="9f3166f9-803a-4861-8bc9-8ee9a935bda6"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   PLACA DO VEÍCULO   \n    "+$F{placa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="245" width="130" height="24" uuid="3f3a1e0e-3856-40cc-a301-ff3f40d5b6e5"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   CNPJ / CPF   \n  "+$F{tr_cnpj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-9" y="269" width="249" height="24" uuid="9b08b9fb-4b4b-4958-9f37-fb3fbbea4b15"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Endereço  : \n  "+ $F{tr_endereco}+"   "+$F{tr_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="351" y="269" width="81" height="24" uuid="9333f501-0e76-4d20-aa8e-002e4e45a25f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   CEP  : \n  "+$F{tr_cep}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="269" width="130" height="24" uuid="ec4a7b74-fda8-491b-a3a4-0605d6abef61"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   INSCRIÇÃO ESTADUAL  : \n  "+$F{tr_inscricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="269" width="111" height="24" uuid="c4f42aec-a37d-4b7a-a6cf-88e6a0eca371"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Bairro/Distrito  : \n  "+$F{tr_bairro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-9" y="293" width="85" height="24" uuid="37a62705-f07d-472a-adc4-2d103e2b06be"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   QUANTIDADE    \n     "+$F{quantidadeprotocolo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="293" width="92" height="24" uuid="5a751482-48bc-4531-aa68-8046be86777f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   PESO BRUTO (KG)  \n  "+$F{pesobruto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="293" width="108" height="24" uuid="8c772a1b-ab03-4660-b26f-8e8ed82cc2f6"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  MOTORISTA: \n  "+$F{motorista}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="157" y="293" width="113" height="24" uuid="74f1f18c-c152-46e7-afc0-f5e43dc23df7"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   NUMERAÇÃO    \n     "+$F{numeracao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="245" width="100" height="24" uuid="73b53252-ea54-4292-ab3b-530e5520abc9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   MODALIDADE FRETE    \n  "+$F{modalidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="401" y="245" width="31" height="24" uuid="91a80d8a-a470-4c91-a4ba-9a6f1b412e10"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   UF   \n  "+$F{uf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="293" width="81" height="24" uuid="d580d7d5-5d96-4290-921a-4d3f61f23d23"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   ESPÉCIE   \n     "+$F{especieprotocolo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="-9" y="0" width="159" height="30" forecolor="#63A63F" backcolor="#FFFFFF" uuid="eded697c-d636-4e37-af1b-d7464e3f1426"/>
+				<box>
+					<pen lineColor="#020302"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Situação:\n   "+$F{nota_situacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="362" y="293" width="92" height="24" uuid="96f1c5d0-1bd4-4bdf-ac75-d12fda188b33">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  PESO LÍQUIDO (KG)  \n  "+$F{pesoliquido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="-10" y="5" width="570" height="13" uuid="4f468ecd-36a5-4d1b-8f37-c7063ae78985">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Dados de produtos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-10" y="20" width="333" height="12" uuid="c9713298-07ea-445b-a127-b2eeb085bbde">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Dados de produtos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="323" y="20" width="66" height="12" uuid="c73f6888-dd9b-43f8-b47f-8b7856423dad"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="20" width="42" height="12" uuid="59dc2131-57f3-4005-b1b9-266c6a2cfd5b"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Unidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="431" y="20" width="59" height="12" uuid="951df806-a297-4fb2-9dac-3053027becf0"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[V. Unit.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="20" width="69" height="12" uuid="5e5dea94-de57-4916-97c5-e2426f54b52c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="-9" y="3" width="332" height="13" uuid="4c395453-9381-47c5-a06c-77a0b56fa9d0">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   "+$F{tipo_prod}+"   "+$F{nome_prod}+"   "+$F{edicao_prod}+" "+$F{complemento_mov}+" "+$F{destino_mov}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="3" width="69" height="13" uuid="11b30266-8d95-43e7-81eb-0b1292ba1dfc"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "+$F{total_mov}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="3" width="60" height="13" uuid="f88fbb29-31e2-4ccb-865d-5fd70bafc263">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   "+$F{valor_moeda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="391" y="3" width="39" height="13" uuid="0f2a777a-f8f5-47d1-a7c2-7addce0a7ff4">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["    "+$F{un_prod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="323" y="3" width="68" height="13" uuid="31524e91-4ac3-4bb8-8b42-1d62e35ba3b0"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["    "+$F{qtd_prod_ex}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="109" splitType="Stretch">
+			<textField>
+				<reportElement x="-10" y="8" width="571" height="92" uuid="18f9be3b-c7e1-492c-8697-3fabb932f02d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" Observação.:\n "+$F{obsprotocolo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="16" splitType="Stretch"/>
+	</summary>
+</jasperReport>

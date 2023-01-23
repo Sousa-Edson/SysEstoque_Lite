@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2018-09-03T23:10:48 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Bandeira_A4" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fb424ea7-0f0d-42e3-98dc-60d901c6078d">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter2.xml"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+id_referencia,clienteprotocolo,empresaprotocolo,tipo_prod,nome_prod,guia,edicao_prod,complemento_mov,destino_mov,qtd_prod_ex,un_prod,obsprotocolo,
+ nota_documento, nota_nota, nota_data, nota_hora,dataprotocolo, notaprotocolo
+
+  FROM nota
+inner join protocolotopo on  idreferenciaprotocolo=id_referencia
+inner join movprodutobase on  nota_mov=id_referencia
+Inner Join produto on id_prod_ent = sis_prod  
+
+   where  id_referencia='97' and status_mov like'%ATIVO%'    and nota_status like'%ATIVO%' 
+order by id_mov asc]]>
+	</queryString>
+	<field name="id_referencia" class="java.lang.Integer"/>
+	<field name="clienteprotocolo" class="java.lang.String"/>
+	<field name="empresaprotocolo" class="java.lang.String"/>
+	<field name="tipo_prod" class="java.lang.String"/>
+	<field name="nome_prod" class="java.lang.String"/>
+	<field name="guia" class="java.lang.String"/>
+	<field name="edicao_prod" class="java.lang.String"/>
+	<field name="complemento_mov" class="java.lang.String"/>
+	<field name="destino_mov" class="java.lang.String"/>
+	<field name="qtd_prod_ex" class="java.lang.String"/>
+	<field name="un_prod" class="java.lang.String"/>
+	<field name="obsprotocolo" class="java.lang.String"/>
+	<field name="nota_documento" class="java.lang.String"/>
+	<field name="nota_nota" class="java.lang.String"/>
+	<field name="nota_data" class="java.lang.String"/>
+	<field name="nota_hora" class="java.lang.String"/>
+	<field name="dataprotocolo" class="java.lang.String"/>
+	<field name="notaprotocolo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<detail>
+		<band height="554" splitType="Stretch">
+			<textField>
+				<reportElement x="-1" y="125" width="792" height="145" uuid="473c8c3c-a797-4ed4-a96c-4bc9a292f0ff"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="42" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_prod}+"\n"+$F{nome_prod}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="282" width="78" height="49" uuid="0dcb4c4e-de22-4a0f-b26f-700bc2c55498"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="82" y="282" width="81" height="49" uuid="2bb3d632-0dec-4725-b619-0f08fa3c09eb"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="169" y="282" width="620" height="49" uuid="bd4da726-adbb-4d76-9f22-bf0fcdff26fc"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-1" y="283" width="77" height="41" uuid="07ced4e7-69d6-4811-8859-ffcf5d89037e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EDIÇÃO 
+/ N° .]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="288" width="588" height="37" uuid="5b60e7bb-7a0e-4970-9abc-df8cc9d0c3f9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="25" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{complemento_mov}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="411" y="348" width="139" height="59" uuid="5d03e37a-41fc-423f-b518-4fa7ce9c3e36"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="2" y="348" width="142" height="59" uuid="60c0a959-cc5b-4e64-b2d2-84349077bb8d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="144" y="348" width="267" height="59" uuid="5a7b9807-3e1d-47b8-ab24-6182d1760f4b"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="1" y="347" width="141" height="59" uuid="97ac652c-5b96-48a1-9628-61f14da28e71"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="38" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="417" width="71" height="30" uuid="86e4b684-946f-45d9-9c9f-db35d4038578"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="72" y="417" width="478" height="30" uuid="5859ce52-d413-4580-bfac-9fc6d02d62d6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="416" width="70" height="30" uuid="2c0a35fb-f3b9-4cf6-bb59-0fdf7bfa0b9f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="2" y="457" width="71" height="30" uuid="62d4c843-c102-4acc-ab9f-6e2327485745"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="73" y="457" width="477" height="30" uuid="4e9da4a5-cc13-4291-bd03-6b24b2107d9d"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="1" y="456" width="70" height="30" uuid="71dc503f-f0b2-45d6-b9e4-54ffe7c1a24f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OBS:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="2" y="496" width="169" height="31" uuid="037ef9e3-936c-4803-ad3e-3b039daf83b0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="171" y="496" width="379" height="31" uuid="5a5d76b1-96ff-41bf-bbd4-3cb3470cb2ea"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="1" y="495" width="168" height="31" uuid="bb60d7e6-1044-426d-b325-8f5006152421"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ENTREGUE COM NF-E N° :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="144" y="346" width="257" height="57" uuid="ea4b2c59-0c12-45c6-8e25-dfa5e746e3b2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="38" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qtd_prod_ex}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="84" y="286" width="77" height="37" uuid="c7c0c3c2-5983-4288-a91d-7949abb63496"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="29" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{edicao_prod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="411" y="352" width="134" height="49" uuid="321af4fa-981f-41e0-9779-dca6b8858b28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="37" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{un_prod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="421" width="445" height="22" uuid="d5e8b8b0-dfa8-4be8-9c47-b34b79a4e0f1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  "+$F{dataprotocolo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="460" width="445" height="22" uuid="f8a4bd1f-d07b-4558-86f2-7fe9f2b82adc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  "+$F{obsprotocolo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="500" width="335" height="22" uuid="2663c4bf-e0c3-48a0-af1c-367276a5dcb1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  "+$F{notaprotocolo}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="-1" y="0" width="791" height="120" uuid="0e201f00-4dcd-43c2-8db7-6e693dbf176d"/>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Opaque" x="8" y="8" width="774" height="105" backcolor="#F3F58E" uuid="6bc509c0-c168-493c-9d22-6df51ddd2592"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="37" isBold="true"/>
+				</textElement>
+				<text><![CDATA[
+EXPEDIÇÃO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="12" y="10" width="769" height="50" uuid="1bd0ebc4-3360-4d39-b205-12190d1d5342"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="37" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresaprotocolo}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="561" y="346" width="227" height="180" uuid="2db99972-a46b-48c0-90ba-540cd82a37b4"/>
+			</rectangle>
+			<textField>
+				<reportElement x="457" y="533" width="335" height="15" uuid="eebd133c-0253-4cbe-a16f-68b59975d0c9"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["OS "+$F{id_referencia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="1" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

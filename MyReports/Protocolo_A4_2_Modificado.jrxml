@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2018-08-20T00:02:09 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Protocolo_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d226305f-14bb-4e96-943c-5eeaf04feee3">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter2.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="326"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="667"/>
+	<queryString language="SQL">
+		<![CDATA[select nota_mov,nota_operacao,nota_data,sis_prod,tipo_prod,nome_prod,guia,edicao_prod,SUM(qtd_mov) AS qtd_mov,
+idreferenciaprotocolo, empresaprotocolo, enderecoprotocolo, noprotocolo, 
+       complementoprotocolo, bairroprotocolo, cidadeprotocolo, telefoneprotocolo, 
+       clienteprotocolo, idreferenciaprotocolo, notausuprotocolo, obsprotocolo, 
+       quantidadeprotocolo, especieprotocolo,
+     un_prod,qtd_prod_ex,qtd_calc_ex,destino_mov,complemento_mov
+From movprodutobase  Inner Join produto on id_prod_ent = sis_prod   inner join protocolotopo on idreferenciaprotocolo = nota_mov 
+inner join nota on id_referencia=nota_mov 
+where  status_mov like'%ATIVO%' and  status_prod like'%ATIVO%' and idreferenciaprotocolo=142
+GROUP BY  produto.id_prod,nota.nota_data,nota.nota_operacao,
+protocolotopo.idreferenciaprotocolo,protocolotopo.empresaprotocolo,protocolotopo.enderecoprotocolo,
+protocolotopo.noprotocolo,protocolotopo.complementoprotocolo,protocolotopo.bairroprotocolo,protocolotopo.cidadeprotocolo,
+protocolotopo.telefoneprotocolo,protocolotopo.clienteprotocolo,protocolotopo.notausuprotocolo,protocolotopo.obsprotocolo,
+protocolotopo.quantidadeprotocolo,protocolotopo.especieprotocolo,protocolotopo.idprotocolo,
+ movprodutobase.qtd_prod_ex,movprodutobase.qtd_calc_ex ,movprodutobase.destino_mov,movprodutobase.nota_mov ,
+ movprodutobase.complemento_mov,movprodutobase.destino_mov order by idprotocolo desc]]>
+	</queryString>
+	<field name="nota_mov" class="java.lang.Integer"/>
+	<field name="nota_operacao" class="java.lang.String"/>
+	<field name="nota_data" class="java.lang.String"/>
+	<field name="sis_prod" class="java.lang.Integer"/>
+	<field name="tipo_prod" class="java.lang.String"/>
+	<field name="nome_prod" class="java.lang.String"/>
+	<field name="guia" class="java.lang.String"/>
+	<field name="edicao_prod" class="java.lang.String"/>
+	<field name="qtd_mov" class="java.lang.Double"/>
+	<field name="idreferenciaprotocolo" class="java.lang.Integer"/>
+	<field name="empresaprotocolo" class="java.lang.String"/>
+	<field name="enderecoprotocolo" class="java.lang.String"/>
+	<field name="noprotocolo" class="java.lang.String"/>
+	<field name="complementoprotocolo" class="java.lang.String"/>
+	<field name="bairroprotocolo" class="java.lang.String"/>
+	<field name="cidadeprotocolo" class="java.lang.String"/>
+	<field name="telefoneprotocolo" class="java.lang.String"/>
+	<field name="clienteprotocolo" class="java.lang.String"/>
+	<field name="COLUMN_19" class="java.lang.Integer"/>
+	<field name="notausuprotocolo" class="java.lang.String"/>
+	<field name="obsprotocolo" class="java.lang.String"/>
+	<field name="quantidadeprotocolo" class="java.lang.String"/>
+	<field name="especieprotocolo" class="java.lang.String"/>
+	<field name="un_prod" class="java.lang.String"/>
+	<field name="qtd_prod_ex" class="java.lang.String"/>
+	<field name="qtd_calc_ex" class="java.lang.String"/>
+	<field name="destino_mov" class="java.lang.String"/>
+	<field name="complemento_mov" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="99" splitType="Stretch">
+			<textField>
+				<reportElement x="7" y="59" width="534" height="21" uuid="82f7ddcf-7dbd-4263-ba2e-5465120d3baa"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PROTOCOLO DE  "+$F{nota_operacao}.replace("SAIDA","SAIDA/DEVOLUÇÃO").replace("ENTRADA","ENTRADA")+"                                                            [ OS  "+$F{nota_mov}+" ]"
+]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="80" width="534" height="19" uuid="34f86d36-10b9-44df-994d-88c6548570b9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["   Esta sendo entregue o seguinte material para :  " + $F{clienteprotocolo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="37" width="534" height="21" uuid="5d9e5b1b-7b27-4a32-8392-6d3b9b0dd619"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  "+$F{enderecoprotocolo}+"  "+$F{noprotocolo}+" "+$F{complementoprotocolo}+" "+$F{bairroprotocolo}+" "+$F{cidadeprotocolo}+" "+$F{telefoneprotocolo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="7" y="0" width="534" height="37" forecolor="#FFFCFC" backcolor="#050000" uuid="6c0cad59-8b6f-40b3-b9b0-2bbe30b902b8"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFCFC"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFCFC"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFCFC"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFCFC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresaprotocolo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField>
+				<reportElement x="7" y="-1" width="534" height="20" uuid="21023ac1-4335-4467-8798-1a6f43ea8144"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["  "+$F{tipo_prod}+"  "+$F{nome_prod}+"  "+$F{edicao_prod}+"  "+$F{complemento_mov}+"  "+$F{destino_mov}+"  "+$F{qtd_prod_ex}+"  "+$F{un_prod}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="59" splitType="Stretch">
+			<textField>
+				<reportElement x="7" y="0" width="173" height="20" uuid="993c9683-cced-4613-9c72-8f0e47c6fbf8"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["  Quantidade :  "+$F{quantidadeprotocolo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="181" height="20" uuid="b94105b8-335c-4466-a91f-782ac039d90c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["   Volume:  "+$F{especieprotocolo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="361" y="0" width="180" height="20" uuid="5f2775a5-8b4d-407f-93fb-02e7f6bb9d50"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["   Data: "+$F{nota_data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="21" width="223" height="20" uuid="79ac2595-0a60-4298-80a9-eb4c02b336ac"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["  Expedição : "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="21" width="311" height="20" uuid="4fcc4c8f-9eb4-486d-b3f9-33719af1e72e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["  Recebimento :"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="7" y="42" width="534" height="12" backcolor="#050505" uuid="c92c4a82-220b-4623-be66-7a6fa2c1f097"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Static Text]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2019-05-01T21:46:03 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Protocolo_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d226305f-14bb-4e96-943c-5eeaf04feee3">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter2.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="326"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="667"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT id_nota, nota_documento, nota_nota, nota_data, nota_hora, nota_observacao, 
+       nota_registro, nota_situacao, nota_chave, nota_total, nota_operacao, 
+       nota_usu, id_referencianota, stnota, naturezaint, fornecedorint, 
+       modalidade, transportadora, motorista, placa, uf, quantidade, 
+       especie, numeracao, pesobruto, pesoliquido,
+
+       id_mov, id_prod_ent, data_mov, nota_mov, qtd_mov, qtd_prod, qtd_prod_ex, 
+       qtd_calc, qtd_calc_ex, valor_real, valor_moeda, destino_mov, 
+       complemento_mov, registro_mov, volume, usuario_mov, modo_mov, 
+       total_mov, sistema_mov, stmovimento, stsaldo,
+
+       id_prod, sis_prod, ncm_prod, tipo_prod, nome_prod, edicao_prod, 
+       cfop_prod, saldo_prod, valor_prod, estoque_prod, obs_prod, usu_prod, 
+       data_reg, hora_reg, valor_prod_ex, stprod, idunid,
+
+        cl.ecft_id, cl.sis_ecft, cl.ecft_tipo, cl.ecft_nome, cl.ecft_cnpj, cl.ecft_inscricao, 
+       cl.ecft_descricao, cl.ecft_telefone, cl.ecft_endereco, cl.ecft_no, cl.ecft_cep, 
+       cl.ecft_complemento, cl.ecft_bairro, cl.ecft_cidade, cl.ecft_observacao, 
+       cl.ecft_usuario, cl.ecft_registro, cl.stecft,
+
+        em.ecft_id, em.sis_ecft, em.ecft_tipo, em.ecft_nome,em.ecft_cnpj as cnpj_empresa, em.ecft_inscricao as incricao_empresa, 
+       em.ecft_descricao as descricao_empresa, em.ecft_telefone as telefone_empresa, em.ecft_endereco as endereco_empresa, em.ecft_no as no_empresa, em.ecft_cep as cep_empresa, 
+       em.ecft_complemento as complemento_empresa , em.ecft_bairro as bairro_empresa, em.ecft_cidade as cidade_empresa, em.ecft_observacao, 
+       em.ecft_usuario, em.ecft_registro, em.stecft,
+
+        tr.ecft_id, tr.sis_ecft, tr.ecft_tipo, tr.ecft_nome, tr.ecft_cnpj as cnpj_transporte, tr.ecft_inscricao as inscricao_transporte, 
+       tr.ecft_descricao as descricao_transporte, tr.ecft_telefone as telefone_transporte, tr.ecft_endereco as endereco_transporte, tr.ecft_no as no_transporte, tr.ecft_cep as cep_transporte, 
+       tr.ecft_complemento as complemento_transporte, tr.ecft_bairro as bairro_transporte, tr.ecft_cidade as cidade_transporte, tr.ecft_observacao, 
+       tr.ecft_usuario, tr.ecft_registro, tr.stecft,
+
+       id_unidade, id_referenciaunidade, sigla_unidade, desc_unidade, registro_unidade, usuario_unidade, stunid,
+
+       id_natureza, desc_natureza, tipo_natureza, usuario_natureza, registro_natureza, id_referencianatureza, stnat
+       
+       
+  FROM nota     
+
+  inner join movprodutobase on nota_mov = id_referencianota
+  inner join produto on id_prod_ent = sis_prod
+  inner join ecft as cl on sis_ecft=fornecedorint
+   inner join ecft  as em on em.sis_ecft=empresaint and em.ecft_tipo='EMPRESA'
+    inner join ecft as tr on tr.sis_ecft= motoristaint and tr.ecft_tipo='TRANSPORTE'
+  inner join unidade on id_referenciaunidade=idunid
+  inner join natureza on id_referencianatureza=naturezaint
+
+  where stnota=1 and stmovimento=1 and stprod =1 and cl.stecft =1 and em.stecft =1 and tr.stecft =1 and stunid =1  and stnat =1 and id_referencianota=1]]>
+	</queryString>
+	<field name="id_nota" class="java.lang.Integer"/>
+	<field name="nota_documento" class="java.lang.String"/>
+	<field name="nota_nota" class="java.lang.String"/>
+	<field name="nota_data" class="java.lang.String"/>
+	<field name="nota_hora" class="java.lang.String"/>
+	<field name="nota_observacao" class="java.lang.String"/>
+	<field name="nota_registro" class="java.lang.String"/>
+	<field name="nota_situacao" class="java.lang.String"/>
+	<field name="nota_chave" class="java.lang.String"/>
+	<field name="nota_total" class="java.lang.String"/>
+	<field name="nota_operacao" class="java.lang.String"/>
+	<field name="nota_usu" class="java.lang.String"/>
+	<field name="id_referencianota" class="java.lang.Integer"/>
+	<field name="stnota" class="java.lang.Integer"/>
+	<field name="naturezaint" class="java.lang.Integer"/>
+	<field name="fornecedorint" class="java.lang.Integer"/>
+	<field name="modalidade" class="java.lang.String"/>
+	<field name="transportadora" class="java.lang.String"/>
+	<field name="motorista" class="java.lang.String"/>
+	<field name="placa" class="java.lang.String"/>
+	<field name="uf" class="java.lang.String"/>
+	<field name="quantidade" class="java.lang.String"/>
+	<field name="especie" class="java.lang.String"/>
+	<field name="numeracao" class="java.lang.String"/>
+	<field name="pesobruto" class="java.lang.String"/>
+	<field name="pesoliquido" class="java.lang.String"/>
+	<field name="id_mov" class="java.lang.Integer"/>
+	<field name="id_prod_ent" class="java.lang.Integer"/>
+	<field name="data_mov" class="java.lang.String"/>
+	<field name="nota_mov" class="java.lang.Integer"/>
+	<field name="qtd_mov" class="java.lang.Double"/>
+	<field name="qtd_prod" class="java.lang.Double"/>
+	<field name="qtd_prod_ex" class="java.lang.String"/>
+	<field name="qtd_calc" class="java.lang.Double"/>
+	<field name="qtd_calc_ex" class="java.lang.String"/>
+	<field name="valor_real" class="java.lang.Double"/>
+	<field name="valor_moeda" class="java.lang.String"/>
+	<field name="destino_mov" class="java.lang.String"/>
+	<field name="complemento_mov" class="java.lang.String"/>
+	<field name="registro_mov" class="java.lang.String"/>
+	<field name="volume" class="java.lang.String"/>
+	<field name="usuario_mov" class="java.lang.String"/>
+	<field name="modo_mov" class="java.lang.Integer"/>
+	<field name="total_mov" class="java.lang.String"/>
+	<field name="sistema_mov" class="java.lang.String"/>
+	<field name="stmovimento" class="java.lang.Integer"/>
+	<field name="stsaldo" class="java.lang.Integer"/>
+	<field name="id_prod" class="java.lang.Integer"/>
+	<field name="sis_prod" class="java.lang.Integer"/>
+	<field name="ncm_prod" class="java.lang.String"/>
+	<field name="tipo_prod" class="java.lang.String"/>
+	<field name="nome_prod" class="java.lang.String"/>
+	<field name="edicao_prod" class="java.lang.String"/>
+	<field name="cfop_prod" class="java.lang.String"/>
+	<field name="saldo_prod" class="java.lang.Double"/>
+	<field name="valor_prod" class="java.lang.Double"/>
+	<field name="estoque_prod" class="java.lang.Double"/>
+	<field name="obs_prod" class="java.lang.String"/>
+	<field name="usu_prod" class="java.lang.String"/>
+	<field name="data_reg" class="java.lang.String"/>
+	<field name="hora_reg" class="java.lang.String"/>
+	<field name="valor_prod_ex" class="java.lang.String"/>
+	<field name="stprod" class="java.lang.Integer"/>
+	<field name="idunid" class="java.lang.Integer"/>
+	<field name="ecft_id" class="java.lang.Integer"/>
+	<field name="sis_ecft" class="java.lang.Integer"/>
+	<field name="ecft_tipo" class="java.lang.String"/>
+	<field name="ecft_nome" class="java.lang.String"/>
+	<field name="ecft_cnpj" class="java.lang.String"/>
+	<field name="ecft_inscricao" class="java.lang.String"/>
+	<field name="ecft_descricao" class="java.lang.String"/>
+	<field name="ecft_telefone" class="java.lang.String"/>
+	<field name="ecft_endereco" class="java.lang.String"/>
+	<field name="ecft_no" class="java.lang.String"/>
+	<field name="ecft_cep" class="java.lang.String"/>
+	<field name="ecft_complemento" class="java.lang.String"/>
+	<field name="ecft_bairro" class="java.lang.String"/>
+	<field name="ecft_cidade" class="java.lang.String"/>
+	<field name="ecft_observacao" class="java.lang.String"/>
+	<field name="ecft_usuario" class="java.lang.String"/>
+	<field name="ecft_registro" class="java.lang.String"/>
+	<field name="stecft" class="java.lang.Integer"/>
+	<field name="COLUMN_83" class="java.lang.Integer"/>
+	<field name="COLUMN_84" class="java.lang.Integer"/>
+	<field name="COLUMN_85" class="java.lang.String"/>
+	<field name="COLUMN_86" class="java.lang.String"/>
+	<field name="cnpj_empresa" class="java.lang.String"/>
+	<field name="incricao_empresa" class="java.lang.String"/>
+	<field name="descricao_empresa" class="java.lang.String"/>
+	<field name="telefone_empresa" class="java.lang.String"/>
+	<field name="endereco_empresa" class="java.lang.String"/>
+	<field name="no_empresa" class="java.lang.String"/>
+	<field name="cep_empresa" class="java.lang.String"/>
+	<field name="complemento_empresa" class="java.lang.String"/>
+	<field name="bairro_empresa" class="java.lang.String"/>
+	<field name="cidade_empresa" class="java.lang.String"/>
+	<field name="COLUMN_97" class="java.lang.String"/>
+	<field name="COLUMN_98" class="java.lang.String"/>
+	<field name="COLUMN_99" class="java.lang.String"/>
+	<field name="COLUMN_100" class="java.lang.Integer"/>
+	<field name="COLUMN_101" class="java.lang.Integer"/>
+	<field name="COLUMN_102" class="java.lang.Integer"/>
+	<field name="COLUMN_103" class="java.lang.String"/>
+	<field name="COLUMN_104" class="java.lang.String"/>
+	<field name="cnpj_transporte" class="java.lang.String"/>
+	<field name="inscricao_transporte" class="java.lang.String"/>
+	<field name="descricao_transporte" class="java.lang.String"/>
+	<field name="telefone_transporte" class="java.lang.String"/>
+	<field name="endereco_transporte" class="java.lang.String"/>
+	<field name="no_transporte" class="java.lang.String"/>
+	<field name="cep_transporte" class="java.lang.String"/>
+	<field name="complemento_transporte" class="java.lang.String"/>
+	<field name="bairro_transporte" class="java.lang.String"/>
+	<field name="cidade_transporte" class="java.lang.String"/>
+	<field name="COLUMN_115" class="java.lang.String"/>
+	<field name="COLUMN_116" class="java.lang.String"/>
+	<field name="COLUMN_117" class="java.lang.String"/>
+	<field name="COLUMN_118" class="java.lang.Integer"/>
+	<field name="id_unidade" class="java.lang.Integer"/>
+	<field name="id_referenciaunidade" class="java.lang.Integer"/>
+	<field name="sigla_unidade" class="java.lang.String"/>
+	<field name="desc_unidade" class="java.lang.String"/>
+	<field name="registro_unidade" class="java.lang.String"/>
+	<field name="usuario_unidade" class="java.lang.String"/>
+	<field name="stunid" class="java.lang.Integer"/>
+	<field name="id_natureza" class="java.lang.Integer"/>
+	<field name="desc_natureza" class="java.lang.String"/>
+	<field name="tipo_natureza" class="java.lang.String"/>
+	<field name="usuario_natureza" class="java.lang.String"/>
+	<field name="registro_natureza" class="java.lang.String"/>
+	<field name="id_referencianatureza" class="java.lang.Integer"/>
+	<field name="stnat" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="99" splitType="Stretch">
+			<textField>
+				<reportElement x="7" y="59" width="534" height="21" uuid="82f7ddcf-7dbd-4263-ba2e-5465120d3baa"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PROTOCOLO DE  "+$F{nota_operacao}.replace("SAIDA","SAIDA/DEVOLUÇÃO").replace("ENTRADA","ENTRADA")+"                                                            [ OS  "+$F{nota_mov}+" ]"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="80" width="534" height="19" uuid="34f86d36-10b9-44df-994d-88c6548570b9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["   Esta sendo entregue o seguinte material para :  " +$F{ecft_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="37" width="534" height="21" uuid="5d9e5b1b-7b27-4a32-8392-6d3b9b0dd619"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  "+$F{endereco_empresa}+"  N° "+$F{no_empresa}+"  "+$F{complemento_empresa}+"  "+$F{bairro_empresa}+"  "+$F{cidade_empresa}+"  "+$F{telefone_empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="7" y="0" width="534" height="37" forecolor="#030000" backcolor="#FCFAFA" uuid="6c0cad59-8b6f-40b3-b9b0-2bbe30b902b8"/>
+				<box padding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#030000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#030000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#030000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricao_empresa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField>
+				<reportElement x="7" y="-1" width="534" height="20" uuid="21023ac1-4335-4467-8798-1a6f43ea8144"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["  "+$F{tipo_prod}+"  "+$F{nome_prod}+"  "+$F{edicao_prod}+"  "+$F{complemento_mov}+"  "+$F{destino_mov}+"  "+$F{qtd_prod_ex}+"  "+$F{sigla_unidade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="59" splitType="Stretch">
+			<textField>
+				<reportElement x="7" y="0" width="173" height="20" uuid="993c9683-cced-4613-9c72-8f0e47c6fbf8"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["  Quantidade :  "+$F{quantidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="181" height="20" uuid="b94105b8-335c-4466-a91f-782ac039d90c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["   Volume:  "+$F{especie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="361" y="0" width="180" height="20" uuid="5f2775a5-8b4d-407f-93fb-02e7f6bb9d50"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["   Data: "+$F{nota_data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="21" width="223" height="20" uuid="79ac2595-0a60-4298-80a9-eb4c02b336ac"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["  Expedição : "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="21" width="311" height="20" uuid="4fcc4c8f-9eb4-486d-b3f9-33719af1e72e"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["  Recebimento :"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="41" width="534" height="16" uuid="01f5f8e9-870d-46d0-a05f-2b74b7061996"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["   "+$F{nota_observacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
