@@ -1,6 +1,6 @@
 # SysEstoque Versão 5.1 Lite
 
-![SysEstoque Logo](/home/edson/Projetos/desktop/SysEstoque_Lite/src/Imagens/sysestoque-1.png)
+![SysEstoque Logo](https://github.com/Sousa-Edson/SysEstoque_Lite/blob/main/src/Imagens/20130111152854_660_420.jpg)
 
 
 
