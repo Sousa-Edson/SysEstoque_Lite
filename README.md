@@ -1,5 +1,9 @@
 # SysEstoque Versão 5.1 Lite
 
+![SysEstoque Logo](/home/edson/Projetos/desktop/SysEstoque_Lite/src/Imagens/sysestoque-1.png)
+
+
+
 O SysEstoque Versão 5.1 Lite é um projeto desenvolvido em Java para Desktop (1.8) utilizando a biblioteca Swing. O projeto foi criado para atender a uma necessidade específica na empresa em que trabalho, com foco no controle de estoque e operações relacionadas.
 
 ## Características
@@ -26,3 +30,5 @@ O SysEstoque Versão 5.1 Lite é um projeto desenvolvido em Java para Desktop (1
 ## Contribuição
 
 Este projeto foi criado para atender a uma demanda específica de necessidade na empresa que eu trabalho. No entanto, se você encontrar algum problema ou tiver sugestões para melhorias, sinta-se à vontade para abrir uma issue ou enviar um pull request.
+
+## Imagens
