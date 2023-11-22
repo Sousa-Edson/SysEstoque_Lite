@@ -24,12 +24,12 @@ public class ConexaoBD {
     public Connection con;
      
     ///// 192.168.0.1
-    private final String caminho = "jdbc:postgresql://localhost:5432/SysEstoqueVersao51";
+    private final String caminho = "jdbc:postgresql://localhost:5432/SysEstoqueVersao51";//SysEstoqueVersao51;
 //     private final String caminho = "jdbc:postgresql://192.168.0.3:5432/SysEstoqueX";
 //    private final String caminho = "jdbc:postgresql://000.000.0.0:5432/SysEstoque";  /// aqui funciona em rede esmo mudando o ipconfig
     private final String driver = "org.postgresql.Driver";
-    private final String usuario = "postgres";
-    private final String senha = "1"; //positivo@75329867"; ESTA É A SENHA ;;;;;;    1
+    private final String usuario = "admin";//postgres
+    private final String senha = "123456"; //positivo@75329867"; ESTA É A SENHA ;;;;;;    1
 
     public void conexao() {
         System.setProperty("jdbc.Drivers", driver);
