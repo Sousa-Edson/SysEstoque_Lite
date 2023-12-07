@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interface;
+package view;
 
 import ConectaBanco.ConexaoBD;
+import Interface.Principal;
 import ModeloBeans.Beans_Unidade;
 import ModeloBeans.ModeloTabela;
 import ModeloDao.Dao_Unidade;
