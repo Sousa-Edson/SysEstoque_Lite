@@ -10,7 +10,7 @@ import static java.lang.Thread.sleep;
 
 /**
  *
- * @author DNA
+ * @author edson
  */
 public class JDialogCarregando extends javax.swing.JDialog {
 
@@ -107,11 +107,8 @@ public class JDialogCarregando extends javax.swing.JDialog {
 
     public void run2() {
 
-        new Thread() {
-//            MenuPrincipal tela = new MenuPrincipal();
-            public void run() {
-                // Principal tela;
-//                MenuPrincipal tela = new MenuPrincipal();
+        new Thread() { 
+            public void run() { 
                 for (int i = 0; i < 102; i++) {
                     try {
                         sleep(30);
@@ -132,20 +129,11 @@ public class JDialogCarregando extends javax.swing.JDialog {
                             fechaCarregamento();
                             tela.toFront();
                         } else {
-                            jLabelCarregamento.setText("O sistema foi carregado...");
-
-//                            tela.jLabelUsuario.setText(labelUsuario.getText());
-//                            tela.jLabelTipo.setText(labelTipo.getText());
-//                            tela.setVisible(true); /// verificar depois e ver o que fazer
-//                            fechaCarregamento();
+                            jLabelCarregamento.setText("O sistema foi carregado..."); 
                         }
                     } catch (InterruptedException ex) {
                     }
-                }
-
-//                tela.jLabelUsuario.setText(labelUsuario.getText());
-//                tela.jLabelTipo.setText(labelTipo.getText());
-//                tela.setVisible(true);
+                } 
             }
         }.start();
 
