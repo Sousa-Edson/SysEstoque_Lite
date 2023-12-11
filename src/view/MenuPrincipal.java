@@ -6,6 +6,7 @@
 //// aqui serve pra buscar jlabel   jLabel_Data2 jLabel_Hora
 package view;
 
+import view.internal.LoginJIF;
 import Interface.*;
 import Consulta.ConsultaInterna3;
 import BackupRestore.Novo.PostgresBackup_X64NOV;

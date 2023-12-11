@@ -8,7 +8,7 @@ import UTIL.DataHoraAtual;
 import UTIL.UsuarioLogado;
 import model.Unidade;
 import service.UnidadeService;
-import view.UnidadeCadastroJIF;
+import view.internal.UnidadeCadastroJIF;
 
 /**
  *

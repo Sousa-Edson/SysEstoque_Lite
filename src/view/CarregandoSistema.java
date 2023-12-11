@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Acesso;
+package view;
 
 import view.MenuPrincipal;
 import static java.lang.Thread.sleep;

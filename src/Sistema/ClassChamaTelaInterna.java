@@ -22,7 +22,7 @@ import Interface.ProdCadastroJIF;
 import Interface.ProdutoListaJIF;
 import Interface.ProtocoloInternaJIF;
 import Interface.SetorCadastroJIF;
-import view.UnidadeCadastroJIF;
+import view.internal.UnidadeCadastroJIF;
 import Interface.UsuarioCadastroJIF;
 
 /**
