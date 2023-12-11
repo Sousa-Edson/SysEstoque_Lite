@@ -21,13 +21,11 @@ public class UnidadeService {
     }
 
     public void salvarUnidade(Unidade unidade) {
-        // Aqui você pode adicionar lógica adicional antes ou após chamar o método do DAO
         if (unidade.getId_unidade() == 0) {
             unidadeDao.salvarUnidade(unidade);
         } else {
             unidadeDao.alterarUnidade(unidade);
         }
-        // Por exemplo, você pode enviar notificações, fazer validações adicionais, etc.
     }
 
     public void alterarUnidade(Unidade unidade) {
@@ -40,6 +38,10 @@ public class UnidadeService {
 
     public List<Unidade> listarUnidades() {
         return unidadeDao.listarUnidades();
+    }
+
+    public Unidade obterUnidadePorId(int id) {
+        return unidadeDao.obterUnidadePorId(id);
     }
 
     // Adicione métodos adicionais conforme necessário

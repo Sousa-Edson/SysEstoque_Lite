@@ -39,17 +39,17 @@ import view.MenuPrincipal;
  * @author edson
  */
 public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
-
+    
     Unidade BUnis = new Unidade();
     UnidadeDao DUnid = new UnidadeDao();
     ConexaoBD conex = new ConexaoBD();
     String UltimaId;
     int NumeroUltimaId;
-
+    
     int id_referencia;
     int id_unidade;
     int flag = 1;
-
+    
     String MostraTabela = null;
     String ordem = "asc";
     int fragmento = 0;
@@ -58,15 +58,15 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
      * Creates new form JIFTEste
      */
     private UnidadeController unidadeController;
-
+    
     public UnidadeCadastroJIF() {
         initComponents();
         remover_Ico();
         unidadeController = new UnidadeController();
-
+        
         groupFragmentado.add(rbFragmentadoNao);
         groupFragmentado.add(rbFragmentadoSim);
-
+        
     }
 
     /**
@@ -177,20 +177,10 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
 
         rbFragmentadoSim.setText("sim");
         rbFragmentadoSim.setEnabled(false);
-        rbFragmentadoSim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbFragmentadoSimActionPerformed(evt);
-            }
-        });
 
         rbFragmentadoNao.setSelected(true);
         rbFragmentadoNao.setText("não");
         rbFragmentadoNao.setEnabled(false);
-        rbFragmentadoNao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbFragmentadoNaoActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
         jLabel5.setText("Fragmentado");
@@ -266,7 +256,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
                                         .addComponent(rbFragmentadoSim)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(rbFragmentadoNao)))))))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCancelar, btnExcluir, btnNovo, btnSalvar});
@@ -349,27 +339,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         if (evt.getButton() == MouseEvent.BUTTON3) {
         } else {
             if (evt.getClickCount() == 2) {
-                flag = 2;
-                txtSigla.setEnabled(true);
-                txtDescricao.setEnabled(true);
-                txtSigla.requestFocus();
-                btnSalvar.setEnabled(true);
-                btnExcluir.setEnabled(true);
-                btnNovo.setEnabled(false);
-                rbFragmentadoNao.setEnabled(true);
-                rbFragmentadoSim.setEnabled(true);
-                String TipoUsuario = MenuPrincipal.jLabelTipoUsuario.getText();
-                if (TipoUsuario == "Manutenção") {
-                    id_unidade = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 0);
-                    id_referencia = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 0);
-                    txtSigla.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 2));
-                    txtDescricao.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 3));
-                } else {
-                    id_unidade = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 0);
-                    id_referencia = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 0);
-                    txtSigla.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 1));
-                    txtDescricao.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 2));
-                }
+                unidadeController.selecionaUnidade(this);
             }
         }
     }//GEN-LAST:event_jTable_ListaMouseClicked
@@ -384,49 +354,46 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         } else {
             System.out.println("false");
         }
+        
+        System.out.println("id_unidade: " + id_unidade);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-//            VerificarCamposVazios();
+            if (unidadeController.validarEntradas(this) == true) {
+                System.out.println("true");
+            } else {
+                System.out.println("false");
+            }
         }
     }//GEN-LAST:event_btnSalvarKeyPressed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-//        PreencheTabelaApagar();
-//        flag = 1;
-//        btnNovo.setEnabled(true);
-//        btnSalvar.setEnabled(false);
-//        txtDescricao.setText(null);
-//        txtSigla.setText(null);
-//        txtSigla.setEnabled(false);
-//        txtDescricao.setEnabled(false);
-//        btnExcluir.setEnabled(false);
-//        rbFragmentadoNao.setEnabled(false);
-//        rbFragmentadoSim.setEnabled(false);
         unidadeController.cancelarUnidade(this);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        int resposta = 0;
-        resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir ? ");
-        if (resposta == JOptionPane.YES_OPTION) {
-            btnNovo.setEnabled(true);
-            btnSalvar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-            txtDescricao.setText(null);
-            txtSigla.setText(null);
-            txtSigla.setEnabled(false);
-            txtDescricao.setEnabled(false);
-
-            BUnis.setRegistro_unidade(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
-            BUnis.setStatus_unidade(3);
-            BUnis.setUsuario_unidade(Principal.jLabelNomeUsuario.getText());
-            BUnis.setId_unidade(id_unidade);
-            DUnid.excluirUnidade(BUnis);
-        } else {
-        }
-        PreencheTabelaApagar();
+//        int resposta = 0;
+//        resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir ? ");
+//        if (resposta == JOptionPane.YES_OPTION) {
+//            btnNovo.setEnabled(true);
+//            btnSalvar.setEnabled(false);
+//            btnExcluir.setEnabled(false);
+//            txtDescricao.setText(null);
+//            txtSigla.setText(null);
+//            txtSigla.setEnabled(false);
+//            txtDescricao.setEnabled(false);
+//
+//            BUnis.setRegistro_unidade(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
+//            BUnis.setStatus_unidade(3);
+//            BUnis.setUsuario_unidade(Principal.jLabelNomeUsuario.getText());
+//            BUnis.setId_unidade(id_unidade);
+//            DUnid.excluirUnidade(BUnis);
+//        } else {
+//        }
+//        PreencheTabelaApagar();
+        unidadeController.deletarUnidade(id_unidade);
+        
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void txtSiglaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSiglaKeyPressed
@@ -441,23 +408,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
             btnSalvar.requestFocus();
         }
     }//GEN-LAST:event_txtDescricaoKeyPressed
-
-    private void rbFragmentadoNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFragmentadoNaoActionPerformed
-        if (rbFragmentadoNao.isSelected()) {
-            rbFragmentadoSim.setSelected(false);
-        } else {
-            rbFragmentadoSim.setSelected(true);
-        }
-    }//GEN-LAST:event_rbFragmentadoNaoActionPerformed
-
-    private void rbFragmentadoSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFragmentadoSimActionPerformed
-        if (rbFragmentadoSim.isSelected()) {
-            rbFragmentadoNao.setSelected(false);
-        } else {
-            rbFragmentadoNao.setSelected(true);
-        }
-    }//GEN-LAST:event_rbFragmentadoSimActionPerformed
-
+    
     public void EventoLimpar() {
 //        jTextFieldBusca.setText("");
 //        jTextFieldBusca.requestFocus();
@@ -467,12 +418,12 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
 //        jTable_Produto.setModel(modelo);
 
     }
-
+    
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
         this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
     }
-
+    
     public void remover_Ico() {
         this.setFrameIcon(null);
 
@@ -483,7 +434,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         north.validate();
         north.repaint();
     }
-
+    
     public void BuscaUltimaId() {
         conex.conexao();
         conex.executaSql2("select * from produto order by sis_prod  desc ");
@@ -499,7 +450,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         }
         conex.desconecta();
     }
-
+    
     public void PreencheTabelaApagar() {
         String TipoUsuario = MenuPrincipal.jLabelTipoUsuario.getText();
         if (TipoUsuario == "Manutenção") {
@@ -507,36 +458,36 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         } else {
             PreencheTabela();
         }
-
+        
     }
-
+    
     public void PreencheTabela() {
-
+        
         Dao_Unidade d = new Dao_Unidade();
-
+        
         UnidadeTableModel modelo = new UnidadeTableModel();
         List<Unidade> unidades = d.listarUnidades();
         modelo.setUnidades(unidades);
-
+        
         jTable_Lista.setModel(modelo);
         jTable_Lista.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTable_Lista.getColumnModel().getColumn(0).setResizable(true);
-
+        
         jTable_Lista.getTableHeader().setReorderingAllowed(false);
 //        jTable_Lista.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable_Lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+        
     }
-
+    
     public void PreencheTabela3() {
         ArrayList dados = new ArrayList();
         String[] colunas = new String[]{"Codigo", "Status", "Sigla", "Fragmentado", "Descrição", "Registro", "Usuario", "Id"};
         String MostraTabela;
         String ordem = null;
         MostraTabela = "ATIVO";
-
+        
         conex.conexao();
-
+        
         if (ordem.equals("asc")) {
             conex.executaSql2("SELECT stunid,id_unidade, id_referenciaunidade, sigla_unidade, desc_unidade, registro_unidade, \n"
                     + "       usuario_unidade,fragmento_unidade\n"
@@ -572,13 +523,13 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
                 dados.add(new Object[]{conex.rs.getInt("id_referenciaunidade"), statusex,
                     conex.rs.getString("sigla_unidade"), conex.rs.getString("desc_unidade"), FragNome,
                     conex.rs.getString("registro_unidade"), conex.rs.getString("usuario_unidade"), conex.rs.getInt("id_unidade")});
-
+                
             } while (conex.rs.next());
         } catch (SQLException ex) {
             Logger.getLogger(UnidadeCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
         }
         ModeloTabela modelo = new ModeloTabela(dados, colunas);
-
+        
         jTable_Lista.setModel(modelo);
         jTable_Lista.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTable_Lista.getColumnModel().getColumn(0).setResizable(true);
@@ -600,7 +551,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         jTable_Lista.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable_Lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         conex.desconecta();
-
+        
     }
 
 //    public void VerificarCamposVazios() {
@@ -634,7 +585,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         txtDescricao.setEnabled(false);
         rbFragmentadoNao.setEnabled(false);
         rbFragmentadoSim.setEnabled(false);
-
+        
         if (flag == 2) {
 //            BUnis.setId_unidade(id_unidade);
 //            BUnis.setStatus_unidade(2);
@@ -642,9 +593,9 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         } else {
             System.out.println("Interface.UnidadeCadastroJIF.EventoSalvar() sem id " + id_unidade);
         }
-
+        
         unidadeController.salvarUnidade(this);
-
+        
         PreencheTabelaApagar();
         txtDescricao.setText(null);
         txtSigla.setText(null);
@@ -675,81 +626,81 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
     public JButton getBtnCancelar() {
         return btnCancelar;
     }
-
+    
     public JButton getBtnExcluir() {
         return btnExcluir;
     }
-
+    
     public JButton getBtnNovo() {
         return btnNovo;
     }
-
+    
     public JButton getBtnSalvar() {
         return btnSalvar;
     }
-
+    
     public JRadioButton getRbFragmentadoNao() {
         return rbFragmentadoNao;
     }
-
+    
     public JRadioButton getRbFragmentadoSim() {
         return rbFragmentadoSim;
     }
-
+    
     public JTextField getTxtDescricao() {
         return txtDescricao;
     }
-
+    
     public JTextField getTxtSigla() {
         return txtSigla;
     }
-
+    
     public void setRbFragmentadoNao(JRadioButton rbFragmentadoNao) {
         this.rbFragmentadoNao = rbFragmentadoNao;
     }
-
+    
     public void setRbFragmentadoSim(JRadioButton rbFragmentadoSim) {
         this.rbFragmentadoSim = rbFragmentadoSim;
     }
-
+    
     public void setTxtDescricao(JTextField txtDescricao) {
         this.txtDescricao = txtDescricao;
     }
-
+    
     public void setTxtSigla(JTextField txtSigla) {
         this.txtSigla = txtSigla;
     }
-
+    
     public ButtonGroup getGroupFragmentado() {
         return groupFragmentado;
     }
-
+    
     public int getId_unidade() {
         return id_unidade;
     }
-
+    
     public void setId_unidade(int id_unidade) {
         this.id_unidade = id_unidade;
     }
-
+    
     public void setTxtSigla(String string) {
         if (txtSigla != null) {
             txtSigla.setText(string);
         }
     }
-
+    
     public void setTxtDescricao(String string) {
         if (txtDescricao != null) {
             txtDescricao.setText(string);
         }
     }
-
+    
     public JTable getjTable_Lista() {
         return jTable_Lista;
     }
-
+    
     public void setjTable_Lista(JTable jTable_Lista) {
         this.jTable_Lista = jTable_Lista;
     }
-
+    
 }

@@ -78,27 +78,26 @@ public class UnidadeController {
 
     public void novaUnidade(UnidadeCadastroJIF form) {
         liberarBotes(form, false);
-
         liberarCampos(form, true);
-
         PreencheTabela(form);
         limparCampos(form);
+        form.getBtnSalvar().setEnabled(true);
+        form.setId_unidade(0);
     }
 
     public void liberarCampos(UnidadeCadastroJIF form, boolean b) {
         form.getRbFragmentadoNao().setEnabled(b);
         form.getRbFragmentadoSim().setEnabled(b);
-
         form.getTxtSigla().setEnabled(b);
         form.getTxtDescricao().setEnabled(b);
     }
 
     public void cancelarUnidade(UnidadeCadastroJIF form) {
-
         liberarCampos(form, false);
         liberarBotes(form, false);
         limparCampos(form);
         form.getBtnNovo().setEnabled(true);
+        form.setId_unidade(0);
     }
 
     public void PreencheTabela(UnidadeCadastroJIF form) {
@@ -106,11 +105,9 @@ public class UnidadeController {
         UnidadeTableModel modelo = new UnidadeTableModel();
         List<Unidade> unidades = unidadeService.listarUnidades();
         modelo.setUnidades(unidades);
-
         form.getjTable_Lista().setModel(modelo);
         form.getjTable_Lista().getColumnModel().getColumn(0).setPreferredWidth(60);
         form.getjTable_Lista().getColumnModel().getColumn(0).setResizable(true);
-
         form.getjTable_Lista().getTableHeader().setReorderingAllowed(false);
 //        jTable_Lista.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         form.getjTable_Lista().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -118,10 +115,25 @@ public class UnidadeController {
     }
 
     public void selecionaUnidade(UnidadeCadastroJIF form) {
-//        id_unidade = (int) form.getjTable_Lista().getValueAt(form.getjTable_Lista().getSelectedRow(), 0);
-//        id_referencia = (int) form.getjTable_Lista().getValueAt(form.getjTable_Lista().getSelectedRow(), 0);
-//        txtSigla.setText((String) form.getjTable_Lista().getValueAt(form.getjTable_Lista().getSelectedRow(), 1));
-//        txtDescricao.setText((String) form.getjTable_Lista().getValueAt(form.getjTable_Lista().getSelectedRow(), 2));
+        int id_unidade = (int) form.getjTable_Lista().getValueAt(form.getjTable_Lista().getSelectedRow(), 0);
+        Unidade unidade = unidadeService.obterUnidadePorId(id_unidade);
+        form.setId_unidade(id_unidade);
+        form.getTxtSigla().setText(unidade.getSigla_unidade());
+        form.getTxtDescricao().setText(unidade.getDesc_unidade());
 
+        liberarCampos(form, true);
+        liberarBotes(form, true);
+        form.getBtnNovo().setEnabled(false);
+        form.getTxtSigla().requestFocus();
+    }
+
+    public void deletarUnidade(int idUnidade) {
+        Object[] options = {"Sim", "Não"};
+        if (JOptionPane.showOptionDialog(null, "Deseja realmente deletar esta unidade?",
+                "Deletar #" + idUnidade + " ?", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE,
+                null, options, options[1]) == 0) {
+
+            System.out.println("deletado");
+        }
     }
 }
