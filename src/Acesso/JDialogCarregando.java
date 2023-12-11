@@ -5,7 +5,7 @@
  */
 package Acesso;
 
-import Interface.Principal;
+import view.MenuPrincipal;
 import static java.lang.Thread.sleep;
 
 /**
@@ -14,7 +14,7 @@ import static java.lang.Thread.sleep;
  */
 public class JDialogCarregando extends javax.swing.JDialog {
 
-    Principal tela;
+    MenuPrincipal tela;
 
     /**
      * Creates new form JDialogCarregando
@@ -100,7 +100,7 @@ public class JDialogCarregando extends javax.swing.JDialog {
 
     private void jProgressBarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jProgressBarMouseClicked
         //Principal tela;
-        tela = new Principal();
+        tela = new MenuPrincipal();
         tela.setVisible(true);
         fechaCarregamento();
         tela.toFront();
@@ -126,7 +126,7 @@ public class JDialogCarregando extends javax.swing.JDialog {
                             jLabelCarregamento.setText("Aguarde sistema abrindo...");
                         } else if (jProgressBar.getValue() == 95) {
                             jLabelCarregamento.setText("O sistema foi carregado...");
-                            tela = new Principal();
+                            tela = new MenuPrincipal();
                             tela.setVisible(true);
                             fechaCarregamento();
                             tela.toFront();
