@@ -6,6 +6,7 @@
 package view;
 
 import ConectaBanco.ConexaoBD;
+import UTIL.UsuarioLogado;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -22,6 +23,7 @@ public class LoginJIF extends javax.swing.JInternalFrame {
     ConexaoBD con = new ConexaoBD();
     String Empresa_Id, Empresa_Id_Menu;
     String nome, senha, tipo;
+    int id;
 
     /**
      * Creates new form JIFTEste
@@ -264,6 +266,7 @@ public class LoginJIF extends javax.swing.JInternalFrame {
                 nome = (con.rs.getString("desc_usuario"));
                 senha = (con.rs.getString("senha_usuario"));
                 tipo = (con.rs.getString("sigla_usuario"));
+                id = (con.rs.getInt("id_usuario"));
 //            JOptionPane.showMessageDialog(rootPane, nome); String nome , senha,tipo
                 jTextField1.setText(nome);
 //                abrePrincipal();
@@ -272,6 +275,10 @@ public class LoginJIF extends javax.swing.JInternalFrame {
                 if (senha.equals(SenhaDigitada)) {
                     MenuPrincipal.jLabelTipoUsuario.setText(tipo);
                     MenuPrincipal.jLabelNomeUsuario.setText(nome);
+
+                    UsuarioLogado.setId(id);
+                    UsuarioLogado.setNome(nome);
+                    UsuarioLogado.setTipo(tipo);
 //                    preenche_Empresa_Id();
 //                    menu.jLabel_Papel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Acesso/online-1905876_1280.jpg")));
 //                    menu.jLabel_Fundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Acesso/online-1905876_1280.jpg")));
@@ -321,7 +328,6 @@ public class LoginJIF extends javax.swing.JInternalFrame {
 //        conex_Empresa.desconecta();
 //    }
 //
-
 //    public void preenche_Empresa_Id() {
 //        Empresa_Id = (String) jComboBox1.getSelectedItem();
 ////        JOptionPane.showMessageDialog(rootPane, Empresa_Id);
