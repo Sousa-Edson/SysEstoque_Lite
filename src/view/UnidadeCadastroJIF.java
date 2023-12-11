@@ -10,6 +10,8 @@ import Interface.Principal;
 import ModeloBeans.Beans_Unidade;
 import ModeloBeans.ModeloTabela;
 import ModeloDao.Dao_Unidade;
+import UTIL.DataHoraAtual;
+import UTIL.UsuarioLogado;
 import java.awt.Color;
 import static java.awt.Color.red;
 import java.awt.Component;
@@ -21,6 +23,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
@@ -31,6 +34,8 @@ import javax.swing.SwingConstants;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
+import model.Unidade;
+import tableModel.UnidadeTableModel;
 
 /**
  *
@@ -117,7 +122,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel4.setBackground(new java.awt.Color(0, 255, 204));
+        jPanel4.setBackground(new java.awt.Color(204, 204, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jTable_Lista.setModel(new javax.swing.table.DefaultTableModel(
@@ -146,9 +151,10 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         jLabel3.setText("Lista de unidades");
         jLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jPanel2.setBackground(new java.awt.Color(0, 255, 204));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jLabel1.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Sigla");
 
@@ -186,8 +192,10 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
         jLabel5.setText("Fragmentado:");
 
+        jButton_Novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-novo-24.png"))); // NOI18N
         jButton_Novo.setText("Novo");
         jButton_Novo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,6 +203,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton_Salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-salvar-24.png"))); // NOI18N
         jButton_Salvar.setText("Salvar");
         jButton_Salvar.setEnabled(false);
         jButton_Salvar.addActionListener(new java.awt.event.ActionListener() {
@@ -208,6 +217,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton_Cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-cancelar-24.png"))); // NOI18N
         jButton_Cancelar.setText("Cancelar");
         jButton_Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,6 +225,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton_Excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-excluir-24.png"))); // NOI18N
         jButton_Excluir.setText("Excluir");
         jButton_Excluir.setEnabled(false);
         jButton_Excluir.addActionListener(new java.awt.event.ActionListener() {
@@ -275,8 +286,8 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
                     .addComponent(jRadioButton_Nao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton_Novo, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(jButton_Salvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_Novo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_Salvar, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addComponent(jButton_Cancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton_Excluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -523,74 +534,78 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
     public void PreencheTabela2() {
         ArrayList dados = new ArrayList();
         String[] colunas = new String[]{"Codigo", "Sigla", "Descrição", "Fragmentado", "Registro", "Usuario", "Id"};
-        String MostraTabela;
-        String ordem;
-        MostraTabela = "ATIVO";
-        int VerFrag = 0;
-        String FragNome;
-        if (jRadioButtonOrderm.isSelected()) {
-            ordem = "";
-        } else {
-            ordem = "asc";
-        }
-        conex.conexao();
+//        String MostraTabela;
+//        String ordem;
+//        MostraTabela = "ATIVO";
+//        int VerFrag = 0;
+//        String FragNome;
+//        if (jRadioButtonOrderm.isSelected()) {
+//            ordem = "";
+//        } else {
+//            ordem = "asc";
+//        }
+//        conex.conexao();
+//
+//        if (ordem.equals("asc")) {
+//            conex.executaSql2("SELECT id_unidade, id_referenciaunidade, sigla_unidade, desc_unidade, registro_unidade, \n"
+//                    + "       usuario_unidade,fragmento_unidade\n"
+//                    + "  FROM unidade  where stunid =1 order by id_referenciaunidade asc ");
+//        } else {
+//            conex.executaSql2("SELECT id_unidade, id_referenciaunidade, sigla_unidade, desc_unidade, registro_unidade, \n"
+//                    + "       usuario_unidade,fragmento_unidade\n"
+//                    + "  FROM unidade where stunid =1 order by id_referenciaunidade desc ");
+//        }
+//        try {
+//            conex.rs.first();
+//
+//            do {
+//                VerFrag = conex.rs.getInt("fragmento_unidade");
+//                if (VerFrag == 0) {
+//                    FragNome = "NÃO";
+//                } else {
+//                    FragNome = "SIM";
+//                }
+//                dados.add(new Object[]{conex.rs.getInt("id_referenciaunidade"),
+//                    conex.rs.getString("sigla_unidade"), conex.rs.getString("desc_unidade"), FragNome,
+//                    conex.rs.getString("registro_unidade"), conex.rs.getString("usuario_unidade"), conex.rs.getInt("id_unidade")});
+//
+//            } while (conex.rs.next());
+//        } catch (SQLException ex) {
+//            Logger.getLogger(UnidadeCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        Dao_Unidade d = new Dao_Unidade();
 
-        if (ordem.equals("asc")) {
-            conex.executaSql2("SELECT id_unidade, id_referenciaunidade, sigla_unidade, desc_unidade, registro_unidade, \n"
-                    + "       usuario_unidade,fragmento_unidade\n"
-                    + "  FROM unidade  where stunid =1 order by id_referenciaunidade asc ");
-        } else {
-            conex.executaSql2("SELECT id_unidade, id_referenciaunidade, sigla_unidade, desc_unidade, registro_unidade, \n"
-                    + "       usuario_unidade,fragmento_unidade\n"
-                    + "  FROM unidade where stunid =1 order by id_referenciaunidade desc ");
-        }
-        try {
-            conex.rs.first();
-
-            do {
-                VerFrag = conex.rs.getInt("fragmento_unidade");
-                if (VerFrag == 0) {
-                    FragNome = "NÃO";
-                } else {
-                    FragNome = "SIM";
-                }
-                dados.add(new Object[]{conex.rs.getInt("id_referenciaunidade"),
-                    conex.rs.getString("sigla_unidade"), conex.rs.getString("desc_unidade"), FragNome,
-                    conex.rs.getString("registro_unidade"), conex.rs.getString("usuario_unidade"), conex.rs.getInt("id_unidade")});
-
-            } while (conex.rs.next());
-        } catch (SQLException ex) {
-            Logger.getLogger(UnidadeCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ModeloTabela modelo = new ModeloTabela(dados, colunas);
+        UnidadeTableModel modelo = new UnidadeTableModel();
+        List<Unidade> unidades = d.listarUnidades();
+        modelo.setUnidades(unidades);
 
         jTable_Lista.setModel(modelo);
         jTable_Lista.getColumnModel().getColumn(0).setPreferredWidth(60);
-        TableCellRenderer tcr = new check();
-        jTable_Lista.getColumnModel().getColumn(0).setCellRenderer(tcr);
+//        TableCellRenderer tcr = new check();
+//        jTable_Lista.getColumnModel().getColumn(0).setCellRenderer(tcr);
         jTable_Lista.getColumnModel().getColumn(0).setResizable(true);
         TableCellEditor tce = null;
-        jTable_Lista.getColumnModel().getColumn(0).setCellEditor(tce);
-        jTable_Lista.getColumnModel().getColumn(1).setPreferredWidth(80);
-        jTable_Lista.getColumnModel().getColumn(1).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(2).setPreferredWidth(100);
-        jTable_Lista.getColumnModel().getColumn(2).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(3).setPreferredWidth(100);
-        jTable_Lista.getColumnModel().getColumn(3).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(4).setPreferredWidth(100);
-        jTable_Lista.getColumnModel().getColumn(4).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(5).setPreferredWidth(80);
-        jTable_Lista.getColumnModel().getColumn(5).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(6).setPreferredWidth(00);
-        jTable_Lista.getColumnModel().getColumn(6).setResizable(true);
+//        jTable_Lista.getColumnModel().getColumn(0).setCellEditor(tce);
+//        jTable_Lista.getColumnModel().getColumn(1).setPreferredWidth(80);
+//        jTable_Lista.getColumnModel().getColumn(1).setResizable(true);
+//        jTable_Lista.getColumnModel().getColumn(2).setPreferredWidth(100);
+//        jTable_Lista.getColumnModel().getColumn(2).setResizable(true);
+//        jTable_Lista.getColumnModel().getColumn(3).setPreferredWidth(100);
+//        jTable_Lista.getColumnModel().getColumn(3).setResizable(true);
+//        jTable_Lista.getColumnModel().getColumn(4).setPreferredWidth(100);
+//        jTable_Lista.getColumnModel().getColumn(4).setResizable(true);
+//        jTable_Lista.getColumnModel().getColumn(5).setPreferredWidth(80);
+//        jTable_Lista.getColumnModel().getColumn(5).setResizable(true);
+//        jTable_Lista.getColumnModel().getColumn(6).setPreferredWidth(00);
+//        jTable_Lista.getColumnModel().getColumn(6).setResizable(true);
 
 //        jTable_Lista.getColumnModel().getColumn(7).setPreferredWidth(80);
 //        jTable_Lista.getColumnModel().getColumn(7).setResizable(true);
         jTable_Lista.getTableHeader().setReorderingAllowed(false);
-        jTable_Lista.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//        jTable_Lista.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable_Lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        conex.desconecta();
 
+//        conex.desconecta();
     }
 
     class check extends JCheckBox implements TableCellRenderer {
@@ -598,10 +613,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         public Component getTableCellRendererComponent(
                 JTable table, Object value, boolean isSelected,
                 boolean hasFocus, int row, int column) {
-           
-            
-             
-             
+
             return this;
         }
     }
@@ -737,8 +749,8 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         }
         BUnis.setFragmento_unidade(fragmento);
         BUnis.setStatus_unidade(1);
-        BUnis.setRegistro_unidade(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
-        BUnis.setUsuario_unidade(Principal.jLabelNomeUsuario.getText());
+        BUnis.setRegistro_unidade(DataHoraAtual.obterDataHoraFormatada());
+        BUnis.setUsuario_unidade(UsuarioLogado.getNome());
         System.out.println("Interface.UnidadeCadastroJIF.EventoSalvar() referencia " + id_referencia);
         BUnis.setId_referencia(id_referencia);
         DUnid.Salvar_Unidade(BUnis);
