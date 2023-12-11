@@ -6,6 +6,7 @@ package dao;
 
 import ConectaBanco.ConexaoBD;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -120,6 +121,38 @@ public class UnidadeDao {
             conex.desconecta();
         }
         return unidades;
+    }
+
+    public Unidade obterUnidadePorId(int idUnidade) {
+        conex.conexao();
+        try {
+            PreparedStatement pstmt = conex.con.prepareStatement(
+                    "SELECT id_unidade, id_referenciaunidade, sigla_unidade, desc_unidade, "
+                    + "registro_unidade, usuario_unidade, fragmento_unidade, stunid "
+                    + "FROM unidade WHERE id_unidade = ? AND stunid = 1");
+
+            pstmt.setInt(1, idUnidade);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return new Unidade(
+                        rs.getInt("id_referenciaunidade"),
+                        rs.getInt("id_unidade"),
+                        rs.getInt("stunid"),
+                        rs.getInt("fragmento_unidade"),
+                        rs.getString("sigla_unidade"),
+                        rs.getString("desc_unidade"),
+                        rs.getString("registro_unidade"),
+                        rs.getString("usuario_unidade"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UnidadeCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conex.desconecta();
+        }
+
+        // Retorna null se a unidade não for encontrada
+        return null;
     }
 
     //apagar

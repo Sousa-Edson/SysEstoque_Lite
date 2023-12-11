@@ -116,4 +116,12 @@ public class UnidadeController {
         form.getjTable_Lista().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
     }
+
+    public void selecionaUnidade(UnidadeCadastroJIF form) {
+//        id_unidade = (int) form.getjTable_Lista().getValueAt(form.getjTable_Lista().getSelectedRow(), 0);
+//        id_referencia = (int) form.getjTable_Lista().getValueAt(form.getjTable_Lista().getSelectedRow(), 0);
+//        txtSigla.setText((String) form.getjTable_Lista().getValueAt(form.getjTable_Lista().getSelectedRow(), 1));
+//        txtDescricao.setText((String) form.getjTable_Lista().getValueAt(form.getjTable_Lista().getSelectedRow(), 2));
+
+    }
 }
