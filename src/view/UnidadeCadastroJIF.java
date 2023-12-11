@@ -7,33 +7,24 @@ package view;
 
 import ConectaBanco.ConexaoBD;
 import Interface.Principal;
-import ModeloBeans.Beans_Unidade;
 import ModeloBeans.ModeloTabela;
 import ModeloDao.Dao_Unidade;
+import UTIL.ControleCores;
 import UTIL.DataHoraAtual;
 import UTIL.UsuarioLogado;
-import java.awt.Color;
-import static java.awt.Color.red;
-import java.awt.Component;
+import dao.UnidadeDao;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.MouseEvent;
-import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
 import model.Unidade;
 import tableModel.UnidadeTableModel;
 
@@ -43,8 +34,8 @@ import tableModel.UnidadeTableModel;
  */
 public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
 
-    Beans_Unidade BUnis = new Beans_Unidade();
-    Dao_Unidade DUnid = new Dao_Unidade();
+    Unidade BUnis = new Unidade();
+    UnidadeDao DUnid = new UnidadeDao();
     ConexaoBD conex = new ConexaoBD();
     String UltimaId;
     int NumeroUltimaId;
@@ -77,7 +68,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel4 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        pnPrincipal = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_Lista = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
@@ -93,9 +84,6 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         jButton_Salvar = new javax.swing.JButton();
         jButton_Cancelar = new javax.swing.JButton();
         jButton_Excluir = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        jRadioButtonOrderm = new javax.swing.JRadioButtonMenuItem();
 
         jLabel4.setText("jLabel4");
 
@@ -122,8 +110,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel4.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnPrincipal.setBackground(ControleCores.pegarCorPadrao());
 
         jTable_Lista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -151,7 +138,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         jLabel3.setText("Lista de unidades");
         jLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel2.setBackground(ControleCores.pegarCorPadrao());
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
@@ -165,6 +152,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Descrição");
 
@@ -193,7 +181,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
-        jLabel5.setText("Fragmentado:");
+        jLabel5.setText("Fragmentado");
 
         jButton_Novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-novo-24.png"))); // NOI18N
         jButton_Novo.setText("Novo");
@@ -244,9 +232,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(92, 92, 92)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jButton_Novo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
@@ -254,18 +240,21 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jTextField_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton_Sim)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton_Nao))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jButton_Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton_Excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jButton_Excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jTextField_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jRadioButton_Sim)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jRadioButton_Nao)))))))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton_Cancelar, jButton_Excluir, jButton_Novo, jButton_Salvar});
@@ -277,7 +266,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_Sigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,58 +282,43 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnPrincipalLayout = new javax.swing.GroupLayout(pnPrincipal);
+        pnPrincipal.setLayout(pnPrincipalLayout);
+        pnPrincipalLayout.setHorizontalGroup(
+            pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnPrincipalLayout.createSequentialGroup()
+                .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnPrincipalLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGroup(pnPrincipalLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        pnPrincipalLayout.setVerticalGroup(
+            pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jMenu2.setText("Edit");
-
-        jRadioButtonOrderm.setSelected(true);
-        jRadioButtonOrderm.setText("Ordem");
-        jRadioButtonOrderm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonOrdermActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jRadioButtonOrderm);
-
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -441,7 +415,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
             BUnis.setStatus_unidade(3);
             BUnis.setUsuario_unidade(Principal.jLabelNomeUsuario.getText());
             BUnis.setId_unidade(id_unidade);
-            DUnid.Excluir_Unidade(BUnis);
+            DUnid.excluirUnidade(BUnis);
         } else {
         }
         PreencheTabela();
@@ -475,10 +449,6 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
             jRadioButton_Nao.setSelected(true);
         }
     }//GEN-LAST:event_jRadioButton_SimActionPerformed
-
-    private void jRadioButtonOrdermActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonOrdermActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonOrdermActionPerformed
 
     public void EventoLimpar() {
 //        jTextFieldBusca.setText("");
@@ -556,13 +526,9 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         ArrayList dados = new ArrayList();
         String[] colunas = new String[]{"Codigo", "Status", "Sigla", "Fragmentado", "Descrição", "Registro", "Usuario", "Id"};
         String MostraTabela;
-        String ordem;
+        String ordem = null;
         MostraTabela = "ATIVO";
-        if (jRadioButtonOrderm.isSelected()) {
-            ordem = "";
-        } else {
-            ordem = "asc";
-        }
+      
         conex.conexao();
 
         if (ordem.equals("asc")) {
@@ -669,7 +635,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         if (flag == 2) {
             BUnis.setId_unidade(id_unidade);
             BUnis.setStatus_unidade(2);
-            DUnid.Alterar_Unidade(BUnis);
+            DUnid.alterarUnidade(BUnis);
         } else {
             System.out.println("Interface.UnidadeCadastroJIF.EventoSalvar() sem id " + id_unidade);
         }
@@ -687,7 +653,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         BUnis.setUsuario_unidade(UsuarioLogado.getNome());
         System.out.println("Interface.UnidadeCadastroJIF.EventoSalvar() referencia " + id_referencia);
         BUnis.setId_referencia(id_referencia);
-        DUnid.Salvar_Unidade(BUnis);
+        DUnid.salvarUnidade(BUnis);
         PreencheTabela();
         jTextField_Descricao.setText(null);
         jTextField_Sigla.setText(null);
@@ -720,16 +686,13 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonOrderm;
     private javax.swing.JRadioButton jRadioButton_Nao;
     private javax.swing.JRadioButton jRadioButton_Sim;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_Lista;
     private javax.swing.JTextField jTextField_Descricao;
     private javax.swing.JTextField jTextField_Sigla;
+    private javax.swing.JPanel pnPrincipal;
     // End of variables declaration//GEN-END:variables
 }
