@@ -36,6 +36,7 @@ import net.sf.jasperreports.view.JasperViewer;
 import Sistema.ManipulaProtocolo;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import view.MenuPrincipal;
 
 /**
  *
@@ -317,9 +318,9 @@ public final class ExpedicaoJIF extends javax.swing.JInternalFrame {
     public void AbreNota() {
 //        selecaod = (int) jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 7);
         System.out.println("selecaod " + MinhaIdNota);
-        Principal.jLabelCodigoTela2.setText(String.valueOf(MinhaIdNota));
-        Principal.jLabelCodigoTela.setText("MovimentoCadastroEditar");
-        Principal.jButton1.doClick();
+        MenuPrincipal.jLabelCodigoTela2.setText(String.valueOf(MinhaIdNota));
+        MenuPrincipal.jLabelCodigoTela.setText("MovimentoCadastroEditar");
+        MenuPrincipal.jButton1.doClick();
 
 //        conex.conexao();
 //        conex.executaSql("select id_nota from nota WHERE id_referencia ='" + selecao_id + "'");

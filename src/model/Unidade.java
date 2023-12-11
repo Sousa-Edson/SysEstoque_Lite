@@ -101,4 +101,9 @@ public class Unidade {
         this.usuario_unidade = usuario_unidade;
     }
 
+    @Override
+    public String toString() {
+        return "Unidade{" + "id_referencia=" + id_referencia + ", id_unidade=" + id_unidade + ", status_unidade=" + status_unidade + ", fragmento_unidade=" + fragmento_unidade + ", sigla_unidade=" + sigla_unidade + ", desc_unidade=" + desc_unidade + ", registro_unidade=" + registro_unidade + ", usuario_unidade=" + usuario_unidade + '}';
+    }
+
 }

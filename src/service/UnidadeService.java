@@ -8,6 +8,8 @@ package service;
  *
  * @author edson
  */
+import UTIL.DataHoraAtual;
+import UTIL.UsuarioLogado;
 import dao.UnidadeDao;
 import java.util.List;
 import model.Unidade;
@@ -20,11 +22,11 @@ public class UnidadeService {
         this.unidadeDao = new UnidadeDao();
     }
 
-    public void salvarUnidade(Unidade unidade) {
+    public boolean salvarUnidade(Unidade unidade) {
         if (unidade.getId_unidade() == 0) {
-            unidadeDao.salvarUnidade(unidade);
+            return unidadeDao.salvarUnidade(unidade);
         } else {
-            unidadeDao.alterarUnidade(unidade);
+            return unidadeDao.alterarUnidade(unidade);
         }
     }
 
@@ -32,7 +34,12 @@ public class UnidadeService {
         unidadeDao.alterarUnidade(unidade);
     }
 
-    public void excluirUnidade(Unidade unidade) {
+    public void excluirUnidade(int id) {
+        Unidade unidade = new Unidade();
+        unidade.setId_unidade(id);
+        unidade.setStatus_unidade(3);
+        unidade.setUsuario_unidade(UsuarioLogado.getNome());
+        unidade.setRegistro_unidade(DataHoraAtual.obterDataHoraFormatada());
         unidadeDao.excluirUnidade(unidade);
     }
 

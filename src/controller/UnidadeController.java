@@ -28,7 +28,7 @@ public class UnidadeController {
     }
 
     public void salvarUnidade(UnidadeCadastroJIF form) {
-        unidadeService.salvarUnidade(
+        if (unidadeService.salvarUnidade(
                 new Unidade(unidadeService.idReferencia(),
                         form.getId_unidade(),
                         1,
@@ -36,7 +36,9 @@ public class UnidadeController {
                         form.getTxtSigla().getText(),
                         form.getTxtDescricao().getText(),
                         DataHoraAtual.obterDataHoraFormatada(),
-                        UsuarioLogado.getNome()));
+                        UsuarioLogado.getNome()))==true) {
+            cancelarUnidade(form);
+        }
     }
 
     public boolean validarEntradas(UnidadeCadastroJIF form) {
@@ -127,13 +129,14 @@ public class UnidadeController {
         form.getTxtSigla().requestFocus();
     }
 
-    public void deletarUnidade(int idUnidade) {
+    public void deletarUnidade(UnidadeCadastroJIF form, int idUnidade) {
         Object[] options = {"Sim", "Não"};
         if (JOptionPane.showOptionDialog(null, "Deseja realmente deletar esta unidade?",
                 "Deletar #" + idUnidade + " ?", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE,
                 null, options, options[1]) == 0) {
-
-            System.out.println("deletado");
+            unidadeService.excluirUnidade(idUnidade);
+            PreencheTabela(form);
+            cancelarUnidade(form);
         }
     }
 }

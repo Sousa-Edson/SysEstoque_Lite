@@ -77,7 +77,7 @@ public class ClassChamaTelaInterna {
     }
 
     public void ChamaCadastroUnidade() {
-        UnidadeCadastroJIF.PreencheTabelaApagar();
+//        UnidadeCadastroJIF.PreencheTabelaApagar();
         if (UnidadeCadastroJIF.isVisible()) {
         } else {menu.PainelPrincipal.remove(UnidadeCadastroJIF);
             menu.PainelPrincipal.add(UnidadeCadastroJIF);
@@ -86,7 +86,7 @@ public class ClassChamaTelaInterna {
         }
         UnidadeCadastroJIF.toFront();
         UnidadeCadastroJIF.setPosicao();
-        UnidadeCadastroJIF.PreencheTabelaApagar();
+//        UnidadeCadastroJIF.PreencheTabelaApagar();
     }
 
     public void FechaCadastroProdutoInternoEditar() {

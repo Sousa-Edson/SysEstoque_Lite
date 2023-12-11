@@ -24,7 +24,7 @@ public class UnidadeDao {
 
     private final ConexaoBD conex = new ConexaoBD();
 
-    public void salvarUnidade(Unidade unidade) {
+    public boolean salvarUnidade(Unidade unidade) {
         conex.conexao();
         try (PreparedStatement pst = conex.con.prepareStatement(
                 "INSERT INTO unidade (id_referenciaunidade, sigla_unidade, desc_unidade, registro_unidade, "
@@ -37,15 +37,18 @@ public class UnidadeDao {
             pst.setInt(6, unidade.getStatus_unidade());
             pst.setInt(7, unidade.getFragmento_unidade());
             pst.execute();
+            return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar unidade.\nSalvar_Unidade\n" + ex);
 
         } finally {
             conex.desconecta();
         }
+        return false;
     }
 
-    public void alterarUnidade(Unidade unidade) {
+    public boolean alterarUnidade(Unidade unidade) {
+        boolean ok = false;
         conex.conexao();
         try (PreparedStatement pst = conex.con.prepareStatement(
                 "UPDATE unidade SET sigla_unidade=?, desc_unidade=?, registro_unidade=?, "
@@ -59,11 +62,13 @@ public class UnidadeDao {
             pst.setInt(7, unidade.getId_unidade());
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Unidade alterada com sucesso.");
+            ok = true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao alterar unidade.\nAlterar_Unidade\n" + ex);
         } finally {
             conex.desconecta();
         }
+        return ok;
     }
 
     public void alterarUnidadeApagar(Unidade unidade) {
@@ -90,6 +95,7 @@ public class UnidadeDao {
             pst.setString(3, unidade.getRegistro_unidade());
             pst.setInt(4, unidade.getId_unidade());
             pst.execute();
+            JOptionPane.showMessageDialog(null, "Unidade " + unidade.getId_unidade() + " deletada com sucesso!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao Excluir/Atualizar produto.\n" + ex);
         } finally {

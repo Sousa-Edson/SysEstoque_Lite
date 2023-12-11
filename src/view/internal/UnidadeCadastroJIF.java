@@ -39,17 +39,17 @@ import view.MenuPrincipal;
  * @author edson
  */
 public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
-    
+
     Unidade BUnis = new Unidade();
     UnidadeDao DUnid = new UnidadeDao();
     ConexaoBD conex = new ConexaoBD();
     String UltimaId;
     int NumeroUltimaId;
-    
+
     int id_referencia;
     int id_unidade;
     int flag = 1;
-    
+
     String MostraTabela = null;
     String ordem = "asc";
     int fragmento = 0;
@@ -58,15 +58,15 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
      * Creates new form JIFTEste
      */
     private UnidadeController unidadeController;
-    
+
     public UnidadeCadastroJIF() {
         initComponents();
         remover_Ico();
         unidadeController = new UnidadeController();
-        
+
         groupFragmentado.add(rbFragmentadoNao);
         groupFragmentado.add(rbFragmentadoSim);
-        
+
     }
 
     /**
@@ -350,12 +350,10 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (unidadeController.validarEntradas(this) == true) {
-            System.out.println("true");
+            unidadeController.salvarUnidade(this);
         } else {
             System.out.println("false");
-        }
-        
-        System.out.println("id_unidade: " + id_unidade);
+        } 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyPressed
@@ -373,27 +371,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-//        int resposta = 0;
-//        resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir ? ");
-//        if (resposta == JOptionPane.YES_OPTION) {
-//            btnNovo.setEnabled(true);
-//            btnSalvar.setEnabled(false);
-//            btnExcluir.setEnabled(false);
-//            txtDescricao.setText(null);
-//            txtSigla.setText(null);
-//            txtSigla.setEnabled(false);
-//            txtDescricao.setEnabled(false);
-//
-//            BUnis.setRegistro_unidade(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
-//            BUnis.setStatus_unidade(3);
-//            BUnis.setUsuario_unidade(Principal.jLabelNomeUsuario.getText());
-//            BUnis.setId_unidade(id_unidade);
-//            DUnid.excluirUnidade(BUnis);
-//        } else {
-//        }
-//        PreencheTabelaApagar();
-        unidadeController.deletarUnidade(id_unidade);
-        
+        unidadeController.deletarUnidade(this, id_unidade);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void txtSiglaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSiglaKeyPressed
@@ -408,22 +386,12 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
             btnSalvar.requestFocus();
         }
     }//GEN-LAST:event_txtDescricaoKeyPressed
-    
-    public void EventoLimpar() {
-//        jTextFieldBusca.setText("");
-//        jTextFieldBusca.requestFocus();
-        ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{};
-        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-//        jTable_Produto.setModel(modelo);
 
-    }
-    
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
         this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
     }
-    
+
     public void remover_Ico() {
         this.setFrameIcon(null);
 
@@ -434,172 +402,8 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         north.validate();
         north.repaint();
     }
-    
-    public void BuscaUltimaId() {
-        conex.conexao();
-        conex.executaSql2("select * from produto order by sis_prod  desc ");
-        try {
-            conex.rs.first();
-            NumeroUltimaId = (conex.rs.getInt("sis_prod") + 1);
-            UltimaId = String.valueOf(NumeroUltimaId);
-            System.out.println("Interface.ProdutoListaJIF.BuscaUltimaId()" + UltimaId);
-//            jLabel_Sistema2.setText(UltimaId);
-        } catch (SQLException ex) {
-            Logger.getLogger(UnidadeCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
-            UltimaId = "1";
-        }
-        conex.desconecta();
-    }
-    
-    public void PreencheTabelaApagar() {
-        String TipoUsuario = MenuPrincipal.jLabelTipoUsuario.getText();
-        if (TipoUsuario == "Manutenção") {
-            PreencheTabela3();
-        } else {
-            PreencheTabela();
-        }
-        
-    }
-    
-    public void PreencheTabela() {
-        
-        Dao_Unidade d = new Dao_Unidade();
-        
-        UnidadeTableModel modelo = new UnidadeTableModel();
-        List<Unidade> unidades = d.listarUnidades();
-        modelo.setUnidades(unidades);
-        
-        jTable_Lista.setModel(modelo);
-        jTable_Lista.getColumnModel().getColumn(0).setPreferredWidth(60);
-        jTable_Lista.getColumnModel().getColumn(0).setResizable(true);
-        
-        jTable_Lista.getTableHeader().setReorderingAllowed(false);
-//        jTable_Lista.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        jTable_Lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-    }
-    
-    public void PreencheTabela3() {
-        ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{"Codigo", "Status", "Sigla", "Fragmentado", "Descrição", "Registro", "Usuario", "Id"};
-        String MostraTabela;
-        String ordem = null;
-        MostraTabela = "ATIVO";
-        
-        conex.conexao();
-        
-        if (ordem.equals("asc")) {
-            conex.executaSql2("SELECT stunid,id_unidade, id_referenciaunidade, sigla_unidade, desc_unidade, registro_unidade, \n"
-                    + "       usuario_unidade,fragmento_unidade\n"
-                    + "  FROM unidade   order by id_referenciaunidade asc ");
-        } else {
-            conex.executaSql2("SELECT stunid,id_unidade, id_referenciaunidade, sigla_unidade, desc_unidade, registro_unidade, \n"
-                    + "       usuario_unidade,fragmento_unidade\n"
-                    + "  FROM unidade order by id_referenciaunidade desc ");
-        }
-        try {
-            conex.rs.first();
-            do {
-                int VerFrag = 0;
-                String FragNome;
-                String statusex;
-                int status;
-                status = conex.rs.getInt("stunid");
-                if (status == 1) {
-                    statusex = "ATIVO";
-                } else if (status == 2) {
-                    statusex = "ALTERADO";
-                } else if (status == 3) {
-                    statusex = "EXCLUIDO";
-                } else {
-                    statusex = "INDEFINIDO";
-                }
-                VerFrag = conex.rs.getInt("fragmento_unidade");
-                if (VerFrag == 0) {
-                    FragNome = "NÃO";
-                } else {
-                    FragNome = "SIM";
-                }
-                dados.add(new Object[]{conex.rs.getInt("id_referenciaunidade"), statusex,
-                    conex.rs.getString("sigla_unidade"), conex.rs.getString("desc_unidade"), FragNome,
-                    conex.rs.getString("registro_unidade"), conex.rs.getString("usuario_unidade"), conex.rs.getInt("id_unidade")});
-                
-            } while (conex.rs.next());
-        } catch (SQLException ex) {
-            Logger.getLogger(UnidadeCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-        
-        jTable_Lista.setModel(modelo);
-        jTable_Lista.getColumnModel().getColumn(0).setPreferredWidth(60);
-        jTable_Lista.getColumnModel().getColumn(0).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(1).setPreferredWidth(80);
-        jTable_Lista.getColumnModel().getColumn(1).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(2).setPreferredWidth(100);
-        jTable_Lista.getColumnModel().getColumn(2).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(3).setPreferredWidth(100);
-        jTable_Lista.getColumnModel().getColumn(3).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(4).setPreferredWidth(100);
-        jTable_Lista.getColumnModel().getColumn(4).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(5).setPreferredWidth(100);
-        jTable_Lista.getColumnModel().getColumn(5).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(6).setPreferredWidth(80);
-        jTable_Lista.getColumnModel().getColumn(6).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(7).setPreferredWidth(00);
-        jTable_Lista.getColumnModel().getColumn(7).setResizable(true);
-        jTable_Lista.getTableHeader().setReorderingAllowed(false);
-        jTable_Lista.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        jTable_Lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        conex.desconecta();
-        
-    }
 
-//    public void VerificarCamposVazios() {
-//        VerificarCamposCheios();
-//        if (txtDescricao.getText().isEmpty() | txtSigla.getText().isEmpty()) {
-//            JOptionPane.showMessageDialog(rootPane, "Campo(s) vazio(s)");
-//        } else {
-//            EventoSalvar();
-//        }
-//    }
-//
-//    public void VerificarCamposCheios() {
-//
-//        if (txtSigla.getText().length() >= 5) {
-//            txtSigla.setText(null);
-//            txtSigla.requestFocus();
-//        }
-//        if (txtDescricao.getText().length() >= 11) {
-//            txtDescricao.setText(null);
-//            txtDescricao.requestFocus();
-//        }
-//
-//    }
-    public void EventoSalvar() {
-        txtSigla.setText(txtSigla.getText().toUpperCase());
-        txtDescricao.setText(txtDescricao.getText().toUpperCase());
-        btnNovo.setEnabled(true);
-        btnSalvar.setEnabled(false);
-        btnExcluir.setEnabled(false);
-        txtSigla.setEnabled(false);
-        txtDescricao.setEnabled(false);
-        rbFragmentadoNao.setEnabled(false);
-        rbFragmentadoSim.setEnabled(false);
-        
-        if (flag == 2) {
-//            BUnis.setId_unidade(id_unidade);
-//            BUnis.setStatus_unidade(2);
-//            DUnid.alterarUnidade(BUnis);
-        } else {
-            System.out.println("Interface.UnidadeCadastroJIF.EventoSalvar() sem id " + id_unidade);
-        }
-        
-        unidadeController.salvarUnidade(this);
-        
-        PreencheTabelaApagar();
-        txtDescricao.setText(null);
-        txtSigla.setText(null);
-    }
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -626,81 +430,81 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
     public JButton getBtnCancelar() {
         return btnCancelar;
     }
-    
+
     public JButton getBtnExcluir() {
         return btnExcluir;
     }
-    
+
     public JButton getBtnNovo() {
         return btnNovo;
     }
-    
+
     public JButton getBtnSalvar() {
         return btnSalvar;
     }
-    
+
     public JRadioButton getRbFragmentadoNao() {
         return rbFragmentadoNao;
     }
-    
+
     public JRadioButton getRbFragmentadoSim() {
         return rbFragmentadoSim;
     }
-    
+
     public JTextField getTxtDescricao() {
         return txtDescricao;
     }
-    
+
     public JTextField getTxtSigla() {
         return txtSigla;
     }
-    
+
     public void setRbFragmentadoNao(JRadioButton rbFragmentadoNao) {
         this.rbFragmentadoNao = rbFragmentadoNao;
     }
-    
+
     public void setRbFragmentadoSim(JRadioButton rbFragmentadoSim) {
         this.rbFragmentadoSim = rbFragmentadoSim;
     }
-    
+
     public void setTxtDescricao(JTextField txtDescricao) {
         this.txtDescricao = txtDescricao;
     }
-    
+
     public void setTxtSigla(JTextField txtSigla) {
         this.txtSigla = txtSigla;
     }
-    
+
     public ButtonGroup getGroupFragmentado() {
         return groupFragmentado;
     }
-    
+
     public int getId_unidade() {
         return id_unidade;
     }
-    
+
     public void setId_unidade(int id_unidade) {
         this.id_unidade = id_unidade;
     }
-    
+
     public void setTxtSigla(String string) {
         if (txtSigla != null) {
             txtSigla.setText(string);
         }
     }
-    
+
     public void setTxtDescricao(String string) {
         if (txtDescricao != null) {
             txtDescricao.setText(string);
         }
     }
-    
+
     public JTable getjTable_Lista() {
         return jTable_Lista;
     }
-    
+
     public void setjTable_Lista(JTable jTable_Lista) {
         this.jTable_Lista = jTable_Lista;
     }
-    
+
 }
