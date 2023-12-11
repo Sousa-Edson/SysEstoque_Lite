@@ -22,8 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import model.Unidade;
@@ -59,8 +63,8 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         remover_Ico();
         unidadeController = new UnidadeController();
 
-        groupFragmentado.add(jRadioButton_Nao);
-        groupFragmentado.add(jRadioButton_Sim);
+        groupFragmentado.add(rbFragmentadoNao);
+        groupFragmentado.add(rbFragmentadoSim);
 
     }
 
@@ -81,16 +85,16 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField_Sigla = new javax.swing.JTextField();
+        txtSigla = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField_Descricao = new javax.swing.JTextField();
-        jRadioButton_Sim = new javax.swing.JRadioButton();
-        jRadioButton_Nao = new javax.swing.JRadioButton();
+        txtDescricao = new javax.swing.JTextField();
+        rbFragmentadoSim = new javax.swing.JRadioButton();
+        rbFragmentadoNao = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
-        jButton_Novo = new javax.swing.JButton();
-        jButton_Salvar = new javax.swing.JButton();
-        jButton_Cancelar = new javax.swing.JButton();
-        jButton_Excluir = new javax.swing.JButton();
+        btnNovo = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
 
         jLabel4.setText("jLabel4");
 
@@ -152,10 +156,10 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Sigla");
 
-        jTextField_Sigla.setEnabled(false);
-        jTextField_Sigla.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtSigla.setEnabled(false);
+        txtSigla.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_SiglaKeyPressed(evt);
+                txtSiglaKeyPressed(evt);
             }
         });
 
@@ -163,69 +167,69 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Descrição");
 
-        jTextField_Descricao.setEnabled(false);
-        jTextField_Descricao.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtDescricao.setEnabled(false);
+        txtDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_DescricaoKeyPressed(evt);
+                txtDescricaoKeyPressed(evt);
             }
         });
 
-        jRadioButton_Sim.setText("sim");
-        jRadioButton_Sim.setEnabled(false);
-        jRadioButton_Sim.addActionListener(new java.awt.event.ActionListener() {
+        rbFragmentadoSim.setText("sim");
+        rbFragmentadoSim.setEnabled(false);
+        rbFragmentadoSim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton_SimActionPerformed(evt);
+                rbFragmentadoSimActionPerformed(evt);
             }
         });
 
-        jRadioButton_Nao.setSelected(true);
-        jRadioButton_Nao.setText("não");
-        jRadioButton_Nao.setEnabled(false);
-        jRadioButton_Nao.addActionListener(new java.awt.event.ActionListener() {
+        rbFragmentadoNao.setSelected(true);
+        rbFragmentadoNao.setText("não");
+        rbFragmentadoNao.setEnabled(false);
+        rbFragmentadoNao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton_NaoActionPerformed(evt);
+                rbFragmentadoNaoActionPerformed(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
         jLabel5.setText("Fragmentado");
 
-        jButton_Novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-novo-24.png"))); // NOI18N
-        jButton_Novo.setText("Novo");
-        jButton_Novo.addActionListener(new java.awt.event.ActionListener() {
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-novo-24.png"))); // NOI18N
+        btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_NovoActionPerformed(evt);
+                btnNovoActionPerformed(evt);
             }
         });
 
-        jButton_Salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-salvar-24.png"))); // NOI18N
-        jButton_Salvar.setText("Salvar");
-        jButton_Salvar.setEnabled(false);
-        jButton_Salvar.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-salvar-24.png"))); // NOI18N
+        btnSalvar.setText("Salvar");
+        btnSalvar.setEnabled(false);
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_SalvarActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
-        jButton_Salvar.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnSalvar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jButton_SalvarKeyPressed(evt);
+                btnSalvarKeyPressed(evt);
             }
         });
 
-        jButton_Cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-cancelar-24.png"))); // NOI18N
-        jButton_Cancelar.setText("Cancelar");
-        jButton_Cancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-cancelar-24.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_CancelarActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
-        jButton_Excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-excluir-24.png"))); // NOI18N
-        jButton_Excluir.setText("Excluir");
-        jButton_Excluir.setEnabled(false);
-        jButton_Excluir.addActionListener(new java.awt.event.ActionListener() {
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-excluir-24.png"))); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_ExcluirActionPerformed(evt);
+                btnExcluirActionPerformed(evt);
             }
         });
 
@@ -242,29 +246,29 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton_Novo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-                            .addComponent(jTextField_Sigla, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(btnNovo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                            .addComponent(txtSigla, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton_Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton_Excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jTextField_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jRadioButton_Sim)
+                                        .addComponent(rbFragmentadoSim)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jRadioButton_Nao)))))))
+                                        .addComponent(rbFragmentadoNao)))))))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton_Cancelar, jButton_Excluir, jButton_Novo, jButton_Salvar});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCancelar, btnExcluir, btnNovo, btnSalvar});
 
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,16 +280,16 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_Sigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton_Sim)
-                    .addComponent(jRadioButton_Nao))
+                    .addComponent(txtSigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbFragmentadoSim)
+                    .addComponent(rbFragmentadoNao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton_Novo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton_Salvar, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(jButton_Cancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton_Excluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -335,45 +339,45 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         this.setVisible(false);
     }//GEN-LAST:event_formInternalFrameClosing
 
-    private void jButton_NovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NovoActionPerformed
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
 //        CarregaUltimo();
         flag = 1;
-        jButton_Novo.setEnabled(false);
-        jButton_Excluir.setEnabled(false);
-        jButton_Salvar.setEnabled(true);
-        jTextField_Sigla.setEnabled(true);
-        jTextField_Descricao.setEnabled(true);
+        btnNovo.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        btnSalvar.setEnabled(true);
+        txtSigla.setEnabled(true);
+        txtDescricao.setEnabled(true);
         PreencheTabela();
-        jTextField_Descricao.setText(null);
-        jTextField_Sigla.setText(null);
-        jTextField_Sigla.requestFocus();
-        jRadioButton_Nao.setEnabled(true);
-        jRadioButton_Sim.setEnabled(true);
-    }//GEN-LAST:event_jButton_NovoActionPerformed
+        txtDescricao.setText(null);
+        txtSigla.setText(null);
+        txtSigla.requestFocus();
+        rbFragmentadoNao.setEnabled(true);
+        rbFragmentadoSim.setEnabled(true);
+    }//GEN-LAST:event_btnNovoActionPerformed
 
     private void jTable_ListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ListaMouseClicked
         if (evt.getButton() == MouseEvent.BUTTON3) {
         } else {
             flag = 2;
-            jTextField_Sigla.setEnabled(true);
-            jTextField_Descricao.setEnabled(true);
-            jTextField_Sigla.requestFocus();
-            jButton_Salvar.setEnabled(true);
-            jButton_Excluir.setEnabled(true);
-            jButton_Novo.setEnabled(false);
-            jRadioButton_Nao.setEnabled(true);
-            jRadioButton_Sim.setEnabled(true);
+            txtSigla.setEnabled(true);
+            txtDescricao.setEnabled(true);
+            txtSigla.requestFocus();
+            btnSalvar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+            btnNovo.setEnabled(false);
+            rbFragmentadoNao.setEnabled(true);
+            rbFragmentadoSim.setEnabled(true);
             String TipoUsuario = MenuPrincipal.jLabelTipoUsuario.getText();
             if (TipoUsuario == "Manutenção") {
                 id_unidade = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 0);
                 id_referencia = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 0);
-                jTextField_Sigla.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 2));
-                jTextField_Descricao.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 3));
+                txtSigla.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 2));
+                txtDescricao.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 3));
             } else {
                 id_unidade = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 0);
                 id_referencia = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 0);
-                jTextField_Sigla.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 1));
-                jTextField_Descricao.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 2));
+                txtSigla.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 1));
+                txtDescricao.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 2));
             }
         }
     }//GEN-LAST:event_jTable_ListaMouseClicked
@@ -382,41 +386,41 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTable_ListaMouseEntered
 
-    private void jButton_SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SalvarActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         VerificarCamposVazios();
-    }//GEN-LAST:event_jButton_SalvarActionPerformed
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void jButton_SalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton_SalvarKeyPressed
+    private void btnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
 //            VerificarCamposVazios();
         }
-    }//GEN-LAST:event_jButton_SalvarKeyPressed
+    }//GEN-LAST:event_btnSalvarKeyPressed
 
-    private void jButton_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelarActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         PreencheTabela();
 //        flag = 1;
-        jButton_Novo.setEnabled(true);
-        jButton_Salvar.setEnabled(false);
-        jTextField_Descricao.setText(null);
-        jTextField_Sigla.setText(null);
-        jTextField_Sigla.setEnabled(false);
-        jTextField_Descricao.setEnabled(false);
-        jButton_Excluir.setEnabled(false);
-        jRadioButton_Nao.setEnabled(false);
-        jRadioButton_Sim.setEnabled(false);
-    }//GEN-LAST:event_jButton_CancelarActionPerformed
+        btnNovo.setEnabled(true);
+        btnSalvar.setEnabled(false);
+        txtDescricao.setText(null);
+        txtSigla.setText(null);
+        txtSigla.setEnabled(false);
+        txtDescricao.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        rbFragmentadoNao.setEnabled(false);
+        rbFragmentadoSim.setEnabled(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void jButton_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExcluirActionPerformed
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int resposta = 0;
         resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir ? ");
         if (resposta == JOptionPane.YES_OPTION) {
-            jButton_Novo.setEnabled(true);
-            jButton_Salvar.setEnabled(false);
-            jButton_Excluir.setEnabled(false);
-            jTextField_Descricao.setText(null);
-            jTextField_Sigla.setText(null);
-            jTextField_Sigla.setEnabled(false);
-            jTextField_Descricao.setEnabled(false);
+            btnNovo.setEnabled(true);
+            btnSalvar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+            txtDescricao.setText(null);
+            txtSigla.setText(null);
+            txtSigla.setEnabled(false);
+            txtDescricao.setEnabled(false);
 
             BUnis.setRegistro_unidade(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
             BUnis.setStatus_unidade(3);
@@ -426,36 +430,36 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         } else {
         }
         PreencheTabela();
-    }//GEN-LAST:event_jButton_ExcluirActionPerformed
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void jTextField_SiglaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_SiglaKeyPressed
+    private void txtSiglaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSiglaKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            jTextField_Descricao.requestFocus();
+            txtDescricao.requestFocus();
         }
 //        VerificarCamposCheios();
-    }//GEN-LAST:event_jTextField_SiglaKeyPressed
+    }//GEN-LAST:event_txtSiglaKeyPressed
 
-    private void jTextField_DescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_DescricaoKeyPressed
+    private void txtDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            jButton_Salvar.requestFocus();
+            btnSalvar.requestFocus();
         }
-    }//GEN-LAST:event_jTextField_DescricaoKeyPressed
+    }//GEN-LAST:event_txtDescricaoKeyPressed
 
-    private void jRadioButton_NaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_NaoActionPerformed
-        if (jRadioButton_Nao.isSelected()) {
-            jRadioButton_Sim.setSelected(false);
+    private void rbFragmentadoNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFragmentadoNaoActionPerformed
+        if (rbFragmentadoNao.isSelected()) {
+            rbFragmentadoSim.setSelected(false);
         } else {
-            jRadioButton_Sim.setSelected(true);
+            rbFragmentadoSim.setSelected(true);
         }
-    }//GEN-LAST:event_jRadioButton_NaoActionPerformed
+    }//GEN-LAST:event_rbFragmentadoNaoActionPerformed
 
-    private void jRadioButton_SimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_SimActionPerformed
-        if (jRadioButton_Sim.isSelected()) {
-            jRadioButton_Nao.setSelected(false);
+    private void rbFragmentadoSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFragmentadoSimActionPerformed
+        if (rbFragmentadoSim.isSelected()) {
+            rbFragmentadoNao.setSelected(false);
         } else {
-            jRadioButton_Nao.setSelected(true);
+            rbFragmentadoNao.setSelected(true);
         }
-    }//GEN-LAST:event_jRadioButton_SimActionPerformed
+    }//GEN-LAST:event_rbFragmentadoSimActionPerformed
 
     public void EventoLimpar() {
 //        jTextFieldBusca.setText("");
@@ -604,7 +608,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
 
     public void VerificarCamposVazios() {
         VerificarCamposCheios();
-        if (jTextField_Descricao.getText().isEmpty() | jTextField_Sigla.getText().isEmpty()) {
+        if (txtDescricao.getText().isEmpty() | txtSigla.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Campo(s) vazio(s)");
         } else {
             EventoSalvar();
@@ -613,30 +617,28 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
 
     public void VerificarCamposCheios() {
 
-        if (jTextField_Sigla.getText().length() >= 5) {
-            jTextField_Sigla.setText(null);
-            jTextField_Sigla.requestFocus();
+        if (txtSigla.getText().length() >= 5) {
+            txtSigla.setText(null);
+            txtSigla.requestFocus();
         }
-        if (jTextField_Descricao.getText().length() >= 11) {
-            jTextField_Descricao.setText(null);
-            jTextField_Descricao.requestFocus();
+        if (txtDescricao.getText().length() >= 11) {
+            txtDescricao.setText(null);
+            txtDescricao.requestFocus();
         }
 
     }
 
     public void EventoSalvar() {
-        jTextField_Sigla.setText(jTextField_Sigla.getText().toUpperCase());
-        jTextField_Descricao.setText(jTextField_Descricao.getText().toUpperCase());
-        jButton_Novo.setEnabled(true);
-        jButton_Salvar.setEnabled(false);
-        jButton_Excluir.setEnabled(false);
-        jTextField_Sigla.setEnabled(false);
-        jTextField_Descricao.setEnabled(false);
-        jRadioButton_Nao.setEnabled(false);
-        jRadioButton_Sim.setEnabled(false);
+        txtSigla.setText(txtSigla.getText().toUpperCase());
+        txtDescricao.setText(txtDescricao.getText().toUpperCase());
+        btnNovo.setEnabled(true);
+        btnSalvar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        txtSigla.setEnabled(false);
+        txtDescricao.setEnabled(false);
+        rbFragmentadoNao.setEnabled(false);
+        rbFragmentadoSim.setEnabled(false);
 
-//        BUnis.setSigla_unidade(jTextField_Sigla.getText());
-//        BUnis.setDesc_unidade(jTextField_Descricao.getText());
         if (flag == 2) {
 //            BUnis.setId_unidade(id_unidade);
 //            BUnis.setStatus_unidade(2);
@@ -645,44 +647,94 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
             System.out.println("Interface.UnidadeCadastroJIF.EventoSalvar() sem id " + id_unidade);
         }
 
-//        if (groupFragmentado.isSelected(jRadioButton_Nao.getModel())) {
-//            fragmento = 0;
-//        } else if (groupFragmentado.isSelected(jRadioButton_Sim.getModel())) {
-//            fragmento = 1;
-//        } else {
-//            JOptionPane.showMessageDialog(rootPane, "Selecione sim ou não !");
-//        }
-        System.out.println("Interface.UnidadeCadastroJIF.EventoSalvar() referencia " + id_referencia);
-//        BUnis.setId_referencia(id_referencia);
-//        DUnid.salvarUnidade(BUnis);
+        unidadeController.salvarUnidade(this);
 
-        unidadeController.salvarUnidade(jTextField_Sigla.getText().toUpperCase(),
-                jTextField_Descricao.getText().toUpperCase(),
-                1, groupFragmentado.isSelected(jRadioButton_Nao.getModel()) ? 0 : 1, 0);
         PreencheTabela();
-        jTextField_Descricao.setText(null);
-        jTextField_Sigla.setText(null);
+        txtDescricao.setText(null);
+        txtSigla.setText(null);
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.ButtonGroup groupFragmentado;
-    private javax.swing.JButton jButton_Cancelar;
-    private javax.swing.JButton jButton_Excluir;
-    private javax.swing.JButton jButton_Novo;
-    private javax.swing.JButton jButton_Salvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton_Nao;
-    private javax.swing.JRadioButton jRadioButton_Sim;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_Lista;
-    private javax.swing.JTextField jTextField_Descricao;
-    private javax.swing.JTextField jTextField_Sigla;
     private javax.swing.JPanel pnPrincipal;
+    private javax.swing.JRadioButton rbFragmentadoNao;
+    private javax.swing.JRadioButton rbFragmentadoSim;
+    private javax.swing.JTextField txtDescricao;
+    private javax.swing.JTextField txtSigla;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getBtnCancelar() {
+        return btnCancelar;
+    }
+
+    public JButton getBtnExcluir() {
+        return btnExcluir;
+    }
+
+    public JButton getBtnNovo() {
+        return btnNovo;
+    }
+
+    public JButton getBtnSalvar() {
+        return btnSalvar;
+    }
+
+    public JRadioButton getRbFragmentadoNao() {
+        return rbFragmentadoNao;
+    }
+
+    public JRadioButton getRbFragmentadoSim() {
+        return rbFragmentadoSim;
+    }
+
+    public JTextField getTxtDescricao() {
+        return txtDescricao;
+    }
+
+    public JTextField getTxtSigla() {
+        return txtSigla;
+    }
+
+    public void setRbFragmentadoNao(JRadioButton rbFragmentadoNao) {
+        this.rbFragmentadoNao = rbFragmentadoNao;
+    }
+
+    public void setRbFragmentadoSim(JRadioButton rbFragmentadoSim) {
+        this.rbFragmentadoSim = rbFragmentadoSim;
+    }
+
+    public void setTxtDescricao(JTextField txtDescricao) {
+        this.txtDescricao = txtDescricao;
+    }
+
+    public void setTxtSigla(JTextField txtSigla) {
+        this.txtSigla = txtSigla;
+    }
+
+    public ButtonGroup getGroupFragmentado() {
+        return groupFragmentado;
+    }
+
+    public int getId_unidade() {
+        return id_unidade;
+    }
+
+    public void setId_unidade(int id_unidade) {
+        this.id_unidade = id_unidade;
+    }
+
+    
 }

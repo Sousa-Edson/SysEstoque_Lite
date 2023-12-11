@@ -47,6 +47,27 @@ public class UnidadeDao {
     public void alterarUnidade(Unidade unidade) {
         conex.conexao();
         try (PreparedStatement pst = conex.con.prepareStatement(
+                "UPDATE unidade SET sigla_unidade=?, desc_unidade=?, registro_unidade=?, "
+                + "usuario_unidade=?, stunid=?, fragmento_unidade=? WHERE id_unidade=?")) {
+            pst.setString(1, unidade.getSigla_unidade());
+            pst.setString(2, unidade.getDesc_unidade());
+            pst.setString(3, unidade.getRegistro_unidade());
+            pst.setString(4, unidade.getUsuario_unidade());
+            pst.setInt(5, unidade.getStatus_unidade());
+            pst.setInt(6, unidade.getFragmento_unidade());
+            pst.setInt(7, unidade.getId_unidade());
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Unidade alterada com sucesso.");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar unidade.\nAlterar_Unidade\n" + ex);
+        } finally {
+            conex.desconecta();
+        }
+    }
+
+    public void alterarUnidadeApagar(Unidade unidade) {
+        conex.conexao();
+        try (PreparedStatement pst = conex.con.prepareStatement(
                 "UPDATE unidade SET stunid=? WHERE id_unidade=?")) {
             pst.setInt(1, unidade.getStatus_unidade());
             pst.setInt(2, unidade.getId_unidade());

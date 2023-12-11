@@ -150,27 +150,27 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jButton_Novo" linkSize="1" alignment="0" pref="133" max="32767" attributes="0"/>
-                                  <Component id="jTextField_Sigla" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="btnNovo" linkSize="1" alignment="0" pref="133" max="32767" attributes="0"/>
+                                  <Component id="txtSigla" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jButton_Salvar" linkSize="1" min="-2" pref="142" max="-2" attributes="0"/>
+                                      <Component id="btnSalvar" linkSize="1" min="-2" pref="142" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButton_Cancelar" linkSize="1" min="-2" pref="129" max="-2" attributes="0"/>
+                                      <Component id="btnCancelar" linkSize="1" min="-2" pref="129" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButton_Excluir" linkSize="1" min="-2" pref="81" max="-2" attributes="0"/>
+                                      <Component id="btnExcluir" linkSize="1" min="-2" pref="81" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jTextField_Descricao" min="-2" pref="236" max="-2" attributes="0"/>
+                                      <Component id="txtDescricao" min="-2" pref="236" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel5" min="-2" pref="90" max="-2" attributes="0"/>
                                           <Group type="102" attributes="0">
-                                              <Component id="jRadioButton_Sim" min="-2" max="-2" attributes="0"/>
+                                              <Component id="rbFragmentadoSim" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="jRadioButton_Nao" min="-2" max="-2" attributes="0"/>
+                                              <Component id="rbFragmentadoNao" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -192,17 +192,17 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextField_Sigla" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField_Descricao" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButton_Sim" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButton_Nao" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtSigla" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtDescricao" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rbFragmentadoSim" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rbFragmentadoNao" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton_Novo" max="32767" attributes="0"/>
-                          <Component id="jButton_Salvar" alignment="0" pref="45" max="32767" attributes="0"/>
-                          <Component id="jButton_Cancelar" max="32767" attributes="0"/>
-                          <Component id="jButton_Excluir" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnNovo" max="32767" attributes="0"/>
+                          <Component id="btnSalvar" alignment="0" pref="45" max="32767" attributes="0"/>
+                          <Component id="btnCancelar" max="32767" attributes="0"/>
+                          <Component id="btnExcluir" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -219,12 +219,12 @@
                 <Property name="text" type="java.lang.String" value="Sigla"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField_Sigla">
+            <Component class="javax.swing.JTextField" name="txtSigla">
               <Properties>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField_SiglaKeyPressed"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSiglaKeyPressed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
@@ -236,31 +236,31 @@
                 <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField_Descricao">
+            <Component class="javax.swing.JTextField" name="txtDescricao">
               <Properties>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField_DescricaoKeyPressed"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDescricaoKeyPressed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButton_Sim">
+            <Component class="javax.swing.JRadioButton" name="rbFragmentadoSim">
               <Properties>
                 <Property name="text" type="java.lang.String" value="sim"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton_SimActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbFragmentadoSimActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButton_Nao">
+            <Component class="javax.swing.JRadioButton" name="rbFragmentadoNao">
               <Properties>
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="n&#xe3;o"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton_NaoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbFragmentadoNaoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
@@ -271,7 +271,7 @@
                 <Property name="text" type="java.lang.String" value="Fragmentado"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton_Novo">
+            <Component class="javax.swing.JButton" name="btnNovo">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/icons8-novo-24.png"/>
@@ -279,10 +279,10 @@
                 <Property name="text" type="java.lang.String" value="Novo"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_NovoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton_Salvar">
+            <Component class="javax.swing.JButton" name="btnSalvar">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/icons8-salvar-24.png"/>
@@ -291,11 +291,11 @@
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_SalvarActionPerformed"/>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jButton_SalvarKeyPressed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarActionPerformed"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnSalvarKeyPressed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton_Cancelar">
+            <Component class="javax.swing.JButton" name="btnCancelar">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/icons8-cancelar-24.png"/>
@@ -303,10 +303,10 @@
                 <Property name="text" type="java.lang.String" value="Cancelar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_CancelarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton_Excluir">
+            <Component class="javax.swing.JButton" name="btnExcluir">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/icons8-excluir-24.png"/>
@@ -315,7 +315,7 @@
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_ExcluirActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
