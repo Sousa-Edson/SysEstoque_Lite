@@ -9,7 +9,13 @@ import ModeloBeans.Beans_Unidade;
 import ConectaBanco.ConexaoBD;
 import java.awt.Component;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.Unidade;
+import view.UnidadeCadastroJIF;
 
 /**
  *
@@ -18,7 +24,7 @@ import javax.swing.JOptionPane;
 public class Dao_Unidade {
 
     ConexaoBD conex = new ConexaoBD();
-    Beans_Unidade unidade = new Beans_Unidade();
+    Beans_Unidade unidadeOld = new Beans_Unidade();
 
     public void Salvar_Unidade(Beans_Unidade unidade) {
         conex.conexao();
@@ -33,7 +39,7 @@ public class Dao_Unidade {
             pst.setString(4, unidade.getRegistro_unidade());
             pst.setString(5, unidade.getUsuario_unidade());
             pst.setInt(6, unidade.getStatus_unidade());
-             pst.setInt(7, unidade.getFragmento_unidade());
+            pst.setInt(7, unidade.getFragmento_unidade());
             pst.execute();
 //            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso. ");
         } catch (SQLException ex) {
@@ -48,7 +54,7 @@ public class Dao_Unidade {
         Component rootPane = null;
         resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente incluir ? ");
         {
-            Salvar_Unidade(unidade);
+            Salvar_Unidade(unidadeOld);
         }
     }
 
@@ -90,6 +96,35 @@ public class Dao_Unidade {
             JOptionPane.showMessageDialog(null, "Erro ao Excluir /  atualizar produto. \\n" + ex);
         }
         conex.desconecta();
+    }
+
+    /*corrigidos abaixo desta linha*/
+    public List<Unidade> listarUnidades() {
+        List<Unidade> unidades = new ArrayList<>();
+ 
+        conex.conexao();
+        conex.executaSql2("SELECT id_unidade, id_referenciaunidade, sigla_unidade, desc_unidade, registro_unidade, \n"
+                + "       usuario_unidade,fragmento_unidade,stunid \n"
+                + "  FROM unidade where stunid =1 order by id_referenciaunidade desc ");
+
+        try {
+            conex.rs.first();
+            do {
+                unidades.add(new Unidade(conex.rs.getInt("id_referenciaunidade"),
+                        conex.rs.getInt("id_unidade"),
+                        conex.rs.getInt("stunid"), 
+                        conex.rs.getInt("fragmento_unidade"),
+                        conex.rs.getString("sigla_unidade"),
+                        conex.rs.getString("desc_unidade"),
+                        conex.rs.getString("registro_unidade"),
+                        conex.rs.getString("usuario_unidade")));
+
+            } while (conex.rs.next());
+        } catch (SQLException ex) {
+            Logger.getLogger(UnidadeCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conex.desconecta();
+        return unidades;
     }
 
 }

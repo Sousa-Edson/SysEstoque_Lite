@@ -111,8 +111,10 @@ public class LoginJIF extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Versão 6.0");
 
+        jLabel2.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
         jLabel2.setText("Senha");
 
+        jLabel5.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
         jLabel5.setText("Login");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

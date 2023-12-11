@@ -298,15 +298,16 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,12 +384,12 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
             jRadioButton_Sim.setEnabled(true);
             String TipoUsuario = MenuPrincipal.jLabelTipoUsuario.getText();
             if (TipoUsuario == "Manutenção") {
-                id_unidade = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 7);
+                id_unidade = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 0);
                 id_referencia = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 0);
                 jTextField_Sigla.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 2));
                 jTextField_Descricao.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 3));
             } else {
-                id_unidade = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 6);
+                id_unidade = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 0);
                 id_referencia = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 0);
                 jTextField_Sigla.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 1));
                 jTextField_Descricao.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 2));
@@ -532,47 +533,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
     }
 
     public void PreencheTabela2() {
-        ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{"Codigo", "Sigla", "Descrição", "Fragmentado", "Registro", "Usuario", "Id"};
-//        String MostraTabela;
-//        String ordem;
-//        MostraTabela = "ATIVO";
-//        int VerFrag = 0;
-//        String FragNome;
-//        if (jRadioButtonOrderm.isSelected()) {
-//            ordem = "";
-//        } else {
-//            ordem = "asc";
-//        }
-//        conex.conexao();
-//
-//        if (ordem.equals("asc")) {
-//            conex.executaSql2("SELECT id_unidade, id_referenciaunidade, sigla_unidade, desc_unidade, registro_unidade, \n"
-//                    + "       usuario_unidade,fragmento_unidade\n"
-//                    + "  FROM unidade  where stunid =1 order by id_referenciaunidade asc ");
-//        } else {
-//            conex.executaSql2("SELECT id_unidade, id_referenciaunidade, sigla_unidade, desc_unidade, registro_unidade, \n"
-//                    + "       usuario_unidade,fragmento_unidade\n"
-//                    + "  FROM unidade where stunid =1 order by id_referenciaunidade desc ");
-//        }
-//        try {
-//            conex.rs.first();
-//
-//            do {
-//                VerFrag = conex.rs.getInt("fragmento_unidade");
-//                if (VerFrag == 0) {
-//                    FragNome = "NÃO";
-//                } else {
-//                    FragNome = "SIM";
-//                }
-//                dados.add(new Object[]{conex.rs.getInt("id_referenciaunidade"),
-//                    conex.rs.getString("sigla_unidade"), conex.rs.getString("desc_unidade"), FragNome,
-//                    conex.rs.getString("registro_unidade"), conex.rs.getString("usuario_unidade"), conex.rs.getInt("id_unidade")});
-//
-//            } while (conex.rs.next());
-//        } catch (SQLException ex) {
-//            Logger.getLogger(UnidadeCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+       
         Dao_Unidade d = new Dao_Unidade();
 
         UnidadeTableModel modelo = new UnidadeTableModel();
@@ -580,43 +541,16 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         modelo.setUnidades(unidades);
 
         jTable_Lista.setModel(modelo);
-        jTable_Lista.getColumnModel().getColumn(0).setPreferredWidth(60);
-//        TableCellRenderer tcr = new check();
-//        jTable_Lista.getColumnModel().getColumn(0).setCellRenderer(tcr);
+        jTable_Lista.getColumnModel().getColumn(0).setPreferredWidth(60); 
         jTable_Lista.getColumnModel().getColumn(0).setResizable(true);
-        TableCellEditor tce = null;
-//        jTable_Lista.getColumnModel().getColumn(0).setCellEditor(tce);
-//        jTable_Lista.getColumnModel().getColumn(1).setPreferredWidth(80);
-//        jTable_Lista.getColumnModel().getColumn(1).setResizable(true);
-//        jTable_Lista.getColumnModel().getColumn(2).setPreferredWidth(100);
-//        jTable_Lista.getColumnModel().getColumn(2).setResizable(true);
-//        jTable_Lista.getColumnModel().getColumn(3).setPreferredWidth(100);
-//        jTable_Lista.getColumnModel().getColumn(3).setResizable(true);
-//        jTable_Lista.getColumnModel().getColumn(4).setPreferredWidth(100);
-//        jTable_Lista.getColumnModel().getColumn(4).setResizable(true);
-//        jTable_Lista.getColumnModel().getColumn(5).setPreferredWidth(80);
-//        jTable_Lista.getColumnModel().getColumn(5).setResizable(true);
-//        jTable_Lista.getColumnModel().getColumn(6).setPreferredWidth(00);
-//        jTable_Lista.getColumnModel().getColumn(6).setResizable(true);
-
-//        jTable_Lista.getColumnModel().getColumn(7).setPreferredWidth(80);
-//        jTable_Lista.getColumnModel().getColumn(7).setResizable(true);
+        
         jTable_Lista.getTableHeader().setReorderingAllowed(false);
 //        jTable_Lista.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable_Lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-//        conex.desconecta();
+ 
     }
 
-    class check extends JCheckBox implements TableCellRenderer {
-
-        public Component getTableCellRendererComponent(
-                JTable table, Object value, boolean isSelected,
-                boolean hasFocus, int row, int column) {
-
-            return this;
-        }
-    }
+   
 
     public void PreencheTabela3() {
         ArrayList dados = new ArrayList();

@@ -16,7 +16,7 @@ import model.Unidade;
 public class UnidadeTableModel extends AbstractTableModel {
 
     private List<Unidade> unidades;
-    private final String[] colunas = {"Codigo", "Sigla", "Descrição", "Fragmentado", "Registro", "Usuario", "Id"};
+    private final String[] colunas = {"Id", "Sigla", "Descrição", "Fragmentado", "Registro", "Usuario"};
 
     public UnidadeTableModel() {
         this.unidades = new ArrayList<>();
@@ -49,7 +49,7 @@ public class UnidadeTableModel extends AbstractTableModel {
 
         switch (columnIndex) {
             case 0:
-                return unidade.getId_referencia();
+                return unidade.getId_unidade();
             case 1:
                 return unidade.getSigla_unidade();
             case 2:
@@ -60,8 +60,7 @@ public class UnidadeTableModel extends AbstractTableModel {
                 return unidade.getRegistro_unidade();
             case 5:
                 return unidade.getUsuario_unidade();
-            case 6:
-                return unidade.getId_unidade();
+           
             default:
                 return null;
         }
