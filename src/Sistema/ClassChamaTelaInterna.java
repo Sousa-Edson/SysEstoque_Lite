@@ -77,7 +77,7 @@ public class ClassChamaTelaInterna {
     }
 
     public void ChamaCadastroUnidade() {
-        UnidadeCadastroJIF.PreencheTabela();
+        UnidadeCadastroJIF.PreencheTabelaApagar();
         if (UnidadeCadastroJIF.isVisible()) {
         } else {menu.PainelPrincipal.remove(UnidadeCadastroJIF);
             menu.PainelPrincipal.add(UnidadeCadastroJIF);
@@ -86,7 +86,7 @@ public class ClassChamaTelaInterna {
         }
         UnidadeCadastroJIF.toFront();
         UnidadeCadastroJIF.setPosicao();
-        UnidadeCadastroJIF.PreencheTabela();
+        UnidadeCadastroJIF.PreencheTabelaApagar();
     }
 
     public void FechaCadastroProdutoInternoEditar() {
@@ -443,12 +443,12 @@ public class ClassChamaTelaInterna {
 //        } else {
 //        }
 //        if (UsuarioCadastro.isVisible()) {
-//            UsuarioCadastro.PreencheTabela();
+//            UsuarioCadastro.PreencheTabelaApagar();
 //        } else {
 //        }
 //
 //        if (NaturezaCadastro.isVisible()) {
-//            NaturezaCadastro.PreencheTabela();
+//            NaturezaCadastro.PreencheTabelaApagar();
 //        } else {
 //        }
 //
@@ -469,7 +469,7 @@ public class ClassChamaTelaInterna {
 //        }
 //
 //        if (UnidadeCadastroJIF.isVisible()) {
-//            UnidadeCadastroJIF.PreencheTabela();
+//            UnidadeCadastroJIF.PreencheTabelaApagar();
 //        } else {
 //        }
         System.out.println("Sistema.ClassChamaTelaInterna.ChamaAtualizaTudo()");
