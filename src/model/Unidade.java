@@ -13,9 +13,19 @@ public class Unidade {
     int id_referencia, id_unidade, status_unidade, fragmento_unidade;
     String sigla_unidade, desc_unidade, registro_unidade, usuario_unidade;
 
-     public Unidade() {
+    public Unidade() {
     }
-    
+
+    public Unidade(int id_referencia, int status_unidade, int fragmento_unidade, String sigla_unidade, String desc_unidade, String registro_unidade, String usuario_unidade) {
+        this.id_referencia = id_referencia;
+        this.status_unidade = status_unidade;
+        this.fragmento_unidade = fragmento_unidade;
+        this.sigla_unidade = sigla_unidade;
+        this.desc_unidade = desc_unidade;
+        this.registro_unidade = registro_unidade;
+        this.usuario_unidade = usuario_unidade;
+    }
+
     public Unidade(int id_referencia, int id_unidade, int status_unidade, int fragmento_unidade, String sigla_unidade, String desc_unidade, String registro_unidade, String usuario_unidade) {
         this.id_referencia = id_referencia;
         this.id_unidade = id_unidade;
@@ -26,12 +36,6 @@ public class Unidade {
         this.registro_unidade = registro_unidade;
         this.usuario_unidade = usuario_unidade;
     }
-    
-    
-
-   
-    
-    
 
     public int getFragmento_unidade() {
         return fragmento_unidade;

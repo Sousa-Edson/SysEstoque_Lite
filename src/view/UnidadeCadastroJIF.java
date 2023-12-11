@@ -12,6 +12,7 @@ import ModeloDao.Dao_Unidade;
 import UTIL.ControleCores;
 import UTIL.DataHoraAtual;
 import UTIL.UsuarioLogado;
+import controller.UnidadeController;
 import dao.UnidadeDao;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -51,11 +52,16 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
     /**
      * Creates new form JIFTEste
      */
+    private UnidadeController unidadeController;
+
     public UnidadeCadastroJIF() {
         initComponents();
         remover_Ico();
-//        PreencheUnidade();
-        // setPosicao();
+        unidadeController = new UnidadeController();
+
+        groupFragmentado.add(jRadioButton_Nao);
+        groupFragmentado.add(jRadioButton_Sim);
+
     }
 
     /**
@@ -68,6 +74,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel4 = new javax.swing.JLabel();
+        groupFragmentado = new javax.swing.ButtonGroup();
         pnPrincipal = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_Lista = new javax.swing.JTable();
@@ -329,7 +336,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void jButton_NovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NovoActionPerformed
-        CarregaUltimo();
+//        CarregaUltimo();
         flag = 1;
         jButton_Novo.setEnabled(false);
         jButton_Excluir.setEnabled(false);
@@ -503,7 +510,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
     }
 
     public void PreencheTabela2() {
-       
+
         Dao_Unidade d = new Dao_Unidade();
 
         UnidadeTableModel modelo = new UnidadeTableModel();
@@ -511,16 +518,14 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         modelo.setUnidades(unidades);
 
         jTable_Lista.setModel(modelo);
-        jTable_Lista.getColumnModel().getColumn(0).setPreferredWidth(60); 
+        jTable_Lista.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTable_Lista.getColumnModel().getColumn(0).setResizable(true);
-        
+
         jTable_Lista.getTableHeader().setReorderingAllowed(false);
 //        jTable_Lista.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable_Lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
- 
-    }
 
-   
+    }
 
     public void PreencheTabela3() {
         ArrayList dados = new ArrayList();
@@ -528,7 +533,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         String MostraTabela;
         String ordem = null;
         MostraTabela = "ATIVO";
-      
+
         conex.conexao();
 
         if (ordem.equals("asc")) {
@@ -629,54 +634,39 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         jTextField_Descricao.setEnabled(false);
         jRadioButton_Nao.setEnabled(false);
         jRadioButton_Sim.setEnabled(false);
-        BUnis.setSigla_unidade(jTextField_Sigla.getText());
-        BUnis.setDesc_unidade(jTextField_Descricao.getText());
 
+//        BUnis.setSigla_unidade(jTextField_Sigla.getText());
+//        BUnis.setDesc_unidade(jTextField_Descricao.getText());
         if (flag == 2) {
-            BUnis.setId_unidade(id_unidade);
-            BUnis.setStatus_unidade(2);
-            DUnid.alterarUnidade(BUnis);
+//            BUnis.setId_unidade(id_unidade);
+//            BUnis.setStatus_unidade(2);
+//            DUnid.alterarUnidade(BUnis);
         } else {
             System.out.println("Interface.UnidadeCadastroJIF.EventoSalvar() sem id " + id_unidade);
         }
 
-        if (jRadioButton_Nao.isSelected()) {
-            fragmento = 0;
-        } else if (jRadioButton_Sim.isSelected()) {
-            fragmento = 1;
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Selecione sim ou não !");
-        }
-        BUnis.setFragmento_unidade(fragmento);
-        BUnis.setStatus_unidade(1);
-        BUnis.setRegistro_unidade(DataHoraAtual.obterDataHoraFormatada());
-        BUnis.setUsuario_unidade(UsuarioLogado.getNome());
+//        if (groupFragmentado.isSelected(jRadioButton_Nao.getModel())) {
+//            fragmento = 0;
+//        } else if (groupFragmentado.isSelected(jRadioButton_Sim.getModel())) {
+//            fragmento = 1;
+//        } else {
+//            JOptionPane.showMessageDialog(rootPane, "Selecione sim ou não !");
+//        }
         System.out.println("Interface.UnidadeCadastroJIF.EventoSalvar() referencia " + id_referencia);
-        BUnis.setId_referencia(id_referencia);
-        DUnid.salvarUnidade(BUnis);
+//        BUnis.setId_referencia(id_referencia);
+//        DUnid.salvarUnidade(BUnis);
+
+        unidadeController.salvarUnidade(jTextField_Sigla.getText().toUpperCase(),
+                jTextField_Descricao.getText().toUpperCase(),
+                1, groupFragmentado.isSelected(jRadioButton_Nao.getModel()) ? 0 : 1, 0);
         PreencheTabela();
         jTextField_Descricao.setText(null);
         jTextField_Sigla.setText(null);
     }
 
-    public void CarregaUltimo() {
-        conex.conexao();
-        conex.executaSql2("SELECT  id_referenciaunidade  FROM unidade where id_referenciaunidade is not null and id_referenciaunidade !=0 order by id_referenciaunidade asc  ");
-        try {
-            conex.rs.last();
-            id_referencia = conex.rs.getInt("id_referenciaunidade");
-//            JOptionPane.showMessageDialog(rootPane, id_referencia);
-            id_referencia = id_referencia + 1;
-//            JOptionPane.showMessageDialog(rootPane, id_referencia);
-        } catch (SQLException ex) {
-//            Logger.getLogger(UnidadeJIF.class.getName()).log(Level.SEVERE, null, ex);
-            id_referencia = 1;
-        }
-//        JOptionPane.showMessageDialog(rootPane, id_referencia);
-        conex.desconecta();
-        System.out.println("Interface.UnidadeCadastroJIF.CarregaUltimo()  " + id_referencia);
-    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup groupFragmentado;
     private javax.swing.JButton jButton_Cancelar;
     private javax.swing.JButton jButton_Excluir;
     private javax.swing.JButton jButton_Novo;

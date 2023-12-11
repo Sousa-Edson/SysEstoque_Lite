@@ -24,7 +24,7 @@ public class UnidadeDao {
     private final ConexaoBD conex = new ConexaoBD();
 
     public void salvarUnidade(Unidade unidade) {
-          conex.conexao();
+        conex.conexao();
         try (PreparedStatement pst = conex.con.prepareStatement(
                 "INSERT INTO unidade (id_referenciaunidade, sigla_unidade, desc_unidade, registro_unidade, "
                 + "usuario_unidade, stunid, fragmento_unidade) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
@@ -45,7 +45,7 @@ public class UnidadeDao {
     }
 
     public void alterarUnidade(Unidade unidade) {
-          conex.conexao();
+        conex.conexao();
         try (PreparedStatement pst = conex.con.prepareStatement(
                 "UPDATE unidade SET stunid=? WHERE id_unidade=?")) {
             pst.setInt(1, unidade.getStatus_unidade());
@@ -60,7 +60,7 @@ public class UnidadeDao {
     }
 
     public void excluirUnidade(Unidade unidade) {
-          conex.conexao();
+        conex.conexao();
         try (PreparedStatement pst = conex.con.prepareStatement(
                 "UPDATE unidade SET stunid=?, usuario_unidade=?, registro_unidade=? WHERE id_unidade=?")) {
             pst.setInt(1, unidade.getStatus_unidade());
@@ -101,4 +101,24 @@ public class UnidadeDao {
         return unidades;
     }
 
+    //apagar
+    public int CarregaUltimo() {
+        int id_referencia;
+        conex.conexao();
+        conex.executaSql2("SELECT  id_referenciaunidade  FROM unidade where id_referenciaunidade is not null and id_referenciaunidade !=0 order by id_referenciaunidade asc  ");
+        try {
+            conex.rs.last();
+            id_referencia = conex.rs.getInt("id_referenciaunidade");
+//            JOptionPane.showMessageDialog(rootPane, id_referencia);
+            id_referencia = id_referencia + 1;
+//            JOptionPane.showMessageDialog(rootPane, id_referencia);
+        } catch (SQLException ex) {
+//            Logger.getLogger(UnidadeJIF.class.getName()).log(Level.SEVERE, null, ex);
+            id_referencia = 1;
+        }
+//        JOptionPane.showMessageDialog(rootPane, id_referencia);
+        conex.desconecta();
+        System.out.println("Interface.UnidadeCadastroJIF.CarregaUltimo()  " + id_referencia);
+        return id_referencia;
+    }
 }
