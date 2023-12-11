@@ -17,7 +17,7 @@ import Interface.LoginJIF;
 import Interface.MovimentoCadastroJIF;
 import Interface.MovimentoListaJIF;
 import Interface.NaturezaCadastroJIF;
-import Interface.Principal;
+import view.MenuPrincipal;
 import Interface.ProdCadastroJIF;
 import Interface.ProdutoListaJIF;
 import Interface.ProtocoloInternaJIF;
@@ -51,7 +51,7 @@ public class ClassChamaTelaInterna {
     ExpedicaoJIF ChamaExpedicao = new ExpedicaoJIF();
     BandeiraInternaJIF ChamaBandeira = new BandeiraInternaJIF();
     ProtocoloInternaJIF ChamaProtocolo = new ProtocoloInternaJIF();
-    Principal menu;
+    MenuPrincipal menu;
 
     public void ChamaCadastroProdutoInterno() {
         String id = menu.jLabelCodigoTela2.getText();
@@ -303,7 +303,7 @@ public class ClassChamaTelaInterna {
     }
 
     public void ManipulaMovimentoEditar() {
-        ManipulaMovimento.RecebeNota_Mov(Principal.jLabelCodigoTela2.getText());
+        ManipulaMovimento.RecebeNota_Mov(MenuPrincipal.jLabelCodigoTela2.getText());
         ManipulaMovimento.InsereMovimentoTemp();
     }
 
@@ -333,7 +333,7 @@ public class ClassChamaTelaInterna {
         }
         ManipulaMovimentoEditar(); // aqui insere na tabela
         MovimentoCadastro.setSize(1100, 500);//pack(); [1061, 436]
-        MovimentoCadastro.RecebeIdNota(Principal.jLabelCodigoTela2.getText());
+        MovimentoCadastro.RecebeIdNota(MenuPrincipal.jLabelCodigoTela2.getText());
         MovimentoCadastro.PreencherNatureza();
         MovimentoCadastro.PreencherFornecedor();
         MovimentoCadastro.PreencherTransporte();
@@ -353,7 +353,7 @@ public class ClassChamaTelaInterna {
         }
         ManipulaMovimentoLimpar();
         MovimentoCadastro.setSize(1100, 500);//pack(); [1061, 436]
-        MovimentoCadastro.RecebeIdNota(Principal.jLabelCodigoTela2.getText());
+        MovimentoCadastro.RecebeIdNota(MenuPrincipal.jLabelCodigoTela2.getText());
         MovimentoCadastro.PreencherFornecedor();
         MovimentoCadastro.PreencherNatureza();
         MovimentoCadastro.PreencherTransporte();
