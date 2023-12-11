@@ -16,6 +16,7 @@ import PackParaTeste.JIFTEste;
 import PackParaTeste.JIFTEste2;
 import Sistema.ClassChamaTelaInterna;
 import Sistema.ManipulaProtocolo;
+import UTIL.UsuarioLogado;
 import java.awt.Color;
 import static java.awt.Component.CENTER_ALIGNMENT;
 import java.awt.Image;
@@ -61,8 +62,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         MudaTitulo();
         HoraAtual();
         EscondeMenu();
-       carregaPapelParede();
+        carregaPapelParede();
         ChamaLoginPrincipal();
+        System.out.println("Meu usuario::" + UsuarioLogado.getNome());
     }
 
     /**
@@ -1031,6 +1033,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem_EscondeMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_EscondeMenuActionPerformed
         EscondeMenu();
+         System.out.println("Meu usuario::" + UsuarioLogado.getNome());
     }//GEN-LAST:event_jMenuItem_EscondeMenuActionPerformed
 
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
