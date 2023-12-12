@@ -6,8 +6,7 @@
 package ModeloDao;
 
 import ModeloBeans.Beans_Produto;
-import ConectaBanco.ConexaoBD;
-import ConectaBanco.Conexao_mysql;
+import ConectaBanco.ConexaoBD; 
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -16,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author edson
  */
 public class Dao_Produto {
-Conexao_mysql c_mysql= new Conexao_mysql();
+ 
     ConexaoBD conex = new ConexaoBD();
     Beans_Produto cadProd = new Beans_Produto();
 
