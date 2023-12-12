@@ -73,7 +73,7 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        PainelPrincipal = new javax.swing.JDesktopPane();
+        desktopPrincipal = new javax.swing.JDesktopPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel_PapelDeParede = new javax.swing.JLabel();
         jButton_Produto = new javax.swing.JButton();
@@ -247,16 +247,16 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(1, 1, 1))
         );
 
-        PainelPrincipal.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        desktopPrincipal.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        javax.swing.GroupLayout PainelPrincipalLayout = new javax.swing.GroupLayout(PainelPrincipal);
-        PainelPrincipal.setLayout(PainelPrincipalLayout);
-        PainelPrincipalLayout.setHorizontalGroup(
-            PainelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout desktopPrincipalLayout = new javax.swing.GroupLayout(desktopPrincipal);
+        desktopPrincipal.setLayout(desktopPrincipalLayout);
+        desktopPrincipalLayout.setHorizontalGroup(
+            desktopPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        PainelPrincipalLayout.setVerticalGroup(
-            PainelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        desktopPrincipalLayout.setVerticalGroup(
+            desktopPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -506,7 +506,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu9.setText("Produto");
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Img10.png"))); // NOI18N
         jMenuItem2.setText("Produto");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -575,7 +575,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu11.add(jMenuItem3);
         jMenu11.add(jSeparator7);
 
-        jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Img10.png"))); // NOI18N
         jMenuItem9.setText("Cadastrar Movimento");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
@@ -847,7 +847,7 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(PainelPrincipal)
+                    .addComponent(desktopPrincipal)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanelMenuInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -856,7 +856,7 @@ public class Principal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(PainelPrincipal)
+                .addComponent(desktopPrincipal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelMenuInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2))
@@ -1485,11 +1485,11 @@ public class Principal extends javax.swing.JFrame {
 
         if (ChamaLoginPrincipal.isVisible()) {
             ChamaLoginPrincipal.setVisible(false);
-            PainelPrincipal.remove(ChamaLoginPrincipal);
+            desktopPrincipal.remove(ChamaLoginPrincipal);
 //             EscondeBarraBordasTeste();
         } else {
-            PainelPrincipal.remove(ChamaLoginPrincipal);
-            PainelPrincipal.add(ChamaLoginPrincipal);
+            desktopPrincipal.remove(ChamaLoginPrincipal);
+            desktopPrincipal.add(ChamaLoginPrincipal);
             ChamaLoginPrincipal.setBorder(null);//retirar bordas;
             ChamaLoginPrincipal.setPosicao();
 //             EscondeBarraBordasTeste();
@@ -1513,10 +1513,10 @@ public class Principal extends javax.swing.JFrame {
 
         if (teste.isVisible()) {
             teste.setVisible(false);
-            PainelPrincipal.remove(teste);
+            desktopPrincipal.remove(teste);
 //             EscondeBarraBordasTeste();
         } else {
-            PainelPrincipal.add(teste);
+            desktopPrincipal.add(teste);
             teste.setBorder(null);//retirar bordas;
             teste.setPosicao();
 //             EscondeBarraBordasTeste();
@@ -1531,10 +1531,10 @@ public class Principal extends javax.swing.JFrame {
 
         if (teste2.isVisible()) {
             teste2.setVisible(false);
-            PainelPrincipal.remove(teste2);
+            desktopPrincipal.remove(teste2);
 //             EscondeBarraBordasTeste();
         } else {
-            PainelPrincipal.add(teste2);
+            desktopPrincipal.add(teste2);
             teste2.setBorder(null);//retirar bordas;
             teste2.setPosicao();
 //             EscondeBarraBordasTeste();
@@ -1643,7 +1643,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JDesktopPane PainelPrincipal;
+    public static javax.swing.JDesktopPane desktopPrincipal;
     public static javax.swing.JButton jButton1;
     public static javax.swing.JButton jButton2;
     public static javax.swing.JButton jButton3;

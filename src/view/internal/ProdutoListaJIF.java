@@ -46,7 +46,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
     public ProdutoListaJIF() {
         initComponents();
         remover_Ico();
-        btnBuscaLimpa.setVisible(false);
+         
         pnPrincipal.setBackground(ControleCores.pegarCorPadrao());
         // setPosicao();
     }
@@ -66,9 +66,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         txtBuscar = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
-        jRadioButtonOrdem = new javax.swing.JRadioButton();
         btnNovo = new javax.swing.JButton();
-        btnBuscaLimpa = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -129,6 +127,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
             }
         });
 
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-lupa-24.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,6 +135,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
             }
         });
 
+        btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-cancelar-24.png"))); // NOI18N
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,20 +143,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        jRadioButtonOrdem.setBackground(new java.awt.Color(255, 51, 102));
-        jRadioButtonOrdem.setSelected(true);
-        jRadioButtonOrdem.setText("ORDEM");
-        jRadioButtonOrdem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jRadioButtonOrdemMouseClicked(evt);
-            }
-        });
-        jRadioButtonOrdem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonOrdemActionPerformed(evt);
-            }
-        });
-
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-novo-24.png"))); // NOI18N
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,13 +151,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        btnBuscaLimpa.setText("busca limpa");
-        btnBuscaLimpa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscaLimpaActionPerformed(evt);
-            }
-        });
-
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-lápis-24.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.setEnabled(false);
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -186,22 +167,17 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
             .addGroup(pnPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 989, Short.MAX_VALUE)
                     .addGroup(pnPrincipalLayout.createSequentialGroup()
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnNovo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPesquisar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLimpar)
-                        .addGap(2, 2, 2)
-                        .addComponent(btnNovo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscaLimpa, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButtonOrdem)
-                        .addGap(0, 91, Short.MAX_VALUE)))
+                        .addComponent(btnEditar)))
                 .addContainerGap())
         );
 
@@ -215,16 +191,14 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar)
                     .addComponent(btnLimpar)
-                    .addComponent(jRadioButtonOrdem)
-                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscaLimpa)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        pnPrincipalLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnEditar, btnLimpar, btnNovo, btnPesquisar});
+        pnPrincipalLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnEditar, btnLimpar, btnNovo, btnPesquisar, txtBuscar});
 
         jMenu1.setText("Arquivo");
         jMenuBar1.add(jMenu1);
@@ -292,10 +266,6 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         this.setVisible(false);
     }//GEN-LAST:event_formInternalFrameClosing
 
-    private void jRadioButtonOrdemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButtonOrdemMouseClicked
-        btnPesquisar.doClick();
-    }//GEN-LAST:event_jRadioButtonOrdemMouseClicked
-
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
 //        BuscaUltimaId();
         btnEditar.setEnabled(false);
@@ -358,10 +328,6 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jTable_ProdutoMouseClicked
 
-    private void btnBuscaLimpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaLimpaActionPerformed
-        BuscaLimpa();
-    }//GEN-LAST:event_btnBuscaLimpaActionPerformed
-
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         System.out.println("SelecionaProduto " + SelecionaProduto);
 //        if (SelecionaProduto.equals(null)) {
@@ -391,10 +357,6 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu2MouseClicked
 
-    private void jRadioButtonOrdemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonOrdemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonOrdemActionPerformed
-
     public void EventoLimpar() {
         SelecionaProduto = null;
         txtBuscar.setText("");
@@ -408,17 +370,17 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
 
     public void EventoBuscaExibirImagens() {
         String MinhaBusca = txtBuscar.getText();
-        if (jRadioButtonOrdem.isSelected()) {
-            preencherTabela("select * from produto\n"
-                    + "inner join unidade on  idunid=id_referenciaunidade \n"
-                    + "inner join imagemproduto on produtoid = sis_prod\n"
-                    + "where (coalesce((sis_prod))||' '||coalesce(UPPER(tipo_prod)) ||' '|| "
-                    + "coalesce(UPPER(nome_prod)) ||' '||coalesce(UPPER(edicao_prod)) ||' '||"
-                    + " coalesce(UPPER(obs_prod)) ) "
-                    + "ilike '%" + MinhaBusca + "%' and stunid =1 "
-                    + "  and stprod =1 \n"
-                    + "order by sis_prod  desc  ,id_prod  desc");
-        } else {
+//        if (jRadioButtonOrdem.isSelected()) {
+//            preencherTabela("select * from produto\n"
+//                    + "inner join unidade on  idunid=id_referenciaunidade \n"
+//                    + "inner join imagemproduto on produtoid = sis_prod\n"
+//                    + "where (coalesce((sis_prod))||' '||coalesce(UPPER(tipo_prod)) ||' '|| "
+//                    + "coalesce(UPPER(nome_prod)) ||' '||coalesce(UPPER(edicao_prod)) ||' '||"
+//                    + " coalesce(UPPER(obs_prod)) ) "
+//                    + "ilike '%" + MinhaBusca + "%' and stunid =1 "
+//                    + "  and stprod =1 \n"
+//                    + "order by sis_prod  desc  ,id_prod  desc");
+//        } else {
             preencherTabela("select * from produto\n"
                     + "inner join unidade on  idunid=id_referenciaunidade \n"
                     + "inner join imagemproduto on produtoid = sis_prod\n"
@@ -428,23 +390,23 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
                     + "ilike '%" + MinhaBusca + "%' and stunid =1 "
                     + "  and stprod =1 \n"
                     + "order by sis_prod  asc  ,id_prod  asc");
-        }
+//        }
     }
 
     public void EventoBuscar() {
         btnEditar.setEnabled(false);
         String MinhaBusca = txtBuscar.getText(), situacao = "", MostraTabela = "1";//ATIVO
         String TipoUsuario = Principal.jLabelTipoUsuario.getText();
-        if (TipoUsuario == "Manutenção") {
-            if (jRadioButtonOrdem.isSelected()) {
-                preencherTabela2("select * from produto "
-                        + "inner join unidade on  idunid=id_referenciaunidade "
-                        + "where (coalesce((id_prod)) ||' '||coalesce((sis_prod))||' '||coalesce(UPPER(tipo_prod)) ||' '|| "
-                        + "coalesce(UPPER(nome_prod))||' '||coalesce(UPPER(edicao_prod)) ||' '||"
-                        + " coalesce(UPPER(obs_prod))||' '|| coalesce(UPPER(usu_prod)) ||' '|| coalesce((data_reg)) ) "
-                        + "ilike '%" + MinhaBusca + "%' and stunid =1  "
-                        + "order by sis_prod  desc  ,id_prod  desc");//and stprod =" + MostraTabela + "
-            } else {
+//        if (TipoUsuario == "Manutenção") {
+//            if (jRadioButtonOrdem.isSelected()) {
+//                preencherTabela2("select * from produto "
+//                        + "inner join unidade on  idunid=id_referenciaunidade "
+//                        + "where (coalesce((id_prod)) ||' '||coalesce((sis_prod))||' '||coalesce(UPPER(tipo_prod)) ||' '|| "
+//                        + "coalesce(UPPER(nome_prod))||' '||coalesce(UPPER(edicao_prod)) ||' '||"
+//                        + " coalesce(UPPER(obs_prod))||' '|| coalesce(UPPER(usu_prod)) ||' '|| coalesce((data_reg)) ) "
+//                        + "ilike '%" + MinhaBusca + "%' and stunid =1  "
+//                        + "order by sis_prod  desc  ,id_prod  desc");//and stprod =" + MostraTabela + "
+//            } else {
                 preencherTabela2("select * from produto "
                         + "inner join unidade on  idunid=id_referenciaunidade "
                         + "where (coalesce((id_prod)) ||' '||coalesce((sis_prod))||' '||coalesce(UPPER(tipo_prod)) ||' '|| "
@@ -452,26 +414,26 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
                         + " coalesce(UPPER(obs_prod))||' '|| coalesce(UPPER(usu_prod))  ||' '|| coalesce((data_reg)) ) "
                         + "ilike '%" + MinhaBusca + "%' and stunid =1  "
                         + "order by sis_prod  asc  ,id_prod  asc");// and stprod =" + MostraTabela + "
-            }
-        } else {
-            if (jRadioButtonOrdem.isSelected()) {
-                preencherTabela("select * from produto "
-                        + "inner join unidade on  idunid=id_referenciaunidade "
-                        + "where (coalesce((id_prod)) ||' '||coalesce((sis_prod))||' '||coalesce(UPPER(tipo_prod)) ||' '|| "
-                        + "coalesce(UPPER(nome_prod))||' '||coalesce(UPPER(edicao_prod)) ||' '||"
-                        + " coalesce(UPPER(obs_prod))||' '|| coalesce(UPPER(usu_prod)) ||' '|| coalesce((data_reg)) ) "
-                        + "ilike '%" + MinhaBusca + "%' and stprod =" + MostraTabela + " and stunid =1 "
-                        + "order by sis_prod  desc  ,id_prod  desc");
-            } else {
-                preencherTabela("select * from produto "
-                        + "inner join unidade on  idunid=id_referenciaunidade "
-                        + "where (coalesce((id_prod)) ||' '||coalesce((sis_prod))||' '||coalesce(UPPER(tipo_prod)) ||' '|| "
-                        + "coalesce(UPPER(nome_prod)) ||' '||coalesce(UPPER(edicao_prod)) ||' '||"
-                        + " coalesce(UPPER(obs_prod))||' '|| coalesce(UPPER(usu_prod))  ||' '|| coalesce((data_reg)) ) "
-                        + "ilike '%" + MinhaBusca + "%' and stunid =1  and stprod =" + MostraTabela + " "
-                        + "order by sis_prod  asc  ,id_prod  asc");
-            }
-        }
+//            }
+//        } else {
+//            if (jRadioButtonOrdem.isSelected()) {
+//                preencherTabela("select * from produto "
+//                        + "inner join unidade on  idunid=id_referenciaunidade "
+//                        + "where (coalesce((id_prod)) ||' '||coalesce((sis_prod))||' '||coalesce(UPPER(tipo_prod)) ||' '|| "
+//                        + "coalesce(UPPER(nome_prod))||' '||coalesce(UPPER(edicao_prod)) ||' '||"
+//                        + " coalesce(UPPER(obs_prod))||' '|| coalesce(UPPER(usu_prod)) ||' '|| coalesce((data_reg)) ) "
+//                        + "ilike '%" + MinhaBusca + "%' and stprod =" + MostraTabela + " and stunid =1 "
+//                        + "order by sis_prod  desc  ,id_prod  desc");
+//            } else {
+//                preencherTabela("select * from produto "
+//                        + "inner join unidade on  idunid=id_referenciaunidade "
+//                        + "where (coalesce((id_prod)) ||' '||coalesce((sis_prod))||' '||coalesce(UPPER(tipo_prod)) ||' '|| "
+//                        + "coalesce(UPPER(nome_prod)) ||' '||coalesce(UPPER(edicao_prod)) ||' '||"
+//                        + " coalesce(UPPER(obs_prod))||' '|| coalesce(UPPER(usu_prod))  ||' '|| coalesce((data_reg)) ) "
+//                        + "ilike '%" + MinhaBusca + "%' and stunid =1  and stprod =" + MostraTabela + " "
+//                        + "order by sis_prod  asc  ,id_prod  asc");
+//            }
+//        }
 
         txtBuscar.requestFocus();
     }
@@ -794,7 +756,6 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         BuscaLimpa();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JButton btnBuscaLimpa;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnNovo;
@@ -803,16 +764,13 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JRadioButton jRadioButtonOrdem;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_Produto;
     private javax.swing.JPanel pnPrincipal;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 
-    public static JButton getBtnBuscaLimpa() {
-        return btnBuscaLimpa;
-    }
+    
 
     public JButton getBtnEditar() {
         return btnEditar;

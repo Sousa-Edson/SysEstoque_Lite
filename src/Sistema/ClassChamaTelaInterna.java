@@ -17,6 +17,7 @@ import Interface.LoginJIF;
 import Interface.MovimentoCadastroJIF;
 import Interface.MovimentoListaJIF;
 import Interface.NaturezaCadastroJIF;
+import Interface.Principal;
 import view.MenuPrincipal;
 import Interface.ProdCadastroJIF;
 import view.internal.ProdutoListaJIF;
@@ -50,7 +51,7 @@ public class ClassChamaTelaInterna {
     ExpedicaoJIF ChamaExpedicao = new ExpedicaoJIF();
     BandeiraInternaJIF ChamaBandeira = new BandeiraInternaJIF();
     ProtocoloInternaJIF ChamaProtocolo = new ProtocoloInternaJIF();
-    MenuPrincipal menu;
+    Principal menu;
 
     public void ChamaCadastroProdutoInterno() {
         String id = menu.jLabelCodigoTela2.getText();
