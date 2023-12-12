@@ -26,18 +26,13 @@ public class ProdutoListaController {
     }
 
     public void limparPesquisaProdutoLista(ProdutoListaJIF form) {
-        /*        ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{};
-        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-        jTable_Produto.setModel(modelo);*/
         ProdutoTableModel modelo = new ProdutoTableModel();
-        modelo.setProdutos(new ArrayList<>()); // Define uma lista vazia
+        modelo.setProdutos(new ArrayList<>());
         form.getjTable_Produto().setModel(modelo);
 
         form.getBtnEditar().setEnabled(false);
         form.getTxtBuscar().setText("");
         form.getTxtBuscar().requestFocus();
-
     }
 
     public void preencheTabela(ProdutoListaJIF form) {
