@@ -1153,9 +1153,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem32ActionPerformed
 
     private void jButton_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ProdutoActionPerformed
-        jLabelCodigoTela.setText("ListaProduto");
-        jButton1.doClick();
-//        ProdutoListaJIF.jButtonPesquisar.doClick();
+         ControlaTelaInterna.ChamaListaProduto();;
     }//GEN-LAST:event_jButton_ProdutoActionPerformed
 
     private void jButton_NotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NotaActionPerformed

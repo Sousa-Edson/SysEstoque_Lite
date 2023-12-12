@@ -12,6 +12,7 @@ import static Interface.Principal.jButton1;
 import ModeloBeans.ModeloTabela;
 import Sistema.ClassChamaCadastroProduto;
 import UTIL.ControleCores;
+import controller.ProdutoListaController;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
@@ -34,6 +35,8 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  */
 public class ProdutoListaJIF extends javax.swing.JInternalFrame {
 
+    ProdutoListaController produtoListaController = new ProdutoListaController();
+    
     ConexaoBD conex = new ConexaoBD();
     ConexaoBD conexSaldo = new ConexaoBD();
     ClassChamaCadastroProduto tela = new ClassChamaCadastroProduto();
@@ -251,8 +254,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        EventoLimpar();
-        btnEditar.setEnabled(false);
+        produtoListaController.limparPesquisaProdutoLista(this);
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
@@ -357,16 +359,16 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu2MouseClicked
 
-    public void EventoLimpar() {
-        SelecionaProduto = null;
-        txtBuscar.setText("");
-        txtBuscar.requestFocus();
-        ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{};
-        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-        jTable_Produto.setModel(modelo);
-
-    }
+//    public void EventoLimpar() {
+//        SelecionaProduto = null;
+//        txtBuscar.setText("");
+//        txtBuscar.requestFocus();
+//        ArrayList dados = new ArrayList();
+//        String[] colunas = new String[]{};
+//        ModeloTabela modelo = new ModeloTabela(dados, colunas);
+//        jTable_Produto.setModel(modelo);
+//
+//    }
 
     public void EventoBuscaExibirImagens() {
         String MinhaBusca = txtBuscar.getText();
