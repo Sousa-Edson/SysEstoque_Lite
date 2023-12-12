@@ -249,7 +249,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
 //            EventoBuscaExibirImagens();
 //
 //        } else {
-            EventoBuscar();
+//            EventoBuscar();
 //        }
         produtoListaController.preencheTabela(this);
     }//GEN-LAST:event_btnPesquisarActionPerformed

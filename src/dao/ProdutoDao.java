@@ -138,7 +138,7 @@ public class ProdutoDao {
                 produto.setValor_ex(conex.rs.getString("valor_prod_ex"));
                 produto.setSis_prod(conex.rs.getInt("sis_prod"));
                 produto.setId_prod(conex.rs.getInt("id_prod"));
-                produto.setUn_prod(conex.rs.getInt("un_prod"));
+                produto.setUn_prod(conex.rs.getInt("idunid"));
                 produto.setStatus_prod(conex.rs.getInt("stprod"));
                 produto.setSaldo_prod(conex.rs.getDouble("saldo_prod"));
                 produto.setEstoque_prod(conex.rs.getDouble("estoque_prod"));
