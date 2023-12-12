@@ -117,16 +117,15 @@ public class ProdutoDao {
     public List<Produto> listarProdutos() {
         List<Produto> produtos = new ArrayList<>();
         conex.conexao();
-        conex.executaSql2("SELECT id_produto, data_reg, hora_reg, ncm_prod, tipo_prod, nome_prod, "
-                + "edicao_prod, cfop_prod, obs_prod, usu_prod, valor_ex, sis_prod, id_prod, "
-                + "un_prod, status_prod, saldo_prod, estoque_prod, valor FROM produto "
-                + "WHERE status_prod = 1 ORDER BY data_reg DESC");
+        conex.executaSql2("SELECT id_prod, data_reg, hora_reg, ncm_prod, tipo_prod,"
+                + " nome_prod,  edicao_prod, cfop_prod, obs_prod, usu_prod, valor_prod,"
+                + " sis_prod, id_prod,  idunid, stprod, saldo_prod, estoque_prod, "
+                + "valor_prod_ex FROM produto WHERE stprod = 1 ORDER BY data_reg DESC ");
 
         try {
             while (conex.rs.next()) {
-
                 Produto produto = new Produto();
-                produto.setId_prod(conex.rs.getInt("id_produto"));
+                produto.setId_prod(conex.rs.getInt("id_prod"));
                 produto.setData_reg(conex.rs.getString("data_reg"));
                 produto.setHora_reg(conex.rs.getString("hora_reg"));
                 produto.setNcm_prod(conex.rs.getString("ncm_prod"));
@@ -136,14 +135,14 @@ public class ProdutoDao {
                 produto.setCfop_prod(conex.rs.getString("cfop_prod"));
                 produto.setObs_prod(conex.rs.getString("obs_prod"));
                 produto.setUsu_prod(conex.rs.getString("usu_prod"));
-                produto.setValor_ex(conex.rs.getString("valor_ex"));
+                produto.setValor_ex(conex.rs.getString("valor_prod_ex"));
                 produto.setSis_prod(conex.rs.getInt("sis_prod"));
                 produto.setId_prod(conex.rs.getInt("id_prod"));
                 produto.setUn_prod(conex.rs.getInt("un_prod"));
-                produto.setStatus_prod(conex.rs.getInt("status_prod"));
+                produto.setStatus_prod(conex.rs.getInt("stprod"));
                 produto.setSaldo_prod(conex.rs.getDouble("saldo_prod"));
                 produto.setEstoque_prod(conex.rs.getDouble("estoque_prod"));
-                produto.setValor(conex.rs.getDouble("valor"));
+                produto.setValor(conex.rs.getDouble("valor_prod"));
 
                 produtos.add(produto);
             }

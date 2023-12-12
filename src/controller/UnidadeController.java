@@ -80,7 +80,7 @@ public class UnidadeController {
     public void novaUnidade(UnidadeCadastroJIF form) {
         liberarBotes(form, false);
         liberarCampos(form, true);
-        PreencheTabela(form);
+        preencheTabela(form);
         limparCampos(form);
         form.getBtnSalvar().setEnabled(true);
         form.setId_unidade(0);
@@ -99,10 +99,10 @@ public class UnidadeController {
         limparCampos(form);
         form.getBtnNovo().setEnabled(true);
         form.setId_unidade(0);
-        PreencheTabela(form);
+        preencheTabela(form);
     }
     
-    public void PreencheTabela(UnidadeCadastroJIF form) {
+    public void preencheTabela(UnidadeCadastroJIF form) {
         
         UnidadeTableModel modelo = new UnidadeTableModel();
         List<Unidade> unidades = unidadeService.listarUnidades();
@@ -135,7 +135,7 @@ public class UnidadeController {
                 "Deletar #" + idUnidade + " ?", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE,
                 null, options, options[1]) == 0) {
             unidadeService.excluirUnidade(idUnidade);
-            PreencheTabela(form);
+            preencheTabela(form);
             cancelarUnidade(form);
         }
     }

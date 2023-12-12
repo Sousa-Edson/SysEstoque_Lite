@@ -4,6 +4,7 @@
  */
 package tableModel;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Produto;
@@ -17,8 +18,13 @@ public class ProdutoTableModel extends AbstractTableModel {
     private List<Produto> produtos;
     private final String[] colunas = {"Id", "Status", "Produto", "Saldo", "Unid", "Valor Unit.", "Observação", "Registro", "Id Linha"};
 
-    public ProdutoTableModel(List<Produto> produtos) {
+    public ProdutoTableModel() {
+        this.produtos = new ArrayList<>();
+    }
+
+    public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
+        fireTableDataChanged();
     }
 
     @Override

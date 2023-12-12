@@ -34,7 +34,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author edson
  */
 public class ProdutoListaJIF extends javax.swing.JInternalFrame {
-
+    
     ProdutoListaController produtoListaController = new ProdutoListaController();
     
     ConexaoBD conex = new ConexaoBD();
@@ -45,11 +45,11 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
     String UnProd;
     String SelecionaProdutoReferencia;
     String SelecionaProduto = null, SelecionaProdutoNome, SelecionaProdutoId;
-
+    
     public ProdutoListaJIF() {
         initComponents();
         remover_Ico();
-         
+        
         pnPrincipal.setBackground(ControleCores.pegarCorPadrao());
         // setPosicao();
     }
@@ -245,12 +245,13 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
 
-        if (jCheckBoxMenuItem_Exibe_Imagens.isSelected()) {
-            EventoBuscaExibirImagens();
-
-        } else {
+//        if (jCheckBoxMenuItem_Exibe_Imagens.isSelected()) {
+//            EventoBuscaExibirImagens();
+//
+//        } else {
             EventoBuscar();
-        }
+//        }
+        produtoListaController.preencheTabela(this);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -369,7 +370,6 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
 //        jTable_Produto.setModel(modelo);
 //
 //    }
-
     public void EventoBuscaExibirImagens() {
         String MinhaBusca = txtBuscar.getText();
 //        if (jRadioButtonOrdem.isSelected()) {
@@ -383,18 +383,18 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
 //                    + "  and stprod =1 \n"
 //                    + "order by sis_prod  desc  ,id_prod  desc");
 //        } else {
-            preencherTabela("select * from produto\n"
-                    + "inner join unidade on  idunid=id_referenciaunidade \n"
-                    + "inner join imagemproduto on produtoid = sis_prod\n"
-                    + "where (coalesce((sis_prod))||' '||coalesce(UPPER(tipo_prod)) ||' '|| "
-                    + "coalesce(UPPER(nome_prod)) ||' '||coalesce(UPPER(edicao_prod)) ||' '||"
-                    + " coalesce(UPPER(obs_prod)) ) "
-                    + "ilike '%" + MinhaBusca + "%' and stunid =1 "
-                    + "  and stprod =1 \n"
-                    + "order by sis_prod  asc  ,id_prod  asc");
+        preencherTabela("select * from produto\n"
+                + "inner join unidade on  idunid=id_referenciaunidade \n"
+                + "inner join imagemproduto on produtoid = sis_prod\n"
+                + "where (coalesce((sis_prod))||' '||coalesce(UPPER(tipo_prod)) ||' '|| "
+                + "coalesce(UPPER(nome_prod)) ||' '||coalesce(UPPER(edicao_prod)) ||' '||"
+                + " coalesce(UPPER(obs_prod)) ) "
+                + "ilike '%" + MinhaBusca + "%' and stunid =1 "
+                + "  and stprod =1 \n"
+                + "order by sis_prod  asc  ,id_prod  asc");
 //        }
     }
-
+    
     public void EventoBuscar() {
         btnEditar.setEnabled(false);
         String MinhaBusca = txtBuscar.getText(), situacao = "", MostraTabela = "1";//ATIVO
@@ -409,13 +409,13 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
 //                        + "ilike '%" + MinhaBusca + "%' and stunid =1  "
 //                        + "order by sis_prod  desc  ,id_prod  desc");//and stprod =" + MostraTabela + "
 //            } else {
-                preencherTabela2("select * from produto "
-                        + "inner join unidade on  idunid=id_referenciaunidade "
-                        + "where (coalesce((id_prod)) ||' '||coalesce((sis_prod))||' '||coalesce(UPPER(tipo_prod)) ||' '|| "
-                        + "coalesce(UPPER(nome_prod)) ||' '||coalesce(UPPER(edicao_prod)) ||' '||"
-                        + " coalesce(UPPER(obs_prod))||' '|| coalesce(UPPER(usu_prod))  ||' '|| coalesce((data_reg)) ) "
-                        + "ilike '%" + MinhaBusca + "%' and stunid =1  "
-                        + "order by sis_prod  asc  ,id_prod  asc");// and stprod =" + MostraTabela + "
+        preencherTabela2("select * from produto "
+                + "inner join unidade on  idunid=id_referenciaunidade "
+                + "where (coalesce((id_prod)) ||' '||coalesce((sis_prod))||' '||coalesce(UPPER(tipo_prod)) ||' '|| "
+                + "coalesce(UPPER(nome_prod)) ||' '||coalesce(UPPER(edicao_prod)) ||' '||"
+                + " coalesce(UPPER(obs_prod))||' '|| coalesce(UPPER(usu_prod))  ||' '|| coalesce((data_reg)) ) "
+                + "ilike '%" + MinhaBusca + "%' and stunid =1  "
+                + "order by sis_prod  asc  ,id_prod  asc");// and stprod =" + MostraTabela + "
 //            }
 //        } else {
 //            if (jRadioButtonOrdem.isSelected()) {
@@ -439,21 +439,21 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
 
         txtBuscar.requestFocus();
     }
-
+    
     public void BuscaLimpa() {
-
+        
         preencherTabela3("select * from produto "
                 + "inner join unidade on  idunid=id_referenciaunidade "
                 + "where  stunid =1 and stprod =1 "
                 + "order by sis_prod  desc  ,id_prod  desc");
         System.out.println("Interface.ProdutoListaJIF.BuscaLimpa()");
     }
-
+    
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
         this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
     }
-
+    
     public void remover_Ico() {
         this.setFrameIcon(null);
 
@@ -464,7 +464,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         north.validate();
         north.repaint();
     }
-
+    
     public void preencherTabela(String Sql) {
         String descricao;
         String edicao;
@@ -476,14 +476,14 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
             conex.rs.first();
             do {
                 edicao = conex.rs.getString("edicao_prod");
-
+                
                 String datahora = conex.rs.getString("usu_prod") + " " + conex.rs.getString("data_reg") + " " + conex.rs.getString("hora_reg");
                 if (edicao.equals(null) | edicao.equals("") | edicao.equals(" ")) {
                     edicao = "";
                 } else {
                     edicao = " N° " + edicao;
                 }
-
+                
                 descricao = " " + conex.rs.getString("tipo_prod") + " " + conex.rs.getString("nome_prod") + edicao;
                 descricao = descricao.toUpperCase();
                 Double num4 = (conex.rs.getDouble("valor_prod"));
@@ -523,7 +523,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
                     //                    conex.rs.getString("ncm_prod"), conex.rs.getString("cfop_prod"),
                     conex.rs.getString("obs_prod"),
                     datahora, conex.rs.getInt("id_prod")});
-
+                
             } while (conex.rs.next());
         } catch (SQLException ex) {
 //            JOptionPane.showMessageDialog(menu, "preenchertabela\n" + ex);
@@ -549,15 +549,15 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         jTable_Produto.getColumnModel().getColumn(6).setResizable(true);
         jTable_Produto.getColumnModel().getColumn(7).setPreferredWidth(00);
         jTable_Produto.getColumnModel().getColumn(7).setResizable(true);
-
+        
         jTable_Produto.getTableHeader().setReorderingAllowed(false);
         jTable_Produto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable_Produto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+        
         conex.desconecta();
-
+        
     }
-
+    
     public void preencherTabela2(String Sql) {
         String descricao;
         String edicao;
@@ -569,7 +569,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
             conex.rs.first();
             do {
                 edicao = conex.rs.getString("edicao_prod");
-
+                
                 String datahora = conex.rs.getString("usu_prod") + " " + conex.rs.getString("data_reg") + " " + conex.rs.getString("hora_reg");
                 if (edicao.equals(null) | edicao.equals("") | edicao.equals(" ")) {
                     edicao = "";
@@ -610,7 +610,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
                     //                    conex.rs.getString("ncm_prod"), conex.rs.getString("cfop_prod"),
                     conex.rs.getString("obs_prod"),
                     datahora, conex.rs.getInt("id_prod")});
-
+                
             } while (conex.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(menu, "preenchertabela\n" + ex);
@@ -636,15 +636,15 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         jTable_Produto.getColumnModel().getColumn(7).setResizable(true);
         jTable_Produto.getColumnModel().getColumn(8).setPreferredWidth(00);
         jTable_Produto.getColumnModel().getColumn(8).setResizable(true);
-
+        
         jTable_Produto.getTableHeader().setReorderingAllowed(false);
         jTable_Produto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable_Produto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+        
         conex.desconecta();
-
+        
     }
-
+    
     public void preencherTabela3(String Sql) {
         String descricao;
         String edicao;
@@ -656,14 +656,14 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
             conex.rs.first();
             do {
                 edicao = conex.rs.getString("edicao_prod");
-
+                
                 String datahora = conex.rs.getString("usu_prod") + " " + conex.rs.getString("data_reg") + " " + conex.rs.getString("hora_reg");
                 if (edicao.equals(null) | edicao.equals("") | edicao.equals(" ")) {
                     edicao = "";
                 } else {
                     edicao = " N° " + edicao;
                 }
-
+                
                 descricao = " " + conex.rs.getString("tipo_prod") + " " + conex.rs.getString("nome_prod") + edicao;
                 descricao = descricao.toUpperCase();
                 Double num4 = (conex.rs.getDouble("valor_prod"));
@@ -703,7 +703,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
                     //                    conex.rs.getString("ncm_prod"), conex.rs.getString("cfop_prod"),
                     conex.rs.getString("obs_prod"),
                     datahora, conex.rs.getInt("id_prod")});
-
+                
             } while (conex.rs.next());
         } catch (SQLException ex) {
 //            JOptionPane.showMessageDialog(menu, "preenchertabela\n" + ex);
@@ -729,15 +729,15 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         jTable_Produto.getColumnModel().getColumn(6).setResizable(true);
         jTable_Produto.getColumnModel().getColumn(7).setPreferredWidth(00);
         jTable_Produto.getColumnModel().getColumn(7).setResizable(true);
-
+        
         jTable_Produto.getTableHeader().setReorderingAllowed(false);
         jTable_Produto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable_Produto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+        
         conex.desconecta();
-
+        
     }
-
+    
     public void ExecutaSaldo() {
         String MeuExecutaSaldo = SelecionaProdutoId;
         System.out.println("aquiExecutaSaldo()        Verificando            " + MeuExecutaSaldo);
@@ -772,30 +772,28 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 
-    
-
     public JButton getBtnEditar() {
         return btnEditar;
     }
-
+    
     public JButton getBtnLimpar() {
         return btnLimpar;
     }
-
+    
     public JButton getBtnNovo() {
         return btnNovo;
     }
-
+    
     public static JButton getBtnPesquisar() {
         return btnPesquisar;
     }
-
+    
     public JTextField getTxtBuscar() {
         return txtBuscar;
     }
-
+    
     public JTable getjTable_Produto() {
         return jTable_Produto;
     }
-
+    
 }

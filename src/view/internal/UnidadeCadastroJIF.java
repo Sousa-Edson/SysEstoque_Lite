@@ -41,7 +41,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
         groupFragmentado.add(rbFragmentadoNao);
         groupFragmentado.add(rbFragmentadoSim);
         
-        unidadeController.PreencheTabela(this);
+        unidadeController.preencheTabela(this);
 
     }
 

@@ -5,6 +5,11 @@
  */
 package controller;
 
+import java.util.List;
+import javax.swing.ListSelectionModel;
+import model.Produto;
+import service.ProdutoService;
+import tableModel.ProdutoTableModel;
 import view.internal.ProdutoListaJIF;
 
 /**
@@ -13,15 +18,33 @@ import view.internal.ProdutoListaJIF;
  */
 public class ProdutoListaController {
 
+    private final ProdutoService produtoService;
+
+    public ProdutoListaController() {
+        produtoService = new ProdutoService();
+    }
+
     public void limparPesquisaProdutoLista(ProdutoListaJIF form) {
-/*        ArrayList dados = new ArrayList();
+        /*        ArrayList dados = new ArrayList();
         String[] colunas = new String[]{};
         ModeloTabela modelo = new ModeloTabela(dados, colunas);
         jTable_Produto.setModel(modelo);*/
-        
+
         form.getBtnEditar().setEnabled(false);
         form.getTxtBuscar().setText("");
         form.getTxtBuscar().requestFocus();
-        
+
+    }
+
+    public void preencheTabela(ProdutoListaJIF form) {
+        ProdutoTableModel modelo = new ProdutoTableModel();
+        List<Produto> produtos = produtoService.listarProdutos();
+        modelo.setProdutos(produtos);
+        form.getjTable_Produto().setModel(modelo);
+        form.getjTable_Produto().getColumnModel().getColumn(0).setPreferredWidth(60);
+        form.getjTable_Produto().getColumnModel().getColumn(0).setResizable(true);
+        form.getjTable_Produto().getTableHeader().setReorderingAllowed(false);
+//        getjTable_Produto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        form.getjTable_Produto().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 }
