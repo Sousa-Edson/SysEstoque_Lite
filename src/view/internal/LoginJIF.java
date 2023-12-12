@@ -19,10 +19,8 @@ import view.MenuPrincipal;
  * @author edson
  */
 public class LoginJIF extends javax.swing.JInternalFrame {
-
-    ConexaoBD conex_Empresa = new ConexaoBD();
-    ConexaoBD con = new ConexaoBD();
-    String Empresa_Id, Empresa_Id_Menu;
+ 
+    ConexaoBD con = new ConexaoBD(); 
     String nome, senha, tipo;
     int id;
 
@@ -31,17 +29,8 @@ public class LoginJIF extends javax.swing.JInternalFrame {
      */
     public LoginJIF() {
         initComponents();
-        remover_Ico();
-//        preenche_Empresa();
-        // setPosicao();
-        jTextField1.requestFocus();
-//        try {
-//           /// setMaximum(true);
-//            setAlignmentX(CENTER_ALIGNMENT);
-//            setAlignmentY(CENTER_ALIGNMENT);
-//        } catch (PropertyVetoException ex) {
-//            Logger.getLogger(LoginJIF.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        remover_Ico(); 
+        jTextField1.requestFocus(); 
     }
 
     /**

@@ -5,34 +5,17 @@
  */
 package view.internal;
 
-import ConectaBanco.ConexaoBD;
-import Interface.Principal;
-import ModeloBeans.ModeloTabela;
-import ModeloDao.Dao_Unidade;
 import UTIL.ControleCores;
-import UTIL.DataHoraAtual;
-import UTIL.UsuarioLogado;
 import controller.UnidadeController;
-import dao.UnidadeDao;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import model.Unidade;
-import tableModel.UnidadeTableModel;
-import view.MenuPrincipal;
 
 /**
  *
@@ -40,19 +23,9 @@ import view.MenuPrincipal;
  */
 public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
 
-    Unidade BUnis = new Unidade();
-    UnidadeDao DUnid = new UnidadeDao();
-    ConexaoBD conex = new ConexaoBD();
-    String UltimaId;
-    int NumeroUltimaId;
-
-    int id_referencia;
+ 
     int id_unidade;
-    int flag = 1;
-
-    String MostraTabela = null;
-    String ordem = "asc";
-    int fragmento = 0;
+  
 
     /**
      * Creates new form JIFTEste
@@ -62,10 +35,13 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
     public UnidadeCadastroJIF() {
         initComponents();
         remover_Ico();
+//        setPosicao();
         unidadeController = new UnidadeController();
 
         groupFragmentado.add(rbFragmentadoNao);
         groupFragmentado.add(rbFragmentadoSim);
+        
+        unidadeController.PreencheTabela(this);
 
     }
 

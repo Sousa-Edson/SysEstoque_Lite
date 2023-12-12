@@ -28,8 +28,7 @@ import Interface.UsuarioCadastroJIF;
 /**
  *
  * @author edson
- */
-//// 11 94669 6901 flp
+ */ 
 public class ClassChamaTelaInterna {
 
     ClassManipulaMovimento ManipulaMovimento = new ClassManipulaMovimento();
@@ -63,8 +62,8 @@ public class ClassChamaTelaInterna {
             ProdCadastroJIF.toFront();
             // ConsultaInterna.EventoData()
             ProdCadastroJIF.pack();
-        } else { menu.PainelPrincipal.remove(ProdCadastroJIF);
-            menu.PainelPrincipal.add(ProdCadastroJIF);
+        } else { menu.desktopPrincipal.remove(ProdCadastroJIF);
+            menu.desktopPrincipal.add(ProdCadastroJIF);
             // ProdCadastroJIF.setSize(514, 244); // [909, 421]
             ProdCadastroJIF.setPosicao();
             ProdCadastroJIF.setVisible(true);
@@ -79,8 +78,8 @@ public class ClassChamaTelaInterna {
     public void ChamaCadastroUnidade() {
 //        UnidadeCadastroJIF.PreencheTabelaApagar();
         if (UnidadeCadastroJIF.isVisible()) {
-        } else {menu.PainelPrincipal.remove(UnidadeCadastroJIF);
-            menu.PainelPrincipal.add(UnidadeCadastroJIF);
+        } else {menu.desktopPrincipal.remove(UnidadeCadastroJIF);
+            menu.desktopPrincipal.add(UnidadeCadastroJIF);
 
             UnidadeCadastroJIF.setVisible(true);
         }
@@ -93,7 +92,7 @@ public class ClassChamaTelaInterna {
         String id = menu.jLabelCodigoTela2.getText();
         if (ProdCadastroJIF.isVisible()) {
             ProdCadastroJIF.setVisible(false);
-            menu.PainelPrincipal.remove(ProdCadastroJIF);
+            menu.desktopPrincipal.remove(ProdCadastroJIF);
 
         } else {
 
@@ -104,7 +103,7 @@ public class ClassChamaTelaInterna {
         String id = menu.jLabelCodigoTela2.getText();
         if (FCECadastro.isVisible()) {
             FCECadastro.setVisible(false);
-            menu.PainelPrincipal.remove(FCECadastro);
+            menu.desktopPrincipal.remove(FCECadastro);
 
         } else {
 
@@ -117,8 +116,8 @@ public class ClassChamaTelaInterna {
             ProdCadastroJIF.RecebeIdProduto(id);
             ProdCadastroJIF.toFront();
 //            ProdCadastroJIF.setPosicao();
-        } else { menu.PainelPrincipal.remove(ProdCadastroJIF);
-            menu.PainelPrincipal.add(ProdCadastroJIF);
+        } else { menu.desktopPrincipal.remove(ProdCadastroJIF);
+            menu.desktopPrincipal.add(ProdCadastroJIF);
             ProdCadastroJIF.RecebeIdProduto(id);
             ProdCadastroJIF.setPosicao();
             ProdCadastroJIF.setVisible(true);
@@ -136,8 +135,8 @@ public class ClassChamaTelaInterna {
             ConsultaInterna.setPosicao();
             ConsultaInterna.toFront();
         } else {
-            menu.PainelPrincipal.remove(ConsultaInterna);
-            menu.PainelPrincipal.add(ConsultaInterna);
+            menu.desktopPrincipal.remove(ConsultaInterna);
+            menu.desktopPrincipal.add(ConsultaInterna);
             ConsultaInterna.setSize(1068, 425); // [909, 421]
             ConsultaInterna.setPosicao();
             ConsultaInterna.setVisible(true);
@@ -156,8 +155,8 @@ public class ClassChamaTelaInterna {
             ProdutoListaJIF.setPosicao();
             ProdutoListaJIF.toFront();
         } else {
-            menu.PainelPrincipal.remove(ProdutoListaJIF);
-            menu.PainelPrincipal.add(ProdutoListaJIF);
+            menu.desktopPrincipal.remove(ProdutoListaJIF);
+            menu.desktopPrincipal.add(ProdutoListaJIF);
             ProdutoListaJIF.setSize(1068, 425); // [909, 421]
             ProdutoListaJIF.setPosicao();
             ProdutoListaJIF.setVisible(true);
@@ -181,8 +180,8 @@ public class ClassChamaTelaInterna {
             FCELista.setSize(1068, 425); // [909, 421]
             FCELista.setPosicao();
             FCELista.toFront();
-        } else { menu.PainelPrincipal.remove(FCELista);
-            menu.PainelPrincipal.add(FCELista);
+        } else { menu.desktopPrincipal.remove(FCELista);
+            menu.desktopPrincipal.add(FCELista);
             FCELista.setSize(1068, 425); // [909, 421]
             FCELista.setPosicao();
             FCELista.setVisible(true);
@@ -194,8 +193,8 @@ public class ClassChamaTelaInterna {
     public void ChamaFCEListaAtualizar() {
         if (FCELista.isVisible()) {
 
-        } else {menu.PainelPrincipal.remove(FCELista);
-            menu.PainelPrincipal.add(FCELista);
+        } else {menu.desktopPrincipal.remove(FCELista);
+            menu.desktopPrincipal.add(FCELista);
             FCELista.setVisible(true);
             FCELista.setSize(1068, 425); // [909, 421]
             FCELista.setPosicao();
@@ -207,8 +206,8 @@ public class ClassChamaTelaInterna {
 
     public void ChamaFCECadastro() {
         if (FCECadastro.isVisible()) {
-        } else {  menu.PainelPrincipal.remove(FCECadastro);
-            menu.PainelPrincipal.add(FCECadastro);
+        } else {  menu.desktopPrincipal.remove(FCECadastro);
+            menu.desktopPrincipal.add(FCECadastro);
             FCECadastro.setVisible(true);
         }
 //        FCELista.setSize(1068, 425); // [909, 421]
@@ -221,8 +220,8 @@ public class ClassChamaTelaInterna {
 
     public void ChamaFCECadastroEditar() {
         if (FCECadastro.isVisible()) {
-        } else { menu.PainelPrincipal.remove(FCECadastro);
-            menu.PainelPrincipal.add(FCECadastro);
+        } else { menu.desktopPrincipal.remove(FCECadastro);
+            menu.desktopPrincipal.add(FCECadastro);
             FCECadastro.setVisible(true);
         }
 //        FCELista.setSize(1068, 425); // [909, 421]
@@ -257,8 +256,8 @@ public class ClassChamaTelaInterna {
 
     public void ChamaNaturezaCadastro() {
         if (NaturezaCadastro.isVisible()) {
-        } else {  menu.PainelPrincipal.remove(NaturezaCadastro);
-            menu.PainelPrincipal.add(NaturezaCadastro);
+        } else {  menu.desktopPrincipal.remove(NaturezaCadastro);
+            menu.desktopPrincipal.add(NaturezaCadastro);
             NaturezaCadastro.setVisible(true);
         }
 //        NaturezaCadastro.recebeId(menu.jLabelCodigoTela2.getText());
@@ -270,8 +269,8 @@ public class ClassChamaTelaInterna {
 
     public void ChamaUsuarioCadastro() {
         if (UsuarioCadastro.isVisible()) {
-        } else { menu.PainelPrincipal.remove(UsuarioCadastro);
-            menu.PainelPrincipal.add(UsuarioCadastro);
+        } else { menu.desktopPrincipal.remove(UsuarioCadastro);
+            menu.desktopPrincipal.add(UsuarioCadastro);
             UsuarioCadastro.setVisible(true);
         }
         UsuarioCadastro.PreencheTabela();
@@ -281,8 +280,8 @@ public class ClassChamaTelaInterna {
 
     public void ChamaSetorCadastro() {
         if (SetorCadastro.isVisible()) {
-        } else { menu.PainelPrincipal.remove(SetorCadastro);
-            menu.PainelPrincipal.add(SetorCadastro);
+        } else { menu.desktopPrincipal.remove(SetorCadastro);
+            menu.desktopPrincipal.add(SetorCadastro);
             SetorCadastro.setVisible(true);
         }
         SetorCadastro.PreencheTabela();
@@ -293,8 +292,8 @@ public class ClassChamaTelaInterna {
     public void ChamaMovimentoLista() {
         if (MovimentoLista.isVisible()) {
         } else {
-            menu.PainelPrincipal.remove(MovimentoLista);
-            menu.PainelPrincipal.add(MovimentoLista);
+            menu.desktopPrincipal.remove(MovimentoLista);
+            menu.desktopPrincipal.add(MovimentoLista);
             MovimentoLista.setVisible(true);
         }
         MovimentoLista.BotaoCancelar();//preencherTabela
@@ -314,7 +313,7 @@ public class ClassChamaTelaInterna {
     public void FechaMovimentoCadastro() {
         if (MovimentoCadastro.isVisible()) {
             MovimentoCadastro.setVisible(false);
-            menu.PainelPrincipal.remove(MovimentoCadastro);
+            menu.desktopPrincipal.remove(MovimentoCadastro);
 //            MovimentoCadastro.setVisible(false);
         } else {
         }
@@ -327,8 +326,8 @@ public class ClassChamaTelaInterna {
     public void ChamaMovimentoCadastroEditar() {
         ManipulaMovimentoLimpar();
         if (MovimentoCadastro.isVisible()) {
-        } else { menu.PainelPrincipal.remove(MovimentoCadastro);
-            menu.PainelPrincipal.add(MovimentoCadastro);
+        } else { menu.desktopPrincipal.remove(MovimentoCadastro);
+            menu.desktopPrincipal.add(MovimentoCadastro);
             MovimentoCadastro.setVisible(true);
         }
         ManipulaMovimentoEditar(); // aqui insere na tabela
@@ -347,8 +346,8 @@ public class ClassChamaTelaInterna {
     public void ChamaMovimentoCadastroNovo() {
         ManipulaMovimentoLimpar();
         if (MovimentoCadastro.isVisible()) {
-        } else {menu.PainelPrincipal.remove(MovimentoCadastro);
-            menu.PainelPrincipal.add(MovimentoCadastro);
+        } else {menu.desktopPrincipal.remove(MovimentoCadastro);
+            menu.desktopPrincipal.add(MovimentoCadastro);
             MovimentoCadastro.setVisible(true);
         }
         ManipulaMovimentoLimpar();
@@ -381,8 +380,8 @@ public class ClassChamaTelaInterna {
             ChamaExpedicao.atualizarTabela();
             ChamaExpedicao.setPosicao();
         } else {
-            menu.PainelPrincipal.remove(ChamaExpedicao);
-            menu.PainelPrincipal.add(ChamaExpedicao);
+            menu.desktopPrincipal.remove(ChamaExpedicao);
+            menu.desktopPrincipal.add(ChamaExpedicao);
             ChamaExpedicao.setPosicao();
             ChamaExpedicao.toFront();
             ChamaExpedicao.setVisible(true);
@@ -398,8 +397,8 @@ public class ClassChamaTelaInterna {
             ChamaBandeira.toFront();
             ChamaBandeira.setPosicao();
             ChamaBandeira.EventoBuscar();
-        } else { menu.PainelPrincipal.remove(ChamaBandeira);
-            menu.PainelPrincipal.add(ChamaBandeira);
+        } else { menu.desktopPrincipal.remove(ChamaBandeira);
+            menu.desktopPrincipal.add(ChamaBandeira);
             ChamaBandeira.toFront();
             ChamaBandeira.setPosicao();
             ChamaBandeira.setVisible(true);
@@ -415,8 +414,8 @@ public class ClassChamaTelaInterna {
             ChamaProtocolo.setPosicao();
             ChamaProtocolo.EventoBuscar();
         } else {
-            menu.PainelPrincipal.remove(ChamaProtocolo);
-            menu.PainelPrincipal.add(ChamaProtocolo);
+            menu.desktopPrincipal.remove(ChamaProtocolo);
+            menu.desktopPrincipal.add(ChamaProtocolo);
             ChamaProtocolo.toFront();
             ChamaProtocolo.setPosicao();
             ChamaProtocolo.setVisible(true);

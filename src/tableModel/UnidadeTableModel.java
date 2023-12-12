@@ -55,12 +55,12 @@ public class UnidadeTableModel extends AbstractTableModel {
             case 2:
                 return unidade.getDesc_unidade();
             case 3:
-                return unidade.getFragmento_unidade();
+                return (unidade.getFragmento_unidade() == 0) ? "Não" : "Sim";
             case 4:
                 return unidade.getRegistro_unidade();
             case 5:
                 return unidade.getUsuario_unidade();
-           
+
             default:
                 return null;
         }
