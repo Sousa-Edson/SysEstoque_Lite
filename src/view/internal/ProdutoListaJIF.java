@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interface;
+package view.internal;
 
 import ConectaBanco.ConexaoBD;
 import Consulta.FrameExibirImagem;
+import Interface.Principal;
 import static Interface.Principal.jButton1;
 import ModeloBeans.ModeloTabela;
 import Sistema.ClassChamaCadastroProduto;
+import UTIL.ControleCores;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
@@ -19,8 +21,10 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
@@ -43,7 +47,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         initComponents();
         remover_Ico();
         btnBuscaLimpa.setVisible(false);
-
+        pnPrincipal.setBackground(ControleCores.pegarCorPadrao());
         // setPosicao();
     }
 
@@ -56,16 +60,16 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        pnPrincipal = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_Produto = new javax.swing.JTable();
-        jTextFieldBusca = new javax.swing.JTextField();
-        jButtonPesquisar = new javax.swing.JButton();
-        jButtonLimpar = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
+        btnPesquisar = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
         jRadioButtonOrdem = new javax.swing.JRadioButton();
-        jButtonNovo = new javax.swing.JButton();
+        btnNovo = new javax.swing.JButton();
         btnBuscaLimpa = new javax.swing.JButton();
-        jButtonEditar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -94,7 +98,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(0, 255, 204));
+        pnPrincipal.setBackground(new java.awt.Color(0, 255, 204));
 
         jTable_Produto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -114,28 +118,28 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTable_Produto);
 
-        jTextFieldBusca.addActionListener(new java.awt.event.ActionListener() {
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldBuscaActionPerformed(evt);
+                txtBuscarActionPerformed(evt);
             }
         });
-        jTextFieldBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextFieldBuscaKeyReleased(evt);
+                txtBuscarKeyReleased(evt);
             }
         });
 
-        jButtonPesquisar.setText("Pesquisar");
-        jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPesquisarActionPerformed(evt);
+                btnPesquisarActionPerformed(evt);
             }
         });
 
-        jButtonLimpar.setText("Limpar");
-        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLimparActionPerformed(evt);
+                btnLimparActionPerformed(evt);
             }
         });
 
@@ -153,10 +157,10 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonNovo.setText("Novo");
-        jButtonNovo.addActionListener(new java.awt.event.ActionListener() {
+        btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonNovoActionPerformed(evt);
+                btnNovoActionPerformed(evt);
             }
         });
 
@@ -167,32 +171,32 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonEditar.setText("Editar");
-        jButtonEditar.setEnabled(false);
-        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setText("Editar");
+        btnEditar.setEnabled(false);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEditarActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnPrincipalLayout = new javax.swing.GroupLayout(pnPrincipal);
+        pnPrincipal.setLayout(pnPrincipalLayout);
+        pnPrincipalLayout.setHorizontalGroup(
+            pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextFieldBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnPrincipalLayout.createSequentialGroup()
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonPesquisar)
+                        .addComponent(btnPesquisar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonLimpar)
+                        .addComponent(btnLimpar)
                         .addGap(2, 2, 2)
-                        .addComponent(jButtonNovo)
+                        .addComponent(btnNovo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonEditar)
+                        .addComponent(btnEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscaLimpa, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -201,26 +205,26 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButtonEditar, jButtonLimpar, jButtonNovo, jButtonPesquisar});
+        pnPrincipalLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnEditar, btnLimpar, btnNovo, btnPesquisar});
 
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        pnPrincipalLayout.setVerticalGroup(
+            pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonPesquisar)
-                    .addComponent(jButtonLimpar)
+                .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar)
+                    .addComponent(btnLimpar)
                     .addComponent(jRadioButtonOrdem)
-                    .addComponent(jButtonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscaLimpa)
-                    .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButtonEditar, jButtonLimpar, jButtonNovo, jButtonPesquisar});
+        pnPrincipalLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnEditar, btnLimpar, btnNovo, btnPesquisar});
 
         jMenu1.setText("Arquivo");
         jMenuBar1.add(jMenu1);
@@ -248,21 +252,21 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBuscaActionPerformed
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldBuscaActionPerformed
+    }//GEN-LAST:event_txtBuscarActionPerformed
 
-    private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
 
         if (jCheckBoxMenuItem_Exibe_Imagens.isSelected()) {
             EventoBuscaExibirImagens();
@@ -270,36 +274,36 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         } else {
             EventoBuscar();
         }
-    }//GEN-LAST:event_jButtonPesquisarActionPerformed
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         EventoLimpar();
-        jButtonEditar.setEnabled(false);
-    }//GEN-LAST:event_jButtonLimparActionPerformed
+        btnEditar.setEnabled(false);
+    }//GEN-LAST:event_btnLimparActionPerformed
 
-    private void jTextFieldBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBuscaKeyReleased
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         if (evt.getKeyCode() == evt.VK_ENTER) {
-          // EventoBuscar();
-          jButtonPesquisar.doClick();
+            // EventoBuscar();
+            btnPesquisar.doClick();
         }
-    }//GEN-LAST:event_jTextFieldBuscaKeyReleased
+    }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         this.setVisible(false);
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void jRadioButtonOrdemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButtonOrdemMouseClicked
-        jButtonPesquisar.doClick();
+        btnPesquisar.doClick();
     }//GEN-LAST:event_jRadioButtonOrdemMouseClicked
 
-    private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
 //        BuscaUltimaId();
-        jButtonEditar.setEnabled(false);
+        btnEditar.setEnabled(false);
         Principal.jLabelCodigoTela2.setText("novo");
         Principal.jLabelCodigoTela.setText("CadastroProduto");
         Principal.jButton1.doClick();
 
-    }//GEN-LAST:event_jButtonNovoActionPerformed
+    }//GEN-LAST:event_btnNovoActionPerformed
 
     private void jTable_ProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ProdutoMouseClicked
         if (evt.getButton() == MouseEvent.BUTTON3) {
@@ -312,7 +316,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
             }
 //           
         } else {
-            jButtonEditar.setEnabled(true);
+            btnEditar.setEnabled(true);
             String TipoUsuario = Principal.jLabelTipoUsuario.getText();
             int Clique = 1;
             String NomeProduto;
@@ -320,10 +324,10 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
             if (TipoUsuario == "Manutenção") {
                 if (jCheckBoxMenuItem_Exibe_Imagens.isSelected()) {
                     NomeProduto = ("" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 1));
-                    jTextFieldBusca.setText(NomeProduto);
+                    txtBuscar.setText(NomeProduto);
                 } else {
                     NomeProduto = ("" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 2));
-                    jTextFieldBusca.setText(NomeProduto);
+                    txtBuscar.setText(NomeProduto);
                     SelecionaProduto = "" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 8);
                     System.out.println("seleciona produto " + SelecionaProduto);
                 }
@@ -335,7 +339,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
                 }
             } else {
                 NomeProduto = ("" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 1));
-                jTextFieldBusca.setText(NomeProduto);
+                txtBuscar.setText(NomeProduto);
                 SelecionaProduto = "" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 7);
                 System.out.println("seleciona produto " + SelecionaProduto);
                 if (evt.getClickCount() == 2) {
@@ -358,7 +362,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         BuscaLimpa();
     }//GEN-LAST:event_btnBuscaLimpaActionPerformed
 
-    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         System.out.println("SelecionaProduto " + SelecionaProduto);
 //        if (SelecionaProduto.equals(null)) {
 //        } else 
@@ -370,15 +374,15 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
             Principal.jLabelCodigoTela.setText("CadastroProdutoEditar");
             Principal.jButton1.doClick();
         }
-        jButtonEditar.setEnabled(false);
-    }//GEN-LAST:event_jButtonEditarActionPerformed
+        btnEditar.setEnabled(false);
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void jCheckBoxMenuItem_Exibe_ImagensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem_Exibe_ImagensActionPerformed
         if (jCheckBoxMenuItem_Exibe_Imagens.isSelected()) {
             EventoBuscaExibirImagens();
             // jTextFieldBusca
         } else {
-            jButtonPesquisar.doClick();
+            btnPesquisar.doClick();
         }
 
     }//GEN-LAST:event_jCheckBoxMenuItem_Exibe_ImagensActionPerformed
@@ -393,8 +397,8 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
 
     public void EventoLimpar() {
         SelecionaProduto = null;
-        jTextFieldBusca.setText("");
-        jTextFieldBusca.requestFocus();
+        txtBuscar.setText("");
+        txtBuscar.requestFocus();
         ArrayList dados = new ArrayList();
         String[] colunas = new String[]{};
         ModeloTabela modelo = new ModeloTabela(dados, colunas);
@@ -403,7 +407,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
     }
 
     public void EventoBuscaExibirImagens() {
-        String MinhaBusca = jTextFieldBusca.getText();
+        String MinhaBusca = txtBuscar.getText();
         if (jRadioButtonOrdem.isSelected()) {
             preencherTabela("select * from produto\n"
                     + "inner join unidade on  idunid=id_referenciaunidade \n"
@@ -428,8 +432,8 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
     }
 
     public void EventoBuscar() {
-        jButtonEditar.setEnabled(false);
-        String MinhaBusca = jTextFieldBusca.getText(), situacao = "", MostraTabela = "1";//ATIVO
+        btnEditar.setEnabled(false);
+        String MinhaBusca = txtBuscar.getText(), situacao = "", MostraTabela = "1";//ATIVO
         String TipoUsuario = Principal.jLabelTipoUsuario.getText();
         if (TipoUsuario == "Manutenção") {
             if (jRadioButtonOrdem.isSelected()) {
@@ -469,7 +473,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
             }
         }
 
-        jTextFieldBusca.requestFocus();
+        txtBuscar.requestFocus();
     }
 
     public void BuscaLimpa() {
@@ -791,18 +795,47 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnBuscaLimpa;
-    private javax.swing.JButton jButtonEditar;
-    private javax.swing.JButton jButtonLimpar;
-    private javax.swing.JButton jButtonNovo;
-    public static javax.swing.JButton jButtonPesquisar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnNovo;
+    public static javax.swing.JButton btnPesquisar;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem_Exibe_Imagens;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButtonOrdem;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_Produto;
-    private javax.swing.JTextField jTextFieldBusca;
+    private javax.swing.JPanel pnPrincipal;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
+
+    public static JButton getBtnBuscaLimpa() {
+        return btnBuscaLimpa;
+    }
+
+    public JButton getBtnEditar() {
+        return btnEditar;
+    }
+
+    public JButton getBtnLimpar() {
+        return btnLimpar;
+    }
+
+    public JButton getBtnNovo() {
+        return btnNovo;
+    }
+
+    public static JButton getBtnPesquisar() {
+        return btnPesquisar;
+    }
+
+    public JTextField getTxtBuscar() {
+        return txtBuscar;
+    }
+
+    public JTable getjTable_Produto() {
+        return jTable_Produto;
+    }
+
 }

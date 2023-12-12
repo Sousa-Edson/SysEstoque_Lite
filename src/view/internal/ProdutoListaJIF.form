@@ -59,17 +59,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+          <Component id="pnPrincipal" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+          <Component id="pnPrincipal" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="pnPrincipal">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="ff" red="0" type="rgb"/>
@@ -84,15 +84,15 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jScrollPane1" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="jTextFieldBusca" min="-2" pref="430" max="-2" attributes="0"/>
+                          <Component id="txtBuscar" min="-2" pref="430" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonPesquisar" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnPesquisar" linkSize="1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonLimpar" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnLimpar" linkSize="1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jButtonNovo" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnNovo" linkSize="1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonEditar" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnEditar" linkSize="1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnBuscaLimpa" min="-2" pref="106" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -109,13 +109,13 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextFieldBusca" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonPesquisar" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonLimpar" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnPesquisar" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnLimpar" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jRadioButtonOrdem" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonNovo" linkSize="4" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="btnNovo" linkSize="4" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                       <Component id="btnBuscaLimpa" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonEditar" linkSize="4" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="btnEditar" linkSize="4" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" pref="336" max="32767" attributes="0"/>
@@ -144,29 +144,29 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="jTextFieldBusca">
+        <Component class="javax.swing.JTextField" name="txtBuscar">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldBuscaActionPerformed"/>
-            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldBuscaKeyReleased"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBuscarActionPerformed"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscarKeyReleased"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonPesquisar">
+        <Component class="javax.swing.JButton" name="btnPesquisar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pesquisar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPesquisarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPesquisarActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonLimpar">
+        <Component class="javax.swing.JButton" name="btnLimpar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Limpar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonLimparActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimparActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButtonOrdem">
@@ -182,12 +182,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonOrdemActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonNovo">
+        <Component class="javax.swing.JButton" name="btnNovo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Novo"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonNovoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnBuscaLimpa">
@@ -201,13 +201,13 @@
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonEditar">
+        <Component class="javax.swing.JButton" name="btnEditar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Editar"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEditarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

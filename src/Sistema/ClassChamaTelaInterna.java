@@ -19,7 +19,7 @@ import Interface.MovimentoListaJIF;
 import Interface.NaturezaCadastroJIF;
 import view.MenuPrincipal;
 import Interface.ProdCadastroJIF;
-import Interface.ProdutoListaJIF;
+import view.internal.ProdutoListaJIF;
 import Interface.ProtocoloInternaJIF;
 import Interface.SetorCadastroJIF;
 import view.internal.UnidadeCadastroJIF;

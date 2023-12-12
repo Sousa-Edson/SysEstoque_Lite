@@ -5,7 +5,7 @@
  */
 package controller;
 
-import Interface.ProdutoListaJIF;
+import view.internal.ProdutoListaJIF;
 import view.MenuPrincipal;
 import view.internal.UnidadeCadastroJIF;
 
