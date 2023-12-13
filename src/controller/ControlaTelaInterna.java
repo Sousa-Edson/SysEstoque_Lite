@@ -23,12 +23,9 @@ public class ControlaTelaInterna {
             unidadeCadastroJIF = new UnidadeCadastroJIF();
             MenuPrincipal.desktopPrincipal.add(unidadeCadastroJIF);
             unidadeCadastroJIF.setVisible(true);
-            unidadeCadastroJIF.toFront();
-            unidadeCadastroJIF.setPosicao();
-        } else {
-            unidadeCadastroJIF.toFront();
-            unidadeCadastroJIF.setPosicao();
         }
+        unidadeCadastroJIF.toFront();
+        unidadeCadastroJIF.setPosicao();
     }
 
     public static void ChamaListaProduto() {
@@ -36,7 +33,6 @@ public class ControlaTelaInterna {
             produtoListaJIF = new ProdutoListaJIF();
             MenuPrincipal.desktopPrincipal.add(produtoListaJIF);
             produtoListaJIF.setVisible(true);
-
         }
         produtoListaJIF.toFront();
         produtoListaJIF.setPosicao();
