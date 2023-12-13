@@ -6,7 +6,7 @@
 package Sistema;
 
 import Interface.Principal;
-import Interface.ProdCadastroJIF;
+import view.internal.ProdutoCadastroJIF;
 
 /**
  *

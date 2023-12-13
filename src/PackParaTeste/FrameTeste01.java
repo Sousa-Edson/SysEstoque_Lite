@@ -6,7 +6,7 @@
 package PackParaTeste;
 
 import ConectaBanco.ConexaoBD;
-import Interface.ProdCadastroJIF;
+import view.internal.ProdutoCadastroJIF;
 import java.awt.Color;
 import java.awt.List;
 import java.io.File;
@@ -382,7 +382,7 @@ jButton4.setBackground(Color.green);
             } while (conex.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex);
-            Logger.getLogger(ProdCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProdutoCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
 //            jComboBox_Unidade.addItem("UN");
 //            jComboBox_Unidade.setSelectedItem("UN");
         }
@@ -406,7 +406,7 @@ jButton4.setBackground(Color.green);
                 jLabel1.setText(unidade1);
             } while (conex2.rs.next());
         } catch (SQLException ex) {
-            Logger.getLogger(ProdCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProdutoCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
             jComboBox_Unidade.addItem("UN");
             jComboBox_Unidade.setSelectedItem("UN");
         }

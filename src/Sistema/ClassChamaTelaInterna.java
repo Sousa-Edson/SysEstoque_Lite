@@ -19,7 +19,7 @@ import Interface.MovimentoListaJIF;
 import Interface.NaturezaCadastroJIF;
 import Interface.Principal;
 import view.MenuPrincipal;
-import Interface.ProdCadastroJIF;
+import view.internal.ProdutoCadastroJIF;
 import view.internal.ProdutoListaJIF;
 import Interface.ProtocoloInternaJIF;
 import Interface.SetorCadastroJIF;
@@ -36,7 +36,7 @@ public class ClassChamaTelaInterna {
 
     ConsultaInterna3 ConsultaInterna = new ConsultaInterna3();
     ProdutoListaJIF ProdutoListaJIF = new ProdutoListaJIF();
-    ProdCadastroJIF ProdCadastroJIF = new ProdCadastroJIF();
+    ProdutoCadastroJIF ProdCadastroJIF = new ProdutoCadastroJIF();
     UnidadeCadastroJIF UnidadeCadastroJIF = new UnidadeCadastroJIF();
     FCEListaJIF FCELista = new FCEListaJIF();
     FCECadastroJIF FCECadastro = new FCECadastroJIF();
@@ -57,15 +57,15 @@ public class ClassChamaTelaInterna {
         String id = menu.jLabelCodigoTela2.getText();
         ProdCadastroJIF.RecebeIdProduto(id);
         if (ProdCadastroJIF.isVisible()) {
-//            ProdCadastroJIF.setVisible(false);
-//            menu.PainelPrincipal.remove(ProdCadastroJIF);
+//            ProdutoCadastroJIF.setVisible(false);
+//            menu.PainelPrincipal.remove(ProdutoCadastroJIF);
             ProdCadastroJIF.setPosicao();
             ProdCadastroJIF.toFront();
             // ConsultaInterna.EventoData()
             ProdCadastroJIF.pack();
         } else { menu.desktopPrincipal.remove(ProdCadastroJIF);
             menu.desktopPrincipal.add(ProdCadastroJIF);
-            // ProdCadastroJIF.setSize(514, 244); // [909, 421]
+            // ProdutoCadastroJIF.setSize(514, 244); // [909, 421]
             ProdCadastroJIF.setPosicao();
             ProdCadastroJIF.setVisible(true);
             ProdCadastroJIF.toFront();
@@ -116,7 +116,7 @@ public class ClassChamaTelaInterna {
         if (ProdCadastroJIF.isVisible()) {
             ProdCadastroJIF.RecebeIdProduto(id);
             ProdCadastroJIF.toFront();
-//            ProdCadastroJIF.setPosicao();
+//            ProdutoCadastroJIF.setPosicao();
         } else { menu.desktopPrincipal.remove(ProdCadastroJIF);
             menu.desktopPrincipal.add(ProdCadastroJIF);
             ProdCadastroJIF.RecebeIdProduto(id);
@@ -124,7 +124,7 @@ public class ClassChamaTelaInterna {
             ProdCadastroJIF.setVisible(true);
             ProdCadastroJIF.toFront();
             // ConsultaInterna.EventoData()
-//            ProdCadastroJIF.pack();
+//            ProdutoCadastroJIF.pack();
         }
     }
 

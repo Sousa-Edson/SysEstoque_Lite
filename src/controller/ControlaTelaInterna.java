@@ -7,6 +7,7 @@ package controller;
 
 import view.internal.ProdutoListaJIF;
 import view.MenuPrincipal;
+import view.internal.ProdutoCadastroJIF;
 import view.internal.UnidadeCadastroJIF;
 
 /**
@@ -17,6 +18,7 @@ public class ControlaTelaInterna {
 
     private static UnidadeCadastroJIF unidadeCadastroJIF;
     private static ProdutoListaJIF produtoListaJIF;
+    private static ProdutoCadastroJIF produtoCadastroJIF;
 
     public static void ChamaCadastroUnidade() {
         if (unidadeCadastroJIF == null || !unidadeCadastroJIF.isVisible()) {
@@ -37,5 +39,16 @@ public class ControlaTelaInterna {
         produtoListaJIF.toFront();
         produtoListaJIF.setPosicao();
         produtoListaJIF.getTxtBuscar().requestFocus();
+    }
+
+    public static void ChamaCadastroProduto() {
+        if (produtoCadastroJIF == null || !produtoCadastroJIF.isVisible()) {
+            produtoCadastroJIF = new ProdutoCadastroJIF();
+            MenuPrincipal.desktopPrincipal.add(produtoCadastroJIF);
+            produtoCadastroJIF.setVisible(true);
+        }
+        produtoCadastroJIF.toFront();
+        produtoCadastroJIF.setPosicao();
+
     }
 }

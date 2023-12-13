@@ -12,6 +12,7 @@ import static Interface.Principal.jButton1;
 import ModeloBeans.ModeloTabela;
 import Sistema.ClassChamaCadastroProduto;
 import UTIL.ControleCores;
+import controller.ControlaTelaInterna;
 import controller.ProdutoListaController;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -34,9 +35,9 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author edson
  */
 public class ProdutoListaJIF extends javax.swing.JInternalFrame {
-    
+
     ProdutoListaController produtoListaController = new ProdutoListaController();
-    
+
     ConexaoBD conex = new ConexaoBD();
     ConexaoBD conexSaldo = new ConexaoBD();
     ClassChamaCadastroProduto tela = new ClassChamaCadastroProduto();
@@ -45,11 +46,11 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
     String UnProd;
     String SelecionaProdutoReferencia;
     String SelecionaProduto = null, SelecionaProdutoNome, SelecionaProdutoId;
-    
+
     public ProdutoListaJIF() {
         initComponents();
         remover_Ico();
-        
+
         pnPrincipal.setBackground(ControleCores.pegarCorPadrao());
         // setPosicao();
     }
@@ -270,11 +271,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-//        BuscaUltimaId();
-        btnEditar.setEnabled(false);
-        Principal.jLabelCodigoTela2.setText("novo");
-        Principal.jLabelCodigoTela.setText("CadastroProduto");
-        Principal.jButton1.doClick();
+        ControlaTelaInterna.ChamaCadastroProduto();
 
     }//GEN-LAST:event_btnNovoActionPerformed
 
@@ -348,7 +345,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
 
     private void jCheckBoxMenuItem_Exibe_ImagensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem_Exibe_ImagensActionPerformed
         if (jCheckBoxMenuItem_Exibe_Imagens.isSelected()) {
-            
+
         } else {
             btnPesquisar.doClick();
         }
@@ -359,16 +356,11 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu2MouseClicked
 
- 
-     
-    
-   
-    
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
         this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
     }
-    
+
     public void remover_Ico() {
         this.setFrameIcon(null);
 
@@ -379,8 +371,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         north.validate();
         north.repaint();
     }
-     
-    
+
     public void ExecutaSaldo() {
         String MeuExecutaSaldo = SelecionaProdutoId;
         System.out.println("aquiExecutaSaldo()        Verificando            " + MeuExecutaSaldo);
@@ -398,7 +389,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Erro ao ExecutaSaldo -- \n" + ex);
         }
         conexSaldo.desconecta();
-         
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
@@ -418,25 +409,25 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
     public JButton getBtnEditar() {
         return btnEditar;
     }
-    
+
     public JButton getBtnLimpar() {
         return btnLimpar;
     }
-    
+
     public JButton getBtnNovo() {
         return btnNovo;
     }
-    
+
     public static JButton getBtnPesquisar() {
         return btnPesquisar;
     }
-    
+
     public JTextField getTxtBuscar() {
         return txtBuscar;
     }
-    
+
     public JTable getjTable_Produto() {
         return jTable_Produto;
     }
-    
+
 }
