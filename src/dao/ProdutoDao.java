@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Produto;
+import model.Unidade;
 
 public class ProdutoDao {
 
@@ -198,4 +199,63 @@ public class ProdutoDao {
     }
 
     // ... outros métodos, se necessário
+    // novo
+    public List<Produto> listarProdutosPorBusca(String minhaBusca) {
+        List<Produto> produtos = new ArrayList<>();
+        conex.conexao();
+        String query = "SELECT * FROM produto "
+                + "INNER JOIN unidade ON idunid = id_referenciaunidade "
+                + "WHERE (COALESCE(CAST(id_prod AS TEXT), '') || ' ' || "
+                + "COALESCE(CAST(sis_prod AS TEXT), '') || ' ' || "
+                + "COALESCE(UPPER(tipo_prod), '') || ' ' || "
+                + "COALESCE(UPPER(nome_prod), '') || ' ' || "
+                + "COALESCE(UPPER(edicao_prod), '') || ' ' || "
+                + "COALESCE(UPPER(obs_prod), '') || ' ' || "
+                + "COALESCE(UPPER(usu_prod), '') || ' ' || "
+                + "COALESCE(CAST(data_reg AS TEXT), '')) ILIKE ? AND stunid = 1 "
+                + "ORDER BY sis_prod DESC, id_prod DESC";
+
+        try (PreparedStatement pst = conex.con.prepareStatement(query)) {
+            pst.setString(1, "%" + minhaBusca + "%");
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Produto produto = new Produto();
+                produto.setId_prod(rs.getInt("id_prod"));
+                produto.setData_reg(rs.getString("data_reg"));
+                produto.setHora_reg(rs.getString("hora_reg"));
+                produto.setNcm_prod(rs.getString("ncm_prod"));
+                produto.setTipo_prod(rs.getString("tipo_prod"));
+                produto.setNome_prod(rs.getString("nome_prod"));
+                produto.setEdicao_prod(rs.getString("edicao_prod"));
+                produto.setCfop_prod(rs.getString("cfop_prod"));
+                produto.setObs_prod(rs.getString("obs_prod"));
+                produto.setUsu_prod(rs.getString("usu_prod"));
+                produto.setValor_ex(rs.getString("valor_prod_ex"));
+                produto.setSis_prod(rs.getInt("sis_prod"));
+                produto.setId_prod(rs.getInt("id_prod"));
+                produto.setUn_prod(rs.getInt("idunid"));
+                produto.setStatus_prod(rs.getInt("stprod"));
+                produto.setSaldo_prod(rs.getDouble("saldo_prod"));
+                produto.setEstoque_prod(rs.getDouble("estoque_prod"));
+                produto.setValor(rs.getDouble("valor_prod"));
+
+                Unidade unidade = new Unidade();
+                unidade.setId_unidade(rs.getInt("id_unidade"));
+                unidade.setId_referencia(rs.getInt("id_referenciaunidade"));
+                unidade.setSigla_unidade(rs.getString("sigla_unidade"));
+                unidade.setDesc_unidade(rs.getString("desc_unidade"));
+                produto.setUnidade(unidade);
+
+                produtos.add(produto);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar produtos.\n" + ex);
+        } finally {
+            conex.desconecta();
+        }
+
+        return produtos;
+    }
+
 }

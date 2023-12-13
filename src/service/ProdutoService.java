@@ -36,6 +36,10 @@ public class ProdutoService {
         return produtoDao.listarProdutos();
     }
 
+    public List<Produto> listarProdutosPorBusca(String busca) {
+        return produtoDao.listarProdutosPorBusca(busca);
+    }
+
     public Produto obterProdutoPorId(int idProduto) {
         return produtoDao.obterProdutoPorId(idProduto);
     }

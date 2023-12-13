@@ -6,11 +6,7 @@
 package old;
 
 import ConectaBanco.ConexaoBD;
-import ConectaBanco.ConexaoBD_2;
-import ConectaBanco.Conexao_mysql;
-import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -20,8 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class frame extends javax.swing.JFrame {
 
-    ConexaoBD_2 conex = new ConexaoBD_2();
-    ConexaoBD conex_post = new ConexaoBD();
+    ConexaoBD conex = new ConexaoBD();
     String descricao;
     String edicao;
     String valor;
@@ -106,12 +101,12 @@ public class frame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-   conex.conexao();
+        conex.conexao();
         id = "1";
         descricao = "IMPRESSO CARTA FICHA NÂO CF/SE751707 ";
         valor = "R$ 12,00";
         salvaBanco();
-           conex.desconecta();
+        conex.desconecta();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -157,38 +152,38 @@ public class frame extends javax.swing.JFrame {
 
         ArrayList dados = new ArrayList();
         String[] colunas = new String[]{"Id", "Produto", "Saldo", "Unid", "Valor Unit.", "Observação", "Registro", "Id Linha"};
-         conex.conexao();
-        conex_post.conexao();
-        conex_post.executaSql("select * from produto "
+        conex.conexao();
+        conex.conexao();
+        conex.executaSql("select * from produto "
                 + "inner join unidade on  idunid=id_referenciaunidade "
                 + "where  stunid =1 and stprod =1 "
                 + "order by sis_prod  asc  ");
         try {
-            conex_post.rs.first();
+            conex.rs.first();
             do {
-                edicao = conex_post.rs.getString("edicao_prod");
+                edicao = conex.rs.getString("edicao_prod");
 
-                String datahora = conex_post.rs.getString("usu_prod") + " " + conex_post.rs.getString("data_reg") + " " + conex_post.rs.getString("hora_reg");
+                String datahora = conex.rs.getString("usu_prod") + " " + conex.rs.getString("data_reg") + " " + conex.rs.getString("hora_reg");
                 if (edicao.equals(null) | edicao.equals("") | edicao.equals(" ")) {
                     edicao = "";
                 } else {
                     edicao = "-" + edicao;
                 }
 
-                descricao = " " + conex_post.rs.getString("tipo_prod") + " " + conex_post.rs.getString("nome_prod");
+                descricao = " " + conex.rs.getString("tipo_prod") + " " + conex.rs.getString("nome_prod");
                 descricao = descricao.toUpperCase();
 
-                valor = conex_post.rs.getString("valor_prod_ex");
-                id = conex_post.rs.getString("sis_prod");
+                valor = conex.rs.getString("valor_prod_ex");
+                id = conex.rs.getString("sis_prod");
                 System.out.println("id-" + id + " " + "nome-" + descricao + " " + "valor-" + valor);
                 salvaBanco();
-            } while (conex_post.rs.next());
+            } while (conex.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "preenchertabela\n" + ex);
 
         }
-         conex.desconecta();
-        conex_post.desconecta();
+        conex.desconecta();
+        conex.desconecta();
     }
 
 

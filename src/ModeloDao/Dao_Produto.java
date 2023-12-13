@@ -7,8 +7,13 @@ package ModeloDao;
 
 import ModeloBeans.Beans_Produto;
 import ConectaBanco.ConexaoBD; 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import model.Produto;
 
 /**
  *
@@ -16,11 +21,9 @@ import javax.swing.JOptionPane;
  */
 public class Dao_Produto {
  
-    ConexaoBD conex = new ConexaoBD();
-    Beans_Produto cadProd = new Beans_Produto();
+    ConexaoBD conex = new ConexaoBD(); 
 
-    public void Cria_Registro_Primario(Beans_Produto cadProd) {
-//        preencherUnidade(cadProd.getUnprod());
+    public void Cria_Registro_Primario(Beans_Produto cadProd) { 
         conex.conexao();
         try {
             java.sql.PreparedStatement pst = conex.con.prepareStatement("INSERT INTO produtoreferencia(rps)"
@@ -126,5 +129,6 @@ public class Dao_Produto {
         }
         conex.desconecta();
     }
+    
 
 }

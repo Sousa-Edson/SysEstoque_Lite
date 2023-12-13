@@ -16,6 +16,8 @@ public class Produto {
     int sis_prod, id_prod, un_prod, status_prod;
     Double saldo_prod, estoque_prod, valor;
 
+    Unidade unidade;
+
     public Produto() {
     }
 
@@ -38,7 +40,28 @@ public class Produto {
         this.estoque_prod = estoque_prod;
         this.valor = valor;
     }
- 
+
+    public Produto(String data_reg, String hora_reg, String ncm_prod, String tipo_prod, String nome_prod, String edicao_prod,
+            String cfop_prod, String obs_prod, String usu_prod, String valor_ex, int sis_prod, int id_prod, Unidade unidade, int status_prod,
+            Double saldo_prod, Double estoque_prod, Double valor) {
+        this.data_reg = data_reg;
+        this.hora_reg = hora_reg;
+        this.ncm_prod = ncm_prod;
+        this.tipo_prod = tipo_prod;
+        this.nome_prod = nome_prod;
+        this.edicao_prod = edicao_prod;
+        this.cfop_prod = cfop_prod;
+        this.obs_prod = obs_prod;
+        this.usu_prod = usu_prod;
+        this.valor_ex = valor_ex;
+        this.sis_prod = sis_prod;
+        this.id_prod = id_prod;
+        this.unidade = unidade;
+        this.status_prod = status_prod;
+        this.saldo_prod = saldo_prod;
+        this.estoque_prod = estoque_prod;
+        this.valor = valor;
+    }
 
     public String getValor_ex() {
         return valor_ex;
@@ -175,4 +198,13 @@ public class Produto {
     public void setUsu_prod(String usu_prod) {
         this.usu_prod = usu_prod;
     }
+
+    public Unidade getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(Unidade unidade) {
+        this.unidade = unidade;
+    }
+
 }

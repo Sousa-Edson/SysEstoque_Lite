@@ -16,7 +16,7 @@ import model.Produto;
 public class ProdutoTableModel extends AbstractTableModel {
 
     private List<Produto> produtos;
-    private final String[] colunas = {"Id", "Status", "Produto", "Saldo", "Unid", "Valor Unit.", "Observação", "Registro", "Id Linha"};
+    private final String[] colunas = {"Id", "Status", "Produto", "Saldo", "Unid", "Valor Unit.", "Observação", "Registro"};
 
     public ProdutoTableModel() {
         this.produtos = new ArrayList<>();
@@ -50,21 +50,27 @@ public class ProdutoTableModel extends AbstractTableModel {
             case 0:
                 return produto.getId_prod();
             case 1:
-                return produto.getStatus_prod();
+                switch (produto.getStatus_prod()) {
+                    case 1:
+                        return "Ativo";
+                    case 0:
+                        return "Inativo";
+                    default:
+                        // Tratar outros possíveis valores, se necessário
+                        return "Valor desconhecido "+produto.getStatus_prod();
+                }
             case 2:
-                return produto.getNome_prod();
+                return produto.getTipo_prod()+" "+produto.getNome_prod()+" "+produto.getEdicao_prod();
             case 3:
                 return produto.getSaldo_prod();
             case 4:
-                return produto.getUn_prod();
+                return produto.getUnidade().getSigla_unidade();
             case 5:
                 return produto.getValor();
             case 6:
                 return produto.getObs_prod();
             case 7:
-                return produto.getData_reg();
-            case 8:
-                return produto.getSis_prod(); // ajuste conforme necessário
+                return produto.getData_reg(); 
             default:
                 return null;
         }

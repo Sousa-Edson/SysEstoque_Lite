@@ -37,7 +37,7 @@ public class ProdutoListaController {
 
     public void preencheTabela(ProdutoListaJIF form) {
         ProdutoTableModel modelo = new ProdutoTableModel();
-        List<Produto> produtos = produtoService.listarProdutos();
+        List<Produto> produtos = produtoService.listarProdutosPorBusca(form.getTxtBuscar().getText().toUpperCase());
         modelo.setProdutos(produtos);
         form.getjTable_Produto().setModel(modelo);
         form.getjTable_Produto().getColumnModel().getColumn(0).setPreferredWidth(60);
