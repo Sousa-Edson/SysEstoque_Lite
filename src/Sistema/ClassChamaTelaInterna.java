@@ -170,7 +170,7 @@ public class ClassChamaTelaInterna {
 
     public void AtualizaProdutoLista() {
         if (ProdutoListaJIF.isVisible()) {
-            ProdutoListaJIF.BuscaLimpa();
+            
         } else {
 
         }

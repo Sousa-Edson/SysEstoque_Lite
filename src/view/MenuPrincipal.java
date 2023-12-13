@@ -191,6 +191,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton_Produto.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
         jButton_Produto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-produto-36.png"))); // NOI18N
         jButton_Produto.setText("Produto");
         jButton_Produto.addActionListener(new java.awt.event.ActionListener() {
@@ -199,6 +200,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton_Nota.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
         jButton_Nota.setText("Nota");
         jButton_Nota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,6 +208,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton_Consulta.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
         jButton_Consulta.setText("Consulta");
         jButton_Consulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,6 +216,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton_Expedicao.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
         jButton_Expedicao.setText("Expedição");
         jButton_Expedicao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,7 +235,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addComponent(jButton_Consulta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton_Expedicao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblPapelDeParede, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblPapelDeParede, javax.swing.GroupLayout.DEFAULT_SIZE, 1102, Short.MAX_VALUE))
         );
         pnPrincipalLayout.setVerticalGroup(
             pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,8 +283,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel_Hora.setFont(new java.awt.Font("Fira Sans", 3, 14)); // NOI18N
         jLabel_Hora.setText("00:00:00");
 
+        jLabel_Data.setFont(new java.awt.Font("Fira Sans", 3, 14)); // NOI18N
         jLabel_Data.setText("00/00/0000");
         jLabel_Data.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -310,8 +316,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabelCodigoTela2.setText("  ");
         jLabelCodigoTela2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jLabelTipoUsuario.setFont(new java.awt.Font("Fira Sans", 3, 14)); // NOI18N
         jLabelTipoUsuario.setText("Administrador");
 
+        jLabelNomeUsuario.setFont(new java.awt.Font("Fira Sans", 3, 14)); // NOI18N
         jLabelNomeUsuario.setText("Sistema");
 
         jLabel_Empresa.setText("0");
@@ -345,12 +353,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel_Empresa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_Gerador_De_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 263, Short.MAX_VALUE)
-                .addComponent(jLabelTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_Data, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel_Data, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel_Hora, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())

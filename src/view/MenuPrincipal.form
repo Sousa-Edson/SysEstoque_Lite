@@ -615,7 +615,7 @@
                           <Component id="jButton_Expedicao" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblPapelDeParede" max="32767" attributes="0"/>
+                      <Component id="lblPapelDeParede" pref="1102" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -665,6 +665,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton_Produto">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Fira Sans" size="13" style="1"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/icons8-produto-36.png"/>
                 </Property>
@@ -676,6 +679,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton_Nota">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Fira Sans" size="13" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Nota"/>
               </Properties>
               <Events>
@@ -684,6 +690,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton_Consulta">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Fira Sans" size="13" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Consulta"/>
               </Properties>
               <Events>
@@ -692,6 +701,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton_Expedicao">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Fira Sans" size="13" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Expedi&#xe7;&#xe3;o"/>
               </Properties>
               <Events>
@@ -731,12 +743,12 @@
                   <Component id="jLabel_Empresa" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel_Gerador_De_Codigo" min="-2" pref="51" max="-2" attributes="0"/>
-                  <EmptySpace pref="263" max="32767" attributes="0"/>
-                  <Component id="jLabelTipoUsuario" min="-2" pref="87" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jLabelNomeUsuario" min="-2" pref="65" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jLabelTipoUsuario" min="-2" pref="156" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel_Data" min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="jLabelNomeUsuario" min="-2" pref="135" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel_Data" min="-2" pref="95" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel_Hora" min="-2" pref="68" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -779,6 +791,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel_Hora">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Fira Sans" size="14" style="3"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="00:00:00"/>
           </Properties>
           <AuxValues>
@@ -787,6 +802,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel_Data">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Fira Sans" size="14" style="3"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="00/00/0000"/>
           </Properties>
           <Events>
@@ -854,6 +872,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelTipoUsuario">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Fira Sans" size="14" style="3"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Administrador"/>
           </Properties>
           <AuxValues>
@@ -862,6 +883,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelNomeUsuario">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Fira Sans" size="14" style="3"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Sistema"/>
           </Properties>
           <AuxValues>

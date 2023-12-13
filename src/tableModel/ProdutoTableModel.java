@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Produto;
+import utils.FormatarDinheiro;
 import utils.FormatarNumero;
 
 /**
@@ -67,7 +68,7 @@ public class ProdutoTableModel extends AbstractTableModel {
             case 4:
                 return produto.getUnidade().getSigla_unidade();
             case 5:
-                return produto.getValor();
+                return FormatarDinheiro.formatarDinheiro(produto.getValor());
             case 6:
                 return produto.getObs_prod();
             case 7:
