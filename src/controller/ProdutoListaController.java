@@ -42,8 +42,13 @@ public class ProdutoListaController {
         form.getjTable_Produto().setModel(modelo);
         form.getjTable_Produto().getColumnModel().getColumn(0).setPreferredWidth(60);
         form.getjTable_Produto().getColumnModel().getColumn(0).setResizable(true);
+        
+         form.getjTable_Produto().getColumnModel().getColumn(2).setMinWidth(460);
+        form.getjTable_Produto().getColumnModel().getColumn(2).setResizable(true);
+        
         form.getjTable_Produto().getTableHeader().setReorderingAllowed(false);
 //        getjTable_Produto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         form.getjTable_Produto().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        form.getTxtBuscar().requestFocus();
     }
 }

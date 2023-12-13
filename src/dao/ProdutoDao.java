@@ -212,7 +212,7 @@ public class ProdutoDao {
                 + "COALESCE(UPPER(edicao_prod), '') || ' ' || "
                 + "COALESCE(UPPER(obs_prod), '') || ' ' || "
                 + "COALESCE(UPPER(usu_prod), '') || ' ' || "
-                + "COALESCE(CAST(data_reg AS TEXT), '')) ILIKE ? AND stunid = 1 "
+                + "COALESCE(CAST(data_reg AS TEXT), '')) ILIKE ? AND stprod = 1 "
                 + "ORDER BY sis_prod DESC, id_prod DESC";
 
         try (PreparedStatement pst = conex.con.prepareStatement(query)) {

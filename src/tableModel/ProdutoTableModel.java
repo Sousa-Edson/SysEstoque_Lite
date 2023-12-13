@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Produto;
+import utils.FormatarNumero;
 
 /**
  *
@@ -57,12 +58,12 @@ public class ProdutoTableModel extends AbstractTableModel {
                         return "Inativo";
                     default:
                         // Tratar outros possíveis valores, se necessário
-                        return "Valor desconhecido "+produto.getStatus_prod();
+                        return "Valor desconhecido " + produto.getStatus_prod();
                 }
             case 2:
-                return produto.getTipo_prod()+" "+produto.getNome_prod()+" "+produto.getEdicao_prod();
+                return produto.getTipo_prod() + " " + produto.getNome_prod() + " " + produto.getEdicao_prod();
             case 3:
-                return produto.getSaldo_prod();
+                return FormatarNumero.formatarNumero(produto.getSaldo_prod());
             case 4:
                 return produto.getUnidade().getSigla_unidade();
             case 5:
@@ -70,7 +71,7 @@ public class ProdutoTableModel extends AbstractTableModel {
             case 6:
                 return produto.getObs_prod();
             case 7:
-                return produto.getData_reg(); 
+                return produto.getData_reg();
             default:
                 return null;
         }

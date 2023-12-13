@@ -665,6 +665,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton_Produto">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/icons8-produto-36.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Produto"/>
               </Properties>
               <Events>

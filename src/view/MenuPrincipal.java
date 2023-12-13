@@ -8,15 +8,12 @@ package view;
 
 import view.internal.LoginJIF;
 import Interface.*;
-import Consulta.ConsultaInterna3;
 import BackupRestore.Novo.PostgresBackup_X64NOV;
 import BackupRestore.Novo.PostgresBackup_X86NOV;
 import BackupRestore.Novo.PostgresRestore_X64NOV;
 import BackupRestore.Novo.PostgresRestore_X86NOV;
-import PackParaTeste.JIFTEste;
-import PackParaTeste.JIFTEste2;
-import Sistema.ClassChamaTelaInterna;
 import Sistema.ManipulaProtocolo;
+import UTIL.ControleCores;
 import UTIL.UsuarioLogado;
 import controller.ControlaTelaInterna;
 import controller.MenuPrincipalController;
@@ -27,7 +24,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,12 +33,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JColorChooser;
 import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.Timer;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -74,6 +68,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         carregaPapelParede();
         menuPrincipalController.chamaLogin(this);
         System.out.println("Meu usuario::" + UsuarioLogado.getNome());
+
+        pnPrincipal.setBackground(ControleCores.pegarCorPadrao());
     }
 
     /**
@@ -195,6 +191,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton_Produto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-produto-36.png"))); // NOI18N
         jButton_Produto.setText("Produto");
         jButton_Produto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1153,7 +1150,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem32ActionPerformed
 
     private void jButton_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ProdutoActionPerformed
-         ControlaTelaInterna.ChamaListaProduto();;
+        ControlaTelaInterna.ChamaListaProduto();;
     }//GEN-LAST:event_jButton_ProdutoActionPerformed
 
     private void jButton_NotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NotaActionPerformed

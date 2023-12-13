@@ -36,11 +36,10 @@ public class ControlaTelaInterna {
             produtoListaJIF = new ProdutoListaJIF();
             MenuPrincipal.desktopPrincipal.add(produtoListaJIF);
             produtoListaJIF.setVisible(true);
-            produtoListaJIF.toFront();
-            produtoListaJIF.setPosicao();
-        } else {
-            produtoListaJIF.toFront();
-            produtoListaJIF.setPosicao();
+
         }
+        produtoListaJIF.toFront();
+        produtoListaJIF.setPosicao();
+        produtoListaJIF.getTxtBuscar().requestFocus();
     }
 }
