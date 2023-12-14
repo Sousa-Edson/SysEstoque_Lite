@@ -27,6 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
@@ -38,7 +39,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author edson
  */
 public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
-    
+
     Beans_Produto Bprod = new Beans_Produto();
     Dao_Produto Dprod = new Dao_Produto();
     Dao_Movimento Mdao = new Dao_Movimento();
@@ -51,21 +52,21 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     int IntModoValor = 0;
     int ComboFocu = 0;
     int id_referencia;
-    
+
     ProdutoController produtoController;
-    
+
     public ProdutoCadastroJIF() {
         initComponents();
         remover_Ico();
         PreencheUnidade();
         EscondeInsereSaldoInicio();
-        
+
         pnPrincipal.setBackground(ControleCores.pegarCorPadrao());
         pnBotoes.setBackground(ControleCores.pegarCorPadrao());
         pnCampos.setBackground(ControleCores.pegarCorPadrao());
-        
+
         produtoController = new ProdutoController();
-        
+
     }
 
     /**
@@ -106,7 +107,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         spCfop = new javax.swing.JSpinner();
         spEstoqueMinimo = new javax.swing.JSpinner();
         cbUnidade_Int = new javax.swing.JComboBox<>();
-        jLabel_Exibe_Informacao = new javax.swing.JLabel();
+        lblExibeInformacao = new javax.swing.JLabel();
         jTextFieldInsereSaldo = new javax.swing.JTextField();
         jButtonInsereSaldo = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -425,7 +426,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jLabel_Exibe_Informacao.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblExibeInformacao.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButtonInsereSaldo.setText("+");
         jButtonInsereSaldo.addActionListener(new java.awt.event.ActionListener() {
@@ -454,7 +455,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
                                 .addComponent(jTextFieldInsereSaldo)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel_Exibe_Informacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblExibeInformacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnPrincipalLayout.createSequentialGroup()
                                 .addComponent(jButtonInsereSaldo)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
@@ -470,7 +471,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_Saldo_Prod2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_Exibe_Informacao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblExibeInformacao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -554,7 +555,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtipoKeyPressed
 
     private void txtipoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtipoKeyReleased
-        ContaCaracteresTipo();
+        produtoController.contaCaracteres(txtipo, lblExibeInformacao, 30);
     }//GEN-LAST:event_txtipoKeyReleased
 
     private void txtDescKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescKeyPressed
@@ -591,11 +592,6 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-//        if (jLabel_Id_Secundario2.getText() == "novo") {
-//            LimpaCampos();
-//        } else {
-//            CarregaDadosDaTabela();
-//        }
         produtoController.limparCampos(this);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -671,7 +667,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtEdicaoKeyPressed
 
     private void txtEdicaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEdicaoKeyReleased
-        ContaCaracteresEdicao();
+        produtoController.contaCaracteres(txtEdicao, lblExibeInformacao, 30);
     }//GEN-LAST:event_txtEdicaoKeyReleased
 
     private void jButtonNovaUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaUnidadeActionPerformed
@@ -680,35 +676,35 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonNovaUnidadeActionPerformed
 
     private void txtDescKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescKeyReleased
-        ContaCaracteresDescricao();
+        produtoController.contaCaracteres(txtDesc, lblExibeInformacao, 50);
     }//GEN-LAST:event_txtDescKeyReleased
 
     private void txtipoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtipoFocusGained
-        ContaCaracteresTipo();
+        produtoController.contaCaracteres(txtipo, lblExibeInformacao, 30);
     }//GEN-LAST:event_txtipoFocusGained
 
     private void txtDescFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescFocusGained
-        ContaCaracteresDescricao();
+        produtoController.contaCaracteres(txtDesc, lblExibeInformacao, 50);
     }//GEN-LAST:event_txtDescFocusGained
 
     private void txtEdicaoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEdicaoFocusGained
-        ContaCaracteresEdicao();
+        produtoController.contaCaracteres(txtEdicao, lblExibeInformacao, 30);
     }//GEN-LAST:event_txtEdicaoFocusGained
 
     private void txtValorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorFocusGained
-        ContaCaracteresValor();
+        produtoController.contaCaracteres(txtValor, lblExibeInformacao, 30);
     }//GEN-LAST:event_txtValorFocusGained
 
     private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased
-        ContaCaracteresValor();
+        produtoController.contaCaracteres(txtValor, lblExibeInformacao, 30);
     }//GEN-LAST:event_txtValorKeyReleased
 
     private void txtObsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtObsFocusGained
-        ContaCaracteresObservacao();
+        produtoController.contaCaracteres(txtObs, lblExibeInformacao, 150);
     }//GEN-LAST:event_txtObsFocusGained
 
     private void txtObsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObsKeyReleased
-        ContaCaracteresObservacao();
+        produtoController.contaCaracteres(txtObs, lblExibeInformacao, 150);
     }//GEN-LAST:event_txtObsKeyReleased
 
     private void jLabel_Saldo_Prod2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_Saldo_Prod2MouseClicked
@@ -748,7 +744,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         CarregaUltimoIdSecundaria();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-    
+
     public void CarregaUltimoIdSecundaria() {
         String IdSecundaria = null;
         conex.conexao();
@@ -766,7 +762,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         CarregaUltimo();
         jLabel_Id_Secundario2.setText("novo");
     }
-    
+
     public void CarregaUltimo() {
         conex.conexao();
         conex.executaSql2("SELECT  sis_prod  FROM produto where sis_prod is not null and sis_prod !=0 order by sis_prod asc ");
@@ -793,7 +789,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             jLabel_Id_Secundario2.setText("novo");
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
-    
+
     public void AlteraSaldo() {
         try {
             String InsereSaldo = jTextFieldInsereSaldo.getText();
@@ -802,7 +798,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             Bprod.setSaldo_prod(Double.parseDouble(InsereSaldo));
             Bprod.setId_prod(IdSecundario);
             Dprod.AlteraSaldo(Bprod);
-            
+
             Mbeans.setId_prod_ent(IdSecundario);
             Mdao.AlterarStatusSaldo_MovProdutoBase_Produto(Mbeans);
             String MinhaQtd = (jTextFieldInsereSaldo.getText());
@@ -819,7 +815,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "erro " + ex);
         }
     }
-    
+
     public void EventoLimpar() {
 //        jTextFieldBusca.setText("");
 //        jTextFieldBusca.requestFocus();
@@ -829,12 +825,12 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 //        jTable_Produto.setModel(modelo);
 
     }
-    
+
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
         this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
     }
-    
+
     public void remover_Ico() {
         this.setFrameIcon(null);
 
@@ -845,7 +841,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         north.validate();
         north.repaint();
     }
-    
+
     public void PreencheUnidade() {
         conex.conexao();
         conex.executaSql2("SELECT  sigla_unidade, desc_unidade,id_referenciaunidade FROM unidade  where stunid =1   order by id_referenciaunidade asc ");
@@ -853,7 +849,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             conex.rs.first();
             cbUnidade.removeAllItems();
             cbUnidade_Int.removeAllItems();
-            
+
             do {
                 String unidade = (conex.rs.getString("sigla_unidade"));
                 cbUnidade.addItem(unidade);
@@ -871,92 +867,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         conex.desconecta();
         cbUnidade_Int.setVisible(true);
     }
-    
-    public void ContaCaracteresTipo() {
-        int Caracteres = 30;
-        int conta = txtipo.getText().length();
-        if (conta == 30) {
-            txtipo.setBackground(Color.yellow);
-            jLabel_Exibe_Informacao.setText("Limite de caracteres " + conta + "/" + Caracteres);
-        } else if (conta > 30) {
-            txtipo.setBackground(Color.red);
-            System.out.println("maior " + conta);
-            jLabel_Exibe_Informacao.setText("Ultrapassou limite de caracteres " + conta + "/" + Caracteres);
-        } else {
-            txtipo.setBackground(Color.white);
-            System.out.println("caracteres " + conta);
-            jLabel_Exibe_Informacao.setText("caracteres " + conta + "/" + Caracteres);
-        }
-    }
-    
-    public void ContaCaracteresEdicao() {
-        int Caracteres = 30;
-        int conta = txtEdicao.getText().length();
-        if (conta == 30) {
-            txtEdicao.setBackground(Color.yellow);
-            jLabel_Exibe_Informacao.setText("Limite de caracteres " + conta + "/" + Caracteres);
-        } else if (conta > 30) {
-            txtEdicao.setBackground(Color.red);
-            System.out.println("maior " + conta);
-            jLabel_Exibe_Informacao.setText("Ultrapassou limite de caracteres " + conta + "/" + Caracteres);
-        } else {
-            txtEdicao.setBackground(Color.white);
-            System.out.println("caracteres " + conta);
-            jLabel_Exibe_Informacao.setText("caracteres " + conta + "/" + Caracteres);
-        }
-    }
-    
-    public void ContaCaracteresValor() {
-        int Caracteres = 30;
-        int conta = txtValor.getText().length();
-        if (conta == 30) {
-            txtValor.setBackground(Color.yellow);
-            jLabel_Exibe_Informacao.setText("Limite de caracteres " + conta + "/" + Caracteres);
-        } else if (conta > 30) {
-            txtValor.setBackground(Color.red);
-            System.out.println("maior " + conta);
-            jLabel_Exibe_Informacao.setText("Ultrapassou limite de caracteres " + conta + "/" + Caracteres);
-        } else {
-            txtValor.setBackground(Color.white);
-            System.out.println("caracteres " + conta);
-            jLabel_Exibe_Informacao.setText("caracteres " + conta + "/" + Caracteres);
-        }
-    }
-    
-    public void ContaCaracteresDescricao() {
-        int Caracteres = 50;
-        int conta = txtDesc.getText().length();
-        if (conta == 50) {
-            txtDesc.setBackground(Color.yellow);
-            jLabel_Exibe_Informacao.setText("Limite de caracteres " + conta + "/" + Caracteres);
-        } else if (conta > 50) {
-            txtDesc.setBackground(Color.red);
-            System.out.println("maior " + conta);
-            jLabel_Exibe_Informacao.setText("Ultrapassou limite de caracteres " + conta + "/" + Caracteres);
-        } else {
-            txtDesc.setBackground(Color.white);
-            System.out.println("caracteres " + conta);
-            jLabel_Exibe_Informacao.setText("caracteres " + conta + "/" + Caracteres);
-        }
-    }
-    
-    public void ContaCaracteresObservacao() {
-        int Caracteres = 150;
-        int conta = txtObs.getText().length();
-        if (conta == 150) {
-            txtObs.setBackground(Color.yellow);
-            jLabel_Exibe_Informacao.setText("Limite de caracteres " + conta + "/" + Caracteres);
-        } else if (conta > 150) {
-            txtObs.setBackground(Color.red);
-            System.out.println("maior " + conta);
-            jLabel_Exibe_Informacao.setText("Ultrapassou limite de caracteres " + conta + "/" + Caracteres);
-        } else {
-            txtObs.setBackground(Color.white);
-            System.out.println("caracteres " + conta);
-            jLabel_Exibe_Informacao.setText("caracteres " + conta + "/" + Caracteres);
-        }
-    }
-    
+
     public void VerificaCor() {
         Color cor = txtipo.getBackground();
         if (cor == red) {
@@ -967,7 +878,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             SalvaTemp();
         }
     }
-    
+
     public void LimpaCampos() {
         this.setTitle("Cadastro Produto");
         // jLabel_Valor.setText("Valor");
@@ -980,12 +891,12 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         spCfop.setValue(0);
         spEstoqueMinimo.setValue(0);
         txtObs.setText(null);
-        jLabel_Exibe_Informacao.setText(null);
+        lblExibeInformacao.setText(null);
         jLabel_Saldo_Prod2.setText("  Saldo Produto : Zerado");
         btnExcluir.setEnabled(false);
         cbUnidade.setSelectedItem("UN");
     }
-    
+
     public void VerificaNumeroNcm() {
         String s;
 //        s = jTextField_Ncm.getText().replace(" ", "");
@@ -996,7 +907,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 //            jTextField_Ncm.setBackground(Color.RED);
 //        }
     }
-    
+
     public void VerificaNumeroCfop() {
         String s;
 //        s = jSpinner2.getText().replace(" ", "");
@@ -1007,7 +918,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 //            jSpinner2.setBackground(Color.RED);
 //        }
     }
-    
+
     public void RecebeIdProduto(String id) {
         jLabel_Id_Secundario2.setText(id);
         if (id == "novo" | id.equals("novo")) {
@@ -1019,7 +930,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             CarregaDadosDaTabela();
         }
     }
-    
+
     public void CarregaDadosDaTabela() {
         btnExcluir.setEnabled(true);
         conex.conexao();
@@ -1077,7 +988,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         }
         conex.desconecta();
     }
-    
+
     public void BuscaUltimaId() {
         conex.conexao();
         conex.executaSql2("select * from produto order by sis_prod  desc ");
@@ -1116,7 +1027,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         jLabel1.setVisible(false);
         cbUnidade_Int.setVisible(false);
     }
-    
+
     public void EscondeInsereSaldo() {
         if (jTextFieldInsereSaldo.isVisible()) {
             jTextFieldInsereSaldo.setVisible(false);
@@ -1127,20 +1038,20 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             jButtonInsereSaldo.setVisible(true);
             jLabel1.setVisible(true);
         }
-        
+
     }
-    
+
     public void SalvaTemp() {
         if (jLabel_Id_Secundario2.getText() == "novo") {
             BuscaUltimaId();
         } else {
-            
+
         }
         String MeuValorVerifica = txtValor.getText();
         if (MeuValorVerifica.isEmpty()) {
             txtValor.setText("R$ 0,00");
         }
-        
+
         String TipoProd = txtipo.getText(),
                 DescProd = txtDesc.getText(),
                 NumProd = txtEdicao.getText(),
@@ -1174,7 +1085,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         Bprod.setValor_ex(MeuValor);
         MeuValor = MeuValor.replace(",", ".").replace("R$", "");
         Bprod.setValor(Double.parseDouble(MeuValor));
-        
+
         Bprod.setUsu_prod(Principal.jLabelNomeUsuario.getText());// aqui muda  ///   (Principal.jLabel_Usuario.getText())
         Bprod.setStatus_prod(1); // aqui ativo
         Bprod.setHora_reg(Principal.jLabel_Hora.getText());
@@ -1193,14 +1104,14 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         }
         txtipo.requestFocus();//// muda foco      /////// Cria_Registro_Primario
     }
-    
+
     public void AlterarTemp() {
         Bprod.setStatus_prod(2);// alterado
         Bprod.setId_prod(Integer.parseInt(jLabel_Id_Secundario2.getText()));
         Dprod.Alterar_Atualizar_Temporario(Bprod);
-        
+
     }
-    
+
     public void BotaoExcluir() {
         int resposta = 0;
         int Status_Prod = 3; // excluido
@@ -1209,7 +1120,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             String v = jLabel_Id_Secundario2.getText();
             if (v == "novo" | v.equals("novo")) {
                 System.out.println("Interface.Produto.CadastroProdutoJIF.BotaoExcluir()");
-                
+
             } else {
                 this.setTitle("Cadastro Produto");
                 Bprod.setStatus_prod(Status_Prod);
@@ -1218,7 +1129,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
                 Bprod.setHora_reg(Principal.jLabel_Hora.getText());
                 Bprod.setId_prod(Integer.parseInt(jLabel_Id_Secundario2.getText()));
                 Dprod.Excluir_Atualizar_Temporario(Bprod);
-                
+
                 LimpaCampos();
 //                this.setVisible(false);
 //                this.dispose();
@@ -1229,7 +1140,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             }
         }
     }
-    
+
     public void ManipulaModoValor() {
         if (IntModoValor == 0) {
             IntModoValor = 1;
@@ -1237,10 +1148,10 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         } else {
             IntModoValor = 0;
             txtValor.setBackground(Color.white);
-            
+
         }
     }
-    
+
     public void ManipulaValor() {
         String MeuValor = txtValor.getText();
         MeuValor = MeuValor.replace("R$", "").replace(" ", "").replace(".", "").replace(",", ".");
@@ -1257,28 +1168,13 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
                 FormatoValorProd = "R$ " + FormatoValorProd;
                 txtValor.setText(FormatoValorProd);
             } else {
-                Double num42 = (Double.parseDouble(MeuValor));
-//                BigDecimal df2 = new BigDecimal(num42);
-//                NumberFormat nf2 = NumberFormat.getCurrencyInstance();// getCurrencyInstance
-//                String FormatoValorProd = nf2.format(df2);
-//                               FormatoValorProd = "R$ " + FormatoValorProd;;
-//String a3 = jTextField_Valor.getText();
+                Double num42 = (Double.parseDouble(MeuValor)); 
                 Double num4 = Double.parseDouble(MeuValor);
                 BigDecimal df = new BigDecimal(num4);
-                NumberFormat nf = NumberFormat.getCurrencyInstance();
-//        nf.setMaximumFractionDigits(8);
-//            if (IntModoValor == 0) {
+                NumberFormat nf = NumberFormat.getCurrencyInstance(); 
                 String FormatoReal = nf.format(df);
                 String b = String.valueOf(df);
-                txtValor.setText(FormatoReal);
-//                jCheckBoxMenuItem_ModoValor.setSelected(false);
-//            } else {
-//                nf.setMinimumFractionDigits(4);
-//
-//                String formatado = nf.format(df);
-//                jTextField_Valor.setText((formatado));
-////                jCheckBoxMenuItem_ModoValor.setSelected(true);
-//            }
+                txtValor.setText(FormatoReal); 
 
                 System.out.println("Interface.ProdCadastroJIF.ManipulaValor()" + MeuValor);
             }
@@ -1300,7 +1196,6 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel_Exibe_Informacao;
     private javax.swing.JLabel jLabel_Guia4;
     public static javax.swing.JLabel jLabel_Id_Secundario2;
     private javax.swing.JLabel jLabel_Saldo_Prod2;
@@ -1313,6 +1208,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextFieldInsereSaldo;
+    private javax.swing.JLabel lblExibeInformacao;
     private javax.swing.JPanel pnBotoes;
     private javax.swing.JPanel pnCampos;
     private javax.swing.JPanel pnPrincipal;
@@ -1329,53 +1225,61 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     public JButton getBtnCancelar() {
         return btnCancelar;
     }
-    
+
     public JButton getBtnExcluir() {
         return btnExcluir;
     }
-    
+
     public JButton getBtnSalvar() {
         return btnSalvar;
     }
-    
+
     public JComboBox<String> getCbUnidade() {
         return cbUnidade;
     }
-    
+
     public JComboBox<String> getCbUnidade_Int() {
         return cbUnidade_Int;
     }
-    
+
     public JSpinner getSpCfop() {
         return spCfop;
     }
-    
+
     public JSpinner getSpEstoqueMinimo() {
         return spEstoqueMinimo;
     }
-    
+
     public JSpinner getSpNcm() {
         return spNcm;
     }
-    
+
     public JTextField getTxtDesc() {
         return txtDesc;
     }
-    
+
     public JTextField getTxtEdicao() {
         return txtEdicao;
     }
-    
+
     public JTextArea getTxtObs() {
         return txtObs;
     }
-    
+
     public JTextField getTxtValor() {
         return txtValor;
     }
-    
+
     public JTextField getTxtipo() {
         return txtipo;
     }
-    
+
+    public JLabel getLblExibeInformacao() {
+        return lblExibeInformacao;
+    }
+
+    public void setLblExibeInformacao(JLabel lblExibeInformacao) {
+        this.lblExibeInformacao = lblExibeInformacao;
+    }
+
 }
