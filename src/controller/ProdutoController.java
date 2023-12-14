@@ -7,6 +7,7 @@ package controller;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.text.JTextComponent;
+import utils.ManipulaValor;
 import view.internal.ProdutoCadastroJIF;
 
 /**
@@ -15,7 +16,7 @@ import view.internal.ProdutoCadastroJIF;
  */
 public class ProdutoController {
 
-    public  void limparCampos(ProdutoCadastroJIF form) {
+    public void limparCampos(ProdutoCadastroJIF form) {
         form.getTxtipo().setText("");
         form.getTxtDesc().setText("");
         form.getTxtEdicao().setText("");
@@ -27,9 +28,8 @@ public class ProdutoController {
         form.getBtnExcluir().setEnabled(false);
         form.getTxtipo().requestFocus();
     }
-  
-    
-     public void contaCaracteres(JTextComponent textComponent, JLabel label, int tamanho) {
+
+    public void contaCaracteres(JTextComponent textComponent, JLabel label, int tamanho) {
         int contagem = textComponent.getText().length();
         if (contagem == tamanho) {
             textComponent.setBackground(Color.yellow);
@@ -44,5 +44,9 @@ public class ProdutoController {
             label.setText("caracteres " + contagem + "/" + tamanho);
         }
     }
-    
+
+    public void manipulaValor(ProdutoCadastroJIF form) {
+        form.getTxtValor().setText(ManipulaValor.manipulaValor(form.getTxtValor().getText()));
+    }
+
 }

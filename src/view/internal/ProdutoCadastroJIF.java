@@ -625,7 +625,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void txtValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorFocusLost
-        ManipulaValor();
+       produtoController.manipulaValor(this);
     }//GEN-LAST:event_txtValorFocusLost
 
     private void txtValorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyPressed
@@ -736,8 +736,8 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         System.out.println("Interface.ProdCadastroJIF.jMenu2ActionPerformed()");
-        ManipulaModoValor();
-        ManipulaValor();
+//        ManipulaModoValor();
+//        ManipulaValor();
         txtValor.requestFocus();
     }//GEN-LAST:event_jMenu2MouseClicked
 
@@ -1140,46 +1140,46 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             }
         }
     }
+//
+//    public void ManipulaModoValor() {
+//        if (IntModoValor == 0) {
+//            IntModoValor = 1;
+//            txtValor.setBackground(Color.ORANGE);
+//        } else {
+//            IntModoValor = 0;
+//            txtValor.setBackground(Color.white);
+//
+//        }
+//    }
 
-    public void ManipulaModoValor() {
-        if (IntModoValor == 0) {
-            IntModoValor = 1;
-            txtValor.setBackground(Color.ORANGE);
-        } else {
-            IntModoValor = 0;
-            txtValor.setBackground(Color.white);
-
-        }
-    }
-
-    public void ManipulaValor() {
-        String MeuValor = txtValor.getText();
-        MeuValor = MeuValor.replace("R$", "").replace(" ", "").replace(".", "").replace(",", ".");
-        if (MeuValor.equals(null) | MeuValor.equals("") | MeuValor == (null) | MeuValor == " ") {
-            System.out.println("Interface.ProdCadastroJIF.ManipulaValor()");
-        } else {
-            if (IntModoValor == 1) {
-                Double num41 = (Double.parseDouble(MeuValor));
-                BigDecimal df1 = new BigDecimal(num41);
-                NumberFormat nf1 = NumberFormat.getInstance();// getCurrencyInstance
-                nf1.setMinimumFractionDigits(4);
-                nf1.setMaximumFractionDigits(4);
-                String FormatoValorProd = nf1.format(df1);
-                FormatoValorProd = "R$ " + FormatoValorProd;
-                txtValor.setText(FormatoValorProd);
-            } else {
-                Double num42 = (Double.parseDouble(MeuValor)); 
-                Double num4 = Double.parseDouble(MeuValor);
-                BigDecimal df = new BigDecimal(num4);
-                NumberFormat nf = NumberFormat.getCurrencyInstance(); 
-                String FormatoReal = nf.format(df);
-                String b = String.valueOf(df);
-                txtValor.setText(FormatoReal); 
-
-                System.out.println("Interface.ProdCadastroJIF.ManipulaValor()" + MeuValor);
-            }
-        }
-    }
+//    public void ManipulaValor() {
+//        String MeuValor = txtValor.getText();
+//        MeuValor = MeuValor.replace("R$", "").replace(" ", "").replace(".", "").replace(",", ".");
+//        if (MeuValor.equals(null) | MeuValor.equals("") | MeuValor == (null) | MeuValor == " ") {
+//            System.out.println("Interface.ProdCadastroJIF.ManipulaValor()");
+//        } else {
+//            if (IntModoValor == 1) {
+//                Double num41 = (Double.parseDouble(MeuValor));
+//                BigDecimal df1 = new BigDecimal(num41);
+//                NumberFormat nf1 = NumberFormat.getInstance();// getCurrencyInstance
+//                nf1.setMinimumFractionDigits(4);
+//                nf1.setMaximumFractionDigits(4);
+//                String FormatoValorProd = nf1.format(df1);
+//                FormatoValorProd = "R$ " + FormatoValorProd;
+//                txtValor.setText(FormatoValorProd);
+//            } else {
+//                Double num42 = (Double.parseDouble(MeuValor)); 
+//                Double num4 = Double.parseDouble(MeuValor);
+//                BigDecimal df = new BigDecimal(num4);
+//                NumberFormat nf = NumberFormat.getCurrencyInstance(); 
+//                String FormatoReal = nf.format(df);
+//                String b = String.valueOf(df);
+//                txtValor.setText(FormatoReal); 
+//
+//                System.out.println("Interface.ProdCadastroJIF.ManipulaValor()" + MeuValor);
+//            }
+//        }
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
