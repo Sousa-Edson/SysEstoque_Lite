@@ -578,7 +578,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         SalvaTemp();
-        LimpaCampos();
+//        LimpaCampos();
         BuscaUltimaId();
         Principal.jLabelCodigoTela.setText("AtualizaProdutoLista");
         Principal.jButton1.doClick();
@@ -625,7 +625,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void txtValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorFocusLost
-       produtoController.manipulaValor(this);
+        produtoController.manipulaValor(this);
     }//GEN-LAST:event_txtValorFocusLost
 
     private void txtValorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyPressed
@@ -879,24 +879,6 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         }
     }
 
-    public void LimpaCampos() {
-        this.setTitle("Cadastro Produto");
-        // jLabel_Valor.setText("Valor");
-        txtipo.setText(null);
-        txtipo.requestFocus();
-        txtDesc.setText(null);
-        txtEdicao.setText(null);
-        txtValor.setText(null);
-        spNcm.setValue(0);
-        spCfop.setValue(0);
-        spEstoqueMinimo.setValue(0);
-        txtObs.setText(null);
-        lblExibeInformacao.setText(null);
-        jLabel_Saldo_Prod2.setText("  Saldo Produto : Zerado");
-        btnExcluir.setEnabled(false);
-        cbUnidade.setSelectedItem("UN");
-    }
-
     public void VerificaNumeroNcm() {
         String s;
 //        s = jTextField_Ncm.getText().replace(" ", "");
@@ -924,7 +906,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         if (id == "novo" | id.equals("novo")) {
 //            jLabel_Sistema2.setText(id);
 //            JOptionPane.showMessageDialog(rootPane, "qqqqqqqqqqqqqqqqq");
-            LimpaCampos();
+//            LimpaCampos();
             BuscaUltimaId();
         } else {
             CarregaDadosDaTabela();
@@ -984,7 +966,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             jTextFieldInsereSaldo.setText(FormatoReal);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex);
-            LimpaCampos();
+//            LimpaCampos();
         }
         conex.desconecta();
     }
@@ -1130,7 +1112,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
                 Bprod.setId_prod(Integer.parseInt(jLabel_Id_Secundario2.getText()));
                 Dprod.Excluir_Atualizar_Temporario(Bprod);
 
-                LimpaCampos();
+//                LimpaCampos();
 //                this.setVisible(false);
 //                this.dispose();
                 Principal.jLabelCodigoTela.setText("FechaCadastroProdutoEditar");
