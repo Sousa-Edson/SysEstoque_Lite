@@ -44,4 +44,5 @@ public class ProdutoController {
             label.setText("caracteres " + contagem + "/" + tamanho);
         }
     }
+    
 }

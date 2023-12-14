@@ -14,7 +14,7 @@ import java.text.NumberFormat;
 public class ManipulaValor {
 
     public static void main(String[] args) {
-        System.out.println(manipulaValor("R$ 34,96"));
+        System.out.println(manipulaValor("R$ 11..3 4,0 , 96"));
     }
 
     public static String manipulaValor(String texto) {
@@ -24,7 +24,7 @@ public class ManipulaValor {
             System.out.println("manipulaValor: Valor vazio ou nulo");
             return null;
         }
-
+        
         try {
             double valor = Double.parseDouble(meuValor);
             BigDecimal decimalValor = BigDecimal.valueOf(valor);
