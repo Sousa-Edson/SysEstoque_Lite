@@ -14,6 +14,7 @@ import ModeloBeans.ModeloTabela;
 import ModeloDao.Dao_Movimento;
 import ModeloDao.Dao_Produto;
 import UTIL.ControleCores;
+import controller.ProdutoController;
 import java.awt.Color;
 import static java.awt.Color.red;
 import java.awt.Container;
@@ -24,7 +25,12 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -32,7 +38,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author edson
  */
 public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
-
+    
     Beans_Produto Bprod = new Beans_Produto();
     Dao_Produto Dprod = new Dao_Produto();
     Dao_Movimento Mdao = new Dao_Movimento();
@@ -45,20 +51,21 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     int IntModoValor = 0;
     int ComboFocu = 0;
     int id_referencia;
-
-    /**
-     * Creates new form JIFTEste
-     */
+    
+    ProdutoController produtoController;
+    
     public ProdutoCadastroJIF() {
         initComponents();
         remover_Ico();
         PreencheUnidade();
         EscondeInsereSaldoInicio();
-
+        
         pnPrincipal.setBackground(ControleCores.pegarCorPadrao());
         pnBotoes.setBackground(ControleCores.pegarCorPadrao());
         pnCampos.setBackground(ControleCores.pegarCorPadrao());
-
+        
+        produtoController = new ProdutoController();
+        
     }
 
     /**
@@ -74,16 +81,16 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         jLabel_Saldo_Prod2 = new javax.swing.JLabel();
         pnBotoes = new javax.swing.JPanel();
         jLabel_Id_Secundario2 = new javax.swing.JLabel();
-        jButtonSalvar = new javax.swing.JButton();
-        jButtonCancelar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel_Sistema2 = new javax.swing.JLabel();
-        jButton_Excluir = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         pnCampos = new javax.swing.JPanel();
-        jTextField_Tipo = new javax.swing.JTextField();
+        txtipo = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTextField_Valor = new javax.swing.JTextField();
-        jTextField_edicao = new javax.swing.JTextField();
-        jTextField_Desc = new javax.swing.JTextField();
+        txtValor = new javax.swing.JTextField();
+        txtEdicao = new javax.swing.JTextField();
+        txtDesc = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel_Guia4 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -92,13 +99,13 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel_Valor2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea_Obs = new javax.swing.JTextArea();
-        jComboBox_Unidade = new javax.swing.JComboBox<>();
+        txtObs = new javax.swing.JTextArea();
+        cbUnidade = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
-        jSpinnerNcm = new javax.swing.JSpinner();
-        jSpinnerCfop = new javax.swing.JSpinner();
-        jSpinnerEstoqueMinimo = new javax.swing.JSpinner();
-        jComboBox_Unidade_Int = new javax.swing.JComboBox<>();
+        spNcm = new javax.swing.JSpinner();
+        spCfop = new javax.swing.JSpinner();
+        spEstoqueMinimo = new javax.swing.JSpinner();
+        cbUnidade_Int = new javax.swing.JComboBox<>();
         jLabel_Exibe_Informacao = new javax.swing.JLabel();
         jTextFieldInsereSaldo = new javax.swing.JTextField();
         jButtonInsereSaldo = new javax.swing.JButton();
@@ -148,19 +155,19 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 
         jLabel_Id_Secundario2.setText("novo");
 
-        jButtonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-salvar-24.png"))); // NOI18N
-        jButtonSalvar.setText("Salvar");
-        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-salvar-24.png"))); // NOI18N
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalvarActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
 
-        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-cancelar-24.png"))); // NOI18N
-        jButtonCancelar.setText("Cancelar");
-        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-cancelar-24.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelarActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -169,13 +176,13 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         jLabel_Sistema2.setText("Sistema");
         jLabel_Sistema2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton_Excluir.setBackground(new java.awt.Color(255, 51, 0));
-        jButton_Excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-excluir-24.png"))); // NOI18N
-        jButton_Excluir.setText("Excluir");
-        jButton_Excluir.setEnabled(false);
-        jButton_Excluir.addActionListener(new java.awt.event.ActionListener() {
+        btnExcluir.setBackground(new java.awt.Color(255, 51, 0));
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-excluir-24.png"))); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_ExcluirActionPerformed(evt);
+                btnExcluirActionPerformed(evt);
             }
         });
 
@@ -192,88 +199,88 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel_Sistema2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnBotoesLayout.createSequentialGroup()
-                        .addComponent(jButtonSalvar)
+                        .addComponent(btnSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancelar)
+                        .addComponent(btnCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_Excluir)))
+                        .addComponent(btnExcluir)))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
-        pnBotoesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButtonCancelar, jButtonSalvar, jButton_Excluir});
+        pnBotoesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCancelar, btnExcluir, btnSalvar});
 
         pnBotoesLayout.setVerticalGroup(
             pnBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel_Sistema2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jButtonSalvar)
-                .addComponent(jButtonCancelar)
-                .addComponent(jButton_Excluir)
+                .addComponent(btnSalvar)
+                .addComponent(btnCancelar)
+                .addComponent(btnExcluir)
                 .addComponent(jLabel_Id_Secundario2))
         );
 
         pnCampos.setBackground(new java.awt.Color(0, 255, 204));
         pnCampos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTextField_Tipo.setToolTipText("digite");
-        jTextField_Tipo.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtipo.setToolTipText("digite");
+        txtipo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField_TipoFocusGained(evt);
+                txtipoFocusGained(evt);
             }
         });
-        jTextField_Tipo.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtipo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_TipoKeyPressed(evt);
+                txtipoKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_TipoKeyReleased(evt);
+                txtipoKeyReleased(evt);
             }
         });
 
         jLabel13.setText("Tipo:");
 
-        jTextField_Valor.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtValor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField_ValorFocusGained(evt);
+                txtValorFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField_ValorFocusLost(evt);
+                txtValorFocusLost(evt);
             }
         });
-        jTextField_Valor.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_ValorKeyPressed(evt);
+                txtValorKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_ValorKeyReleased(evt);
+                txtValorKeyReleased(evt);
             }
         });
 
-        jTextField_edicao.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtEdicao.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField_edicaoFocusGained(evt);
+                txtEdicaoFocusGained(evt);
             }
         });
-        jTextField_edicao.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtEdicao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_edicaoKeyPressed(evt);
+                txtEdicaoKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_edicaoKeyReleased(evt);
+                txtEdicaoKeyReleased(evt);
             }
         });
 
-        jTextField_Desc.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtDesc.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField_DescFocusGained(evt);
+                txtDescFocusGained(evt);
             }
         });
-        jTextField_Desc.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtDesc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_DescKeyPressed(evt);
+                txtDescKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_DescKeyReleased(evt);
+                txtDescKeyReleased(evt);
             }
         });
 
@@ -300,38 +307,38 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         jLabel_Valor2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_Valor2.setText("Valor");
 
-        jTextArea_Obs.setColumns(20);
-        jTextArea_Obs.setRows(5);
-        jTextArea_Obs.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtObs.setColumns(20);
+        txtObs.setRows(5);
+        txtObs.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextArea_ObsFocusGained(evt);
+                txtObsFocusGained(evt);
             }
         });
-        jTextArea_Obs.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtObs.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextArea_ObsKeyReleased(evt);
+                txtObsKeyReleased(evt);
             }
         });
-        jScrollPane3.setViewportView(jTextArea_Obs);
+        jScrollPane3.setViewportView(txtObs);
 
-        jComboBox_Unidade.addItemListener(new java.awt.event.ItemListener() {
+        cbUnidade.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox_UnidadeItemStateChanged(evt);
+                cbUnidadeItemStateChanged(evt);
             }
         });
-        jComboBox_Unidade.addKeyListener(new java.awt.event.KeyAdapter() {
+        cbUnidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jComboBox_UnidadeKeyPressed(evt);
+                cbUnidadeKeyPressed(evt);
             }
         });
 
         jLabel18.setText("Unidade:");
 
-        jSpinnerNcm.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99999999, 1));
+        spNcm.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99999999, 1));
 
-        jSpinnerCfop.setModel(new javax.swing.SpinnerNumberModel(0, 0, 9999, 1));
+        spCfop.setModel(new javax.swing.SpinnerNumberModel(0, 0, 9999, 1));
 
-        jSpinnerEstoqueMinimo.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
+        spEstoqueMinimo.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 1.0d));
 
         javax.swing.GroupLayout pnCamposLayout = new javax.swing.GroupLayout(pnCampos);
         pnCampos.setLayout(pnCamposLayout);
@@ -347,38 +354,38 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
                             .addComponent(jLabel_Guia4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField_Tipo)
+                            .addComponent(txtipo)
                             .addGroup(pnCamposLayout.createSequentialGroup()
-                                .addComponent(jTextField_edicao, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtEdicao, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jTextField_Desc)))
+                            .addComponent(txtDesc)))
                     .addGroup(pnCamposLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnCamposLayout.createSequentialGroup()
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox_Unidade, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cbUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnCamposLayout.createSequentialGroup()
                                 .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel_Valor2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField_Valor, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSpinnerNcm, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(spNcm, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSpinnerCfop, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(spCfop, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnCamposLayout.createSequentialGroup()
                                 .addComponent(jButtonNovaUnidade)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox_Unidade_Int, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSpinnerEstoqueMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cbUnidade_Int, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(spEstoqueMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -387,20 +394,20 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             .addGroup(pnCamposLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jTextField_Desc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_Guia4)
-                    .addComponent(jComboBox_Unidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18)
-                    .addComponent(jTextField_edicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEdicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonNovaUnidade)
-                    .addComponent(jComboBox_Unidade_Int, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbUnidade_Int, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
@@ -409,10 +416,10 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
                     .addComponent(jLabel_Valor2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_Valor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinnerNcm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinnerCfop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinnerEstoqueMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spNcm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spCfop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spEstoqueMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                 .addContainerGap())
@@ -526,17 +533,17 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         this.setVisible(false);
     }//GEN-LAST:event_formInternalFrameClosing
 
-    private void jTextField_TipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_TipoKeyPressed
+    private void txtipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtipoKeyPressed
 //        this.excutaBotao(evt);
 //        ContaCaracteresTipo();
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            jTextField_Desc.requestFocus();
+            txtDesc.requestFocus();
         }
         //        if (evt.getKeyCode() == evt.VK_UP) {
         //            jTextField_Desc.requestFocus();
         //        }
         if (evt.getKeyCode() == evt.VK_DOWN) {
-            jTextField_Desc.requestFocus();
+            txtDesc.requestFocus();
         }
         //        if (evt.getKeyCode() == evt.VK_LEFT) {
         //            jTextField_Desc.requestFocus();
@@ -544,31 +551,31 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         //        if (evt.getKeyCode() == evt.VK_RIGHT) {
         //            jComboBox_Unidade.requestFocus();
         //        }
-    }//GEN-LAST:event_jTextField_TipoKeyPressed
+    }//GEN-LAST:event_txtipoKeyPressed
 
-    private void jTextField_TipoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_TipoKeyReleased
+    private void txtipoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtipoKeyReleased
         ContaCaracteresTipo();
-    }//GEN-LAST:event_jTextField_TipoKeyReleased
+    }//GEN-LAST:event_txtipoKeyReleased
 
-    private void jTextField_DescKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_DescKeyPressed
+    private void txtDescKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescKeyPressed
 //        ContaCaracteresDescricao();
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            jTextField_edicao.requestFocus();
+            txtEdicao.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_UP) {
-            jTextField_Tipo.requestFocus();
+            txtipo.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_DOWN) {
-            jTextField_edicao.requestFocus();
+            txtEdicao.requestFocus();
         }
         //        if (evt.getKeyCode() == evt.VK_LEFT) {
         //            jTextField_Desc.requestFocus();
         //        }
         //        if (evt.getKeyCode() == evt.VK_RIGHT) {
         //            jComboBox_Unidade.requestFocus();
-    }//GEN-LAST:event_jTextField_DescKeyPressed
+    }//GEN-LAST:event_txtDescKeyPressed
 
-    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         SalvaTemp();
         LimpaCampos();
         BuscaUltimaId();
@@ -581,20 +588,20 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             Principal.jButton1.doClick();
         }
 
-    }//GEN-LAST:event_jButtonSalvarActionPerformed
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        if (jLabel_Id_Secundario2.getText() == "novo") {
-            LimpaCampos();
-        } else {
-            CarregaDadosDaTabela();
-        }
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+//        if (jLabel_Id_Secundario2.getText() == "novo") {
+//            LimpaCampos();
+//        } else {
+//            CarregaDadosDaTabela();
+//        }
+        produtoController.limparCampos(this);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
-    }//GEN-LAST:event_jButtonCancelarActionPerformed
-
-    private void jComboBox_UnidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox_UnidadeKeyPressed
+    private void cbUnidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbUnidadeKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            jTextField_Valor.requestFocus();
+            txtValor.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_F5) {
             PreencheUnidade();
@@ -610,99 +617,99 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         //            jTextField_EstoqueMin.requestFocus();
         //        }
         if (evt.getKeyCode() == evt.VK_LEFT) {
-            jTextField_edicao.requestFocus();
+            txtEdicao.requestFocus();
         }
         //        if (evt.getKeyCode() == evt.VK_RIGHT) {
         //            jComboBox_Unidade.requestFocus();
         //        }
-    }//GEN-LAST:event_jComboBox_UnidadeKeyPressed
+    }//GEN-LAST:event_cbUnidadeKeyPressed
 
-    private void jButton_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExcluirActionPerformed
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         BotaoExcluir();
-    }//GEN-LAST:event_jButton_ExcluirActionPerformed
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void jTextField_ValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_ValorFocusLost
+    private void txtValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorFocusLost
         ManipulaValor();
-    }//GEN-LAST:event_jTextField_ValorFocusLost
+    }//GEN-LAST:event_txtValorFocusLost
 
-    private void jTextField_ValorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_ValorKeyPressed
+    private void txtValorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            jSpinnerNcm.requestFocus();
+            spNcm.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_UP) {
-            jTextField_edicao.requestFocus();
+            txtEdicao.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_DOWN) {
-            jTextArea_Obs.requestFocus();
+            txtObs.requestFocus();
         }
         //        if (evt.getKeyCode() == evt.VK_LEFT) {
         //            jTextField_Desc.requestFocus();
         //        }
         if (evt.getKeyCode() == evt.VK_RIGHT) {
-            jSpinnerNcm.requestFocus();
+            spNcm.requestFocus();
         }
-    }//GEN-LAST:event_jTextField_ValorKeyPressed
+    }//GEN-LAST:event_txtValorKeyPressed
 
-    private void jTextField_edicaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_edicaoKeyPressed
+    private void txtEdicaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEdicaoKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            jComboBox_Unidade.requestFocus();
+            cbUnidade.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_UP) {
-            jTextField_Desc.requestFocus();
+            txtDesc.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_DOWN) {
-            jTextField_Valor.requestFocus();
+            txtValor.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_LEFT) {
-            jTextField_Desc.requestFocus();
+            txtDesc.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_RIGHT) {
-            jComboBox_Unidade.requestFocus();
+            cbUnidade.requestFocus();
         }
 
         //       VerificaEdicaoNumero();
-    }//GEN-LAST:event_jTextField_edicaoKeyPressed
+    }//GEN-LAST:event_txtEdicaoKeyPressed
 
-    private void jTextField_edicaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_edicaoKeyReleased
+    private void txtEdicaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEdicaoKeyReleased
         ContaCaracteresEdicao();
-    }//GEN-LAST:event_jTextField_edicaoKeyReleased
+    }//GEN-LAST:event_txtEdicaoKeyReleased
 
     private void jButtonNovaUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaUnidadeActionPerformed
         Principal.jLabelCodigoTela.setText("CadastroUnidade");
         Principal.jButton1.doClick();
     }//GEN-LAST:event_jButtonNovaUnidadeActionPerformed
 
-    private void jTextField_DescKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_DescKeyReleased
+    private void txtDescKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescKeyReleased
         ContaCaracteresDescricao();
-    }//GEN-LAST:event_jTextField_DescKeyReleased
+    }//GEN-LAST:event_txtDescKeyReleased
 
-    private void jTextField_TipoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_TipoFocusGained
+    private void txtipoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtipoFocusGained
         ContaCaracteresTipo();
-    }//GEN-LAST:event_jTextField_TipoFocusGained
+    }//GEN-LAST:event_txtipoFocusGained
 
-    private void jTextField_DescFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_DescFocusGained
+    private void txtDescFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescFocusGained
         ContaCaracteresDescricao();
-    }//GEN-LAST:event_jTextField_DescFocusGained
+    }//GEN-LAST:event_txtDescFocusGained
 
-    private void jTextField_edicaoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_edicaoFocusGained
+    private void txtEdicaoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEdicaoFocusGained
         ContaCaracteresEdicao();
-    }//GEN-LAST:event_jTextField_edicaoFocusGained
+    }//GEN-LAST:event_txtEdicaoFocusGained
 
-    private void jTextField_ValorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_ValorFocusGained
+    private void txtValorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorFocusGained
         ContaCaracteresValor();
-    }//GEN-LAST:event_jTextField_ValorFocusGained
+    }//GEN-LAST:event_txtValorFocusGained
 
-    private void jTextField_ValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_ValorKeyReleased
+    private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased
         ContaCaracteresValor();
-    }//GEN-LAST:event_jTextField_ValorKeyReleased
+    }//GEN-LAST:event_txtValorKeyReleased
 
-    private void jTextArea_ObsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextArea_ObsFocusGained
+    private void txtObsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtObsFocusGained
         ContaCaracteresObservacao();
-    }//GEN-LAST:event_jTextArea_ObsFocusGained
+    }//GEN-LAST:event_txtObsFocusGained
 
-    private void jTextArea_ObsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea_ObsKeyReleased
+    private void txtObsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObsKeyReleased
         ContaCaracteresObservacao();
-    }//GEN-LAST:event_jTextArea_ObsKeyReleased
+    }//GEN-LAST:event_txtObsKeyReleased
 
     private void jLabel_Saldo_Prod2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_Saldo_Prod2MouseClicked
         EscondeInsereSaldo();
@@ -713,19 +720,19 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         CarregaDadosDaTabela();
     }//GEN-LAST:event_jButtonInsereSaldoActionPerformed
 
-    private void jComboBox_UnidadeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_UnidadeItemStateChanged
-        String selecao = (String) jComboBox_Unidade.getSelectedItem();
+    private void cbUnidadeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbUnidadeItemStateChanged
+        String selecao = (String) cbUnidade.getSelectedItem();
         if (selecao == null) {
         } else {
             if (ComboFocu == 0) {
             } else {
-                jComboBox_Unidade_Int.setSelectedIndex(jComboBox_Unidade.getSelectedIndex());
-                System.out.println("==========  String " + jComboBox_Unidade.getSelectedItem());
-                System.out.println("==========  Int " + jComboBox_Unidade.getSelectedItem());
-                System.out.println("==========  Int " + jComboBox_Unidade_Int.getSelectedIndex());
+                cbUnidade_Int.setSelectedIndex(cbUnidade.getSelectedIndex());
+                System.out.println("==========  String " + cbUnidade.getSelectedItem());
+                System.out.println("==========  Int " + cbUnidade.getSelectedItem());
+                System.out.println("==========  Int " + cbUnidade_Int.getSelectedIndex());
             }
         }
-    }//GEN-LAST:event_jComboBox_UnidadeItemStateChanged
+    }//GEN-LAST:event_cbUnidadeItemStateChanged
 
     private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
 
@@ -735,13 +742,13 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         System.out.println("Interface.ProdCadastroJIF.jMenu2ActionPerformed()");
         ManipulaModoValor();
         ManipulaValor();
-        jTextField_Valor.requestFocus();
+        txtValor.requestFocus();
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         CarregaUltimoIdSecundaria();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
+    
     public void CarregaUltimoIdSecundaria() {
         String IdSecundaria = null;
         conex.conexao();
@@ -759,7 +766,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         CarregaUltimo();
         jLabel_Id_Secundario2.setText("novo");
     }
-
+    
     public void CarregaUltimo() {
         conex.conexao();
         conex.executaSql2("SELECT  sis_prod  FROM produto where sis_prod is not null and sis_prod !=0 order by sis_prod asc ");
@@ -786,7 +793,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             jLabel_Id_Secundario2.setText("novo");
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
-
+    
     public void AlteraSaldo() {
         try {
             String InsereSaldo = jTextFieldInsereSaldo.getText();
@@ -795,7 +802,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             Bprod.setSaldo_prod(Double.parseDouble(InsereSaldo));
             Bprod.setId_prod(IdSecundario);
             Dprod.AlteraSaldo(Bprod);
-
+            
             Mbeans.setId_prod_ent(IdSecundario);
             Mdao.AlterarStatusSaldo_MovProdutoBase_Produto(Mbeans);
             String MinhaQtd = (jTextFieldInsereSaldo.getText());
@@ -812,7 +819,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "erro " + ex);
         }
     }
-
+    
     public void EventoLimpar() {
 //        jTextFieldBusca.setText("");
 //        jTextFieldBusca.requestFocus();
@@ -822,12 +829,12 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 //        jTable_Produto.setModel(modelo);
 
     }
-
+    
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
         this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
     }
-
+    
     public void remover_Ico() {
         this.setFrameIcon(null);
 
@@ -838,120 +845,120 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         north.validate();
         north.repaint();
     }
-
+    
     public void PreencheUnidade() {
         conex.conexao();
         conex.executaSql2("SELECT  sigla_unidade, desc_unidade,id_referenciaunidade FROM unidade  where stunid =1   order by id_referenciaunidade asc ");
         try {
             conex.rs.first();
-            jComboBox_Unidade.removeAllItems();
-            jComboBox_Unidade_Int.removeAllItems();
-
+            cbUnidade.removeAllItems();
+            cbUnidade_Int.removeAllItems();
+            
             do {
                 String unidade = (conex.rs.getString("sigla_unidade"));
-                jComboBox_Unidade.addItem(unidade);
-                jComboBox_Unidade_Int.addItem(conex.rs.getString("id_referenciaunidade"));
+                cbUnidade.addItem(unidade);
+                cbUnidade_Int.addItem(conex.rs.getString("id_referenciaunidade"));
             } while (conex.rs.next());
             ComboFocu = 1;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Interface.ProdCadastroJIF.PreencheUnidade()  ERRO    ------------------- " + ex);
-            jComboBox_Unidade.addItem("UN");
-            jComboBox_Unidade.setSelectedItem("UN");
-            jComboBox_Unidade_Int.addItem("0");
-            jComboBox_Unidade_Int.setSelectedItem("0");
+            cbUnidade.addItem("UN");
+            cbUnidade.setSelectedItem("UN");
+            cbUnidade_Int.addItem("0");
+            cbUnidade_Int.setSelectedItem("0");
         }
         conex.desconecta();
-        jComboBox_Unidade_Int.setVisible(true);
+        cbUnidade_Int.setVisible(true);
     }
-
+    
     public void ContaCaracteresTipo() {
         int Caracteres = 30;
-        int conta = jTextField_Tipo.getText().length();
+        int conta = txtipo.getText().length();
         if (conta == 30) {
-            jTextField_Tipo.setBackground(Color.yellow);
+            txtipo.setBackground(Color.yellow);
             jLabel_Exibe_Informacao.setText("Limite de caracteres " + conta + "/" + Caracteres);
         } else if (conta > 30) {
-            jTextField_Tipo.setBackground(Color.red);
+            txtipo.setBackground(Color.red);
             System.out.println("maior " + conta);
             jLabel_Exibe_Informacao.setText("Ultrapassou limite de caracteres " + conta + "/" + Caracteres);
         } else {
-            jTextField_Tipo.setBackground(Color.white);
+            txtipo.setBackground(Color.white);
             System.out.println("caracteres " + conta);
             jLabel_Exibe_Informacao.setText("caracteres " + conta + "/" + Caracteres);
         }
     }
-
+    
     public void ContaCaracteresEdicao() {
         int Caracteres = 30;
-        int conta = jTextField_edicao.getText().length();
+        int conta = txtEdicao.getText().length();
         if (conta == 30) {
-            jTextField_edicao.setBackground(Color.yellow);
+            txtEdicao.setBackground(Color.yellow);
             jLabel_Exibe_Informacao.setText("Limite de caracteres " + conta + "/" + Caracteres);
         } else if (conta > 30) {
-            jTextField_edicao.setBackground(Color.red);
+            txtEdicao.setBackground(Color.red);
             System.out.println("maior " + conta);
             jLabel_Exibe_Informacao.setText("Ultrapassou limite de caracteres " + conta + "/" + Caracteres);
         } else {
-            jTextField_edicao.setBackground(Color.white);
+            txtEdicao.setBackground(Color.white);
             System.out.println("caracteres " + conta);
             jLabel_Exibe_Informacao.setText("caracteres " + conta + "/" + Caracteres);
         }
     }
-
+    
     public void ContaCaracteresValor() {
         int Caracteres = 30;
-        int conta = jTextField_Valor.getText().length();
+        int conta = txtValor.getText().length();
         if (conta == 30) {
-            jTextField_Valor.setBackground(Color.yellow);
+            txtValor.setBackground(Color.yellow);
             jLabel_Exibe_Informacao.setText("Limite de caracteres " + conta + "/" + Caracteres);
         } else if (conta > 30) {
-            jTextField_Valor.setBackground(Color.red);
+            txtValor.setBackground(Color.red);
             System.out.println("maior " + conta);
             jLabel_Exibe_Informacao.setText("Ultrapassou limite de caracteres " + conta + "/" + Caracteres);
         } else {
-            jTextField_Valor.setBackground(Color.white);
+            txtValor.setBackground(Color.white);
             System.out.println("caracteres " + conta);
             jLabel_Exibe_Informacao.setText("caracteres " + conta + "/" + Caracteres);
         }
     }
-
+    
     public void ContaCaracteresDescricao() {
         int Caracteres = 50;
-        int conta = jTextField_Desc.getText().length();
+        int conta = txtDesc.getText().length();
         if (conta == 50) {
-            jTextField_Desc.setBackground(Color.yellow);
+            txtDesc.setBackground(Color.yellow);
             jLabel_Exibe_Informacao.setText("Limite de caracteres " + conta + "/" + Caracteres);
         } else if (conta > 50) {
-            jTextField_Desc.setBackground(Color.red);
+            txtDesc.setBackground(Color.red);
             System.out.println("maior " + conta);
             jLabel_Exibe_Informacao.setText("Ultrapassou limite de caracteres " + conta + "/" + Caracteres);
         } else {
-            jTextField_Desc.setBackground(Color.white);
+            txtDesc.setBackground(Color.white);
             System.out.println("caracteres " + conta);
             jLabel_Exibe_Informacao.setText("caracteres " + conta + "/" + Caracteres);
         }
     }
-
+    
     public void ContaCaracteresObservacao() {
         int Caracteres = 150;
-        int conta = jTextArea_Obs.getText().length();
+        int conta = txtObs.getText().length();
         if (conta == 150) {
-            jTextArea_Obs.setBackground(Color.yellow);
+            txtObs.setBackground(Color.yellow);
             jLabel_Exibe_Informacao.setText("Limite de caracteres " + conta + "/" + Caracteres);
         } else if (conta > 150) {
-            jTextArea_Obs.setBackground(Color.red);
+            txtObs.setBackground(Color.red);
             System.out.println("maior " + conta);
             jLabel_Exibe_Informacao.setText("Ultrapassou limite de caracteres " + conta + "/" + Caracteres);
         } else {
-            jTextArea_Obs.setBackground(Color.white);
+            txtObs.setBackground(Color.white);
             System.out.println("caracteres " + conta);
             jLabel_Exibe_Informacao.setText("caracteres " + conta + "/" + Caracteres);
         }
     }
-
+    
     public void VerificaCor() {
-        Color cor = jTextField_Tipo.getBackground();
+        Color cor = txtipo.getBackground();
         if (cor == red) {
             JOptionPane.showMessageDialog(rootPane, "Verifique");
             System.out.println("cor " + cor);
@@ -960,25 +967,25 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             SalvaTemp();
         }
     }
-
+    
     public void LimpaCampos() {
         this.setTitle("Cadastro Produto");
         // jLabel_Valor.setText("Valor");
-        jTextField_Tipo.setText(null);
-        jTextField_Tipo.requestFocus();
-        jTextField_Desc.setText(null);
-        jTextField_edicao.setText(null);
-        jTextField_Valor.setText(null);
-        jSpinnerNcm.setValue(0);
-        jSpinnerCfop.setValue(0);
-        jSpinnerEstoqueMinimo.setValue(0);
-        jTextArea_Obs.setText(null);
+        txtipo.setText(null);
+        txtipo.requestFocus();
+        txtDesc.setText(null);
+        txtEdicao.setText(null);
+        txtValor.setText(null);
+        spNcm.setValue(0);
+        spCfop.setValue(0);
+        spEstoqueMinimo.setValue(0);
+        txtObs.setText(null);
         jLabel_Exibe_Informacao.setText(null);
         jLabel_Saldo_Prod2.setText("  Saldo Produto : Zerado");
-        jButton_Excluir.setEnabled(false);
-        jComboBox_Unidade.setSelectedItem("UN");
+        btnExcluir.setEnabled(false);
+        cbUnidade.setSelectedItem("UN");
     }
-
+    
     public void VerificaNumeroNcm() {
         String s;
 //        s = jTextField_Ncm.getText().replace(" ", "");
@@ -989,7 +996,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 //            jTextField_Ncm.setBackground(Color.RED);
 //        }
     }
-
+    
     public void VerificaNumeroCfop() {
         String s;
 //        s = jSpinner2.getText().replace(" ", "");
@@ -1000,7 +1007,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 //            jSpinner2.setBackground(Color.RED);
 //        }
     }
-
+    
     public void RecebeIdProduto(String id) {
         jLabel_Id_Secundario2.setText(id);
         if (id == "novo" | id.equals("novo")) {
@@ -1012,21 +1019,21 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             CarregaDadosDaTabela();
         }
     }
-
+    
     public void CarregaDadosDaTabela() {
-        jButton_Excluir.setEnabled(true);
+        btnExcluir.setEnabled(true);
         conex.conexao();
         conex.executaSql2("  select * from produto inner join unidade on  idunid=id_referenciaunidade  where id_prod = '" + jLabel_Id_Secundario2.getText() + "' order by id_prod  desc");
         try {
             conex.rs.first();
-            jComboBox_Unidade.setSelectedItem((conex.rs.getString("sigla_unidade")));
+            cbUnidade.setSelectedItem((conex.rs.getString("sigla_unidade")));
             String id_prod = (conex.rs.getString("id_prod"));
-            jTextField_Tipo.setText(conex.rs.getString("tipo_prod"));
-            jTextField_Tipo.requestFocus();
-            jTextField_Desc.setText(conex.rs.getString("nome_prod"));
+            txtipo.setText(conex.rs.getString("tipo_prod"));
+            txtipo.requestFocus();
+            txtDesc.setText(conex.rs.getString("nome_prod"));
             jLabel_Sistema2.setText(conex.rs.getString("sis_prod"));
 //            JOptionPane.showMessageDialog(rootPane, (conex.rs.getString("nome_prod")));
-            jTextField_edicao.setText(conex.rs.getString("edicao_prod"));
+            txtEdicao.setText(conex.rs.getString("edicao_prod"));
 //            String ValorBanco=(conex.rs.getString("valor_prod"));
 //            ValorBanco=ValorBanco.replace(title, title)
             Double num41 = (conex.rs.getDouble("valor_prod"));
@@ -1037,24 +1044,24 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             String FormatoValorProd = nf1.format(df1);;
             FormatoValorProd = "R$ " + FormatoValorProd;
             String valor_prod_ex = (conex.rs.getString("valor_prod_ex"));
-            jTextField_Valor.setText(valor_prod_ex);
+            txtValor.setText(valor_prod_ex);
             System.out.println("Interface.ProdCadastroJIF.CarregaDadosDaTabela()   - FormatoValorProd " + FormatoValorProd + "  valor_prod_ex " + valor_prod_ex);
             try {
-                jSpinnerNcm.setValue(conex.rs.getInt("ncm_prod"));
+                spNcm.setValue(conex.rs.getInt("ncm_prod"));
             } catch (SQLException ex) {
-                jSpinnerNcm.setValue(0);
+                spNcm.setValue(0);
             }
             try {
-                jSpinnerCfop.setValue(conex.rs.getInt("cfop_prod"));
+                spCfop.setValue(conex.rs.getInt("cfop_prod"));
             } catch (SQLException ex) {
-                jSpinnerCfop.setValue(0);
+                spCfop.setValue(0);
             }
             try {
-                jSpinnerEstoqueMinimo.setValue(conex.rs.getFloat("estoque_prod"));
+                spEstoqueMinimo.setValue(conex.rs.getFloat("estoque_prod"));
             } catch (SQLException ex) {
-                jSpinnerEstoqueMinimo.setValue(1);
+                spEstoqueMinimo.setValue(1);
             }
-            jTextArea_Obs.setText(conex.rs.getString("obs_prod"));
+            txtObs.setText(conex.rs.getString("obs_prod"));
             Double num4 = (conex.rs.getDouble("saldo_prod"));
             BigDecimal df = new BigDecimal(num4);
             NumberFormat nf = NumberFormat.getInstance();
@@ -1070,7 +1077,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         }
         conex.desconecta();
     }
-
+    
     public void BuscaUltimaId() {
         conex.conexao();
         conex.executaSql2("select * from produto order by sis_prod  desc ");
@@ -1107,9 +1114,9 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         jTextFieldInsereSaldo.setVisible(false);
         jButtonInsereSaldo.setVisible(false);
         jLabel1.setVisible(false);
-        jComboBox_Unidade_Int.setVisible(false);
+        cbUnidade_Int.setVisible(false);
     }
-
+    
     public void EscondeInsereSaldo() {
         if (jTextFieldInsereSaldo.isVisible()) {
             jTextFieldInsereSaldo.setVisible(false);
@@ -1120,28 +1127,28 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             jButtonInsereSaldo.setVisible(true);
             jLabel1.setVisible(true);
         }
-
+        
     }
-
+    
     public void SalvaTemp() {
         if (jLabel_Id_Secundario2.getText() == "novo") {
             BuscaUltimaId();
         } else {
-
+            
         }
-        String MeuValorVerifica = jTextField_Valor.getText();
+        String MeuValorVerifica = txtValor.getText();
         if (MeuValorVerifica.isEmpty()) {
-            jTextField_Valor.setText("R$ 0,00");
+            txtValor.setText("R$ 0,00");
         }
-
-        String TipoProd = jTextField_Tipo.getText(),
-                DescProd = jTextField_Desc.getText(),
-                NumProd = jTextField_edicao.getText(),
+        
+        String TipoProd = txtipo.getText(),
+                DescProd = txtDesc.getText(),
+                NumProd = txtEdicao.getText(),
                 data_reg = Principal.jLabel_Data.getText(),
-                obs_prod = jTextArea_Obs.getText(),
-                cfop_prod = "" + jSpinnerCfop.getValue(),
-                ncm_prod = "" + jSpinnerNcm.getValue(),
-                estoque_prod = "" + jSpinnerEstoqueMinimo.getValue();
+                obs_prod = txtObs.getText(),
+                cfop_prod = "" + spCfop.getValue(),
+                ncm_prod = "" + spNcm.getValue(),
+                estoque_prod = "" + spEstoqueMinimo.getValue();
         System.out.println("SalvaTemp() " + data_reg);
         TipoProd = TipoProd.toUpperCase();
         DescProd = DescProd.toUpperCase();
@@ -1160,14 +1167,14 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             estoque_prod = estoque_prod.replace(",", ".");
         }
         Bprod.setEstoque_prod(Double.parseDouble(estoque_prod));
-        System.out.println("Interface.ProdCadastroJIF.SalvaTemp() ---- " + jComboBox_Unidade_Int.getSelectedItem());
-        un_prod = Integer.parseInt((String) jComboBox_Unidade_Int.getSelectedItem());
+        System.out.println("Interface.ProdCadastroJIF.SalvaTemp() ---- " + cbUnidade_Int.getSelectedItem());
+        un_prod = Integer.parseInt((String) cbUnidade_Int.getSelectedItem());
         Bprod.setUn_prod(un_prod);
-        String MeuValor = jTextField_Valor.getText();
+        String MeuValor = txtValor.getText();
         Bprod.setValor_ex(MeuValor);
         MeuValor = MeuValor.replace(",", ".").replace("R$", "");
         Bprod.setValor(Double.parseDouble(MeuValor));
-
+        
         Bprod.setUsu_prod(Principal.jLabelNomeUsuario.getText());// aqui muda  ///   (Principal.jLabel_Usuario.getText())
         Bprod.setStatus_prod(1); // aqui ativo
         Bprod.setHora_reg(Principal.jLabel_Hora.getText());
@@ -1184,16 +1191,16 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         } else {
             AlterarTemp();
         }
-        jTextField_Tipo.requestFocus();//// muda foco      /////// Cria_Registro_Primario
+        txtipo.requestFocus();//// muda foco      /////// Cria_Registro_Primario
     }
-
+    
     public void AlterarTemp() {
         Bprod.setStatus_prod(2);// alterado
         Bprod.setId_prod(Integer.parseInt(jLabel_Id_Secundario2.getText()));
         Dprod.Alterar_Atualizar_Temporario(Bprod);
-
+        
     }
-
+    
     public void BotaoExcluir() {
         int resposta = 0;
         int Status_Prod = 3; // excluido
@@ -1202,7 +1209,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             String v = jLabel_Id_Secundario2.getText();
             if (v == "novo" | v.equals("novo")) {
                 System.out.println("Interface.Produto.CadastroProdutoJIF.BotaoExcluir()");
-
+                
             } else {
                 this.setTitle("Cadastro Produto");
                 Bprod.setStatus_prod(Status_Prod);
@@ -1211,7 +1218,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
                 Bprod.setHora_reg(Principal.jLabel_Hora.getText());
                 Bprod.setId_prod(Integer.parseInt(jLabel_Id_Secundario2.getText()));
                 Dprod.Excluir_Atualizar_Temporario(Bprod);
-
+                
                 LimpaCampos();
 //                this.setVisible(false);
 //                this.dispose();
@@ -1222,20 +1229,20 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             }
         }
     }
-
+    
     public void ManipulaModoValor() {
         if (IntModoValor == 0) {
             IntModoValor = 1;
-            jTextField_Valor.setBackground(Color.ORANGE);
+            txtValor.setBackground(Color.ORANGE);
         } else {
             IntModoValor = 0;
-            jTextField_Valor.setBackground(Color.white);
-
+            txtValor.setBackground(Color.white);
+            
         }
     }
-
+    
     public void ManipulaValor() {
-        String MeuValor = jTextField_Valor.getText();
+        String MeuValor = txtValor.getText();
         MeuValor = MeuValor.replace("R$", "").replace(" ", "").replace(".", "").replace(",", ".");
         if (MeuValor.equals(null) | MeuValor.equals("") | MeuValor == (null) | MeuValor == " ") {
             System.out.println("Interface.ProdCadastroJIF.ManipulaValor()");
@@ -1248,7 +1255,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
                 nf1.setMaximumFractionDigits(4);
                 String FormatoValorProd = nf1.format(df1);
                 FormatoValorProd = "R$ " + FormatoValorProd;
-                jTextField_Valor.setText(FormatoValorProd);
+                txtValor.setText(FormatoValorProd);
             } else {
                 Double num42 = (Double.parseDouble(MeuValor));
 //                BigDecimal df2 = new BigDecimal(num42);
@@ -1263,7 +1270,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 //            if (IntModoValor == 0) {
                 String FormatoReal = nf.format(df);
                 String b = String.valueOf(df);
-                jTextField_Valor.setText(FormatoReal);
+                txtValor.setText(FormatoReal);
 //                jCheckBoxMenuItem_ModoValor.setSelected(false);
 //            } else {
 //                nf.setMinimumFractionDigits(4);
@@ -1279,13 +1286,13 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton btnCancelar;
+    public static javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JComboBox<String> cbUnidade;
+    private javax.swing.JComboBox<String> cbUnidade_Int;
     private javax.swing.JButton jButtonInsereSaldo;
     private javax.swing.JButton jButtonNovaUnidade;
-    private javax.swing.JButton jButtonSalvar;
-    public static javax.swing.JButton jButton_Excluir;
-    private javax.swing.JComboBox<String> jComboBox_Unidade;
-    private javax.swing.JComboBox<String> jComboBox_Unidade_Int;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1305,17 +1312,70 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSpinner jSpinnerCfop;
-    private javax.swing.JSpinner jSpinnerEstoqueMinimo;
-    private javax.swing.JSpinner jSpinnerNcm;
-    private javax.swing.JTextArea jTextArea_Obs;
     private javax.swing.JTextField jTextFieldInsereSaldo;
-    private javax.swing.JTextField jTextField_Desc;
-    private javax.swing.JTextField jTextField_Tipo;
-    private javax.swing.JTextField jTextField_Valor;
-    private javax.swing.JTextField jTextField_edicao;
     private javax.swing.JPanel pnBotoes;
     private javax.swing.JPanel pnCampos;
     private javax.swing.JPanel pnPrincipal;
+    private javax.swing.JSpinner spCfop;
+    private javax.swing.JSpinner spEstoqueMinimo;
+    private javax.swing.JSpinner spNcm;
+    private javax.swing.JTextField txtDesc;
+    private javax.swing.JTextField txtEdicao;
+    private javax.swing.JTextArea txtObs;
+    private javax.swing.JTextField txtValor;
+    private javax.swing.JTextField txtipo;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getBtnCancelar() {
+        return btnCancelar;
+    }
+    
+    public JButton getBtnExcluir() {
+        return btnExcluir;
+    }
+    
+    public JButton getBtnSalvar() {
+        return btnSalvar;
+    }
+    
+    public JComboBox<String> getCbUnidade() {
+        return cbUnidade;
+    }
+    
+    public JComboBox<String> getCbUnidade_Int() {
+        return cbUnidade_Int;
+    }
+    
+    public JSpinner getSpCfop() {
+        return spCfop;
+    }
+    
+    public JSpinner getSpEstoqueMinimo() {
+        return spEstoqueMinimo;
+    }
+    
+    public JSpinner getSpNcm() {
+        return spNcm;
+    }
+    
+    public JTextField getTxtDesc() {
+        return txtDesc;
+    }
+    
+    public JTextField getTxtEdicao() {
+        return txtEdicao;
+    }
+    
+    public JTextArea getTxtObs() {
+        return txtObs;
+    }
+    
+    public JTextField getTxtValor() {
+        return txtValor;
+    }
+    
+    public JTextField getTxtipo() {
+        return txtipo;
+    }
+    
 }
