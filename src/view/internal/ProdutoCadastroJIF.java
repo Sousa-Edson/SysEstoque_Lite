@@ -81,10 +81,8 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         pnPrincipal = new javax.swing.JPanel();
         jLabel_Saldo_Prod2 = new javax.swing.JLabel();
         pnBotoes = new javax.swing.JPanel();
-        jLabel_Id_Secundario2 = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jLabel_Sistema2 = new javax.swing.JLabel();
         btnExcluir = new javax.swing.JButton();
         pnCampos = new javax.swing.JPanel();
         txtipo = new javax.swing.JTextField();
@@ -154,8 +152,6 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         pnBotoes.setBackground(new java.awt.Color(0, 255, 204));
         pnBotoes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel_Id_Secundario2.setText("novo");
-
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-salvar-24.png"))); // NOI18N
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -171,11 +167,6 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-
-        jLabel_Sistema2.setBackground(new java.awt.Color(255, 0, 0));
-        jLabel_Sistema2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_Sistema2.setText("Sistema");
-        jLabel_Sistema2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnExcluir.setBackground(new java.awt.Color(255, 51, 0));
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-excluir-24.png"))); // NOI18N
@@ -193,19 +184,12 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             pnBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnBotoesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnBotoesLayout.createSequentialGroup()
-                        .addGap(351, 351, 351)
-                        .addComponent(jLabel_Id_Secundario2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel_Sistema2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnBotoesLayout.createSequentialGroup()
-                        .addComponent(btnSalvar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExcluir)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addComponent(btnSalvar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCancelar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExcluir)
+                .addContainerGap(203, Short.MAX_VALUE))
         );
 
         pnBotoesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCancelar, btnExcluir, btnSalvar});
@@ -213,11 +197,9 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         pnBotoesLayout.setVerticalGroup(
             pnBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel_Sistema2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(btnSalvar)
                 .addComponent(btnCancelar)
-                .addComponent(btnExcluir)
-                .addComponent(jLabel_Id_Secundario2))
+                .addComponent(btnExcluir))
         );
 
         pnCampos.setBackground(new java.awt.Color(0, 255, 204));
@@ -582,12 +564,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         BuscaUltimaId();
         Principal.jLabelCodigoTela.setText("AtualizaProdutoLista");
         Principal.jButton1.doClick();
-        String Id_Secundario2 = jLabel_Id_Secundario2.getText();
-        if (Id_Secundario2 == "novo") {
-        } else {
-            Principal.jLabelCodigoTela.setText("FechaCadastroProdutoEditar");
-            Principal.jButton1.doClick();
-        }
+     
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -757,10 +734,10 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             IdSecundaria = "novo";
         }
         conex.desconecta();
-        jLabel_Id_Secundario2.setText(String.valueOf(IdSecundaria));
+       // jLabel_Id_Secundario2.setText(String.valueOf(IdSecundaria));
         CarregaDadosDaTabela();
         CarregaUltimo();
-        jLabel_Id_Secundario2.setText("novo");
+//        jLabel_Id_Secundario2.setText("novo");
     }
 
     public void CarregaUltimo() {
@@ -778,7 +755,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         }
 //        JOptionPane.showMessageDialog(rootPane, id_referencia);
         conex.desconecta();
-        jLabel_Sistema2.setText(String.valueOf(id_referencia));
+//        jLabel_Sistema2.setText(String.valueOf(id_referencia));
     }
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -786,31 +763,31 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente fazer uma cópia ? ");
         if (resposta == JOptionPane.YES_OPTION) {
             CarregaUltimo();
-            jLabel_Id_Secundario2.setText("novo");
+//            jLabel_Id_Secundario2.setText("novo");
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     public void AlteraSaldo() {
         try {
-            String InsereSaldo = jTextFieldInsereSaldo.getText();
-            int IdSecundario = Integer.parseInt(jLabel_Id_Secundario2.getText());
-            InsereSaldo = InsereSaldo.replace(".", "").replace(",", ".");
-            Bprod.setSaldo_prod(Double.parseDouble(InsereSaldo));
-            Bprod.setId_prod(IdSecundario);
-            Dprod.AlteraSaldo(Bprod);
-
-            Mbeans.setId_prod_ent(IdSecundario);
-            Mdao.AlterarStatusSaldo_MovProdutoBase_Produto(Mbeans);
-            String MinhaQtd = (jTextFieldInsereSaldo.getText());
-            MinhaQtd = MinhaQtd.replace(",", ".");
-            Mbeans.setQtd_prod(Double.parseDouble(MinhaQtd));
-            Mbeans.setQtd_prod_ex((MinhaQtd));
-            Mbeans.setQtd_calc(Double.parseDouble(MinhaQtd));
-            Mbeans.setQtd_mov(Double.parseDouble(MinhaQtd));
-            Mbeans.setQtd_calc_ex(MinhaQtd);
-            Mbeans.setStsaldo(1);
-            Mbeans.setStatus_mov(1);
-            Mdao.SalvarQuantidadeProduto_MovProdutoBase(Mbeans);
+//            String InsereSaldo = jTextFieldInsereSaldo.getText();
+////            int IdSecundario = Integer.parseInt(jLabel_Id_Secundario2.getText());
+//            InsereSaldo = InsereSaldo.replace(".", "").replace(",", ".");
+//            Bprod.setSaldo_prod(Double.parseDouble(InsereSaldo));
+////            Bprod.setId_prod(IdSecundario);
+//            Dprod.AlteraSaldo(Bprod);
+//
+////            Mbeans.setId_prod_ent(IdSecundario);
+//            Mdao.AlterarStatusSaldo_MovProdutoBase_Produto(Mbeans);
+//            String MinhaQtd = (jTextFieldInsereSaldo.getText());
+//            MinhaQtd = MinhaQtd.replace(",", ".");
+//            Mbeans.setQtd_prod(Double.parseDouble(MinhaQtd));
+//            Mbeans.setQtd_prod_ex((MinhaQtd));
+//            Mbeans.setQtd_calc(Double.parseDouble(MinhaQtd));
+//            Mbeans.setQtd_mov(Double.parseDouble(MinhaQtd));
+//            Mbeans.setQtd_calc_ex(MinhaQtd);
+//            Mbeans.setStsaldo(1);
+//            Mbeans.setStatus_mov(1);
+//            Mdao.SalvarQuantidadeProduto_MovProdutoBase(Mbeans);
         } catch (Error ex) {
             JOptionPane.showMessageDialog(rootPane, "erro " + ex);
         }
@@ -902,7 +879,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     }
 
     public void RecebeIdProduto(String id) {
-        jLabel_Id_Secundario2.setText(id);
+//        jLabel_Id_Secundario2.setText(id);
         if (id == "novo" | id.equals("novo")) {
 //            jLabel_Sistema2.setText(id);
 //            JOptionPane.showMessageDialog(rootPane, "qqqqqqqqqqqqqqqqq");
@@ -916,7 +893,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     public void CarregaDadosDaTabela() {
         btnExcluir.setEnabled(true);
         conex.conexao();
-        conex.executaSql2("  select * from produto inner join unidade on  idunid=id_referenciaunidade  where id_prod = '" + jLabel_Id_Secundario2.getText() + "' order by id_prod  desc");
+        conex.executaSql2("  select * from produto inner join unidade on  idunid=id_referenciaunidade  where id_prod =   1   '" + "" + "' order by id_prod  desc");
         try {
             conex.rs.first();
             cbUnidade.setSelectedItem((conex.rs.getString("sigla_unidade")));
@@ -924,7 +901,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             txtipo.setText(conex.rs.getString("tipo_prod"));
             txtipo.requestFocus();
             txtDesc.setText(conex.rs.getString("nome_prod"));
-            jLabel_Sistema2.setText(conex.rs.getString("sis_prod"));
+//            jLabel_Sistema2.setText(conex.rs.getString("sis_prod"));
 //            JOptionPane.showMessageDialog(rootPane, (conex.rs.getString("nome_prod")));
             txtEdicao.setText(conex.rs.getString("edicao_prod"));
 //            String ValorBanco=(conex.rs.getString("valor_prod"));
@@ -979,11 +956,11 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             NumeroUltimaId = (conex.rs.getInt("sis_prod") + 1);
             UltimaId = String.valueOf(NumeroUltimaId);
             System.out.println("Interface.ProdutoListaJIF.BuscaUltimaId()" + UltimaId);
-            jLabel_Sistema2.setText(UltimaId);
+//            jLabel_Sistema2.setText(UltimaId);
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
             UltimaId = "1";
-            jLabel_Sistema2.setText(UltimaId);
+//            jLabel_Sistema2.setText(UltimaId);
         }
         conex.desconecta();
     }
@@ -1024,11 +1001,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     }
 
     public void SalvaTemp() {
-        if (jLabel_Id_Secundario2.getText() == "novo") {
-            BuscaUltimaId();
-        } else {
-
-        }
+         
         String MeuValorVerifica = txtValor.getText();
         if (MeuValorVerifica.isEmpty()) {
             txtValor.setText("R$ 0,00");
@@ -1037,12 +1010,12 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         String TipoProd = txtipo.getText(),
                 DescProd = txtDesc.getText(),
                 NumProd = txtEdicao.getText(),
-                data_reg = Principal.jLabel_Data.getText(),
+//                data_reg = Principal.jLabel_Data.getText(),
                 obs_prod = txtObs.getText(),
                 cfop_prod = "" + spCfop.getValue(),
                 ncm_prod = "" + spNcm.getValue(),
                 estoque_prod = "" + spEstoqueMinimo.getValue();
-        System.out.println("SalvaTemp() " + data_reg);
+//        System.out.println("SalvaTemp() " + data_reg);
         TipoProd = TipoProd.toUpperCase();
         DescProd = DescProd.toUpperCase();
         obs_prod = obs_prod.toUpperCase();
@@ -1050,7 +1023,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         Bprod.setNome_prod(DescProd);
         Bprod.setEdicao_prod(NumProd);
         Bprod.setCfop_prod(cfop_prod);
-        Bprod.setData_reg(data_reg);
+//        Bprod.setData_reg(data_reg);
         Bprod.setNcm_prod(ncm_prod);
         Bprod.setObs_prod(obs_prod);
         if (estoque_prod.equals(null) | estoque_prod.equals("")) {
@@ -1068,28 +1041,25 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         MeuValor = MeuValor.replace(",", ".").replace("R$", "");
         Bprod.setValor(Double.parseDouble(MeuValor));
 
-        Bprod.setUsu_prod(Principal.jLabelNomeUsuario.getText());// aqui muda  ///   (Principal.jLabel_Usuario.getText())
+//        Bprod.setUsu_prod(Principal.jLabelNomeUsuario.getText());// aqui muda  ///   (Principal.jLabel_Usuario.getText())
         Bprod.setStatus_prod(1); // aqui ativo
-        Bprod.setHora_reg(Principal.jLabel_Hora.getText());
+//        Bprod.setHora_reg(Principal.jLabel_Hora.getText());
         int Sis_prod = 0;
 //        if (jLabel_Id_Secundario2.getText() == "novo") {
 //            System.out.println("erro ao carregar "+jLabel_Id_Secundario2.getText());
 //        } else {
-        Sis_prod = Integer.parseInt(jLabel_Sistema2.getText());
+//        Sis_prod = Integer.parseInt(jLabel_Sistema2.getText());
 //        }
 
         Bprod.setSis_prod(Sis_prod);
         Dprod.Salvar_Temporario(Bprod);
-        if (jLabel_Id_Secundario2.getText() == "novo") {
-        } else {
-            AlterarTemp();
-        }
+      
         txtipo.requestFocus();//// muda foco      /////// Cria_Registro_Primario
     }
 
     public void AlterarTemp() {
         Bprod.setStatus_prod(2);// alterado
-        Bprod.setId_prod(Integer.parseInt(jLabel_Id_Secundario2.getText()));
+//        Bprod.setId_prod(Integer.parseInt(jLabel_Id_Secundario2.getText()));
         Dprod.Alterar_Atualizar_Temporario(Bprod);
 
     }
@@ -1099,17 +1069,14 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         int Status_Prod = 3; // excluido
         resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir ? ");
         if (resposta == JOptionPane.YES_OPTION) {
-            String v = jLabel_Id_Secundario2.getText();
-            if (v == "novo" | v.equals("novo")) {
-                System.out.println("Interface.Produto.CadastroProdutoJIF.BotaoExcluir()");
-
-            } else {
+            
+          
                 this.setTitle("Cadastro Produto");
                 Bprod.setStatus_prod(Status_Prod);
                 Bprod.setUsu_prod(Principal.jLabelNomeUsuario.getText());
                 Bprod.setData_reg(Principal.jLabel_Data.getText());
                 Bprod.setHora_reg(Principal.jLabel_Hora.getText());
-                Bprod.setId_prod(Integer.parseInt(jLabel_Id_Secundario2.getText()));
+//                Bprod.setId_prod(Integer.parseInt(jLabel_Id_Secundario2.getText()));
                 Dprod.Excluir_Atualizar_Temporario(Bprod);
 
 //                LimpaCampos();
@@ -1119,7 +1086,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
                 Principal.jButton1.doClick();
                 Principal.jLabelCodigoTela.setText("AtualizaProdutoLista");
                 Principal.jButton1.doClick();
-            }
+            
         }
     }
 //
@@ -1179,9 +1146,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel_Guia4;
-    public static javax.swing.JLabel jLabel_Id_Secundario2;
     private javax.swing.JLabel jLabel_Saldo_Prod2;
-    private javax.swing.JLabel jLabel_Sistema2;
     private javax.swing.JLabel jLabel_Valor2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
