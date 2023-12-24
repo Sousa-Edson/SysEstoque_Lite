@@ -59,60 +59,102 @@ public class ProdutoDao {
         }
         return false;
     }
+    
+    public boolean atualizarProduto(Produto produto) {
+    conex.conexao();
+    try (PreparedStatement pst = conex.con.prepareStatement(
+            "UPDATE produto SET data_reg=?, hora_reg=?, ncm_prod=?, tipo_prod=?, "
+            + "nome_prod=?, edicao_prod=?, cfop_prod=?, obs_prod=?, usu_prod=?, "
+            + "valor_prod_ex=?, sis_prod=?, idunid=?, stprod=?, saldo_prod=?, "
+            + "estoque_prod=?, valor_prod=? WHERE id_prod=?")) {
 
-    public boolean alterarProduto(Produto produto) {
-        boolean ok = false;
-        conex.conexao();
-        try (PreparedStatement pst = conex.con.prepareStatement(
-                "UPDATE produto SET data_reg=?, hora_reg=?, ncm_prod=?, tipo_prod=?, "
-                + "nome_prod=?, edicao_prod=?, cfop_prod=?, obs_prod=?, usu_prod=?, "
-                + "valor_ex=?, sis_prod=?, id_prod=?, un_prod=?, status_prod=?, saldo_prod=?, "
-                + "estoque_prod=?, valor=? WHERE id_produto=?")) {
+        pst.setString(1, produto.getData_reg());
+        pst.setString(2, produto.getHora_reg());
+        pst.setString(3, produto.getNcm_prod());
+        pst.setString(4, produto.getTipo_prod());
+        pst.setString(5, produto.getNome_prod());
+        pst.setString(6, produto.getEdicao_prod());
+        pst.setString(7, produto.getCfop_prod());
+        pst.setString(8, produto.getObs_prod());
+        pst.setString(9, produto.getUsu_prod());
+        pst.setString(10, produto.getValor_ex());
+        pst.setInt(11, produto.getSis_prod());
+        pst.setInt(12, produto.getUn_prod());
+        pst.setInt(13, produto.getStatus_prod());
+        pst.setDouble(14, produto.getSaldo_prod());
+        pst.setDouble(15, produto.getEstoque_prod());
+        pst.setDouble(16, produto.getValor());
+        
+        // Parâmetro WHERE para a condição de atualização
+        pst.setInt(17, produto.getId_prod());
 
-            pst.setString(1, produto.getData_reg());
-            pst.setString(2, produto.getHora_reg());
-            pst.setString(3, produto.getNcm_prod());
-            pst.setString(4, produto.getTipo_prod());
-            pst.setString(5, produto.getNome_prod());
-            pst.setString(6, produto.getEdicao_prod());
-            pst.setString(7, produto.getCfop_prod());
-            pst.setString(8, produto.getObs_prod());
-            pst.setString(9, produto.getUsu_prod());
-            pst.setString(10, produto.getValor_ex());
-            pst.setInt(11, produto.getSis_prod());
-            pst.setInt(12, produto.getId_prod());
-            pst.setInt(13, produto.getUn_prod());
-            pst.setInt(14, produto.getStatus_prod());
-            pst.setDouble(15, produto.getSaldo_prod());
-            pst.setDouble(16, produto.getEstoque_prod());
-            pst.setDouble(17, produto.getValor());
-//            pst.setInt(18, produto.getId_produto());
+        int linhasAfetadas = pst.executeUpdate();
 
-            pst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Produto alterado com sucesso.");
-            ok = true;
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar produto.\nAlterar_Produto\n" + ex);
-        } finally {
-            conex.desconecta();
-        }
-        return ok;
+        return linhasAfetadas > 0; // Retorna true se pelo menos uma linha foi atualizada
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Erro ao atualizar produto.\nAtualizar_Produto\n" + ex.getMessage());
+        System.out.println("ex::" + ex.getMessage());
+    } finally {
+        conex.desconecta();
     }
+    return false;
+}
 
-    public void excluirProduto(Produto produto) {
+
+//    public boolean alterarProduto(Produto produto) {
+//        boolean ok = false;
+//        conex.conexao();
+//        try (PreparedStatement pst = conex.con.prepareStatement(
+//                "UPDATE produto SET data_reg=?, hora_reg=?, ncm_prod=?, tipo_prod=?, "
+//                + "nome_prod=?, edicao_prod=?, cfop_prod=?, obs_prod=?, usu_prod=?, "
+//                + "valor_ex=?, sis_prod=?, id_prod=?, un_prod=?, status_prod=?, saldo_prod=?, "
+//                + "estoque_prod=?, valor=? WHERE id_produto=?")) {
+//
+//            pst.setString(1, produto.getData_reg());
+//            pst.setString(2, produto.getHora_reg());
+//            pst.setString(3, produto.getNcm_prod());
+//            pst.setString(4, produto.getTipo_prod());
+//            pst.setString(5, produto.getNome_prod());
+//            pst.setString(6, produto.getEdicao_prod());
+//            pst.setString(7, produto.getCfop_prod());
+//            pst.setString(8, produto.getObs_prod());
+//            pst.setString(9, produto.getUsu_prod());
+//            pst.setString(10, produto.getValor_ex());
+//            pst.setInt(11, produto.getSis_prod());
+//            pst.setInt(12, produto.getId_prod());
+//            pst.setInt(13, produto.getUn_prod());
+//            pst.setInt(14, produto.getStatus_prod());
+//            pst.setDouble(15, produto.getSaldo_prod());
+//            pst.setDouble(16, produto.getEstoque_prod());
+//            pst.setDouble(17, produto.getValor());
+////            pst.setInt(18, produto.getId_produto());
+//
+//            pst.executeUpdate();
+//            JOptionPane.showMessageDialog(null, "Produto alterado com sucesso.");
+//            ok = true;
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Erro ao alterar produto.\nAlterar_Produto\n" + ex);
+//        } finally {
+//            conex.desconecta();
+//        }
+//        return ok;
+//    }
+
+    public boolean excluirProduto(Produto produto) {
         conex.conexao();
         try (PreparedStatement pst = conex.con.prepareStatement(
-                "UPDATE produto SET status_prod=? WHERE id_produto=?")) {
-
-//            pst.setInt(1, produto.getStatus_prod());
-//            pst.setInt(2, produto.getId_produto());
-//            pst.execute();
-//            JOptionPane.showMessageDialog(null, "Produto " + produto.getId_produto() + " deletado com sucesso!");
+                "UPDATE produto SET stprod=? WHERE id_prod=?")) {
+            pst.setInt(1, produto.getStatus_prod());
+            pst.setInt(2, produto.getId_prod());
+             pst.execute();
+             JOptionPane.showMessageDialog(null, "Produto " + produto.getId_prod()+ " deletado com sucesso!");
+               return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir/atualizar produto.\n" + ex);
         } finally {
             conex.desconecta();
         }
+        return false;
     }
 
     public List<Produto> listarProdutos() {
@@ -209,7 +251,7 @@ public class ProdutoDao {
         } finally {
             conex.desconecta();
         }
-
+  System.out.println("vazio");
         return null;
     }
 

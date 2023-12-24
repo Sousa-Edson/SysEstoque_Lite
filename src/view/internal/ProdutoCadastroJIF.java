@@ -39,21 +39,14 @@ import model.Produto;
  *
  * @author edson
  */
-public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
+public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 
     Beans_Produto Bprod = new Beans_Produto();
     Dao_Produto Dprod = new Dao_Produto();
-    Dao_Movimento Mdao = new Dao_Movimento();
-    Beans_Movimento Mbeans = new Beans_Movimento();
     ConexaoBD conex = new ConexaoBD();
-    ConexaoBD conex3 = new ConexaoBD();
-    String UltimaId;
-    int NumeroUltimaId;
-    int un_prod;
-    int IntModoValor = 0;
     int ComboFocu = 0;
     int id_referencia;
-
+    private int idProduto = 0;
     ProdutoController produtoController;
 
     public ProdutoCadastroJIF(Produto produto) {
@@ -66,7 +59,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         pnBotoes.setBackground(ControleCores.pegarCorPadrao());
         pnCampos.setBackground(ControleCores.pegarCorPadrao());
 
-        produtoController = new ProdutoController(); 
+        produtoController = new ProdutoController();
         produtoController.carregarCampos(this, produto);
 
     }
@@ -644,7 +637,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtEdicaoKeyReleased
 
     private void jButtonNovaUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaUnidadeActionPerformed
-         produtoController.chamaUnidade(this);
+        produtoController.chamaUnidade(this);
     }//GEN-LAST:event_jButtonNovaUnidadeActionPerformed
 
     private void txtDescKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescKeyReleased
@@ -1030,28 +1023,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     }
 
     public void BotaoExcluir() {
-        int resposta = 0;
-        int Status_Prod = 3; // excluido
-        resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir ? ");
-        if (resposta == JOptionPane.YES_OPTION) {
-
-            this.setTitle("Cadastro Produto");
-            Bprod.setStatus_prod(Status_Prod);
-            Bprod.setUsu_prod(Principal.jLabelNomeUsuario.getText());
-            Bprod.setData_reg(Principal.jLabel_Data.getText());
-            Bprod.setHora_reg(Principal.jLabel_Hora.getText());
-//                Bprod.setId_prod(Integer.parseInt(jLabel_Id_Secundario2.getText()));
-            Dprod.Excluir_Atualizar_Temporario(Bprod);
-
-//                LimpaCampos();
-//                this.setVisible(false);
-//                this.dispose();
-            Principal.jLabelCodigoTela.setText("FechaCadastroProdutoEditar");
-            Principal.jButton1.doClick();
-            Principal.jLabelCodigoTela.setText("AtualizaProdutoLista");
-            Principal.jButton1.doClick();
-
-        }
+        produtoController.excluirProduto(this);
     }
 //
 //    public void ManipulaModoValor() {
@@ -1191,6 +1163,14 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 
     public void setLblExibeInformacao(JLabel lblExibeInformacao) {
         this.lblExibeInformacao = lblExibeInformacao;
+    }
+
+    public int getIdProduto() {
+        return idProduto;
+    }
+
+    public void setIdProduto(int idProduto) {
+        this.idProduto = idProduto;
     }
 
 }

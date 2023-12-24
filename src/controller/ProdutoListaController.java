@@ -20,37 +20,37 @@ import view.internal.ProdutoListaJIF;
  * @author hp
  */
 public class ProdutoListaController {
-
+    
     private final ProdutoService produtoService;
     int SelecionaProdutoId = 0;
     Produto produto;
-
+    
     public ProdutoListaController() {
         produtoService = new ProdutoService();
         produto = new Produto();
     }
-
+    
     public void chamaCadastro(ProdutoListaJIF form) {
-        produto =null;
+        produto = null;
         ControlaTelaInterna.ChamaCadastroProduto(produto);
-        form.getBtnEditar().setEnabled(false); 
+        form.getBtnEditar().setEnabled(false);        
     }
-
+    
     public void chamaEditar(ProdutoListaJIF form) {
         ControlaTelaInterna.ChamaCadastroProduto(produto);
-        form.getBtnEditar().setEnabled(false); 
+        form.getBtnEditar().setEnabled(false);        
     }
-
+    
     public void limparPesquisaProdutoLista(ProdutoListaJIF form) {
         ProdutoTableModel modelo = new ProdutoTableModel();
         modelo.setProdutos(new ArrayList<>());
         form.getTabela().setModel(modelo);
-
+        
         form.getBtnEditar().setEnabled(false);
         form.getTxtBuscar().setText("");
         form.getTxtBuscar().requestFocus();
     }
-
+    
     public void preencheTabela(ProdutoListaJIF form) {
         ProdutoTableModel modelo = new ProdutoTableModel();
         List<Produto> produtos = produtoService.listarProdutosPorBusca(form.getTxtBuscar().getText().toUpperCase());
@@ -58,7 +58,7 @@ public class ProdutoListaController {
         form.getTabela().setModel(modelo);
         form.getTabela().getColumnModel().getColumn(0).setPreferredWidth(60);
         form.getTabela().getColumnModel().getColumn(0).setResizable(true);
-
+        
         form.getTabela().getColumnModel().getColumn(2).setMinWidth(460);
         form.getTabela().getColumnModel().getColumn(2).setResizable(true);
 
@@ -66,22 +66,26 @@ public class ProdutoListaController {
         DefaultTableCellRenderer direitaRenderer = new DefaultTableCellRenderer();
         direitaRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
         form.getTabela().getColumnModel().getColumn(3).setCellRenderer(direitaRenderer);
-
+        
         form.getTabela().getTableHeader().setReorderingAllowed(false);
 //        getjTable_Produto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         form.getTabela().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         form.getTabela().requestFocus();
     }
-
+    
     public void cliqueTabela(ProdutoListaJIF form, java.awt.event.MouseEvent evt) {
         String SelecionaProdutoNome = "" + form.getTabela().getValueAt(form.getTabela().getSelectedRow(), 2);
-
+        
         form.getTxtBuscar().setText(SelecionaProdutoNome);
         if (evt.getClickCount() == 2) {
             SelecionaProdutoId = (Integer) form.getTabela().getValueAt(form.getTabela().getSelectedRow(), 0);
             form.getBtnEditar().setEnabled(true);
             System.out.println("SelecionaProdutoId::" + SelecionaProdutoId);
             produto = produtoService.obterProdutoPorId(SelecionaProdutoId);
+            if (produto == null) {
+                preencheTabela(form);
+                form.getBtnEditar().setEnabled(false);
+            }
         }
 
 //         if (evt.getButton() == MouseEvent.BUTTON3) {
@@ -134,5 +138,5 @@ public class ProdutoListaController {
 //            }
 //        }
     }
-
+    
 }

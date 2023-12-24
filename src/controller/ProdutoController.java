@@ -7,6 +7,7 @@ package controller;
 import utils.DataHoraAtual;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
 import model.Produto;
 import service.ProdutoService;
@@ -22,6 +23,7 @@ import view.internal.ProdutoCadastroJIF;
 public class ProdutoController {
 
     private final ProdutoService produtoService;
+    Produto produto;
 
     public ProdutoController() {
         produtoService = new ProdutoService();
@@ -38,10 +40,13 @@ public class ProdutoController {
         form.getSpEstoqueMinimo().setValue(0);
         form.getBtnExcluir().setEnabled(false);
         form.getTxtipo().requestFocus();
+        form.setIdProduto(0);
     }
 
     public void carregarCampos(ProdutoCadastroJIF form, Produto produto) {
+
         if (produto != null) {
+            this.produto = produto;
             form.getTxtipo().setText(produto.getTipo_prod());
             form.getTxtDesc().setText(produto.getNome_prod());
             form.getTxtEdicao().setText(produto.getEdicao_prod());
@@ -68,9 +73,11 @@ public class ProdutoController {
             form.getSpCfop().setValue(iCfop);
             form.getCbUnidade().setSelectedItem(produto.getUnidade().getSigla_unidade());
             form.getSpEstoqueMinimo().setValue(produto.getEstoque_prod());
-            form.getBtnExcluir().setEnabled(false);
+            form.getBtnExcluir().setEnabled(true);
+            form.setIdProduto(produto.getId_prod());
         } else {
             limparCampos(form);
+            form.getBtnExcluir().setEnabled(false);
         }
         form.getTxtipo().requestFocus();
     }
@@ -96,27 +103,28 @@ public class ProdutoController {
     }
 
     public void salvar(ProdutoCadastroJIF form) {
-        Produto produto = new Produto();
-        produto.setCfop_prod(form.getSpCfop().getValue().toString());
-        produto.setNcm_prod(form.getSpNcm().getValue().toString());
+        Produto produtoSalvar = new Produto();
+        produtoSalvar.setCfop_prod(form.getSpCfop().getValue().toString());
+        produtoSalvar.setNcm_prod(form.getSpNcm().getValue().toString());
         double estoqueProduto = Double.parseDouble(form.getSpEstoqueMinimo().getValue().toString());
-        produto.setEstoque_prod(estoqueProduto);
-        produto.setTipo_prod(form.getTxtipo().getText());
-        produto.setNome_prod(form.getTxtDesc().getText());
-        produto.setEdicao_prod(form.getTxtEdicao().getText());
+        produtoSalvar.setEstoque_prod(estoqueProduto);
+        produtoSalvar.setTipo_prod(form.getTxtipo().getText());
+        produtoSalvar.setNome_prod(form.getTxtDesc().getText());
+        produtoSalvar.setEdicao_prod(form.getTxtEdicao().getText());
         double valor = Double.parseDouble(ManipulaValor.manipulaValor(form.getTxtValor().getText()));
-        produto.setValor(valor);
-        produto.setValor_ex(form.getTxtValor().getText());
-        produto.setObs_prod(form.getTxtObs().getText());
-        produto.setData_reg(DataHoraAtual.obterDataFormatada());
-        produto.setHora_reg(DataHoraAtual.obterHoraFormatada());
+        produtoSalvar.setValor(valor);
+        produtoSalvar.setValor_ex(form.getTxtValor().getText());
+        produtoSalvar.setObs_prod(form.getTxtObs().getText());
+        produtoSalvar.setData_reg(DataHoraAtual.obterDataFormatada());
+        produtoSalvar.setHora_reg(DataHoraAtual.obterHoraFormatada());
         int unidade = Integer.parseInt(form.getCbUnidade_Int().getSelectedItem().toString());
-        produto.setUn_prod(unidade);
-        produto.setSaldo_prod(0.0);
-        produto.setEstoque_prod(Double.valueOf(form.getSpEstoqueMinimo().getValue().toString()));
-        produto.setStatus_prod(1);
+        produtoSalvar.setUn_prod(unidade);
+        produtoSalvar.setSaldo_prod(0.0);
+        produtoSalvar.setEstoque_prod(Double.valueOf(form.getSpEstoqueMinimo().getValue().toString()));
+        produtoSalvar.setStatus_prod(1);
+        produtoSalvar.setId_prod(form.getIdProduto());
 
-        if (produtoService.salvarProduto(produto)) {
+        if (produtoService.salvarProduto(produtoSalvar)) {
             limparCampos(form);
         }
 
@@ -124,6 +132,23 @@ public class ProdutoController {
 
     public void chamaUnidade(ProdutoCadastroJIF aThis) {
         ControlaTelaInterna.ChamaCadastroUnidade();
+    }
+
+    public void excluirProduto(ProdutoCadastroJIF form) {
+        Object[] options = {"Sim", "Não"};
+        if (JOptionPane.showOptionDialog(null, "Deseja realmente deletar este produto?",
+                "Deletar #" + produto.getId_prod() + " ?", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE,
+                null, options, options[1]) == 0) {
+            produto.setStatus_prod(3);
+            produto.setUsu_prod(UsuarioLogado.getNome());
+            produto.setData_reg(DataHoraAtual.obterDataFormatada());
+            produto.setHora_reg(DataHoraAtual.obterHoraFormatada());
+            if (produtoService.excluirProduto(produto)) {
+                limparCampos(form);
+                form.dispose();
+            }
+
+        }
     }
 
 }
