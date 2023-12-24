@@ -5,6 +5,7 @@
  */
 package controller;
 
+import model.Produto;
 import view.internal.ProdutoListaJIF;
 import view.MenuPrincipal;
 import view.internal.ProdutoCadastroJIF;
@@ -41,9 +42,9 @@ public class ControlaTelaInterna {
         produtoListaJIF.getTxtBuscar().requestFocus();
     }
 
-    public static void ChamaCadastroProduto() {
+    public static void ChamaCadastroProduto(Produto produto) {
         if (produtoCadastroJIF == null || !produtoCadastroJIF.isVisible()) {
-            produtoCadastroJIF = new ProdutoCadastroJIF();
+            produtoCadastroJIF = new ProdutoCadastroJIF(produto);
             MenuPrincipal.desktopPrincipal.add(produtoCadastroJIF);
             produtoCadastroJIF.setVisible(true);
         }
