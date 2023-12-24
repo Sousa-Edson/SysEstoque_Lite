@@ -22,10 +22,21 @@ import view.internal.ProdutoListaJIF;
 public class ProdutoListaController {
 
     private final ProdutoService produtoService;
+    int SelecionaProdutoId = 0;
+    Produto produto;
 
     public ProdutoListaController() {
         produtoService = new ProdutoService();
+        produto = new Produto();
     }
+
+    public void chamaCadastro(ProdutoListaJIF form) {
+        ControlaTelaInterna.ChamaCadastroProduto(produto);
+        form.getBtnEditar().setEnabled(false);
+        System.out.println(""+produto.toString());
+    }
+
+   
 
     public void limparPesquisaProdutoLista(ProdutoListaJIF form) {
         ProdutoTableModel modelo = new ProdutoTableModel();
@@ -47,13 +58,11 @@ public class ProdutoListaController {
 
         form.getTabela().getColumnModel().getColumn(2).setMinWidth(460);
         form.getTabela().getColumnModel().getColumn(2).setResizable(true);
-        
+
         // Configura o renderizador de células para alinhar a terceira coluna à direita
         DefaultTableCellRenderer direitaRenderer = new DefaultTableCellRenderer();
         direitaRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
         form.getTabela().getColumnModel().getColumn(3).setCellRenderer(direitaRenderer);
-
-        
 
         form.getTabela().getTableHeader().setReorderingAllowed(false);
 //        getjTable_Produto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -61,11 +70,16 @@ public class ProdutoListaController {
         form.getTabela().requestFocus();
     }
 
-    public void cliqueTabela(ProdutoListaJIF form) {
+    public void cliqueTabela(ProdutoListaJIF form, java.awt.event.MouseEvent evt) {
         String SelecionaProdutoNome = "" + form.getTabela().getValueAt(form.getTabela().getSelectedRow(), 2);
-        String SelecionaProdutoId = "" + form.getTabela().getValueAt(form.getTabela().getSelectedRow(), 0);
-        
+
         form.getTxtBuscar().setText(SelecionaProdutoNome);
+        if (evt.getClickCount() == 2) {
+            SelecionaProdutoId = (Integer) form.getTabela().getValueAt(form.getTabela().getSelectedRow(), 0);
+            form.getBtnEditar().setEnabled(true);
+            System.out.println("SelecionaProdutoId::" + SelecionaProdutoId);
+            produto=produtoService.obterProdutoPorId(SelecionaProdutoId);
+        }
 
 //         if (evt.getButton() == MouseEvent.BUTTON3) {
 //            SelecionaProdutoNome = "" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 1);

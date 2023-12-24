@@ -33,6 +33,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import model.Produto;
 
 /**
  *
@@ -55,7 +56,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 
     ProdutoController produtoController;
 
-    public ProdutoCadastroJIF() {
+    public ProdutoCadastroJIF(Produto produto) {
         initComponents();
         remover_Ico();
         PreencheUnidade();

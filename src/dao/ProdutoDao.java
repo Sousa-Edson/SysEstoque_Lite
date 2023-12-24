@@ -156,47 +156,53 @@ public class ProdutoDao {
     }
 
     public Produto obterProdutoPorId(int idProduto) {
-        conex.conexao();
-        try {
-            PreparedStatement pstmt = conex.con.prepareStatement(
-                    "SELECT id_produto, data_reg, hora_reg, ncm_prod, tipo_prod, nome_prod, "
-                    + "edicao_prod, cfop_prod, obs_prod, usu_prod, valor_ex, sis_prod, id_prod, "
-                    + "un_prod, status_prod, saldo_prod, estoque_prod, valor FROM produto "
-                    + "WHERE id_produto = ? AND status_prod = 1");
+    conex.conexao();
+    try {
+        PreparedStatement pstmt = conex.con.prepareStatement(
+                "SELECT id_prod, data_reg, hora_reg, ncm_prod, tipo_prod, "
+                        + "nome_prod, edicao_prod, cfop_prod, obs_prod, usu_prod, "
+                        + "valor_prod_ex, sis_prod, id_prod, idunid, stprod,"
+                        + " saldo_prod, estoque_prod, valor_prod FROM produto "
+                        + "WHERE id_prod = ? AND stprod = 1;");
 
-            pstmt.setInt(1, idProduto);
-            ResultSet rs = pstmt.executeQuery();
+        pstmt.setInt(1, idProduto);
+        ResultSet rs = pstmt.executeQuery();
 
-            if (rs.next()) {
-                Produto produto = new Produto();
-                produto.setId_prod(conex.rs.getInt("id_produto"));
-                produto.setData_reg(conex.rs.getString("data_reg"));
-                produto.setHora_reg(conex.rs.getString("hora_reg"));
-                produto.setNcm_prod(conex.rs.getString("ncm_prod"));
-                produto.setTipo_prod(conex.rs.getString("tipo_prod"));
-                produto.setNome_prod(conex.rs.getString("nome_prod"));
-                produto.setEdicao_prod(conex.rs.getString("edicao_prod"));
-                produto.setCfop_prod(conex.rs.getString("cfop_prod"));
-                produto.setObs_prod(conex.rs.getString("obs_prod"));
-                produto.setUsu_prod(conex.rs.getString("usu_prod"));
-                produto.setValor_ex(conex.rs.getString("valor_ex"));
-                produto.setSis_prod(conex.rs.getInt("sis_prod"));
-                produto.setId_prod(conex.rs.getInt("id_prod"));
-                produto.setUn_prod(conex.rs.getInt("un_prod"));
-                produto.setStatus_prod(conex.rs.getInt("status_prod"));
-                produto.setSaldo_prod(conex.rs.getDouble("saldo_prod"));
-                produto.setEstoque_prod(conex.rs.getDouble("estoque_prod"));
-                produto.setValor(conex.rs.getDouble("valor"));
-                return produto;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            conex.desconecta();
+        if (rs.next()) {
+            Produto produto = new Produto();
+            produto.setId_prod(rs.getInt("id_prod"));
+            produto.setData_reg(rs.getString("data_reg"));
+            produto.setHora_reg(rs.getString("hora_reg"));
+            produto.setNcm_prod(rs.getString("ncm_prod"));
+            produto.setTipo_prod(rs.getString("tipo_prod"));
+            produto.setNome_prod(rs.getString("nome_prod"));
+            produto.setEdicao_prod(rs.getString("edicao_prod"));
+            produto.setCfop_prod(rs.getString("cfop_prod"));
+            produto.setObs_prod(rs.getString("obs_prod"));
+            produto.setUsu_prod(rs.getString("usu_prod"));
+            produto.setValor_ex(rs.getString("valor_prod_ex"));
+            produto.setSis_prod(rs.getInt("sis_prod"));
+            produto.setId_prod(rs.getInt("id_prod"));
+            produto.setUn_prod(rs.getInt("idunid"));
+            produto.setStatus_prod(rs.getInt("stprod"));
+            produto.setSaldo_prod(rs.getDouble("saldo_prod"));
+            produto.setEstoque_prod(rs.getDouble("estoque_prod"));
+            produto.setValor(rs.getDouble("valor_prod"));
+            return produto;
         }
-
-        return null;
+    } catch (SQLException ex) {
+        System.out.println("getMessage::" + ex.getMessage());
+        System.out.println("");
+        System.out.println("getSQLState::" + ex.getSQLState());
+        System.out.println("");
+        Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+        conex.desconecta();
     }
+
+    return null;
+}
+
 
     // ... outros métodos, se necessário
     // novo

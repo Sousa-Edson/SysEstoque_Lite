@@ -271,12 +271,12 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        ControlaTelaInterna.ChamaCadastroProduto();
+        produtoListaController.chamaCadastro(this);
 
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
-produtoListaController.cliqueTabela(this);
+        produtoListaController.cliqueTabela(this, evt);
 //        if (evt.getButton() == MouseEvent.BUTTON3) {
 //            SelecionaProdutoNome = "" + tabela.getValueAt(tabela.getSelectedRow(), 1);
 //            SelecionaProdutoId = "" + tabela.getValueAt(tabela.getSelectedRow(), 0);
@@ -330,18 +330,7 @@ produtoListaController.cliqueTabela(this);
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        System.out.println("SelecionaProduto " + SelecionaProduto);
-//        if (SelecionaProduto.equals(null)) {
-//        } else 
-        if (SelecionaProduto == null) {///SelecionaProduto.isEmpty() | 
-            System.out.println("a");
-        } else {
-            System.out.println("b");
-            Principal.jLabelCodigoTela2.setText(SelecionaProduto);
-            Principal.jLabelCodigoTela.setText("CadastroProdutoEditar");
-            Principal.jButton1.doClick();
-        }
-        btnEditar.setEnabled(false);
+        produtoListaController.chamaCadastro(this);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void jCheckBoxMenuItem_Exibe_ImagensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem_Exibe_ImagensActionPerformed
@@ -430,7 +419,5 @@ produtoListaController.cliqueTabela(this);
     public JTable getTabela() {
         return tabela;
     }
-
-   
 
 }
