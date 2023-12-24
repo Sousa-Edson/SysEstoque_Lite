@@ -330,7 +330,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        produtoListaController.chamaCadastro(this);
+        produtoListaController.chamaEditar(this);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void jCheckBoxMenuItem_Exibe_ImagensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem_Exibe_ImagensActionPerformed

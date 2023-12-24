@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.text.JTextComponent;
 import model.Produto;
 import service.ProdutoService;
+import utils.FormatarDinheiro;
 import utils.ManipulaValor;
 import utils.UsuarioLogado;
 import view.internal.ProdutoCadastroJIF;
@@ -19,13 +20,13 @@ import view.internal.ProdutoCadastroJIF;
  * @author edson
  */
 public class ProdutoController {
-    
+
     private final ProdutoService produtoService;
-    
+
     public ProdutoController() {
         produtoService = new ProdutoService();
     }
-    
+
     public void limparCampos(ProdutoCadastroJIF form) {
         form.getTxtipo().setText("");
         form.getTxtDesc().setText("");
@@ -38,7 +39,42 @@ public class ProdutoController {
         form.getBtnExcluir().setEnabled(false);
         form.getTxtipo().requestFocus();
     }
-    
+
+    public void carregarCampos(ProdutoCadastroJIF form, Produto produto) {
+        if (produto != null) {
+            form.getTxtipo().setText(produto.getTipo_prod());
+            form.getTxtDesc().setText(produto.getNome_prod());
+            form.getTxtEdicao().setText(produto.getEdicao_prod());
+            try {
+                form.getTxtValor().setText(FormatarDinheiro.formatarDinheiro(produto.getValor()));
+            } catch (Exception e) {
+                form.getTxtValor().setText("");
+            }
+
+            form.getTxtObs().setText(produto.getObs_prod());
+            int iNcm = 0;
+            try {
+                iNcm = Integer.parseInt(produto.getNcm_prod());
+            } catch (Exception e) {
+                System.out.println("e::" + e.getMessage());
+            }
+            form.getSpNcm().setValue(iNcm);
+            int iCfop = 0;
+            try {
+                iCfop = Integer.parseInt(produto.getCfop_prod());
+            } catch (Exception e) {
+                System.out.println("e::" + e.getMessage());
+            }
+            form.getSpCfop().setValue(iCfop);
+            form.getCbUnidade().setSelectedItem(produto.getUnidade().getSigla_unidade());
+            form.getSpEstoqueMinimo().setValue(produto.getEstoque_prod());
+            form.getBtnExcluir().setEnabled(false);
+        } else {
+            limparCampos(form);
+        }
+        form.getTxtipo().requestFocus();
+    }
+
     public void contaCaracteres(JTextComponent textComponent, JLabel label, int tamanho) {
         int contagem = textComponent.getText().length();
         if (contagem == tamanho) {
@@ -54,11 +90,11 @@ public class ProdutoController {
             label.setText("caracteres " + contagem + "/" + tamanho);
         }
     }
-    
+
     public void manipulaValor(ProdutoCadastroJIF form) {
         form.getTxtValor().setText(ManipulaValor.exibeValorReal(form.getTxtValor().getText()));
     }
-    
+
     public void salvar(ProdutoCadastroJIF form) {
         Produto produto = new Produto();
         produto.setCfop_prod(form.getSpCfop().getValue().toString());
@@ -78,13 +114,16 @@ public class ProdutoController {
         produto.setUn_prod(unidade);
         produto.setSaldo_prod(0.0);
         produto.setEstoque_prod(Double.valueOf(form.getSpEstoqueMinimo().getValue().toString()));
-        produto.setStatus_prod(1); 
-                
-        
-        if(produtoService.salvarProduto(produto)){
+        produto.setStatus_prod(1);
+
+        if (produtoService.salvarProduto(produto)) {
             limparCampos(form);
         }
-        
+
     }
-    
+
+    public void chamaUnidade(ProdutoCadastroJIF aThis) {
+        ControlaTelaInterna.ChamaCadastroUnidade();
+    }
+
 }

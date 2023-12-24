@@ -31,12 +31,15 @@ public class ProdutoListaController {
     }
 
     public void chamaCadastro(ProdutoListaJIF form) {
+        produto =null;
         ControlaTelaInterna.ChamaCadastroProduto(produto);
-        form.getBtnEditar().setEnabled(false);
-        System.out.println(""+produto.toString());
+        form.getBtnEditar().setEnabled(false); 
     }
 
-   
+    public void chamaEditar(ProdutoListaJIF form) {
+        ControlaTelaInterna.ChamaCadastroProduto(produto);
+        form.getBtnEditar().setEnabled(false); 
+    }
 
     public void limparPesquisaProdutoLista(ProdutoListaJIF form) {
         ProdutoTableModel modelo = new ProdutoTableModel();
@@ -78,7 +81,7 @@ public class ProdutoListaController {
             SelecionaProdutoId = (Integer) form.getTabela().getValueAt(form.getTabela().getSelectedRow(), 0);
             form.getBtnEditar().setEnabled(true);
             System.out.println("SelecionaProdutoId::" + SelecionaProdutoId);
-            produto=produtoService.obterProdutoPorId(SelecionaProdutoId);
+            produto = produtoService.obterProdutoPorId(SelecionaProdutoId);
         }
 
 //         if (evt.getButton() == MouseEvent.BUTTON3) {

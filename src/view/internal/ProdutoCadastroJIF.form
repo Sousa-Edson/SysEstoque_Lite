@@ -361,7 +361,6 @@
           <SubComponents>
             <Component class="javax.swing.JTextField" name="txtipo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="catalogo"/>
                 <Property name="toolTipText" type="java.lang.String" value="digite"/>
               </Properties>
               <Events>
@@ -376,9 +375,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtValor">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="23,89"/>
-              </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtValorFocusGained"/>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtValorFocusLost"/>
@@ -387,9 +383,6 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtEdicao">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="12"/>
-              </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEdicaoFocusGained"/>
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtEdicaoKeyPressed"/>
@@ -397,9 +390,6 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtDesc">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="teste de cor"/>
-              </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtDescFocusGained"/>
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDescKeyPressed"/>
@@ -459,7 +449,6 @@
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="rows" type="int" value="5"/>
-                    <Property name="text" type="java.lang.String" value="observa&#xe7;&#xe3;o"/>
                   </Properties>
                   <Events>
                     <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtObsFocusGained"/>

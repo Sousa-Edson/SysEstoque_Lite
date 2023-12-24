@@ -66,7 +66,8 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         pnBotoes.setBackground(ControleCores.pegarCorPadrao());
         pnCampos.setBackground(ControleCores.pegarCorPadrao());
 
-        produtoController = new ProdutoController();
+        produtoController = new ProdutoController(); 
+        produtoController.carregarCampos(this, produto);
 
     }
 
@@ -206,7 +207,6 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         pnCampos.setBackground(new java.awt.Color(0, 255, 204));
         pnCampos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        txtipo.setText("catalogo");
         txtipo.setToolTipText("digite");
         txtipo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -224,7 +224,6 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 
         jLabel13.setText("Tipo:");
 
-        txtValor.setText("23,89");
         txtValor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtValorFocusGained(evt);
@@ -242,7 +241,6 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        txtEdicao.setText("12");
         txtEdicao.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtEdicaoFocusGained(evt);
@@ -257,7 +255,6 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        txtDesc.setText("teste de cor");
         txtDesc.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtDescFocusGained(evt);
@@ -297,7 +294,6 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 
         txtObs.setColumns(20);
         txtObs.setRows(5);
-        txtObs.setText("observação");
         txtObs.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtObsFocusGained(evt);
@@ -565,7 +561,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtDescKeyPressed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-      produtoController.salvar(this);
+        produtoController.salvar(this);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -648,8 +644,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtEdicaoKeyReleased
 
     private void jButtonNovaUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaUnidadeActionPerformed
-        Principal.jLabelCodigoTela.setText("CadastroUnidade");
-        Principal.jButton1.doClick();
+         produtoController.chamaUnidade(this);
     }//GEN-LAST:event_jButtonNovaUnidadeActionPerformed
 
     private void txtDescKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescKeyReleased
@@ -734,7 +729,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             IdSecundaria = "novo";
         }
         conex.desconecta();
-       // jLabel_Id_Secundario2.setText(String.valueOf(IdSecundaria));
+        // jLabel_Id_Secundario2.setText(String.valueOf(IdSecundaria));
         CarregaDadosDaTabela();
         CarregaUltimo();
 //        jLabel_Id_Secundario2.setText("novo");
@@ -877,7 +872,6 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 //            jSpinner2.setBackground(Color.RED);
 //        }
     }
- 
 
     public void CarregaDadosDaTabela() {
         btnExcluir.setEnabled(true);
@@ -936,8 +930,6 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         }
         conex.desconecta();
     }
-
-    
 
 //    public void BuscaIdUnidade() {
 //        String nome = (String) jComboBox_Unidade.getSelectedItem();
@@ -1030,7 +1022,6 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 //      
 //        txtipo.requestFocus();//// muda foco      /////// Cria_Registro_Primario
 //    }
-
     public void AlterarTemp() {
         Bprod.setStatus_prod(2);// alterado
 //        Bprod.setId_prod(Integer.parseInt(jLabel_Id_Secundario2.getText()));
@@ -1043,24 +1034,23 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         int Status_Prod = 3; // excluido
         resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir ? ");
         if (resposta == JOptionPane.YES_OPTION) {
-            
-          
-                this.setTitle("Cadastro Produto");
-                Bprod.setStatus_prod(Status_Prod);
-                Bprod.setUsu_prod(Principal.jLabelNomeUsuario.getText());
-                Bprod.setData_reg(Principal.jLabel_Data.getText());
-                Bprod.setHora_reg(Principal.jLabel_Hora.getText());
+
+            this.setTitle("Cadastro Produto");
+            Bprod.setStatus_prod(Status_Prod);
+            Bprod.setUsu_prod(Principal.jLabelNomeUsuario.getText());
+            Bprod.setData_reg(Principal.jLabel_Data.getText());
+            Bprod.setHora_reg(Principal.jLabel_Hora.getText());
 //                Bprod.setId_prod(Integer.parseInt(jLabel_Id_Secundario2.getText()));
-                Dprod.Excluir_Atualizar_Temporario(Bprod);
+            Dprod.Excluir_Atualizar_Temporario(Bprod);
 
 //                LimpaCampos();
 //                this.setVisible(false);
 //                this.dispose();
-                Principal.jLabelCodigoTela.setText("FechaCadastroProdutoEditar");
-                Principal.jButton1.doClick();
-                Principal.jLabelCodigoTela.setText("AtualizaProdutoLista");
-                Principal.jButton1.doClick();
-            
+            Principal.jLabelCodigoTela.setText("FechaCadastroProdutoEditar");
+            Principal.jButton1.doClick();
+            Principal.jLabelCodigoTela.setText("AtualizaProdutoLista");
+            Principal.jButton1.doClick();
+
         }
     }
 //

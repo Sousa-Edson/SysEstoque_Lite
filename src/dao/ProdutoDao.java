@@ -156,53 +156,62 @@ public class ProdutoDao {
     }
 
     public Produto obterProdutoPorId(int idProduto) {
-    conex.conexao();
-    try {
-        PreparedStatement pstmt = conex.con.prepareStatement(
-                "SELECT id_prod, data_reg, hora_reg, ncm_prod, tipo_prod, "
-                        + "nome_prod, edicao_prod, cfop_prod, obs_prod, usu_prod, "
-                        + "valor_prod_ex, sis_prod, id_prod, idunid, stprod,"
-                        + " saldo_prod, estoque_prod, valor_prod FROM produto "
-                        + "WHERE id_prod = ? AND stprod = 1;");
+        conex.conexao();
+        try {
+            PreparedStatement pstmt = conex.con.prepareStatement(
+                    "SELECT id_prod, data_reg, hora_reg, ncm_prod, tipo_prod, "
+                    + "nome_prod, edicao_prod, cfop_prod, obs_prod, usu_prod, "
+                    + "valor_prod_ex, sis_prod, id_prod, idunid, stprod,"
+                    + " saldo_prod, estoque_prod, valor_prod, "
+                    + "id_unidade,id_referenciaunidade,sigla_unidade,desc_unidade "
+                    + " FROM produto "
+                    + " INNER JOIN unidade ON idunid = id_referenciaunidade "
+                    + "WHERE id_prod = ? AND stprod = 1;");
 
-        pstmt.setInt(1, idProduto);
-        ResultSet rs = pstmt.executeQuery();
+            pstmt.setInt(1, idProduto);
+            ResultSet rs = pstmt.executeQuery();
 
-        if (rs.next()) {
-            Produto produto = new Produto();
-            produto.setId_prod(rs.getInt("id_prod"));
-            produto.setData_reg(rs.getString("data_reg"));
-            produto.setHora_reg(rs.getString("hora_reg"));
-            produto.setNcm_prod(rs.getString("ncm_prod"));
-            produto.setTipo_prod(rs.getString("tipo_prod"));
-            produto.setNome_prod(rs.getString("nome_prod"));
-            produto.setEdicao_prod(rs.getString("edicao_prod"));
-            produto.setCfop_prod(rs.getString("cfop_prod"));
-            produto.setObs_prod(rs.getString("obs_prod"));
-            produto.setUsu_prod(rs.getString("usu_prod"));
-            produto.setValor_ex(rs.getString("valor_prod_ex"));
-            produto.setSis_prod(rs.getInt("sis_prod"));
-            produto.setId_prod(rs.getInt("id_prod"));
-            produto.setUn_prod(rs.getInt("idunid"));
-            produto.setStatus_prod(rs.getInt("stprod"));
-            produto.setSaldo_prod(rs.getDouble("saldo_prod"));
-            produto.setEstoque_prod(rs.getDouble("estoque_prod"));
-            produto.setValor(rs.getDouble("valor_prod"));
-            return produto;
+            if (rs.next()) {
+                Produto produto = new Produto();
+                produto.setId_prod(rs.getInt("id_prod"));
+                produto.setData_reg(rs.getString("data_reg"));
+                produto.setHora_reg(rs.getString("hora_reg"));
+                produto.setNcm_prod(rs.getString("ncm_prod"));
+                produto.setTipo_prod(rs.getString("tipo_prod"));
+                produto.setNome_prod(rs.getString("nome_prod"));
+                produto.setEdicao_prod(rs.getString("edicao_prod"));
+                produto.setCfop_prod(rs.getString("cfop_prod"));
+                produto.setObs_prod(rs.getString("obs_prod"));
+                produto.setUsu_prod(rs.getString("usu_prod"));
+                produto.setValor_ex(rs.getString("valor_prod_ex"));
+                produto.setSis_prod(rs.getInt("sis_prod"));
+                produto.setUn_prod(rs.getInt("idunid"));
+                produto.setStatus_prod(rs.getInt("stprod"));
+                produto.setSaldo_prod(rs.getDouble("saldo_prod"));
+                produto.setEstoque_prod(rs.getDouble("estoque_prod"));
+                produto.setValor(rs.getDouble("valor_prod"));
+
+                Unidade unidade = new Unidade();
+                unidade.setId_unidade(rs.getInt("id_unidade"));
+                unidade.setId_referencia(rs.getInt("id_referenciaunidade"));
+                unidade.setSigla_unidade(rs.getString("sigla_unidade"));
+                unidade.setDesc_unidade(rs.getString("desc_unidade"));
+                produto.setUnidade(unidade);
+
+                return produto;
+            }
+        } catch (SQLException ex) {
+            System.out.println("getMessage::" + ex.getMessage());
+            System.out.println("");
+            System.out.println("getSQLState::" + ex.getSQLState());
+            System.out.println("");
+            Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conex.desconecta();
         }
-    } catch (SQLException ex) {
-        System.out.println("getMessage::" + ex.getMessage());
-        System.out.println("");
-        System.out.println("getSQLState::" + ex.getSQLState());
-        System.out.println("");
-        Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
-    } finally {
-        conex.desconecta();
+
+        return null;
     }
-
-    return null;
-}
-
 
     // ... outros métodos, se necessário
     // novo
