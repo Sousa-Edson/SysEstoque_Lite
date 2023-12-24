@@ -8,45 +8,27 @@ package view.internal;
 import ConectaBanco.ConexaoBD;
 import Consulta.FrameExibirImagem;
 import Interface.Principal;
-import static Interface.Principal.jButton1;
-import ModeloBeans.ModeloTabela;
 import Sistema.ClassChamaCadastroProduto;
 import utils.ControleCores;
-import controller.ControlaTelaInterna;
 import controller.ProdutoListaController;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
-import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
  * @author edson
  */
-public class ProdutoListaJIF extends javax.swing.JInternalFrame {
+public final class ProdutoListaJIF extends javax.swing.JInternalFrame {
 
     ProdutoListaController produtoListaController = new ProdutoListaController();
 
-    ConexaoBD conex = new ConexaoBD();
-    ConexaoBD conexSaldo = new ConexaoBD();
-    ClassChamaCadastroProduto tela = new ClassChamaCadastroProduto();
-    FrameExibirImagem imagem = new FrameExibirImagem();
-    Principal menu;
-    String UnProd;
-    String SelecionaProdutoReferencia;
-    String SelecionaProduto = null, SelecionaProdutoNome, SelecionaProdutoId;
-
+   
     public ProdutoListaJIF() {
         initComponents();
         remover_Ico();
@@ -276,57 +258,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
-        produtoListaController.cliqueTabela(this, evt);
-//        if (evt.getButton() == MouseEvent.BUTTON3) {
-//            SelecionaProdutoNome = "" + tabela.getValueAt(tabela.getSelectedRow(), 1);
-//            SelecionaProdutoId = "" + tabela.getValueAt(tabela.getSelectedRow(), 0);
-//            int resposta = 0;
-//            resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente fazer varredura de saldo do produto '" + SelecionaProdutoNome + "' ? ");
-//            if (resposta == JOptionPane.YES_OPTION) {
-//                ExecutaSaldo();
-//            }
-////           
-//        } else {
-//            btnEditar.setEnabled(true);
-//            String TipoUsuario = Principal.jLabelTipoUsuario.getText();
-//            int Clique = 1;
-//            String NomeProduto;
-//            SelecionaProdutoReferencia = "" + tabela.getValueAt(tabela.getSelectedRow(), 0);
-//            if (TipoUsuario == "Manutenção") {
-//                if (jCheckBoxMenuItem_Exibe_Imagens.isSelected()) {
-//                    NomeProduto = ("" + tabela.getValueAt(tabela.getSelectedRow(), 1));
-//                    txtBuscar.setText(NomeProduto);
-//                } else {
-//                    NomeProduto = ("" + tabela.getValueAt(tabela.getSelectedRow(), 2));
-//                    txtBuscar.setText(NomeProduto);
-//                    SelecionaProduto = "" + tabela.getValueAt(tabela.getSelectedRow(), 8);
-//                    System.out.println("seleciona produto " + SelecionaProduto);
-//                }
-//                if (evt.getClickCount() == 2) {
-////                    Principal.jLabelCodigoTela2.setText(SelecionaProduto);
-////                    Principal.jLabelCodigoTela.setText("CadastroProdutoEditar");
-////                    Principal.jButton1.doClick();
-////                    jTextFieldBusca.setText("");
-//                }
-//            } else {
-//                NomeProduto = ("" + tabela.getValueAt(tabela.getSelectedRow(), 1));
-//                txtBuscar.setText(NomeProduto);
-//                SelecionaProduto = "" + tabela.getValueAt(tabela.getSelectedRow(), 7);
-//                System.out.println("seleciona produto " + SelecionaProduto);
-//                if (evt.getClickCount() == 2) {
-////                    Principal.jLabelCodigoTela2.setText(SelecionaProduto);
-////                    Principal.jLabelCodigoTela.setText("CadastroProdutoEditar");
-////                    Principal.jButton1.doClick();
-////                    jTextFieldBusca.setText("");
-//
-//                    imagem.jLabel_Nome_Produto.setText(NomeProduto);
-//                    imagem.jLabel_Id_Produto.setText(SelecionaProdutoReferencia);
-//                    imagem.preencherTabela();
-//                    imagem.setVisible(true);
-//                }
-//            }
-//        }
-
+        produtoListaController.cliqueTabela(this, evt); 
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -362,25 +294,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         north.repaint();
     }
 
-    public void ExecutaSaldo() {
-        String MeuExecutaSaldo = SelecionaProdutoId;
-        System.out.println("aquiExecutaSaldo()        Verificando            " + MeuExecutaSaldo);
-        conexSaldo.conexao();
-        try {
-            java.sql.PreparedStatement pst = conexSaldo.con.prepareStatement("update produto as prod set \n"
-                    + "saldo_prod=( select  sum(qtd_mov) as qtd_prod  from movprodutobase as base\n"
-                    + " where id_prod_ent=sis_prod and stmovimento=1 and stsaldo=1 \n"
-                    + " GROUP BY   prod.sis_prod order by sis_prod asc )\n"
-                    + " from movprodutobase as base\n"
-                    + "where prod.sis_prod='" + MeuExecutaSaldo + "'  and base.stsaldo=1");
-            pst.execute();
-            System.out.println("aquiExecutaSaldo() ok");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao ExecutaSaldo -- \n" + ex);
-        }
-        conexSaldo.desconecta();
-
-    }
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnLimpar;

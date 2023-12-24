@@ -59,4 +59,8 @@ public class ProdutoService {
     public Produto obterUltimoProduto() {
         return produtoDao.obterProdutoPorId(produtoDao.buscaUltimaId());
     }
+
+    public void executarSaldo(int SelecionaProdutoId) {
+        produtoDao.ExecutaSaldo("" + SelecionaProdutoId);
+    }
 }
