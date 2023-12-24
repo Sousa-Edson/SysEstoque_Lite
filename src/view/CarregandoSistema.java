@@ -6,21 +6,25 @@
 package view;
 
 import static java.lang.Thread.sleep;
+import utils.ControleCores;
 
 /**
  *
  * @author edson
  */
 public class CarregandoSistema extends javax.swing.JFrame {
-
+    
     MenuPrincipal tela;
 
     /**
      * Creates new form JDialogCarregando
+     * @param parent
+     * @param modal
      */
     public CarregandoSistema(java.awt.Frame parent, boolean modal) {
 //        super(parent, modal);
         initComponents();
+        jPanel1.setBackground(ControleCores.pegarCorPadrao());
     }
 
     /**
@@ -105,16 +109,16 @@ public class CarregandoSistema extends javax.swing.JFrame {
         tela.toFront();
         this.dispose();
     }//GEN-LAST:event_jProgressBarMouseClicked
-
+    
     public void run2() {
- tela = new MenuPrincipal();
-        new Thread() { 
-            public void run() { 
+        tela = new MenuPrincipal();
+        new Thread() {            
+            public void run() {                
                 for (int i = 0; i < 102; i++) {
                     try {
                         sleep(3);
                         jProgressBar.setValue(i);
-
+                        
                         if (jProgressBar.getValue() <= 25) {
                             jLabelCarregamento.setText("Carregando Sistema...");
                         } else if (jProgressBar.getValue() <= 50) {
@@ -125,25 +129,25 @@ public class CarregandoSistema extends javax.swing.JFrame {
                             jLabelCarregamento.setText("Aguarde sistema abrindo...");
                         } else if (jProgressBar.getValue() == 95) {
                             jLabelCarregamento.setText("O sistema foi carregado...");
-                           
+                            
                             tela.setVisible(true);
                             fechaCarregamento();
                             tela.toFront();
                         } else {
-                            jLabelCarregamento.setText("O sistema foi carregado..."); 
+                            jLabelCarregamento.setText("O sistema foi carregado...");                            
                         }
                     } catch (InterruptedException ex) {
                     }
-                } 
+                }                
             }
         }.start();
-
+        
     }
-
+    
     public void fechaCarregamento() {
         this.dispose();
     }
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -12,6 +12,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.sql.SQLException;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import utils.ControleCores;
 import view.MenuPrincipal;
 
 /**
@@ -19,8 +20,8 @@ import view.MenuPrincipal;
  * @author edson
  */
 public class LoginJIF extends javax.swing.JInternalFrame {
- 
-    ConexaoBD con = new ConexaoBD(); 
+    
+    ConexaoBD con = new ConexaoBD();    
     String nome, senha, tipo;
     int id;
 
@@ -29,8 +30,9 @@ public class LoginJIF extends javax.swing.JInternalFrame {
      */
     public LoginJIF() {
         initComponents();
-        remover_Ico(); 
-        jTextField1.requestFocus(); 
+        remover_Ico();        
+        jTextField1.requestFocus();        
+        jPanel1.setBackground(ControleCores.pegarCorPadrao());
 //           BotaoAcesso();
     }
 
@@ -98,10 +100,10 @@ public class LoginJIF extends javax.swing.JInternalFrame {
         jLabel_Exibir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_Exibir.setText(" ");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel3.setText("Sys Estoque");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel4.setText("Versão 6.0");
 
         jLabel2.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
@@ -115,14 +117,14 @@ public class LoginJIF extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(523, Short.MAX_VALUE)
+                .addContainerGap(565, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35))
+                .addGap(37, 37, 37))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -139,7 +141,7 @@ public class LoginJIF extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(214, Short.MAX_VALUE)
+                .addContainerGap(234, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -149,7 +151,7 @@ public class LoginJIF extends javax.swing.JInternalFrame {
                 .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addGap(60, 60, 60))
+                .addGap(27, 27, 27))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(19, 19, 19)
@@ -158,10 +160,10 @@ public class LoginJIF extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 301, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel_Exibir))
                         .addComponent(jLabel1))
-                    .addContainerGap(19, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -205,12 +207,12 @@ public class LoginJIF extends javax.swing.JInternalFrame {
             jPasswordField1.requestFocus();
         }
     }//GEN-LAST:event_jTextField1KeyPressed
-
+    
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
         this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
     }
-
+    
     public void remover_Ico() {
         this.setFrameIcon(null);
 
@@ -221,7 +223,7 @@ public class LoginJIF extends javax.swing.JInternalFrame {
         north.validate();
         north.repaint();
     }
-
+    
     public void BotaoAcesso() {
         if (jTextField1.getText().equals("imput")) {
 //            menu.jLabel_Usuario.setText("Sistema");
@@ -243,13 +245,13 @@ public class LoginJIF extends javax.swing.JInternalFrame {
         } else {
 //            preenche_Empresa_Id();
             verificaBanco();
-
+            
         }
-
+        
     }
-
+    
     public void verificaBanco() {
-
+        
         con.conexao();
         try {
 //            con.executaSql("select* from usuario where desc_usuario ilike '%" + jTextField1.getText() + "%' ");
@@ -270,7 +272,7 @@ public class LoginJIF extends javax.swing.JInternalFrame {
                 if (senha.equals(SenhaDigitada)) {
                     MenuPrincipal.jLabelTipoUsuario.setText(tipo);
                     MenuPrincipal.jLabelNomeUsuario.setText(nome);
-
+                    
                     UsuarioLogado.setId(id);
                     UsuarioLogado.setNome(nome);
                     UsuarioLogado.setTipo(tipo);
@@ -290,7 +292,7 @@ public class LoginJIF extends javax.swing.JInternalFrame {
                     jPasswordField1.requestFocus();
                 }
             }
-
+            
         } catch (SQLException ex) {
 //            JOptionPane.showMessageDialog(rootPane, "Usuario não encontrado.");
             jLabel_Exibir.setText("Usuario não encontrado.");
@@ -300,7 +302,7 @@ public class LoginJIF extends javax.swing.JInternalFrame {
             senha = "";
         }
         con.desconecta();
-
+        
     }
 
 //    public void preenche_Empresa() {
