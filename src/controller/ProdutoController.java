@@ -141,18 +141,19 @@ public class ProdutoController {
             produtoSalvar.setNcm_prod(form.getSpNcm().getValue().toString());
             double estoqueProduto = Double.parseDouble(form.getSpEstoqueMinimo().getValue().toString());
             produtoSalvar.setEstoque_prod(estoqueProduto);
-            produtoSalvar.setTipo_prod(form.getTxtipo().getText());
-            produtoSalvar.setNome_prod(form.getTxtDesc().getText());
-            produtoSalvar.setEdicao_prod(form.getTxtEdicao().getText());
+            produtoSalvar.setTipo_prod(form.getTxtipo().getText().toUpperCase());
+            produtoSalvar.setNome_prod(form.getTxtDesc().getText().toUpperCase());
+            produtoSalvar.setEdicao_prod(form.getTxtEdicao().getText().toUpperCase());
             double valor = Double.parseDouble(ManipulaValor.manipulaValor(form.getTxtValor().getText()));
             produtoSalvar.setValor(valor);
             produtoSalvar.setValor_ex(form.getTxtValor().getText());
-            produtoSalvar.setObs_prod(form.getTxtObs().getText());
+            produtoSalvar.setObs_prod(form.getTxtObs().getText().toUpperCase());
             produtoSalvar.setData_reg(DataHoraAtual.obterDataFormatada());
             produtoSalvar.setHora_reg(DataHoraAtual.obterHoraFormatada());
 
             Unidade unidade = (Unidade) form.getCbUnidade().getSelectedItem();
-            produtoSalvar.setUn_prod(unidade.getId_unidade());
+            System.out.println("unidade::"+unidade);
+            produtoSalvar.setUn_prod(unidade.getId_referencia());
 
             produtoSalvar.setSaldo_prod(0.0);
             produtoSalvar.setEstoque_prod(Double.valueOf(form.getSpEstoqueMinimo().getValue().toString()));
@@ -173,14 +174,12 @@ public class ProdutoController {
     }
 
     public void carregaUnidade(ProdutoCadastroJIF form) {
-        UnidadeService unidadeService = new UnidadeService();
-        // Obtenha a lista de unidades do serviço
+        UnidadeService unidadeService = new UnidadeService(); 
         List<Unidade> listaUnidades = unidadeService.listarUnidades();
-
-        // Limpe o conteúdo atual do JComboBox
+ 
         form.getCbUnidade().removeAllItems();
         for (Unidade unidade : listaUnidades) {
-            form.getCbUnidade().addItem(unidade); // Supondo que você tenha um método getNome() na classe Unidade
+            form.getCbUnidade().addItem(unidade);  
         }
     }
 

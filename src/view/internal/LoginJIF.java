@@ -31,6 +31,7 @@ public class LoginJIF extends javax.swing.JInternalFrame {
         initComponents();
         remover_Ico(); 
         jTextField1.requestFocus(); 
+//           BotaoAcesso();
     }
 
     /**
