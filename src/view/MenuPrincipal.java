@@ -1232,13 +1232,11 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_lblPapelDeParedeMouseClicked
 
     private void jButton_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ProdutoActionPerformed
-        ControlaTelaInterna.ChamaListaProduto();;
+        ControlaTelaInterna.ChamaListaProduto();
     }//GEN-LAST:event_jButton_ProdutoActionPerformed
 
     private void jButton_NotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NotaActionPerformed
-        jLabelCodigoTela.setText("MovimentoLista");
-        jButton1.doClick();
-        //        MovimentoListaJIF.jButton_Filtrar.doClick();
+           ControlaTelaInterna.ChamaListaNota();
     }//GEN-LAST:event_jButton_NotaActionPerformed
 
     private void jButton_ConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ConsultaActionPerformed

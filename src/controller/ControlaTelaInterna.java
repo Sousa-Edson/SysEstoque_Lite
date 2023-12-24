@@ -52,4 +52,15 @@ public class ControlaTelaInterna {
         produtoCadastroJIF.setPosicao();
 
     }
+
+    public static void ChamaListaNota() {
+        if (produtoListaJIF == null || !produtoListaJIF.isVisible()) {
+            produtoListaJIF = new ProdutoListaJIF();
+            MenuPrincipal.desktopPrincipal.add(produtoListaJIF);
+            produtoListaJIF.setVisible(true);
+        }
+        produtoListaJIF.toFront();
+        produtoListaJIF.setPosicao();
+        produtoListaJIF.getTxtBuscar().requestFocus();
+    }
 }
