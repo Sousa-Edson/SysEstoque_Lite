@@ -14,7 +14,7 @@ import java.text.NumberFormat;
 public class ManipulaValor {
 
     public static void main(String[] args) {
-        System.out.println(manipulaValor("R$ 11..3 4,0 , 96"));
+        System.out.println(exibeValorReal("11.389,96"));
     }
 
     public static String manipulaValor(String texto) {
@@ -22,9 +22,12 @@ public class ManipulaValor {
 
         if (meuValor == null || meuValor.trim().isEmpty()) {
             System.out.println("manipulaValor: Valor vazio ou nulo");
-            return null;
+            return "0";
         }
-        
+        return meuValor; 
+    } 
+    public static String exibeValorReal(String texto) {
+        String meuValor = manipulaValor(texto);
         try {
             double valor = Double.parseDouble(meuValor);
             BigDecimal decimalValor = BigDecimal.valueOf(valor);
@@ -36,7 +39,7 @@ public class ManipulaValor {
             return formatoValorProd;
         } catch (NumberFormatException e) {
             System.err.println("Erro ao converter para Double: " + e.getMessage());
-            return null;
+            return "0";
         }
     }
 

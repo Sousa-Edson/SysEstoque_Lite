@@ -5,7 +5,7 @@
  */
 package view.internal;
 
-import UTIL.ControleCores;
+import utils.ControleCores;
 import controller.UnidadeController;
 import java.awt.Container;
 import java.awt.Dimension;

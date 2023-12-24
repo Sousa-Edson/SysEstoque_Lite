@@ -5,7 +5,6 @@
  */
 package view;
 
-import view.MenuPrincipal;
 import static java.lang.Thread.sleep;
 
 /**
@@ -108,12 +107,12 @@ public class CarregandoSistema extends javax.swing.JFrame {
     }//GEN-LAST:event_jProgressBarMouseClicked
 
     public void run2() {
-
+ tela = new MenuPrincipal();
         new Thread() { 
             public void run() { 
                 for (int i = 0; i < 102; i++) {
                     try {
-                        sleep(30);
+                        sleep(3);
                         jProgressBar.setValue(i);
 
                         if (jProgressBar.getValue() <= 25) {
@@ -126,7 +125,7 @@ public class CarregandoSistema extends javax.swing.JFrame {
                             jLabelCarregamento.setText("Aguarde sistema abrindo...");
                         } else if (jProgressBar.getValue() == 95) {
                             jLabelCarregamento.setText("O sistema foi carregado...");
-                            tela = new MenuPrincipal();
+                           
                             tela.setVisible(true);
                             fechaCarregamento();
                             tela.toFront();

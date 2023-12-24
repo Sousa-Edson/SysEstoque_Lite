@@ -13,7 +13,7 @@ import ModeloBeans.Beans_Produto;
 import ModeloBeans.ModeloTabela;
 import ModeloDao.Dao_Movimento;
 import ModeloDao.Dao_Produto;
-import UTIL.ControleCores;
+import utils.ControleCores;
 import controller.ProdutoController;
 import java.awt.Color;
 import static java.awt.Color.red;
@@ -205,6 +205,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         pnCampos.setBackground(new java.awt.Color(0, 255, 204));
         pnCampos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        txtipo.setText("catalogo");
         txtipo.setToolTipText("digite");
         txtipo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -222,6 +223,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 
         jLabel13.setText("Tipo:");
 
+        txtValor.setText("23,89");
         txtValor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtValorFocusGained(evt);
@@ -239,6 +241,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
+        txtEdicao.setText("12");
         txtEdicao.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtEdicaoFocusGained(evt);
@@ -253,6 +256,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
+        txtDesc.setText("teste de cor");
         txtDesc.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtDescFocusGained(evt);
@@ -292,6 +296,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 
         txtObs.setColumns(20);
         txtObs.setRows(5);
+        txtObs.setText("observação");
         txtObs.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtObsFocusGained(evt);
@@ -559,13 +564,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtDescKeyPressed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        SalvaTemp();
-//        LimpaCampos();
-        BuscaUltimaId();
-        Principal.jLabelCodigoTela.setText("AtualizaProdutoLista");
-        Principal.jButton1.doClick();
-     
-
+      produtoController.salvar(this);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -852,7 +851,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             System.out.println("cor " + cor);
         } else {
             System.out.println("cor " + cor);
-            SalvaTemp();
+//            SalvaTemp();
         }
     }
 
@@ -877,18 +876,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 //            jSpinner2.setBackground(Color.RED);
 //        }
     }
-
-    public void RecebeIdProduto(String id) {
-//        jLabel_Id_Secundario2.setText(id);
-        if (id == "novo" | id.equals("novo")) {
-//            jLabel_Sistema2.setText(id);
-//            JOptionPane.showMessageDialog(rootPane, "qqqqqqqqqqqqqqqqq");
-//            LimpaCampos();
-            BuscaUltimaId();
-        } else {
-            CarregaDadosDaTabela();
-        }
-    }
+ 
 
     public void CarregaDadosDaTabela() {
         btnExcluir.setEnabled(true);
@@ -948,22 +936,7 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         conex.desconecta();
     }
 
-    public void BuscaUltimaId() {
-        conex.conexao();
-        conex.executaSql2("select * from produto order by sis_prod  desc ");
-        try {
-            conex.rs.first();
-            NumeroUltimaId = (conex.rs.getInt("sis_prod") + 1);
-            UltimaId = String.valueOf(NumeroUltimaId);
-            System.out.println("Interface.ProdutoListaJIF.BuscaUltimaId()" + UltimaId);
-//            jLabel_Sistema2.setText(UltimaId);
-        } catch (SQLException ex) {
-            Logger.getLogger(ProdutoCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
-            UltimaId = "1";
-//            jLabel_Sistema2.setText(UltimaId);
-        }
-        conex.desconecta();
-    }
+    
 
 //    public void BuscaIdUnidade() {
 //        String nome = (String) jComboBox_Unidade.getSelectedItem();
@@ -1000,62 +973,62 @@ public class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 
     }
 
-    public void SalvaTemp() {
-         
-        String MeuValorVerifica = txtValor.getText();
-        if (MeuValorVerifica.isEmpty()) {
-            txtValor.setText("R$ 0,00");
-        }
-
-        String TipoProd = txtipo.getText(),
-                DescProd = txtDesc.getText(),
-                NumProd = txtEdicao.getText(),
-//                data_reg = Principal.jLabel_Data.getText(),
-                obs_prod = txtObs.getText(),
-                cfop_prod = "" + spCfop.getValue(),
-                ncm_prod = "" + spNcm.getValue(),
-                estoque_prod = "" + spEstoqueMinimo.getValue();
-//        System.out.println("SalvaTemp() " + data_reg);
-        TipoProd = TipoProd.toUpperCase();
-        DescProd = DescProd.toUpperCase();
-        obs_prod = obs_prod.toUpperCase();
-        Bprod.setTipo_prod(TipoProd);
-        Bprod.setNome_prod(DescProd);
-        Bprod.setEdicao_prod(NumProd);
-        Bprod.setCfop_prod(cfop_prod);
-//        Bprod.setData_reg(data_reg);
-        Bprod.setNcm_prod(ncm_prod);
-        Bprod.setObs_prod(obs_prod);
-        if (estoque_prod.equals(null) | estoque_prod.equals("")) {
-            estoque_prod = "1";
-//            JOptionPane.showMessageDialog(rootPane, "valor =1");
-        } else {
-            estoque_prod = estoque_prod.replace(",", ".");
-        }
-        Bprod.setEstoque_prod(Double.parseDouble(estoque_prod));
-        System.out.println("Interface.ProdCadastroJIF.SalvaTemp() ---- " + cbUnidade_Int.getSelectedItem());
-        un_prod = Integer.parseInt((String) cbUnidade_Int.getSelectedItem());
-        Bprod.setUn_prod(un_prod);
-        String MeuValor = txtValor.getText();
-        Bprod.setValor_ex(MeuValor);
-        MeuValor = MeuValor.replace(",", ".").replace("R$", "");
-        Bprod.setValor(Double.parseDouble(MeuValor));
-
-//        Bprod.setUsu_prod(Principal.jLabelNomeUsuario.getText());// aqui muda  ///   (Principal.jLabel_Usuario.getText())
-        Bprod.setStatus_prod(1); // aqui ativo
-//        Bprod.setHora_reg(Principal.jLabel_Hora.getText());
-        int Sis_prod = 0;
-//        if (jLabel_Id_Secundario2.getText() == "novo") {
-//            System.out.println("erro ao carregar "+jLabel_Id_Secundario2.getText());
-//        } else {
-//        Sis_prod = Integer.parseInt(jLabel_Sistema2.getText());
+//    public void SalvaTemp() {
+//         
+//        String MeuValorVerifica = txtValor.getText();
+//        if (MeuValorVerifica.isEmpty()) {
+//            txtValor.setText("R$ 0,00");
 //        }
-
-        Bprod.setSis_prod(Sis_prod);
-        Dprod.Salvar_Temporario(Bprod);
-      
-        txtipo.requestFocus();//// muda foco      /////// Cria_Registro_Primario
-    }
+//
+//        String TipoProd = txtipo.getText(),
+//                DescProd = txtDesc.getText(),
+//                NumProd = txtEdicao.getText(),
+////                data_reg = Principal.jLabel_Data.getText(),
+//                obs_prod = txtObs.getText(),
+//                cfop_prod = "" + spCfop.getValue(),
+//                ncm_prod = "" + spNcm.getValue(),
+//                estoque_prod = "" + spEstoqueMinimo.getValue();
+////        System.out.println("SalvaTemp() " + data_reg);
+//        TipoProd = TipoProd.toUpperCase();
+//        DescProd = DescProd.toUpperCase();
+//        obs_prod = obs_prod.toUpperCase();
+//        Bprod.setTipo_prod(TipoProd);
+//        Bprod.setNome_prod(DescProd);
+//        Bprod.setEdicao_prod(NumProd);
+//        Bprod.setCfop_prod(cfop_prod);
+////        Bprod.setData_reg(data_reg);
+//        Bprod.setNcm_prod(ncm_prod);
+//        Bprod.setObs_prod(obs_prod);
+//        if (estoque_prod.equals(null) | estoque_prod.equals("")) {
+//            estoque_prod = "1";
+////            JOptionPane.showMessageDialog(rootPane, "valor =1");
+//        } else {
+//            estoque_prod = estoque_prod.replace(",", ".");
+//        }
+//        Bprod.setEstoque_prod(Double.parseDouble(estoque_prod));
+//        System.out.println("Interface.ProdCadastroJIF.SalvaTemp() ---- " + cbUnidade_Int.getSelectedItem());
+//        un_prod = Integer.parseInt((String) cbUnidade_Int.getSelectedItem());
+//        Bprod.setUn_prod(un_prod);
+//        String MeuValor = txtValor.getText();
+//        Bprod.setValor_ex(MeuValor);
+//        MeuValor = MeuValor.replace(",", ".").replace("R$", "");
+//        Bprod.setValor(Double.parseDouble(MeuValor));
+//
+////        Bprod.setUsu_prod(Principal.jLabelNomeUsuario.getText());// aqui muda  ///   (Principal.jLabel_Usuario.getText())
+//        Bprod.setStatus_prod(1); // aqui ativo
+////        Bprod.setHora_reg(Principal.jLabel_Hora.getText());
+//        int Sis_prod = 0;
+////        if (jLabel_Id_Secundario2.getText() == "novo") {
+////            System.out.println("erro ao carregar "+jLabel_Id_Secundario2.getText());
+////        } else {
+////        Sis_prod = Integer.parseInt(jLabel_Sistema2.getText());
+////        }
+//
+//        Bprod.setSis_prod(Sis_prod);
+//        Dprod.Salvar_Temporario(Bprod);
+//      
+//        txtipo.requestFocus();//// muda foco      /////// Cria_Registro_Primario
+//    }
 
     public void AlterarTemp() {
         Bprod.setStatus_prod(2);// alterado

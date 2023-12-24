@@ -6,7 +6,7 @@
 package view.internal;
 
 import ConectaBanco.ConexaoBD;
-import UTIL.UsuarioLogado;
+import utils.UsuarioLogado;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;

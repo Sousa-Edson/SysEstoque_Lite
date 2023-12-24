@@ -4,8 +4,8 @@
  */
 package controller;
 
-import UTIL.DataHoraAtual;
-import UTIL.UsuarioLogado;
+import utils.DataHoraAtual;
+import utils.UsuarioLogado;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;

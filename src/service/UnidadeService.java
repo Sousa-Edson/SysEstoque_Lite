@@ -8,8 +8,8 @@ package service;
  *
  * @author edson
  */
-import UTIL.DataHoraAtual;
-import UTIL.UsuarioLogado;
+import utils.DataHoraAtual;
+import utils.UsuarioLogado;
 import dao.UnidadeDao;
 import java.util.List;
 import model.Unidade;

@@ -11,7 +11,7 @@ import Interface.Principal;
 import static Interface.Principal.jButton1;
 import ModeloBeans.ModeloTabela;
 import Sistema.ClassChamaCadastroProduto;
-import UTIL.ControleCores;
+import utils.ControleCores;
 import controller.ControlaTelaInterna;
 import controller.ProdutoListaController;
 import java.awt.Container;
@@ -66,7 +66,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
 
         pnPrincipal = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable_Produto = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         txtBuscar = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
@@ -102,7 +102,7 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
 
         pnPrincipal.setBackground(new java.awt.Color(0, 255, 204));
 
-        jTable_Produto.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -113,12 +113,12 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
 
             }
         ));
-        jTable_Produto.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable_ProdutoMouseClicked(evt);
+                tabelaMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable_Produto);
+        jScrollPane1.setViewportView(tabela);
 
         txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,58 +275,59 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnNovoActionPerformed
 
-    private void jTable_ProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ProdutoMouseClicked
-        if (evt.getButton() == MouseEvent.BUTTON3) {
-            SelecionaProdutoNome = "" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 1);
-            SelecionaProdutoId = "" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 0);
-            int resposta = 0;
-            resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente fazer varredura de saldo do produto '" + SelecionaProdutoNome + "' ? ");
-            if (resposta == JOptionPane.YES_OPTION) {
-                ExecutaSaldo();
-            }
-//           
-        } else {
-            btnEditar.setEnabled(true);
-            String TipoUsuario = Principal.jLabelTipoUsuario.getText();
-            int Clique = 1;
-            String NomeProduto;
-            SelecionaProdutoReferencia = "" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 0);
-            if (TipoUsuario == "Manutenção") {
-                if (jCheckBoxMenuItem_Exibe_Imagens.isSelected()) {
-                    NomeProduto = ("" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 1));
-                    txtBuscar.setText(NomeProduto);
-                } else {
-                    NomeProduto = ("" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 2));
-                    txtBuscar.setText(NomeProduto);
-                    SelecionaProduto = "" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 8);
-                    System.out.println("seleciona produto " + SelecionaProduto);
-                }
-                if (evt.getClickCount() == 2) {
-//                    Principal.jLabelCodigoTela2.setText(SelecionaProduto);
-//                    Principal.jLabelCodigoTela.setText("CadastroProdutoEditar");
-//                    Principal.jButton1.doClick();
-//                    jTextFieldBusca.setText("");
-                }
-            } else {
-                NomeProduto = ("" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 1));
-                txtBuscar.setText(NomeProduto);
-                SelecionaProduto = "" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 7);
-                System.out.println("seleciona produto " + SelecionaProduto);
-                if (evt.getClickCount() == 2) {
-//                    Principal.jLabelCodigoTela2.setText(SelecionaProduto);
-//                    Principal.jLabelCodigoTela.setText("CadastroProdutoEditar");
-//                    Principal.jButton1.doClick();
-//                    jTextFieldBusca.setText("");
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+produtoListaController.cliqueTabela(this);
+//        if (evt.getButton() == MouseEvent.BUTTON3) {
+//            SelecionaProdutoNome = "" + tabela.getValueAt(tabela.getSelectedRow(), 1);
+//            SelecionaProdutoId = "" + tabela.getValueAt(tabela.getSelectedRow(), 0);
+//            int resposta = 0;
+//            resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente fazer varredura de saldo do produto '" + SelecionaProdutoNome + "' ? ");
+//            if (resposta == JOptionPane.YES_OPTION) {
+//                ExecutaSaldo();
+//            }
+////           
+//        } else {
+//            btnEditar.setEnabled(true);
+//            String TipoUsuario = Principal.jLabelTipoUsuario.getText();
+//            int Clique = 1;
+//            String NomeProduto;
+//            SelecionaProdutoReferencia = "" + tabela.getValueAt(tabela.getSelectedRow(), 0);
+//            if (TipoUsuario == "Manutenção") {
+//                if (jCheckBoxMenuItem_Exibe_Imagens.isSelected()) {
+//                    NomeProduto = ("" + tabela.getValueAt(tabela.getSelectedRow(), 1));
+//                    txtBuscar.setText(NomeProduto);
+//                } else {
+//                    NomeProduto = ("" + tabela.getValueAt(tabela.getSelectedRow(), 2));
+//                    txtBuscar.setText(NomeProduto);
+//                    SelecionaProduto = "" + tabela.getValueAt(tabela.getSelectedRow(), 8);
+//                    System.out.println("seleciona produto " + SelecionaProduto);
+//                }
+//                if (evt.getClickCount() == 2) {
+////                    Principal.jLabelCodigoTela2.setText(SelecionaProduto);
+////                    Principal.jLabelCodigoTela.setText("CadastroProdutoEditar");
+////                    Principal.jButton1.doClick();
+////                    jTextFieldBusca.setText("");
+//                }
+//            } else {
+//                NomeProduto = ("" + tabela.getValueAt(tabela.getSelectedRow(), 1));
+//                txtBuscar.setText(NomeProduto);
+//                SelecionaProduto = "" + tabela.getValueAt(tabela.getSelectedRow(), 7);
+//                System.out.println("seleciona produto " + SelecionaProduto);
+//                if (evt.getClickCount() == 2) {
+////                    Principal.jLabelCodigoTela2.setText(SelecionaProduto);
+////                    Principal.jLabelCodigoTela.setText("CadastroProdutoEditar");
+////                    Principal.jButton1.doClick();
+////                    jTextFieldBusca.setText("");
+//
+//                    imagem.jLabel_Nome_Produto.setText(NomeProduto);
+//                    imagem.jLabel_Id_Produto.setText(SelecionaProdutoReferencia);
+//                    imagem.preencherTabela();
+//                    imagem.setVisible(true);
+//                }
+//            }
+//        }
 
-                    imagem.jLabel_Nome_Produto.setText(NomeProduto);
-                    imagem.jLabel_Id_Produto.setText(SelecionaProdutoReferencia);
-                    imagem.preencherTabela();
-                    imagem.setVisible(true);
-                }
-            }
-        }
-
-    }//GEN-LAST:event_jTable_ProdutoMouseClicked
+    }//GEN-LAST:event_tabelaMouseClicked
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         System.out.println("SelecionaProduto " + SelecionaProduto);
@@ -401,8 +402,8 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable_Produto;
     private javax.swing.JPanel pnPrincipal;
+    private javax.swing.JTable tabela;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 
@@ -426,8 +427,10 @@ public class ProdutoListaJIF extends javax.swing.JInternalFrame {
         return txtBuscar;
     }
 
-    public JTable getjTable_Produto() {
-        return jTable_Produto;
+    public JTable getTabela() {
+        return tabela;
     }
+
+   
 
 }

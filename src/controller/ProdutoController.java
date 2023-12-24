@@ -4,10 +4,14 @@
  */
 package controller;
 
+import utils.DataHoraAtual;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.text.JTextComponent;
+import model.Produto;
+import service.ProdutoService;
 import utils.ManipulaValor;
+import utils.UsuarioLogado;
 import view.internal.ProdutoCadastroJIF;
 
 /**
@@ -15,7 +19,13 @@ import view.internal.ProdutoCadastroJIF;
  * @author edson
  */
 public class ProdutoController {
-
+    
+    private final ProdutoService produtoService;
+    
+    public ProdutoController() {
+        produtoService = new ProdutoService();
+    }
+    
     public void limparCampos(ProdutoCadastroJIF form) {
         form.getTxtipo().setText("");
         form.getTxtDesc().setText("");
@@ -28,7 +38,7 @@ public class ProdutoController {
         form.getBtnExcluir().setEnabled(false);
         form.getTxtipo().requestFocus();
     }
-
+    
     public void contaCaracteres(JTextComponent textComponent, JLabel label, int tamanho) {
         int contagem = textComponent.getText().length();
         if (contagem == tamanho) {
@@ -44,9 +54,37 @@ public class ProdutoController {
             label.setText("caracteres " + contagem + "/" + tamanho);
         }
     }
-
+    
     public void manipulaValor(ProdutoCadastroJIF form) {
-        form.getTxtValor().setText(ManipulaValor.manipulaValor(form.getTxtValor().getText()));
+        form.getTxtValor().setText(ManipulaValor.exibeValorReal(form.getTxtValor().getText()));
     }
-
+    
+    public void salvar(ProdutoCadastroJIF form) {
+        Produto produto = new Produto();
+        produto.setCfop_prod(form.getSpCfop().getValue().toString());
+        produto.setNcm_prod(form.getSpNcm().getValue().toString());
+        double estoqueProduto = Double.parseDouble(form.getSpEstoqueMinimo().getValue().toString());
+        produto.setEstoque_prod(estoqueProduto);
+        produto.setTipo_prod(form.getTxtipo().getText());
+        produto.setNome_prod(form.getTxtDesc().getText());
+        produto.setEdicao_prod(form.getTxtEdicao().getText());
+        double valor = Double.parseDouble(ManipulaValor.manipulaValor(form.getTxtValor().getText()));
+        produto.setValor(valor);
+        produto.setValor_ex(form.getTxtValor().getText());
+        produto.setObs_prod(form.getTxtObs().getText());
+        produto.setData_reg(DataHoraAtual.obterDataFormatada());
+        produto.setHora_reg(DataHoraAtual.obterHoraFormatada());
+        int unidade = Integer.parseInt(form.getCbUnidade_Int().getSelectedItem().toString());
+        produto.setUn_prod(unidade);
+        produto.setSaldo_prod(0.0);
+        produto.setEstoque_prod(Double.valueOf(form.getSpEstoqueMinimo().getValue().toString()));
+        produto.setStatus_prod(1); 
+                
+        
+        if(produtoService.salvarProduto(produto)){
+            limparCampos(form);
+        }
+        
+    }
+    
 }

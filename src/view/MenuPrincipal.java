@@ -13,8 +13,8 @@ import BackupRestore.Novo.PostgresBackup_X86NOV;
 import BackupRestore.Novo.PostgresRestore_X64NOV;
 import BackupRestore.Novo.PostgresRestore_X86NOV;
 import Sistema.ManipulaProtocolo;
-import UTIL.ControleCores;
-import UTIL.UsuarioLogado;
+import utils.ControleCores;
+import utils.UsuarioLogado;
 import controller.ControlaTelaInterna;
 import controller.MenuPrincipalController;
 import java.awt.Color;
@@ -52,9 +52,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
 //    JIFTEste2 teste2 = new JIFTEste2();
 //    ConsultaInterna3 ConsultaInterna = new ConsultaInterna3();
 //    ClassChamaTelaInterna tela = new ClassChamaTelaInterna();
-    LoginJIF ChamaLoginPrincipal = new LoginJIF();
-
-    ControlaTelaInterna tela = new ControlaTelaInterna();
+//    LoginJIF ChamaLoginPrincipal = new LoginJIF();
+//
+//    ControlaTelaInterna tela = new ControlaTelaInterna();
 
     int resposta = 0;
     int SequenciadorA = 3, SequenciadorB = 7;

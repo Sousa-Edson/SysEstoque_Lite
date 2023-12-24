@@ -55,7 +55,7 @@ public class ClassChamaTelaInterna {
 
     public void ChamaCadastroProdutoInterno() {
         String id = menu.jLabelCodigoTela2.getText();
-        ProdCadastroJIF.RecebeIdProduto(id);
+       
         if (ProdCadastroJIF.isVisible()) {
 //            ProdutoCadastroJIF.setVisible(false);
 //            menu.PainelPrincipal.remove(ProdutoCadastroJIF);
@@ -114,12 +114,12 @@ public class ClassChamaTelaInterna {
     public void ChamaCadastroProdutoInternoEditar() {
         String id = menu.jLabelCodigoTela2.getText();
         if (ProdCadastroJIF.isVisible()) {
-            ProdCadastroJIF.RecebeIdProduto(id);
+           
             ProdCadastroJIF.toFront();
 //            ProdutoCadastroJIF.setPosicao();
         } else { menu.desktopPrincipal.remove(ProdCadastroJIF);
             menu.desktopPrincipal.add(ProdCadastroJIF);
-            ProdCadastroJIF.RecebeIdProduto(id);
+             
             ProdCadastroJIF.setPosicao();
             ProdCadastroJIF.setVisible(true);
             ProdCadastroJIF.toFront();
