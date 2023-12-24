@@ -5,17 +5,11 @@
  */
 package view.internal;
 
-import ConectaBanco.ConexaoBD;
-import Consulta.FrameExibirImagem;
-import Interface.Principal;
-import Sistema.ClassChamaCadastroProduto;
 import utils.ControleCores;
 import controller.ProdutoListaController;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.sql.SQLException;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -34,7 +28,7 @@ public final class ProdutoListaJIF extends javax.swing.JInternalFrame {
         remover_Ico();
 
         pnPrincipal.setBackground(ControleCores.pegarCorPadrao());
-        // setPosicao();
+       
     }
 
     /**
@@ -227,14 +221,7 @@ public final class ProdutoListaJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-
-//        if (jCheckBoxMenuItem_Exibe_Imagens.isSelected()) {
-//            EventoBuscaExibirImagens();
-//
-//        } else {
-//            EventoBuscar();
-//        }
-        produtoListaController.preencheTabela(this);
+         produtoListaController.preencheTabela(this);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -243,7 +230,6 @@ public final class ProdutoListaJIF extends javax.swing.JInternalFrame {
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            // EventoBuscar();
             btnPesquisar.doClick();
         }
     }//GEN-LAST:event_txtBuscarKeyReleased
@@ -254,7 +240,6 @@ public final class ProdutoListaJIF extends javax.swing.JInternalFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         produtoListaController.chamaCadastro(this);
-
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
