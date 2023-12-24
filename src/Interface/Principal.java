@@ -13,7 +13,7 @@ import BackupRestore.Novo.PostgresRestore_X64NOV;
 import BackupRestore.Novo.PostgresRestore_X86NOV;
 import PackParaTeste.JIFTEste;
 import PackParaTeste.JIFTEste2;
-import Sistema.ClassChamaTelaInterna;
+//import Sistema.ClassChamaTelaInterna;
 import Sistema.ManipulaProtocolo;
 import java.awt.Color;
 import static java.awt.Component.CENTER_ALIGNMENT;
@@ -48,7 +48,7 @@ public class Principal extends javax.swing.JFrame {
     JIFTEste teste = new JIFTEste();
     JIFTEste2 teste2 = new JIFTEste2();
     ConsultaInterna3 ConsultaInterna = new ConsultaInterna3();
-    ClassChamaTelaInterna tela = new ClassChamaTelaInterna();
+//    ClassChamaTelaInterna tela = new ClassChamaTelaInterna();
     LoginJIF ChamaLoginPrincipal = new LoginJIF();
 
     int resposta = 0;
@@ -1416,69 +1416,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public void ControlaTela() {
-        String MeuCodigo = jLabelCodigoTela.getText();
-        if (MeuCodigo == "TelaTeste1") {
-            ChamaTeste();
-        } else if (MeuCodigo == "ListaProduto") {
-            tela.ChamaProdutoLista();
-        } else if (MeuCodigo == "AtualizaProdutoLista") {
-            tela.AtualizaProdutoLista();
-        } else if (MeuCodigo == "CadastroProduto") {
-            tela.ChamaCadastroProdutoInterno();
-        } else if (MeuCodigo == "CadastroProdutoEditar") {
-            tela.ChamaCadastroProdutoInternoEditar();
-        } else if (MeuCodigo == "FechaCadastroProdutoEditar") {
-            tela.FechaCadastroProdutoInternoEditar();
-        } else if (MeuCodigo == "CadastroUnidade") {
-            tela.ChamaCadastroUnidade();
-//        } else if (MeuCodigo == "CadastroUnidade") {
-//            tela.ChamaCadastroUnidadeEditar();
-        } else if (MeuCodigo == "ConsultaInterna") {
-            tela.ChamaConsultaInterna();
-        } else if (MeuCodigo == "FCELista") {
-            tela.ChamaFCELista();
-        } else if (MeuCodigo == "FCEListaAtualizar") {
-            tela.ChamaFCEListaAtualizar();
-        } else if (MeuCodigo == "FCECadastro") {
-            tela.ChamaFCECadastro();
-        } else if (MeuCodigo == "FCECadastroEditar") {
-            tela.ChamaFCECadastroEditar();
-        } else if (MeuCodigo == "FechaFCECadastroEditar") {
-            tela.FechaFCECadastroEditar();
-        } else if (MeuCodigo == "NaturezaCadastro") {
-            tela.ChamaNaturezaCadastro();
-        } else if (MeuCodigo == "UsuarioCadastro") {
-            tela.ChamaUsuarioCadastro();
-        } else if (MeuCodigo == "SetorCadastro") {
-            tela.ChamaSetorCadastro();
-        } else if (MeuCodigo == "MovimentoLista") {
-            tela.ChamaMovimentoLista();
-        } else if (MeuCodigo == "MovimentoCadastroEditar") {
-            tela.ChamaMovimentoCadastroEditar();
-        } else if (MeuCodigo == "MovimentoCadastroNovo") {
-            tela.ChamaMovimentoCadastroNovo();
-        } else if (MeuCodigo == "FechaMovimentoCadastro") {
-            tela.FechaMovimentoCadastro();
-        } else if (MeuCodigo == "Exibir") {
-            tela.ChamaExibir();
-        } else if (MeuCodigo == "FrameExibir") {
-            tela.ChamaFrameExibir();
-        } else if (MeuCodigo == "Login") {
-            tela.ChamaLogin();
-        } else if (MeuCodigo == "Expedicao") {
-            tela.ChamaExpedicao();
-        } else if (MeuCodigo == "Bandeiras") {
-            tela.ChamaBandeira();
-        } else if (MeuCodigo == "Protocolo") {
-            tela.ChamaProtocolo();
-        } else if (MeuCodigo == "AtualizaTudo") {
-            tela.ChamaAtualizaTudo();
-        } else if (MeuCodigo == "LimpaTudo") {
-            tela.ChamaLimpaTudo();
-        } else {
-            ChamaTeste2();
-        }
-//
+//      
     }
 
     public void ChamaLoginPrincipal() {
