@@ -207,4 +207,9 @@ public class Produto {
         this.unidade = unidade;
     }
 
+    @Override
+    public String toString() {
+        return "Produto{" + "data_reg=" + data_reg + ", hora_reg=" + hora_reg + ", ncm_prod=" + ncm_prod + ", tipo_prod=" + tipo_prod + ", nome_prod=" + nome_prod + ", edicao_prod=" + edicao_prod + ", cfop_prod=" + cfop_prod + ", obs_prod=" + obs_prod + ", usu_prod=" + usu_prod + ", valor_ex=" + valor_ex + ", sis_prod=" + sis_prod + ", id_prod=" + id_prod + ", un_prod=" + un_prod + ", status_prod=" + status_prod + ", saldo_prod=" + saldo_prod + ", estoque_prod=" + estoque_prod + ", valor=" + valor + ", unidade=" + unidade + '}';
+    }
+
 }
