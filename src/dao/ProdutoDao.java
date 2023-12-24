@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Produto;
 import model.Unidade;
+import view.internal.ProdutoCadastroJIF;
 
 public class ProdutoDao {
 
@@ -28,8 +29,8 @@ public class ProdutoDao {
         conex.conexao();
         try (PreparedStatement pst = conex.con.prepareStatement(
                 "INSERT INTO produto (data_reg, hora_reg, ncm_prod, tipo_prod, nome_prod, "
-                + "edicao_prod, cfop_prod, obs_prod, usu_prod, valor_ex, sis_prod, id_prod, "
-                + "un_prod, status_prod, saldo_prod, estoque_prod, valor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+                + "edicao_prod, cfop_prod, obs_prod, usu_prod, valor_prod_ex, sis_prod, "
+                + "idunid, stprod, saldo_prod, estoque_prod, valor_prod) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
 
             pst.setString(1, produto.getData_reg());
             pst.setString(2, produto.getHora_reg());
@@ -42,18 +43,17 @@ public class ProdutoDao {
             pst.setString(9, produto.getUsu_prod());
             pst.setString(10, produto.getValor_ex());
             pst.setInt(11, produto.getSis_prod());
-            pst.setInt(12, produto.getId_prod());
-            pst.setInt(13, produto.getUn_prod());
-            pst.setInt(14, produto.getStatus_prod());
-            pst.setDouble(15, produto.getSaldo_prod());
-            pst.setDouble(16, produto.getEstoque_prod());
-            pst.setDouble(17, produto.getValor());
+            pst.setInt(12, produto.getUn_prod());
+            pst.setInt(13, produto.getStatus_prod());
+            pst.setDouble(14, produto.getSaldo_prod());
+            pst.setDouble(15, produto.getEstoque_prod());
+            pst.setDouble(16, produto.getValor());
 
             pst.execute();
             return true;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar produto.\nSalvar_Produto\n" + ex);
-
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar produto.\nSalvar_Produto\n" + ex.getMessage());
+            System.out.println("ex::" + ex.getMessage());
         } finally {
             conex.desconecta();
         }
@@ -258,4 +258,17 @@ public class ProdutoDao {
         return produtos;
     }
 
+    public int BuscaUltimaId() {
+        int numeroUltimaId = 0;
+        conex.conexao();
+        conex.executaSql2("select * from produto order by sis_prod  desc ");
+        try {
+            conex.rs.first();
+            numeroUltimaId = (conex.rs.getInt("sis_prod") + 1);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conex.desconecta();
+        return numeroUltimaId;
+    }
 }
