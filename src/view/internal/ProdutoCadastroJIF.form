@@ -100,7 +100,7 @@
                       <Component id="pnCampos" alignment="1" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jLabel_Saldo_Prod2" min="-2" pref="154" max="-2" attributes="0"/>
+                              <Component id="lblExibeSaldo" min="-2" pref="154" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -130,7 +130,7 @@
                   <Component id="pnCampos" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel_Saldo_Prod2" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="lblExibeSaldo" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                       <Component id="lblExibeInformacao" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -147,7 +147,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel_Saldo_Prod2">
+        <Component class="javax.swing.JLabel" name="lblExibeSaldo">
           <Properties>
             <Property name="text" type="java.lang.String" value="  Saldo Produto : Zerado"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -157,7 +157,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel_Saldo_Prod2MouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblExibeSaldoMouseClicked"/>
           </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="pnBotoes">
@@ -468,7 +468,7 @@
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cbUnidadeKeyPressed"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Unidade&gt;"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel18">

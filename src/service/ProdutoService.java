@@ -53,6 +53,10 @@ public class ProdutoService {
     }
 
     public int ultimoId() {
-        return produtoDao.BuscaUltimaId();
+        return produtoDao.buscaUltimaIdSys_prod() + 1;
+    }
+
+    public Produto obterUltimoProduto() {
+        return produtoDao.obterProdutoPorId(produtoDao.buscaUltimaId());
     }
 }

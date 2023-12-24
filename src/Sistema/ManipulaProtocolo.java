@@ -554,9 +554,9 @@ public class ManipulaProtocolo {
             System.out.println("Sistema.ManipulaProtocolo.chamaRelatorio()/n" + " Carregou o relatorio branco");
         } catch (Exception ex) {
             Component parentComponent = null;
-            JOptionPane.showMessageDialog(parentComponent, MinhaOs);
-            JOptionPane.showMessageDialog(parentComponent, ex);
-            System.out.println("Sistema.ManipulaProtocolo.chamaRelatorio()" + ex);
+//            JOptionPane.showMessageDialog(parentComponent, MinhaOs);
+//            JOptionPane.showMessageDialog(parentComponent, ex);
+            System.err.println("Sistema.ManipulaProtocolo.chamaRelatorio()" + ex.getMessage());
 
         }
         conex.desconecta();

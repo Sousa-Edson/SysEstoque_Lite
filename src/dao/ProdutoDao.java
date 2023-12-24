@@ -59,47 +59,46 @@ public class ProdutoDao {
         }
         return false;
     }
-    
+
     public boolean atualizarProduto(Produto produto) {
-    conex.conexao();
-    try (PreparedStatement pst = conex.con.prepareStatement(
-            "UPDATE produto SET data_reg=?, hora_reg=?, ncm_prod=?, tipo_prod=?, "
-            + "nome_prod=?, edicao_prod=?, cfop_prod=?, obs_prod=?, usu_prod=?, "
-            + "valor_prod_ex=?, sis_prod=?, idunid=?, stprod=?, saldo_prod=?, "
-            + "estoque_prod=?, valor_prod=? WHERE id_prod=?")) {
+        conex.conexao();
+        try (PreparedStatement pst = conex.con.prepareStatement(
+                "UPDATE produto SET data_reg=?, hora_reg=?, ncm_prod=?, tipo_prod=?, "
+                + "nome_prod=?, edicao_prod=?, cfop_prod=?, obs_prod=?, usu_prod=?, "
+                + "valor_prod_ex=?, sis_prod=?, idunid=?, stprod=?, saldo_prod=?, "
+                + "estoque_prod=?, valor_prod=? WHERE id_prod=?")) {
 
-        pst.setString(1, produto.getData_reg());
-        pst.setString(2, produto.getHora_reg());
-        pst.setString(3, produto.getNcm_prod());
-        pst.setString(4, produto.getTipo_prod());
-        pst.setString(5, produto.getNome_prod());
-        pst.setString(6, produto.getEdicao_prod());
-        pst.setString(7, produto.getCfop_prod());
-        pst.setString(8, produto.getObs_prod());
-        pst.setString(9, produto.getUsu_prod());
-        pst.setString(10, produto.getValor_ex());
-        pst.setInt(11, produto.getSis_prod());
-        pst.setInt(12, produto.getUn_prod());
-        pst.setInt(13, produto.getStatus_prod());
-        pst.setDouble(14, produto.getSaldo_prod());
-        pst.setDouble(15, produto.getEstoque_prod());
-        pst.setDouble(16, produto.getValor());
-        
-        // Parâmetro WHERE para a condição de atualização
-        pst.setInt(17, produto.getId_prod());
+            pst.setString(1, produto.getData_reg());
+            pst.setString(2, produto.getHora_reg());
+            pst.setString(3, produto.getNcm_prod());
+            pst.setString(4, produto.getTipo_prod());
+            pst.setString(5, produto.getNome_prod());
+            pst.setString(6, produto.getEdicao_prod());
+            pst.setString(7, produto.getCfop_prod());
+            pst.setString(8, produto.getObs_prod());
+            pst.setString(9, produto.getUsu_prod());
+            pst.setString(10, produto.getValor_ex());
+            pst.setInt(11, produto.getSis_prod());
+            pst.setInt(12, produto.getUn_prod());
+            pst.setInt(13, produto.getStatus_prod());
+            pst.setDouble(14, produto.getSaldo_prod());
+            pst.setDouble(15, produto.getEstoque_prod());
+            pst.setDouble(16, produto.getValor());
 
-        int linhasAfetadas = pst.executeUpdate();
+            // Parâmetro WHERE para a condição de atualização
+            pst.setInt(17, produto.getId_prod());
 
-        return linhasAfetadas > 0; // Retorna true se pelo menos uma linha foi atualizada
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Erro ao atualizar produto.\nAtualizar_Produto\n" + ex.getMessage());
-        System.out.println("ex::" + ex.getMessage());
-    } finally {
-        conex.desconecta();
+            int linhasAfetadas = pst.executeUpdate();
+
+            return linhasAfetadas > 0; // Retorna true se pelo menos uma linha foi atualizada
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar produto.\nAtualizar_Produto\n" + ex.getMessage());
+            System.out.println("ex::" + ex.getMessage());
+        } finally {
+            conex.desconecta();
+        }
+        return false;
     }
-    return false;
-}
-
 
 //    public boolean alterarProduto(Produto produto) {
 //        boolean ok = false;
@@ -139,16 +138,15 @@ public class ProdutoDao {
 //        }
 //        return ok;
 //    }
-
     public boolean excluirProduto(Produto produto) {
         conex.conexao();
         try (PreparedStatement pst = conex.con.prepareStatement(
                 "UPDATE produto SET stprod=? WHERE id_prod=?")) {
             pst.setInt(1, produto.getStatus_prod());
             pst.setInt(2, produto.getId_prod());
-             pst.execute();
-             JOptionPane.showMessageDialog(null, "Produto " + produto.getId_prod()+ " deletado com sucesso!");
-               return true;
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Produto " + produto.getId_prod() + " deletado com sucesso!");
+            return true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir/atualizar produto.\n" + ex);
         } finally {
@@ -251,7 +249,7 @@ public class ProdutoDao {
         } finally {
             conex.desconecta();
         }
-  System.out.println("vazio");
+        System.out.println("vazio");
         return null;
     }
 
@@ -270,7 +268,7 @@ public class ProdutoDao {
                 + "COALESCE(UPPER(obs_prod), '') || ' ' || "
                 + "COALESCE(UPPER(usu_prod), '') || ' ' || "
                 + "COALESCE(CAST(data_reg AS TEXT), '')) ILIKE ? AND stprod = 1 "
-                + "ORDER BY sis_prod DESC, id_prod DESC";
+                + "ORDER BY   id_prod DESC";
 
         try (PreparedStatement pst = conex.con.prepareStatement(query)) {
             pst.setString(1, "%" + minhaBusca + "%");
@@ -315,13 +313,27 @@ public class ProdutoDao {
         return produtos;
     }
 
-    public int BuscaUltimaId() {
+    public int buscaUltimaIdSys_prod() {
         int numeroUltimaId = 0;
         conex.conexao();
         conex.executaSql2("select * from produto order by sis_prod  desc ");
         try {
             conex.rs.first();
-            numeroUltimaId = (conex.rs.getInt("sis_prod") + 1);
+            numeroUltimaId = (conex.rs.getInt("sis_prod"));
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conex.desconecta();
+        return numeroUltimaId;
+    }
+
+    public int buscaUltimaId() {
+        int numeroUltimaId = 0;
+        conex.conexao();
+        conex.executaSql2("select * from produto order by id_prod  desc ");
+        try {
+            conex.rs.first();
+            numeroUltimaId = (conex.rs.getInt("id_prod"));
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
         }

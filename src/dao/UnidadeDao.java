@@ -108,7 +108,7 @@ public class UnidadeDao {
         conex.conexao();
         conex.executaSql2("SELECT id_unidade, id_referenciaunidade, sigla_unidade, desc_unidade, "
                 + "registro_unidade, usuario_unidade, fragmento_unidade, stunid "
-                + "FROM unidade WHERE stunid = 1 ORDER BY id_referenciaunidade DESC");
+                + "FROM unidade WHERE stunid = 1 ORDER BY id_unidade DESC");
 
         try {
             while (conex.rs.next()) {

@@ -6,12 +6,17 @@ package controller;
 
 import utils.DataHoraAtual;
 import java.awt.Color;
+import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
 import model.Produto;
+import model.Unidade;
 import service.ProdutoService;
+import service.UnidadeService;
 import utils.FormatarDinheiro;
+import utils.FormatarNumero;
 import utils.ManipulaValor;
 import utils.UsuarioLogado;
 import view.internal.ProdutoCadastroJIF;
@@ -41,6 +46,9 @@ public class ProdutoController {
         form.getBtnExcluir().setEnabled(false);
         form.getTxtipo().requestFocus();
         form.setIdProduto(0);
+
+        form.getLblExibeInformacao().setText("");
+        form.getLblExibeSaldo().setText("");
     }
 
     public void carregarCampos(ProdutoCadastroJIF form, Produto produto) {
@@ -71,15 +79,36 @@ public class ProdutoController {
                 System.out.println("e::" + e.getMessage());
             }
             form.getSpCfop().setValue(iCfop);
-            form.getCbUnidade().setSelectedItem(produto.getUnidade().getSigla_unidade());
+
             form.getSpEstoqueMinimo().setValue(produto.getEstoque_prod());
             form.getBtnExcluir().setEnabled(true);
             form.setIdProduto(produto.getId_prod());
+
+            form.getLblExibeInformacao().setText("Registro: " + produto.getData_reg() + " " + produto.getHora_reg());
+            form.getLblExibeSaldo().setText("Saldo: " + FormatarNumero.formatarNumero(produto.getSaldo_prod()));
+
+            int index = findIndexOfUnidade(form.getCbUnidade(), produto.getUnidade());
+            if (index != -1) {
+                form.getCbUnidade().setSelectedIndex(index);
+            } else {
+                System.out.println("Unidade não encontrada na lista");
+            }
+
         } else {
             limparCampos(form);
             form.getBtnExcluir().setEnabled(false);
         }
         form.getTxtipo().requestFocus();
+    }
+
+    private int findIndexOfUnidade(JComboBox<Unidade> comboBox, Unidade targetUnidade) {
+        for (int i = 0; i < comboBox.getItemCount(); i++) {
+            Unidade currentUnidade = comboBox.getItemAt(i);
+            if (currentUnidade.getId_unidade() == targetUnidade.getId_unidade()) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void contaCaracteres(JTextComponent textComponent, JLabel label, int tamanho) {
@@ -103,35 +132,56 @@ public class ProdutoController {
     }
 
     public void salvar(ProdutoCadastroJIF form) {
-        Produto produtoSalvar = new Produto();
-        produtoSalvar.setCfop_prod(form.getSpCfop().getValue().toString());
-        produtoSalvar.setNcm_prod(form.getSpNcm().getValue().toString());
-        double estoqueProduto = Double.parseDouble(form.getSpEstoqueMinimo().getValue().toString());
-        produtoSalvar.setEstoque_prod(estoqueProduto);
-        produtoSalvar.setTipo_prod(form.getTxtipo().getText());
-        produtoSalvar.setNome_prod(form.getTxtDesc().getText());
-        produtoSalvar.setEdicao_prod(form.getTxtEdicao().getText());
-        double valor = Double.parseDouble(ManipulaValor.manipulaValor(form.getTxtValor().getText()));
-        produtoSalvar.setValor(valor);
-        produtoSalvar.setValor_ex(form.getTxtValor().getText());
-        produtoSalvar.setObs_prod(form.getTxtObs().getText());
-        produtoSalvar.setData_reg(DataHoraAtual.obterDataFormatada());
-        produtoSalvar.setHora_reg(DataHoraAtual.obterHoraFormatada());
-        int unidade = Integer.parseInt(form.getCbUnidade_Int().getSelectedItem().toString());
-        produtoSalvar.setUn_prod(unidade);
-        produtoSalvar.setSaldo_prod(0.0);
-        produtoSalvar.setEstoque_prod(Double.valueOf(form.getSpEstoqueMinimo().getValue().toString()));
-        produtoSalvar.setStatus_prod(1);
-        produtoSalvar.setId_prod(form.getIdProduto());
+        String descricao = form.getTxtDesc().getText();
+        if (descricao.trim().length() <= 1) {
+            form.getTxtDesc().requestFocus();
+        } else {
+            Produto produtoSalvar = new Produto();
+            produtoSalvar.setCfop_prod(form.getSpCfop().getValue().toString());
+            produtoSalvar.setNcm_prod(form.getSpNcm().getValue().toString());
+            double estoqueProduto = Double.parseDouble(form.getSpEstoqueMinimo().getValue().toString());
+            produtoSalvar.setEstoque_prod(estoqueProduto);
+            produtoSalvar.setTipo_prod(form.getTxtipo().getText());
+            produtoSalvar.setNome_prod(form.getTxtDesc().getText());
+            produtoSalvar.setEdicao_prod(form.getTxtEdicao().getText());
+            double valor = Double.parseDouble(ManipulaValor.manipulaValor(form.getTxtValor().getText()));
+            produtoSalvar.setValor(valor);
+            produtoSalvar.setValor_ex(form.getTxtValor().getText());
+            produtoSalvar.setObs_prod(form.getTxtObs().getText());
+            produtoSalvar.setData_reg(DataHoraAtual.obterDataFormatada());
+            produtoSalvar.setHora_reg(DataHoraAtual.obterHoraFormatada());
 
-        if (produtoService.salvarProduto(produtoSalvar)) {
-            limparCampos(form);
+            Unidade unidade = (Unidade) form.getCbUnidade().getSelectedItem();
+            produtoSalvar.setUn_prod(unidade.getId_unidade());
+
+            produtoSalvar.setSaldo_prod(0.0);
+            produtoSalvar.setEstoque_prod(Double.valueOf(form.getSpEstoqueMinimo().getValue().toString()));
+            produtoSalvar.setStatus_prod(1);
+            produtoSalvar.setId_prod(form.getIdProduto());
+
+            if (produtoService.salvarProduto(produtoSalvar)) {
+                if (form.getIdProduto() != 0) {
+                    form.dispose();
+                }
+                limparCampos(form);
+            }
         }
-
     }
 
     public void chamaUnidade(ProdutoCadastroJIF aThis) {
         ControlaTelaInterna.ChamaCadastroUnidade();
+    }
+
+    public void carregaUnidade(ProdutoCadastroJIF form) {
+        UnidadeService unidadeService = new UnidadeService();
+        // Obtenha a lista de unidades do serviço
+        List<Unidade> listaUnidades = unidadeService.listarUnidades();
+
+        // Limpe o conteúdo atual do JComboBox
+        form.getCbUnidade().removeAllItems();
+        for (Unidade unidade : listaUnidades) {
+            form.getCbUnidade().addItem(unidade); // Supondo que você tenha um método getNome() na classe Unidade
+        }
     }
 
     public void excluirProduto(ProdutoCadastroJIF form) {
@@ -151,4 +201,31 @@ public class ProdutoController {
         }
     }
 
+    public void carregarUltimoProduto(ProdutoCadastroJIF form) {
+        Object[] options = {"Sim", "Não"};
+        if (JOptionPane.showOptionDialog(null, "Deseja repetir o ultimo produto?",
+                "Repetir ultimo ?", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+                null, options, options[1]) == 0) {
+            produto = produtoService.obterUltimoProduto();
+            produto.setId_prod(0);
+            carregarCampos(form, produto);
+            form.getBtnExcluir().setEnabled(false);
+        }
+    }
+
+    public void copiarProduto(ProdutoCadastroJIF form) {
+        if (produto == null) {
+            JOptionPane.showMessageDialog(form, "Produto vazio!");
+        } else {
+            Object[] options = {"Sim", "Não"};
+            if (JOptionPane.showOptionDialog(null, "Deseja copiar este produto?",
+                    "Copiar produto?", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+                    null, options, options[1]) == 0) {
+                produto.setId_prod(0);
+                carregarCampos(form, produto);
+                form.getBtnExcluir().setEnabled(false);
+
+            }
+        }
+    }
 }

@@ -1339,18 +1339,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     public void EscondeMenu() {
         ManipulaProtocolo prot = new ManipulaProtocolo();
-        prot.chamaRelatorioEmBranco();
-//        if (jButton_Consulta.isVisible()) {
-//            jButton_Consulta.setVisible(false);
-//            jButton_Expedicao.setVisible(false);
-//            jButton_Nota.setVisible(false);
-//            jButton_Produto.setVisible(false);
-//        } else {
-//            jButton_Consulta.setVisible(true);
-//            jButton_Expedicao.setVisible(true);
-//            jButton_Nota.setVisible(true);
-//            jButton_Produto.setVisible(true);
-//        }
+        prot.chamaRelatorioEmBranco(); 
+        
         if (jMenuBar1.isVisible()) {
             jMenuBar1.setVisible(false);
             pnMenuInferior.setVisible(false);

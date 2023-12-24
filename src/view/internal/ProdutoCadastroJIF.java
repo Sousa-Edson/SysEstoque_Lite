@@ -8,62 +8,95 @@ package view.internal;
 
 import ConectaBanco.ConexaoBD;
 import Interface.Principal;
-import ModeloBeans.Beans_Movimento;
 import ModeloBeans.Beans_Produto;
-import ModeloBeans.ModeloTabela;
-import ModeloDao.Dao_Movimento;
 import ModeloDao.Dao_Produto;
 import utils.ControleCores;
 import controller.ProdutoController;
-import java.awt.Color;
-import static java.awt.Color.red;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import model.Produto;
+import model.Unidade;
 
 /**
  *
  * @author edson
  */
 public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
-
+    
     Beans_Produto Bprod = new Beans_Produto();
     Dao_Produto Dprod = new Dao_Produto();
-    ConexaoBD conex = new ConexaoBD();
-    int ComboFocu = 0;
-    int id_referencia;
     private int idProduto = 0;
     ProdutoController produtoController;
-
+    
     public ProdutoCadastroJIF(Produto produto) {
         initComponents();
         remover_Ico();
-        PreencheUnidade();
+        
         EscondeInsereSaldoInicio();
-
+        
         pnPrincipal.setBackground(ControleCores.pegarCorPadrao());
         pnBotoes.setBackground(ControleCores.pegarCorPadrao());
         pnCampos.setBackground(ControleCores.pegarCorPadrao());
-
+        
         produtoController = new ProdutoController();
+        
+        produtoController.carregaUnidade(this);
+        
         produtoController.carregarCampos(this, produto);
+        
+    }
+    
+    public void setPosicao() {
+        Dimension d = this.getDesktopPane().getSize();
+        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+    }
+    
+    public void remover_Ico() {
+        this.setFrameIcon(null);
 
+        // hack to remove system menu in Windows
+        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
+        Container north = (Container) ui.getNorthPane();
+        north.remove(0);
+        north.validate();
+        north.repaint();
     }
 
+//    public void PreencheUnidade() {
+//        conex.conexao();
+//        conex.executaSql2("SELECT  sigla_unidade, desc_unidade,id_referenciaunidade FROM unidade  where stunid =1   order by id_referenciaunidade asc ");
+//        try {
+//            conex.rs.first();
+//            cbUnidade.removeAllItems();
+//            cbUnidade_Int.removeAllItems();
+//
+//            do {
+//                String unidade = (conex.rs.getString("sigla_unidade"));
+//                cbUnidade.addItem(unidade);
+//                cbUnidade_Int.addItem(conex.rs.getString("id_referenciaunidade"));
+//            } while (conex.rs.next());
+//            ComboFocu = 1;
+//        } catch (SQLException ex) {
+//            Logger.getLogger(ProdutoCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
+//            System.out.println("Interface.ProdCadastroJIF.PreencheUnidade()  ERRO    ------------------- " + ex);
+//            cbUnidade.addItem("UN");
+//            cbUnidade.setSelectedItem("UN");
+//            cbUnidade_Int.addItem("0");
+//            cbUnidade_Int.setSelectedItem("0");
+//        }
+//        conex.desconecta();
+//        cbUnidade_Int.setVisible(true);
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,7 +107,7 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         pnPrincipal = new javax.swing.JPanel();
-        jLabel_Saldo_Prod2 = new javax.swing.JLabel();
+        lblExibeSaldo = new javax.swing.JLabel();
         pnBotoes = new javax.swing.JPanel();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -136,11 +169,11 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         pnPrincipal.setBackground(new java.awt.Color(0, 255, 204));
         pnPrincipal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel_Saldo_Prod2.setText("  Saldo Produto : Zerado");
-        jLabel_Saldo_Prod2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jLabel_Saldo_Prod2.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblExibeSaldo.setText("  Saldo Produto : Zerado");
+        lblExibeSaldo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblExibeSaldo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_Saldo_Prod2MouseClicked(evt);
+                lblExibeSaldoMouseClicked(evt);
             }
         });
 
@@ -425,7 +458,7 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
                     .addComponent(pnCampos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnPrincipalLayout.createSequentialGroup()
                         .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel_Saldo_Prod2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblExibeSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnPrincipalLayout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -447,7 +480,7 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
                 .addComponent(pnCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel_Saldo_Prod2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblExibeSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblExibeInformacao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -566,28 +599,18 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             txtValor.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_F5) {
-            PreencheUnidade();
+            produtoController.carregaUnidade(this);
         }
         if (evt.getKeyCode() == evt.VK_F2) {
-            Principal.jLabelCodigoTela.setText("CadastroUnidade");
-            Principal.jButton1.doClick();
-        }
-        //        if (evt.getKeyCode() == evt.VK_UP) {
-        //            jTextField_Desc.requestFocus();
-        //        }
-        //        if (evt.getKeyCode() == evt.VK_DOWN) {
-        //            jTextField_EstoqueMin.requestFocus();
-        //        }
+            produtoController.chamaUnidade(this);
+        } 
         if (evt.getKeyCode() == evt.VK_LEFT) {
             txtEdicao.requestFocus();
-        }
-        //        if (evt.getKeyCode() == evt.VK_RIGHT) {
-        //            jComboBox_Unidade.requestFocus();
-        //        }
+        } 
     }//GEN-LAST:event_cbUnidadeKeyPressed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        BotaoExcluir();
+        produtoController.excluirProduto(this);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void txtValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorFocusLost
@@ -672,27 +695,17 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         produtoController.contaCaracteres(txtObs, lblExibeInformacao, 150);
     }//GEN-LAST:event_txtObsKeyReleased
 
-    private void jLabel_Saldo_Prod2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_Saldo_Prod2MouseClicked
+    private void lblExibeSaldoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExibeSaldoMouseClicked
         EscondeInsereSaldo();
-    }//GEN-LAST:event_jLabel_Saldo_Prod2MouseClicked
+    }//GEN-LAST:event_lblExibeSaldoMouseClicked
 
     private void jButtonInsereSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsereSaldoActionPerformed
-        AlteraSaldo();
-        CarregaDadosDaTabela();
+        
+
     }//GEN-LAST:event_jButtonInsereSaldoActionPerformed
 
     private void cbUnidadeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbUnidadeItemStateChanged
-        String selecao = (String) cbUnidade.getSelectedItem();
-        if (selecao == null) {
-        } else {
-            if (ComboFocu == 0) {
-            } else {
-                cbUnidade_Int.setSelectedIndex(cbUnidade.getSelectedIndex());
-                System.out.println("==========  String " + cbUnidade.getSelectedItem());
-                System.out.println("==========  Int " + cbUnidade.getSelectedItem());
-                System.out.println("==========  Int " + cbUnidade_Int.getSelectedIndex());
-            }
-        }
+
     }//GEN-LAST:event_cbUnidadeItemStateChanged
 
     private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
@@ -707,245 +720,21 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        CarregaUltimoIdSecundaria();
+        produtoController.carregarUltimoProduto(this);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    public void CarregaUltimoIdSecundaria() {
-        String IdSecundaria = null;
-        conex.conexao();
-        conex.executaSql2("SELECT  id_prod  FROM produto where sis_prod is not null and sis_prod !=0 order by sis_prod asc ");
-        try {
-            conex.rs.last();
-            IdSecundaria = conex.rs.getString("id_prod");
-//            id_referencia = id_referencia + 1;
-        } catch (SQLException ex) {
-            IdSecundaria = "novo";
-        }
-        conex.desconecta();
-        // jLabel_Id_Secundario2.setText(String.valueOf(IdSecundaria));
-        CarregaDadosDaTabela();
-        CarregaUltimo();
-//        jLabel_Id_Secundario2.setText("novo");
-    }
-
-    public void CarregaUltimo() {
-        conex.conexao();
-        conex.executaSql2("SELECT  sis_prod  FROM produto where sis_prod is not null and sis_prod !=0 order by sis_prod asc ");
-        try {
-            conex.rs.last();
-            id_referencia = conex.rs.getInt("sis_prod");
-//            JOptionPane.showMessageDialog(rootPane, id_referencia);
-            id_referencia = id_referencia + 1;
-//            JOptionPane.showMessageDialog(rootPane, id_referencia);
-        } catch (SQLException ex) {
-//            Logger.getLogger(UnidadeJIF.class.getName()).log(Level.SEVERE, null, ex);
-            id_referencia = 1;
-        }
-//        JOptionPane.showMessageDialog(rootPane, id_referencia);
-        conex.desconecta();
-//        jLabel_Sistema2.setText(String.valueOf(id_referencia));
-    }
+    
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        int resposta = 0;
-        resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente fazer uma cópia ? ");
-        if (resposta == JOptionPane.YES_OPTION) {
-            CarregaUltimo();
-//            jLabel_Id_Secundario2.setText("novo");
-        }
+        produtoController.copiarProduto(this);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    public void AlteraSaldo() {
-        try {
-//            String InsereSaldo = jTextFieldInsereSaldo.getText();
-////            int IdSecundario = Integer.parseInt(jLabel_Id_Secundario2.getText());
-//            InsereSaldo = InsereSaldo.replace(".", "").replace(",", ".");
-//            Bprod.setSaldo_prod(Double.parseDouble(InsereSaldo));
-////            Bprod.setId_prod(IdSecundario);
-//            Dprod.AlteraSaldo(Bprod);
-//
-////            Mbeans.setId_prod_ent(IdSecundario);
-//            Mdao.AlterarStatusSaldo_MovProdutoBase_Produto(Mbeans);
-//            String MinhaQtd = (jTextFieldInsereSaldo.getText());
-//            MinhaQtd = MinhaQtd.replace(",", ".");
-//            Mbeans.setQtd_prod(Double.parseDouble(MinhaQtd));
-//            Mbeans.setQtd_prod_ex((MinhaQtd));
-//            Mbeans.setQtd_calc(Double.parseDouble(MinhaQtd));
-//            Mbeans.setQtd_mov(Double.parseDouble(MinhaQtd));
-//            Mbeans.setQtd_calc_ex(MinhaQtd);
-//            Mbeans.setStsaldo(1);
-//            Mbeans.setStatus_mov(1);
-//            Mdao.SalvarQuantidadeProduto_MovProdutoBase(Mbeans);
-        } catch (Error ex) {
-            JOptionPane.showMessageDialog(rootPane, "erro " + ex);
-        }
-    }
-
-    public void EventoLimpar() {
-//        jTextFieldBusca.setText("");
-//        jTextFieldBusca.requestFocus();
-        ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{};
-        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-//        jTable_Produto.setModel(modelo);
-
-    }
-
-    public void setPosicao() {
-        Dimension d = this.getDesktopPane().getSize();
-        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
-    }
-
-    public void remover_Ico() {
-        this.setFrameIcon(null);
-
-        // hack to remove system menu in Windows
-        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
-        Container north = (Container) ui.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
-    }
-
-    public void PreencheUnidade() {
-        conex.conexao();
-        conex.executaSql2("SELECT  sigla_unidade, desc_unidade,id_referenciaunidade FROM unidade  where stunid =1   order by id_referenciaunidade asc ");
-        try {
-            conex.rs.first();
-            cbUnidade.removeAllItems();
-            cbUnidade_Int.removeAllItems();
-
-            do {
-                String unidade = (conex.rs.getString("sigla_unidade"));
-                cbUnidade.addItem(unidade);
-                cbUnidade_Int.addItem(conex.rs.getString("id_referenciaunidade"));
-            } while (conex.rs.next());
-            ComboFocu = 1;
-        } catch (SQLException ex) {
-            Logger.getLogger(ProdutoCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Interface.ProdCadastroJIF.PreencheUnidade()  ERRO    ------------------- " + ex);
-            cbUnidade.addItem("UN");
-            cbUnidade.setSelectedItem("UN");
-            cbUnidade_Int.addItem("0");
-            cbUnidade_Int.setSelectedItem("0");
-        }
-        conex.desconecta();
-        cbUnidade_Int.setVisible(true);
-    }
-
-    public void VerificaCor() {
-        Color cor = txtipo.getBackground();
-        if (cor == red) {
-            JOptionPane.showMessageDialog(rootPane, "Verifique");
-            System.out.println("cor " + cor);
-        } else {
-            System.out.println("cor " + cor);
-//            SalvaTemp();
-        }
-    }
-
-    public void VerificaNumeroNcm() {
-        String s;
-//        s = jTextField_Ncm.getText().replace(" ", "");
-//        if (s.matches("^[0-9.]*$")) {
-//            jTextField_Ncm.setBackground(null);
-//        } else {
-//            jTextField_Ncm.setText(null);
-//            jTextField_Ncm.setBackground(Color.RED);
-//        }
-    }
-
-    public void VerificaNumeroCfop() {
-        String s;
-//        s = jSpinner2.getText().replace(" ", "");
-//        if (s.matches("^[0-9.]*$")) {
-//            jSpinner2.setBackground(null);
-//        } else {
-//            jSpinner2.setText(null);
-//            jSpinner2.setBackground(Color.RED);
-//        }
-    }
-
-    public void CarregaDadosDaTabela() {
-        btnExcluir.setEnabled(true);
-        conex.conexao();
-        conex.executaSql2("  select * from produto inner join unidade on  idunid=id_referenciaunidade  where id_prod =   1   '" + "" + "' order by id_prod  desc");
-        try {
-            conex.rs.first();
-            cbUnidade.setSelectedItem((conex.rs.getString("sigla_unidade")));
-            String id_prod = (conex.rs.getString("id_prod"));
-            txtipo.setText(conex.rs.getString("tipo_prod"));
-            txtipo.requestFocus();
-            txtDesc.setText(conex.rs.getString("nome_prod"));
-//            jLabel_Sistema2.setText(conex.rs.getString("sis_prod"));
-//            JOptionPane.showMessageDialog(rootPane, (conex.rs.getString("nome_prod")));
-            txtEdicao.setText(conex.rs.getString("edicao_prod"));
-//            String ValorBanco=(conex.rs.getString("valor_prod"));
-//            ValorBanco=ValorBanco.replace(title, title)
-            Double num41 = (conex.rs.getDouble("valor_prod"));
-            BigDecimal df1 = new BigDecimal(num41);
-            NumberFormat nf1 = NumberFormat.getInstance();// getCurrencyInstance
-            nf1.setMinimumFractionDigits(3);
-            nf1.setMaximumFractionDigits(3);
-            String FormatoValorProd = nf1.format(df1);;
-            FormatoValorProd = "R$ " + FormatoValorProd;
-            String valor_prod_ex = (conex.rs.getString("valor_prod_ex"));
-            txtValor.setText(valor_prod_ex);
-            System.out.println("Interface.ProdCadastroJIF.CarregaDadosDaTabela()   - FormatoValorProd " + FormatoValorProd + "  valor_prod_ex " + valor_prod_ex);
-            try {
-                spNcm.setValue(conex.rs.getInt("ncm_prod"));
-            } catch (SQLException ex) {
-                spNcm.setValue(0);
-            }
-            try {
-                spCfop.setValue(conex.rs.getInt("cfop_prod"));
-            } catch (SQLException ex) {
-                spCfop.setValue(0);
-            }
-            try {
-                spEstoqueMinimo.setValue(conex.rs.getFloat("estoque_prod"));
-            } catch (SQLException ex) {
-                spEstoqueMinimo.setValue(1);
-            }
-            txtObs.setText(conex.rs.getString("obs_prod"));
-            Double num4 = (conex.rs.getDouble("saldo_prod"));
-            BigDecimal df = new BigDecimal(num4);
-            NumberFormat nf = NumberFormat.getInstance();
-            nf.setMinimumFractionDigits(3);
-            nf.setMaximumFractionDigits(3);
-            String FormatoReal = nf.format(df);
-            FormatoReal = FormatoReal.replace(",000", "");
-            jLabel_Saldo_Prod2.setText(" Saldo : " + FormatoReal);
-            jTextFieldInsereSaldo.setText(FormatoReal);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex);
-//            LimpaCampos();
-        }
-        conex.desconecta();
-    }
-
-//    public void BuscaIdUnidade() {
-//        String nome = (String) jComboBox_Unidade.getSelectedItem();
-//        conex3.conexao();
-//        conex3.executaSql2("SELECT  sigla_unidade,id_unidade, desc_unidade FROM unidade  where stunid =1 and sigla_unidade='" + nome + "'  order by id_referenciaunidade asc  ");
-//        try {
-//            conex3.rs.first();
-//            un_prod = (conex3.rs.getInt("id_unidade"));
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ProdutoCadastroJIF.class.getName()).log(Level.SEVERE, null, ex);
-//            un_prod = 1;
-//            System.out.println("---------------- BuscaIdUnidade----------------" + ex);
-//        }
-//        conex3.desconecta();
-//        System.out.println("---------------- BuscaIdUnidade----------------" + un_prod);
-//    }
+    
     public void EscondeInsereSaldoInicio() {
         jTextFieldInsereSaldo.setVisible(false);
         jButtonInsereSaldo.setVisible(false);
         jLabel1.setVisible(false);
         cbUnidade_Int.setVisible(false);
     }
-
+    
     public void EscondeInsereSaldo() {
         if (jTextFieldInsereSaldo.isVisible()) {
             jTextFieldInsereSaldo.setVisible(false);
@@ -956,121 +745,22 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
             jButtonInsereSaldo.setVisible(true);
             jLabel1.setVisible(true);
         }
-
+        
     }
-
-//    public void SalvaTemp() {
-//         
-//        String MeuValorVerifica = txtValor.getText();
-//        if (MeuValorVerifica.isEmpty()) {
-//            txtValor.setText("R$ 0,00");
-//        }
-//
-//        String TipoProd = txtipo.getText(),
-//                DescProd = txtDesc.getText(),
-//                NumProd = txtEdicao.getText(),
-////                data_reg = Principal.jLabel_Data.getText(),
-//                obs_prod = txtObs.getText(),
-//                cfop_prod = "" + spCfop.getValue(),
-//                ncm_prod = "" + spNcm.getValue(),
-//                estoque_prod = "" + spEstoqueMinimo.getValue();
-////        System.out.println("SalvaTemp() " + data_reg);
-//        TipoProd = TipoProd.toUpperCase();
-//        DescProd = DescProd.toUpperCase();
-//        obs_prod = obs_prod.toUpperCase();
-//        Bprod.setTipo_prod(TipoProd);
-//        Bprod.setNome_prod(DescProd);
-//        Bprod.setEdicao_prod(NumProd);
-//        Bprod.setCfop_prod(cfop_prod);
-////        Bprod.setData_reg(data_reg);
-//        Bprod.setNcm_prod(ncm_prod);
-//        Bprod.setObs_prod(obs_prod);
-//        if (estoque_prod.equals(null) | estoque_prod.equals("")) {
-//            estoque_prod = "1";
-////            JOptionPane.showMessageDialog(rootPane, "valor =1");
-//        } else {
-//            estoque_prod = estoque_prod.replace(",", ".");
-//        }
-//        Bprod.setEstoque_prod(Double.parseDouble(estoque_prod));
-//        System.out.println("Interface.ProdCadastroJIF.SalvaTemp() ---- " + cbUnidade_Int.getSelectedItem());
-//        un_prod = Integer.parseInt((String) cbUnidade_Int.getSelectedItem());
-//        Bprod.setUn_prod(un_prod);
-//        String MeuValor = txtValor.getText();
-//        Bprod.setValor_ex(MeuValor);
-//        MeuValor = MeuValor.replace(",", ".").replace("R$", "");
-//        Bprod.setValor(Double.parseDouble(MeuValor));
-//
-////        Bprod.setUsu_prod(Principal.jLabelNomeUsuario.getText());// aqui muda  ///   (Principal.jLabel_Usuario.getText())
-//        Bprod.setStatus_prod(1); // aqui ativo
-////        Bprod.setHora_reg(Principal.jLabel_Hora.getText());
-//        int Sis_prod = 0;
-////        if (jLabel_Id_Secundario2.getText() == "novo") {
-////            System.out.println("erro ao carregar "+jLabel_Id_Secundario2.getText());
-////        } else {
-////        Sis_prod = Integer.parseInt(jLabel_Sistema2.getText());
-////        }
-//
-//        Bprod.setSis_prod(Sis_prod);
-//        Dprod.Salvar_Temporario(Bprod);
-//      
-//        txtipo.requestFocus();//// muda foco      /////// Cria_Registro_Primario
-//    }
+    
     public void AlterarTemp() {
         Bprod.setStatus_prod(2);// alterado
 //        Bprod.setId_prod(Integer.parseInt(jLabel_Id_Secundario2.getText()));
         Dprod.Alterar_Atualizar_Temporario(Bprod);
-
+        
     }
 
-    public void BotaoExcluir() {
-        produtoController.excluirProduto(this);
-    }
-//
-//    public void ManipulaModoValor() {
-//        if (IntModoValor == 0) {
-//            IntModoValor = 1;
-//            txtValor.setBackground(Color.ORANGE);
-//        } else {
-//            IntModoValor = 0;
-//            txtValor.setBackground(Color.white);
-//
-//        }
-//    }
-
-//    public void ManipulaValor() {
-//        String MeuValor = txtValor.getText();
-//        MeuValor = MeuValor.replace("R$", "").replace(" ", "").replace(".", "").replace(",", ".");
-//        if (MeuValor.equals(null) | MeuValor.equals("") | MeuValor == (null) | MeuValor == " ") {
-//            System.out.println("Interface.ProdCadastroJIF.ManipulaValor()");
-//        } else {
-//            if (IntModoValor == 1) {
-//                Double num41 = (Double.parseDouble(MeuValor));
-//                BigDecimal df1 = new BigDecimal(num41);
-//                NumberFormat nf1 = NumberFormat.getInstance();// getCurrencyInstance
-//                nf1.setMinimumFractionDigits(4);
-//                nf1.setMaximumFractionDigits(4);
-//                String FormatoValorProd = nf1.format(df1);
-//                FormatoValorProd = "R$ " + FormatoValorProd;
-//                txtValor.setText(FormatoValorProd);
-//            } else {
-//                Double num42 = (Double.parseDouble(MeuValor)); 
-//                Double num4 = Double.parseDouble(MeuValor);
-//                BigDecimal df = new BigDecimal(num4);
-//                NumberFormat nf = NumberFormat.getCurrencyInstance(); 
-//                String FormatoReal = nf.format(df);
-//                String b = String.valueOf(df);
-//                txtValor.setText(FormatoReal); 
-//
-//                System.out.println("Interface.ProdCadastroJIF.ManipulaValor()" + MeuValor);
-//            }
-//        }
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     public static javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JComboBox<String> cbUnidade;
+    private javax.swing.JComboBox<Unidade> cbUnidade;
     private javax.swing.JComboBox<String> cbUnidade_Int;
     private javax.swing.JButton jButtonInsereSaldo;
     private javax.swing.JButton jButtonNovaUnidade;
@@ -1082,7 +772,6 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel_Guia4;
-    private javax.swing.JLabel jLabel_Saldo_Prod2;
     private javax.swing.JLabel jLabel_Valor2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -1092,6 +781,7 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextFieldInsereSaldo;
     private javax.swing.JLabel lblExibeInformacao;
+    private javax.swing.JLabel lblExibeSaldo;
     private javax.swing.JPanel pnBotoes;
     private javax.swing.JPanel pnCampos;
     private javax.swing.JPanel pnPrincipal;
@@ -1108,69 +798,77 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     public JButton getBtnCancelar() {
         return btnCancelar;
     }
-
+    
     public JButton getBtnExcluir() {
         return btnExcluir;
     }
-
+    
     public JButton getBtnSalvar() {
         return btnSalvar;
     }
-
-    public JComboBox<String> getCbUnidade() {
+    
+    public JComboBox<Unidade> getCbUnidade() {
         return cbUnidade;
     }
-
+    
+    public void setCbUnidade(JComboBox<Unidade> cbUnidade) {
+        this.cbUnidade = cbUnidade;
+    }
+    
     public JComboBox<String> getCbUnidade_Int() {
         return cbUnidade_Int;
     }
-
+    
     public JSpinner getSpCfop() {
         return spCfop;
     }
-
+    
     public JSpinner getSpEstoqueMinimo() {
         return spEstoqueMinimo;
     }
-
+    
     public JSpinner getSpNcm() {
         return spNcm;
     }
-
+    
     public JTextField getTxtDesc() {
         return txtDesc;
     }
-
+    
     public JTextField getTxtEdicao() {
         return txtEdicao;
     }
-
+    
     public JTextArea getTxtObs() {
         return txtObs;
     }
-
+    
     public JTextField getTxtValor() {
         return txtValor;
     }
-
+    
     public JTextField getTxtipo() {
         return txtipo;
     }
-
+    
     public JLabel getLblExibeInformacao() {
         return lblExibeInformacao;
     }
-
+    
     public void setLblExibeInformacao(JLabel lblExibeInformacao) {
         this.lblExibeInformacao = lblExibeInformacao;
     }
-
+    
     public int getIdProduto() {
         return idProduto;
     }
-
+    
     public void setIdProduto(int idProduto) {
         this.idProduto = idProduto;
     }
-
+    
+    public JLabel getLblExibeSaldo() {
+        return lblExibeSaldo;
+    }
+    
 }
