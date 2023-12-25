@@ -8,17 +8,20 @@ package view.internal;
 import Interface.Principal;
 import ModeloBeans.ModeloTabela;
 import ConectaBanco.ConexaoBD;
-import Sistema.ManipulaProtocolo; 
-import java.awt.Color; 
+import Sistema.ManipulaProtocolo;
+import controller.MovimentoListaController;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -51,10 +54,14 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
     String NotaProtocolo = null;
     ManipulaProtocolo prot = new ManipulaProtocolo();
 
+    MovimentoListaController movimentoListaController;
+
     /**
      * Creates new form ListaProdutoJIF
      */
     public MovimentoListaJIF() {
+        movimentoListaController = new MovimentoListaController();
+
         initComponents();
         remover_Ico();
         jPanel1.setBackground(ControleCores.pegarCorPadrao());
@@ -87,7 +94,7 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableListaProduto = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         btnNovo = new javax.swing.JButton();
         txtBuscar = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
@@ -122,7 +129,7 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(0, 255, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTableListaProduto.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -133,28 +140,28 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
 
             }
         ));
-        jTableListaProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+        tabela.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableListaProdutoFocusGained(evt);
+                tabelaFocusGained(evt);
             }
         });
-        jTableListaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableListaProdutoMouseClicked(evt);
+                tabelaMouseClicked(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jTableListaProdutoMouseReleased(evt);
+                tabelaMouseReleased(evt);
             }
         });
-        jTableListaProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+        tabela.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTableListaProdutoKeyPressed(evt);
+                tabelaKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTableListaProdutoKeyReleased(evt);
+                tabelaKeyReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableListaProduto);
+        jScrollPane1.setViewportView(tabela);
 
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-novo-24.png"))); // NOI18N
         btnNovo.setText("Novo");
@@ -328,7 +335,7 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
 
     public void CorNaLinha() {
 //        CLASS = "6-OUTRO";
-        jTableListaProduto
+        tabela
                 .setDefaultRenderer(Object.class,
                         new DefaultTableCellRenderer() {
                     @Override
@@ -344,15 +351,15 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
                             if (texto != null && "EXCLUIDO".equals(texto.toString())) {
                                 c = Color.RED;
                                 label.setBackground(c);
-                                jTableListaProduto.setSelectionForeground(Color.BLACK);
+                                tabela.setSelectionForeground(Color.BLACK);
                             } else if (texto != null && "ALTERADO".equals(texto.toString())) {
                                 c = Color.YELLOW;
                                 label.setBackground(c);
-                                jTableListaProduto.setSelectionForeground(Color.BLACK);
+                                tabela.setSelectionForeground(Color.BLACK);
                             } else if (texto != null && "ATIVO".equals(texto.toString())) {
                                 c = Color.GREEN;
                                 label.setBackground(c);
-                                jTableListaProduto.setSelectionForeground(Color.BLACK);
+                                tabela.setSelectionForeground(Color.BLACK);
                             } else {
                                 label.setBackground(null);
                             }
@@ -370,8 +377,8 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
 
     public void CorNaLinhaSelecionada2() {
 
-        CLASS = "" + jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 0);
-        jTableListaProduto
+        CLASS = "" + tabela.getValueAt(tabela.getSelectedRow(), 0);
+        tabela
                 .setDefaultRenderer(Object.class,
                         new DefaultTableCellRenderer() {
                     @Override
@@ -388,11 +395,11 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
                             c = Color.blue;
                             label.setBackground(c);
 //                            jTableListaProduto.setSelectionForeground(Color.red);
-                            jTableListaProduto.setSelectionForeground(Color.BLACK);
+                            tabela.setSelectionForeground(Color.BLACK);
                         } else {
                             label.setBackground(c);
                             label.setBackground(java.awt.Color.WHITE);
-                            jTableListaProduto.setSelectionForeground(Color.BLACK);
+                            tabela.setSelectionForeground(Color.BLACK);
                         }
 
                         //******************************************************************************
@@ -578,7 +585,6 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
 //        jTableListaProduto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 //        conex.desconecta();
 //    }
-
 //    public void preencherTabela3() {
 //        ArrayList dados = new ArrayList();
 //        String[] colunas = new String[]{"Id", "Natureza", "Documento", "  ", "Data", "Observação", "Registro", "Codigo"};
@@ -732,7 +738,6 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
 //        jTableListaProduto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 //        conex.desconecta();
 //    }
-
     public void CarregaUltimo() {
         conex.conexao();
         conex.executaSql2("SELECT  sis_ecft  FROM ecft where sis_ecft is not null and sis_ecft !=0 ");
@@ -758,13 +763,13 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
         txtBuscar.requestFocus();
     }//GEN-LAST:event_formFocusGained
 
-    private void jTableListaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaProdutoMouseClicked
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         String TipoUsuario = Principal.jLabelTipoUsuario.getText();
 
         if (TipoUsuario == "Manutenção") {
-            selecao_id = (int) jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 1);
+            selecao_id = (int) tabela.getValueAt(tabela.getSelectedRow(), 1);
         } else {
-            selecao_id = (int) jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 0);
+            selecao_id = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
         }
         if (evt.getButton() == MouseEvent.BUTTON3) {
 
@@ -791,20 +796,20 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
         } else {
 
             if (TipoUsuario == "Manutenção") {
-                selecaoc = (int) jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 8);
+                selecaoc = (int) tabela.getValueAt(tabela.getSelectedRow(), 8);
                 System.out.println("selecaoc " + selecaoc);
                 if (evt.getClickCount() == 2) {
-                    selecaod = (int) jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 8);
+                    selecaod = (int) tabela.getValueAt(tabela.getSelectedRow(), 8);
                     System.out.println("selecaod " + selecaod);
                     Principal.jLabelCodigoTela2.setText(String.valueOf(selecaod));
                     Principal.jLabelCodigoTela.setText("MovimentoCadastroEditar");
                     Principal.jButton1.doClick();
                 }
             } else {
-                selecaoc = (int) jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 7);
+                selecaoc = (int) tabela.getValueAt(tabela.getSelectedRow(), 7);
                 System.out.println("selecaoc " + selecaoc);
                 if (evt.getClickCount() == 2) {
-                    selecaod = (int) jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 7);
+                    selecaod = (int) tabela.getValueAt(tabela.getSelectedRow(), 7);
                     System.out.println("selecaod " + selecaod);
                     Principal.jLabelCodigoTela2.setText(String.valueOf(selecaod));
                     Principal.jLabelCodigoTela.setText("MovimentoCadastroEditar");
@@ -814,7 +819,7 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
 
         }
 
-    }//GEN-LAST:event_jTableListaProdutoMouseClicked
+    }//GEN-LAST:event_tabelaMouseClicked
 
     public void ChamaRelatorio() {
 
@@ -824,12 +829,12 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
         prot.chamaRelatorio();
     }
 
-    private void jTableListaProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableListaProdutoFocusGained
+    private void tabelaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tabelaFocusGained
         try {
         } catch (Error err) {
             System.out.println("Interface.Movimento.ListaMovimentoJIF.jTableListaProdutoFocusGained()      errrrooooooo");
         }
-    }//GEN-LAST:event_jTableListaProdutoFocusGained
+    }//GEN-LAST:event_tabelaFocusGained
 
     private void jCheckBoxMenuItem_MostraTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem_MostraTabelaActionPerformed
         txtBuscar.requestFocus();
@@ -841,29 +846,29 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
         preencherTabela();
     }//GEN-LAST:event_jCheckBoxMenuItem_BuscaNumericaActionPerformed
 
-    private void jTableListaProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableListaProdutoKeyPressed
+    private void tabelaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaKeyPressed
 
-    }//GEN-LAST:event_jTableListaProdutoKeyPressed
+    }//GEN-LAST:event_tabelaKeyPressed
 
-    private void jTableListaProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableListaProdutoKeyReleased
+    private void tabelaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaKeyReleased
         String TipoUsuario = Principal.jLabelTipoUsuario.getText();
         if (TipoUsuario == "Manutenção") {
             if (evt.getKeyCode() == evt.VK_DOWN) {
-                selecaoc = (int) jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 8);
+                selecaoc = (int) tabela.getValueAt(tabela.getSelectedRow(), 8);
             }
             if (evt.getKeyCode() == evt.VK_UP) {
-                selecaoc = (int) jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 8);
+                selecaoc = (int) tabela.getValueAt(tabela.getSelectedRow(), 8);
             }
         } else {
             if (evt.getKeyCode() == evt.VK_DOWN) {
-                selecaoc = (int) jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 7);
+                selecaoc = (int) tabela.getValueAt(tabela.getSelectedRow(), 7);
             }
             if (evt.getKeyCode() == evt.VK_UP) {
-                selecaoc = (int) jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 7);
+                selecaoc = (int) tabela.getValueAt(tabela.getSelectedRow(), 7);
             }
         }
         System.out.println("selecaoc  -  down / up  = " + selecaoc);
-    }//GEN-LAST:event_jTableListaProdutoKeyReleased
+    }//GEN-LAST:event_tabelaKeyReleased
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 
@@ -877,16 +882,16 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBoxMenuItem_NotaActionPerformed
 
-    private void jTableListaProdutoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaProdutoMouseReleased
+    private void tabelaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseReleased
         if (selecaoc == 0) {
         } else {
             try {
-                selecaoc = (int) jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 7);
+                selecaoc = (int) tabela.getValueAt(tabela.getSelectedRow(), 7);
                 System.out.println("MouseReleased  = " + selecaoc);
             } catch (Exception err) {
             }
         }
-    }//GEN-LAST:event_jTableListaProdutoMouseReleased
+    }//GEN-LAST:event_tabelaMouseReleased
 
     private void jRadioButtonMenuItem_ModoABActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem_ModoABActionPerformed
 
@@ -907,15 +912,15 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-//        // produtoListaController.preencheTabela(this);
+        movimentoListaController.preencheTabela(this);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-//        // produtoListaController.limparPesquisaProdutoLista(this);
+  movimentoListaController.limparPesquisaProdutoLista(this);
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // produtoListaController.chamaEditar(this);
+        // movimentoListaController.chamaEditar(this);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     public void BloqueiaJanela() {
@@ -937,7 +942,6 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
 //            this.setVisible(true);
 //        }
 //    }
-
     public void Recebe(String num) {
         String ModoJanela = ((num));
 
@@ -963,7 +967,32 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem_ModoAB;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableListaProduto;
+    private javax.swing.JTable tabela;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getBtnEditar() {
+        return btnEditar;
+    }
+
+    public JButton getBtnLimpar() {
+        return btnLimpar;
+    }
+
+    public JButton getBtnNovo() {
+        return btnNovo;
+    }
+
+    public static JButton getBtnPesquisar() {
+        return btnPesquisar;
+    }
+
+    public JTextField getTxtBuscar() {
+        return txtBuscar;
+    }
+
+    public JTable getTabela() {
+        return tabela;
+    }
+
 }

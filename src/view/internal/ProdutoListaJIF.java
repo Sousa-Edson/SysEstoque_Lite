@@ -20,10 +20,12 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  */
 public final class ProdutoListaJIF extends javax.swing.JInternalFrame {
 
-    ProdutoListaController produtoListaController = new ProdutoListaController();
+    ProdutoListaController produtoListaController;
 
    
     public ProdutoListaJIF() {
+        produtoListaController = new ProdutoListaController();
+        
         initComponents();
         remover_Ico();
 

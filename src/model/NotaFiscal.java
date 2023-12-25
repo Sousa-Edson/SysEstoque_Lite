@@ -8,16 +8,19 @@ package model;
  *
  * @author edson
  */
-public class Nota {
+public class NotaFiscal {
 
-    int id_nota, id_referencia, natureza, nota_status, nota_fornecedor, motoristaint, empresaint;
+    int id_nota, id_referencia, nota_status, motoristaint, empresaint;
     String nota_operacao, nota_documento,
             nota_data, nota_nota, nota_hora, nota_observacao, nota_situacao,
             nota_chave, nota_total, nota_registro, nota_usuario;
 
     String modalidade, transportadora, motorista, placa, uf, quantidade, especie, numeracao, pesobruto, pesoliquido, datavariavel;
 
-    public Nota() {
+    Natureza natureza;
+    Cliente cliente;
+    
+    public NotaFiscal() {
     }
 
     public String getDatavariavel() {
@@ -140,14 +143,7 @@ public class Nota {
         this.id_referencia = id_referencia;
     }
 
-    public int getNatureza() {
-        return natureza;
-    }
-
-    public void setNatureza(int natureza) {
-        this.natureza = natureza;
-    }
-
+     
     public String getNota_operacao() {
         return nota_operacao;
     }
@@ -194,14 +190,6 @@ public class Nota {
 
     public void setNota_observacao(String nota_observacao) {
         this.nota_observacao = nota_observacao;
-    }
-
-    public int getNota_fornecedor() {
-        return nota_fornecedor;
-    }
-
-    public void setNota_fornecedor(int nota_fornecedor) {
-        this.nota_fornecedor = nota_fornecedor;
     }
 
     public String getNota_situacao() {
@@ -251,4 +239,23 @@ public class Nota {
     public void setNota_status(int nota_status) {
         this.nota_status = nota_status;
     }
+
+    public Natureza getNatureza() {
+        return natureza;
+    }
+
+    public void setNatureza(Natureza natureza) {
+        this.natureza = natureza;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
+    
+    
 }

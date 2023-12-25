@@ -11,19 +11,19 @@ package tableModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import model.Nota;
+import model.NotaFiscal;
 
 public class NotaFiscalTableModel extends AbstractTableModel {
 
-    private List<Nota> notas;
-    private final String[] colunas = {"Id", "Natureza", "Documento", "  ", "Data", "Observação", "Registro", "Codigo"};
+    private List<NotaFiscal> notas;
+    private final String[] colunas = {"Id", "Natureza", "Documento", "Cliente/Fornecedor ", "Data", "Observação", "Registro", "Codigo"};
 
     public NotaFiscalTableModel() {
         this.notas = new ArrayList<>();
         // Adicione dados de exemplo se necessário
     }
 
-    public void setUnidades(List<Nota> unidades) {
+    public void setNotas(List<NotaFiscal> unidades) {
         this.notas = unidades;
         fireTableDataChanged();
     }
@@ -45,17 +45,17 @@ public class NotaFiscalTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Nota nota = notas.get(rowIndex);
+        NotaFiscal nota = notas.get(rowIndex);
 
         switch (columnIndex) {
             case 0:
                 return nota.getId_nota();
             case 1:
-                return nota.getNatureza();
+                return nota.getNatureza().getDesc_natureza();
             case 2:
-                return nota.getNota_documento();
+                return nota.getNota_documento()+" "+nota.getNota_nota();
             case 3:
-                return nota.getNota_nota();
+                return nota.getCliente().getCliente_nome();
             case 4:
                 return nota.getNota_data();
             case 5:
