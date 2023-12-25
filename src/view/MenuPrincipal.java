@@ -316,6 +316,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         });
 
         jButton_Nota.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
+        jButton_Nota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-nota-fiscal-electrónica-36.png"))); // NOI18N
         jButton_Nota.setText("Nota");
         jButton_Nota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

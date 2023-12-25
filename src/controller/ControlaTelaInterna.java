@@ -5,6 +5,7 @@
  */
 package controller;
 
+import Interface.MovimentoListaJIF;
 import model.Produto;
 import view.internal.ProdutoListaJIF;
 import view.MenuPrincipal;
@@ -20,6 +21,7 @@ public class ControlaTelaInterna {
     private static UnidadeCadastroJIF unidadeCadastroJIF;
     private static ProdutoListaJIF produtoListaJIF;
     private static ProdutoCadastroJIF produtoCadastroJIF;
+    private static MovimentoListaJIF movimentoListaJIF;
 
     public static void ChamaCadastroUnidade() {
         if (unidadeCadastroJIF == null || !unidadeCadastroJIF.isVisible()) {
@@ -54,13 +56,13 @@ public class ControlaTelaInterna {
     }
 
     public static void ChamaListaNota() {
-        if (produtoListaJIF == null || !produtoListaJIF.isVisible()) {
-            produtoListaJIF = new ProdutoListaJIF();
-            MenuPrincipal.desktopPrincipal.add(produtoListaJIF);
-            produtoListaJIF.setVisible(true);
+        if (movimentoListaJIF == null || !movimentoListaJIF.isVisible()) {
+            movimentoListaJIF = new MovimentoListaJIF();
+            MenuPrincipal.desktopPrincipal.add(movimentoListaJIF);
+            movimentoListaJIF.setVisible(true);
         }
-        produtoListaJIF.toFront();
-        produtoListaJIF.setPosicao();
-        produtoListaJIF.getTxtBuscar().requestFocus();
+        movimentoListaJIF.toFront();
+        movimentoListaJIF.setPosicao();
+//        movimentoListaJIF.().requestFocus();
     }
 }

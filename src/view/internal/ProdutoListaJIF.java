@@ -50,8 +50,6 @@ public final class ProdutoListaJIF extends javax.swing.JInternalFrame {
         btnEditar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jCheckBoxMenuItem_Exibe_Imagens = new javax.swing.JCheckBoxMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -180,25 +178,8 @@ public final class ProdutoListaJIF extends javax.swing.JInternalFrame {
 
         pnPrincipalLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnEditar, btnLimpar, btnNovo, btnPesquisar, txtBuscar});
 
-        jMenu1.setText("Arquivo");
+        jMenu1.setText("Extras");
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Exibir");
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu2MouseClicked(evt);
-            }
-        });
-
-        jCheckBoxMenuItem_Exibe_Imagens.setText("Apenas com imagens");
-        jCheckBoxMenuItem_Exibe_Imagens.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxMenuItem_Exibe_ImagensActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jCheckBoxMenuItem_Exibe_Imagens);
-
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -250,19 +231,6 @@ public final class ProdutoListaJIF extends javax.swing.JInternalFrame {
         produtoListaController.chamaEditar(this);
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void jCheckBoxMenuItem_Exibe_ImagensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem_Exibe_ImagensActionPerformed
-        if (jCheckBoxMenuItem_Exibe_Imagens.isSelected()) {
-
-        } else {
-            btnPesquisar.doClick();
-        }
-
-    }//GEN-LAST:event_jCheckBoxMenuItem_Exibe_ImagensActionPerformed
-
-    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu2MouseClicked
-
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
         this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
@@ -285,9 +253,7 @@ public final class ProdutoListaJIF extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnNovo;
     public static javax.swing.JButton btnPesquisar;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem_Exibe_Imagens;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnPrincipal;

@@ -6,17 +6,10 @@
 /// jComboBox_Unidade
 package view.internal;
 
-import ConectaBanco.ConexaoBD;
-import Interface.Principal;
-import ModeloBeans.Beans_Produto;
-import ModeloDao.Dao_Produto;
 import utils.ControleCores;
 import controller.ProdutoController;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -112,7 +105,6 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
 
         setClosable(true);
         setIconifiable(true);
@@ -453,7 +445,7 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jMenu1.setText("Arquivo");
+        jMenu1.setText("Extras");
 
         jMenuItem1.setText("Repetir Ultimo");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -472,19 +464,6 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Valor");
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu2MouseClicked(evt);
-            }
-        });
-        jMenu2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu2ActionPerformed(evt);
-            }
-        });
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -662,14 +641,6 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_cbUnidadeItemStateChanged
 
-    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
-
-    }//GEN-LAST:event_jMenu2ActionPerformed
-
-    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-
-    }//GEN-LAST:event_jMenu2MouseClicked
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         produtoController.carregarUltimoProduto(this);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -717,7 +688,6 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel_Guia4;
     private javax.swing.JLabel jLabel_Valor2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
