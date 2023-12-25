@@ -5,26 +5,14 @@
  */
 package view.internal;
 
-import Interface.Principal;
-import ModeloBeans.ModeloTabela;
-import ConectaBanco.ConexaoBD;
-import Sistema.ManipulaProtocolo;
 import controller.MovimentoListaController;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.table.DefaultTableCellRenderer;
 import utils.ControleCores;
 
 //// jButton_Filtrar()
@@ -32,27 +20,7 @@ import utils.ControleCores;
  *
  * @author edson
  */
-public class MovimentoListaJIF extends javax.swing.JInternalFrame {
-
-//    CodigoChamadaFormulario ChamadaFormulario = new CodigoChamadaFormulario();
-//    JFrameCadastroProtocolo CadastroProtocolo = new JFrameCadastroProtocolo();
-//    MenuPrincipal Menu;
-    ConexaoBD conex = new ConexaoBD();
-//    ManipulaProtocolo prot = new ManipulaProtocolo();
-    int id_referencia;
-
-    int CliqueDuplo = 0;
-    int selecao = 0;
-    int selecao_id = 0;
-    int selecaoB = 0;
-    int selecaoc = 0;
-    int selecaod = 0;
-    int ModoBusca = 1;
-    String CLASS = "";
-    String ObsProtocolo = null;
-    String DataProtocolo = null;
-    String NotaProtocolo = null;
-    ManipulaProtocolo prot = new ManipulaProtocolo();
+public final class MovimentoListaJIF extends javax.swing.JInternalFrame {
 
     MovimentoListaController movimentoListaController;
 
@@ -60,11 +28,13 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
      * Creates new form ListaProdutoJIF
      */
     public MovimentoListaJIF() {
+
         movimentoListaController = new MovimentoListaController();
 
         initComponents();
         remover_Ico();
         jPanel1.setBackground(ControleCores.pegarCorPadrao());
+
     }
 
     public void setPosicao() {
@@ -333,517 +303,26 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void CorNaLinha() {
-//        CLASS = "6-OUTRO";
-        tabela
-                .setDefaultRenderer(Object.class,
-                        new DefaultTableCellRenderer() {
-                    @Override
-                    public Component getTableCellRendererComponent(JTable table, Object value,
-                            boolean isSelected, boolean hasFocus, int row, int column) {
-                        JLabel label = (JLabel) super.getTableCellRendererComponent(table, value,
-                                isSelected, hasFocus, row, column);
-                        //******************************************************************************
-                        if (jCheckBoxMenuItem_MostraTabela.isSelected()) {
-                            Color c = Color.BLACK;
-                            Object texto = table.getValueAt(row, 9);
-
-                            if (texto != null && "EXCLUIDO".equals(texto.toString())) {
-                                c = Color.RED;
-                                label.setBackground(c);
-                                tabela.setSelectionForeground(Color.BLACK);
-                            } else if (texto != null && "ALTERADO".equals(texto.toString())) {
-                                c = Color.YELLOW;
-                                label.setBackground(c);
-                                tabela.setSelectionForeground(Color.BLACK);
-                            } else if (texto != null && "ATIVO".equals(texto.toString())) {
-                                c = Color.GREEN;
-                                label.setBackground(c);
-                                tabela.setSelectionForeground(Color.BLACK);
-                            } else {
-                                label.setBackground(null);
-                            }
-                        } else {
-                            label.setBackground(null);
-
-                        }
-
-                        //******************************************************************************
-                        return label;
-                    }
-
-                });
-    }
-
-    public void CorNaLinhaSelecionada2() {
-
-        CLASS = "" + tabela.getValueAt(tabela.getSelectedRow(), 0);
-        tabela
-                .setDefaultRenderer(Object.class,
-                        new DefaultTableCellRenderer() {
-                    @Override
-                    public Component getTableCellRendererComponent(JTable table, Object value,
-                            boolean isSelected, boolean hasFocus, int row, int column) {
-                        JLabel label = (JLabel) super.getTableCellRendererComponent(table, value,
-                                isSelected, hasFocus, row, column);
-                        //******************************************************************************
-
-                        Color c = Color.BLACK;
-                        Object texto = table.getValueAt(row, 0);
-
-                        if (texto != null && CLASS.equals(texto.toString())) {
-                            c = Color.blue;
-                            label.setBackground(c);
-//                            jTableListaProduto.setSelectionForeground(Color.red);
-                            tabela.setSelectionForeground(Color.BLACK);
-                        } else {
-                            label.setBackground(c);
-                            label.setBackground(java.awt.Color.WHITE);
-                            tabela.setSelectionForeground(Color.BLACK);
-                        }
-
-                        //******************************************************************************
-                        return label;
-                    }
-
-                });
-    }
-
-    public void preencherTabelaAtualizar() {
-    }
-
-    public void preencherTabela() {
-        selecaoc = 0;
-        String TipoUsuario = Principal.jLabelTipoUsuario.getText();
-        if (TipoUsuario == "Manutenção") {
-//            preencherTabela2();
-        } else {
-//            preencherTabela3();
-        }
-    }
-
-//    public void preencherTabela2() {
-//        ArrayList dados = new ArrayList();
-//        String[] colunas = new String[]{"Status", "Id", "Natureza", "Documento", "  ", "Data", "Observação", "Registro", "Codigo"};
-//        String MostraTabela;
-//        if (jCheckBoxMenuItem_MostraTabela.isSelected()) {
-//            MostraTabela = "";
-//
-//        } else {
-//            MostraTabela = "ATIVO";
-//        }
-//
-//        conex.conexao();
-//        if (jRadioButtonOrdem.isSelected()) {
-//            if (ModoBusca == 2) {
-//                conex.executaSql2("select * from nota\n"
-//                        + "inner join ecft on fornecedorint=sis_ecft \n"
-//                        + "inner join natureza on naturezaint=id_referencianatureza\n"
-//                        + "where (coalesce((id_referenciaNota)) ||' '||coalesce(UPPER(desc_natureza))||' '||\n"
-//                        + "coalesce(UPPER(nota_operacao)) ||' '|| coalesce(UPPER(nota_documento))||' '|| coalesce((nota_nota))||' '||\n"
-//                        + "coalesce(UPPER(ecft_nome)) ||' '|| coalesce(UPPER(nota_situacao)) ||' '|| coalesce(UPPER(nota_observacao))||' '||\n"
-//                        + " coalesce(UPPER(nota_usu))  ||' '|| coalesce((nota_data))||' '|| coalesce((nota_registro)) )\n"
-//                        + "  ilike '%" + txtBuscar.getText() + "%' and stnat=1 and stecft =1 order by id_referenciaNota  desc\n"
-//                        + "  ");
-//                System.err.println("Tentando modo 1          Manutenção                 desc");//and stnota =1
-//                ModoBusca = 1;
-//            } else {
-//                conex.executaSql2(""
-//                        + "select  stnota,id_referenciaNota,nota_documento,nota_nota,desc_natureza,tipo_natureza,ecft_nome,id_nota,stnota,\n"
-//                        + "nota_data,nota_observacao,nota_registro,nota_usu,stmovimento\n"
-//                        + "from nota \n"
-//                        + " inner join movprodutobase on nota_mov=id_referenciaNota\n"
-//                        + " inner join produto on sis_prod=id_prod_ent\n"
-//                        + " inner join unidade on id_referenciaunidade=idunid\n"
-//                        + " inner join ecft on fornecedorint=sis_ecft \n"
-//                        + "inner join natureza on naturezaint=id_referencianatureza\n"
-//                        + " where (coalesce((id_referenciaNota)) ||' '||coalesce(UPPER(desc_natureza))||' '||\n"
-//                        + "coalesce(UPPER(nota_operacao)) ||' '|| coalesce(UPPER(nota_documento))||' '|| coalesce((nota_nota))||' '||\n"
-//                        + "coalesce(UPPER(ecft_nome)) ||' '|| coalesce(UPPER(nota_situacao)) ||' '|| coalesce(UPPER(nota_observacao))||' '||\n"
-//                        + " coalesce(UPPER(nota_usu))  ||' '|| coalesce((nota_data))||' '|| coalesce((nota_registro))||' '|| coalesce((id_prod_ent)) ||' '||coalesce((sis_prod))||' '||\n"
-//                        + " coalesce(UPPER(tipo_prod)) ||' '|| coalesce(UPPER(nome_prod)) ||' '||coalesce(UPPER(edicao_prod)) ||' '||coalesce(UPPER(desc_unidade))||' '||\n"
-//                        + " coalesce(UPPER(obs_prod))||' '|| coalesce(UPPER(usu_prod)) ||' '|| coalesce((data_reg)) )\n"
-//                        + " ilike '%" + txtBuscar.getText() + "%'and stmovimento=1 and stnat=1 and stunid=1 and stecft =1 "
-//                        + " group by nota.nota_documento,nota.nota_nota,nota.id_nota,nota.stnota ,movprodutobase.stmovimento,natureza.desc_natureza,natureza.tipo_natureza,ecft.ecft_nome\n"
-//                        + " order by id_referenciaNota desc\n"
-//                        + "                      "
-//                        + "");
-//                System.err.println("Tentando modo 2              Manutenção              desc");
-//
-//            }
-//        } else {
-//            if (ModoBusca == 2) {
-//                conex.executaSql2("select * from nota\n"
-//                        + "inner join ecft on fornecedorint=sis_ecft \n"
-//                        + "inner join natureza on naturezaint=id_referencianatureza\n"
-//                        + "where (coalesce((id_referenciaNota)) ||' '||coalesce(UPPER(desc_natureza))||' '||\n"
-//                        + "coalesce(UPPER(nota_operacao)) ||' '|| coalesce(UPPER(nota_documento))||' '|| coalesce((nota_nota))||' '||\n"
-//                        + "coalesce(UPPER(ecft_nome)) ||' '|| coalesce(UPPER(nota_situacao)) ||' '|| coalesce(UPPER(nota_observacao))||' '||\n"
-//                        + " coalesce(UPPER(nota_usu))  ||' '|| coalesce((nota_data))||' '|| coalesce((nota_registro)) )\n"
-//                        + "  ilike '%" + txtBuscar.getText() + "%' and stnat=1 and stunid=1 and stecft =1 order by id_referenciaNota   asc\n"
-//                        + "  ");
-//                System.err.println("Tentando modo 1             Manutenção              asc");
-//                ModoBusca = 1;
-//            } else {
-//                conex.executaSql2(""
-//                        + "select  stnota,id_referenciaNota,nota_documento,nota_nota,desc_natureza,tipo_natureza,ecft_nome,id_nota,stnota,\n"
-//                        + "nota_data,nota_observacao,nota_registro,nota_usu,stmovimento\n"
-//                        + "from nota \n"
-//                        + " inner join movprodutobase on nota_mov=id_referenciaNota\n"
-//                        + " inner join produto on sis_prod=id_prod_ent\n"
-//                        + " inner join unidade on id_referenciaunidade=idunid\n"
-//                        + " inner join ecft on fornecedorint=sis_ecft \n"
-//                        + "inner join natureza on naturezaint=id_referencianatureza\n"
-//                        + " where (coalesce((id_referenciaNota)) ||' '||coalesce(UPPER(desc_natureza))||' '||\n"
-//                        + "coalesce(UPPER(nota_operacao)) ||' '|| coalesce(UPPER(nota_documento))||' '|| coalesce((nota_nota))||' '||\n"
-//                        + "coalesce(UPPER(ecft_nome)) ||' '|| coalesce(UPPER(nota_situacao)) ||' '|| coalesce(UPPER(nota_observacao))||' '||\n"
-//                        + " coalesce(UPPER(nota_usu))  ||' '|| coalesce((nota_data))||' '|| coalesce((nota_registro))||' '|| coalesce((id_prod_ent)) ||' '||coalesce((sis_prod))||' '||\n"
-//                        + " coalesce(UPPER(tipo_prod)) ||' '|| coalesce(UPPER(nome_prod)) ||' '||coalesce(UPPER(edicao_prod)) ||' '||coalesce(UPPER(desc_unidade))||' '||\n"
-//                        + " coalesce(UPPER(obs_prod))||' '|| coalesce(UPPER(usu_prod)) ||' '|| coalesce((data_reg)) )\n"
-//                        + " ilike '%" + txtBuscar.getText() + "%'and stmovimento=1 and stnat=1 and stunid=1 and stecft =1 "
-//                        + " group by nota.nota_documento,nota.nota_nota,nota.id_nota,nota.stnota ,movprodutobase.stmovimento,natureza.desc_natureza,natureza.tipo_natureza,ecft.ecft_nome\n"
-//                        + " order by id_referenciaNota asc\n"
-//                        + "                      "
-//                        + "");
-//                System.err.println("Tentando modo 2             Manutenção               asc");
-//
-//            }
-//        }
-//
-//        try {
-//
-//            conex.rs.first();
-//            do {
-//                String nota_data = conex.rs.getString("nota_data");
-//                if (nota_data == null) {
-//                    nota_data = "";
-//                } else {
-//                    nota_data = nota_data;
-//                }
-//                String Documento1 = conex.rs.getString("nota_documento");
-//                String Documento = conex.rs.getString("nota_documento") + " " + conex.rs.getString("nota_nota");
-//                if (Documento1.equals("Não definido")) {
-//                    Documento = "Não definido";
-//                } else {
-//                    Documento = Documento;
-//                }
-//                String Cliente = conex.rs.getString("ecft_nome");
-//                String registro = conex.rs.getString("nota_usu") + " " + conex.rs.getString("nota_registro");
-//                int stint = conex.rs.getInt("stnota");
-//                String status;
-//                if (stint == 1) {
-//                    status = "ATIVO";
-//                } else if (stint == 2) {
-//                    status = "ALTERADO";
-//                } else if (stint == 3) {
-//                    status = "EXCLUIDO";
-//                } else {
-//                    status = "INDEFINIDO";
-//                }
-//                dados.add(new Object[]{status, conex.rs.getInt("id_referenciaNota"),
-//                    conex.rs.getString("desc_natureza"), Documento, Cliente,
-//                    nota_data, conex.rs.getString("nota_observacao"),
-//                    registro, conex.rs.getInt("id_nota")});
-//            } while (conex.rs.next());
-//            btnNovo.setBackground(Color.lightGray);//[0,255,204]new Color(240, 240, 240)
-//        } catch (SQLException ex) {
-//            System.err.println("erro" + ex);
-//            System.err.println("Erro tentar modo 1");
-//            if (ModoBusca == 1) {
-//                System.err.println("Erro tentar modo 1     /    erro" + ex);
-//                ModoBusca = 2;
-//            } else {
-//                System.err.println("Erro tentar modo 2     /    erro" + ex);
-//                ModoBusca = 1;
-//            }
-//            btnNovo.setBackground(Color.yellow);
-////             preencherTabela();
-//        }
-//        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-//
-//        jTableListaProduto.setModel(modelo);
-//        jTableListaProduto.getColumnModel().getColumn(0).setPreferredWidth(80);
-//        jTableListaProduto.getColumnModel().getColumn(0).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(1).setPreferredWidth(60);
-//        jTableListaProduto.getColumnModel().getColumn(1).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(2).setPreferredWidth(100);
-//        jTableListaProduto.getColumnModel().getColumn(2).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(3).setPreferredWidth(120);
-//        jTableListaProduto.getColumnModel().getColumn(3).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(4).setPreferredWidth(200);
-//        jTableListaProduto.getColumnModel().getColumn(4).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(5).setPreferredWidth(100);
-//        jTableListaProduto.getColumnModel().getColumn(5).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(6).setPreferredWidth(380);
-//        jTableListaProduto.getColumnModel().getColumn(6).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(7).setPreferredWidth(200);
-//        jTableListaProduto.getColumnModel().getColumn(7).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(8).setPreferredWidth(00);
-//        jTableListaProduto.getColumnModel().getColumn(8).setResizable(false);
-//        jTableListaProduto.getTableHeader().setReorderingAllowed(false);
-//        jTableListaProduto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//        jTableListaProduto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        conex.desconecta();
-//    }
-//    public void preencherTabela3() {
-//        ArrayList dados = new ArrayList();
-//        String[] colunas = new String[]{"Id", "Natureza", "Documento", "  ", "Data", "Observação", "Registro", "Codigo"};
-//        String MostraTabela;
-//        if (jCheckBoxMenuItem_MostraTabela.isSelected()) {
-//            MostraTabela = "";
-//        } else {
-//            MostraTabela = "ATIVO";
-//        }
-//        conex.conexao();
-//        if (jRadioButtonOrdem.isSelected()) {
-//            if (ModoBusca == 2) {
-//                conex.executaSql2("select * from nota\n"
-//                        + "inner join ecft on fornecedorint=sis_ecft \n"
-//                        + "inner join natureza on naturezaint=id_referencianatureza\n"
-//                        + "where (coalesce((id_referenciaNota)) ||' '||coalesce(UPPER(desc_natureza))||' '||\n"
-//                        + "coalesce(UPPER(nota_operacao)) ||' '|| coalesce(UPPER(nota_documento))||' '|| coalesce((nota_nota))||' '||\n"
-//                        + "coalesce(UPPER(ecft_nome)) ||' '|| coalesce(UPPER(nota_situacao)) ||' '|| coalesce(UPPER(nota_observacao))||' '||\n"
-//                        + " coalesce(UPPER(nota_usu))  ||' '|| coalesce((nota_data))||' '|| coalesce((nota_registro)) )\n"
-//                        + "  ilike '%" + txtBuscar.getText() + "%' and stnota =1 and stnat=1 and stecft =1 order by id_referenciaNota  desc\n"
-//                        + "  ");
-//                System.err.println("Tentando modo 1                           desc");
-//                ModoBusca = 1;
-//            } else {
-//                conex.executaSql2(""
-//                        + "select  stnota,id_referenciaNota,nota_documento,nota_nota,desc_natureza,tipo_natureza,ecft_nome,id_nota,stnota,\n"
-//                        + "nota_data,nota_observacao,nota_registro,nota_usu,stmovimento\n"
-//                        + "from nota \n"
-//                        + " inner join movprodutobase on nota_mov=id_referenciaNota\n"
-//                        + " inner join produto on sis_prod=id_prod_ent\n"
-//                        + " inner join unidade on id_referenciaunidade=idunid\n"
-//                        + " inner join ecft on fornecedorint=sis_ecft \n"
-//                        + "inner join natureza on naturezaint=id_referencianatureza\n"
-//                        + " where (coalesce((id_referenciaNota)) ||' '||coalesce(UPPER(desc_natureza))||' '||\n"
-//                        + "coalesce(UPPER(nota_operacao)) ||' '|| coalesce(UPPER(nota_documento))||' '|| coalesce((nota_nota))||' '||\n"
-//                        + "coalesce(UPPER(ecft_nome)) ||' '|| coalesce(UPPER(nota_situacao)) ||' '|| coalesce(UPPER(nota_observacao))||' '||\n"
-//                        + " coalesce(UPPER(nota_usu))  ||' '|| coalesce((nota_data))||' '|| coalesce((nota_registro))||' '|| coalesce((id_prod_ent)) ||' '||coalesce((sis_prod))||' '||\n"
-//                        + " coalesce(UPPER(tipo_prod)) ||' '|| coalesce(UPPER(nome_prod)) ||' '||coalesce(UPPER(edicao_prod)) ||' '||coalesce(UPPER(desc_unidade))||' '||\n"
-//                        + " coalesce(UPPER(obs_prod))||' '|| coalesce(UPPER(usu_prod)) ||' '|| coalesce((data_reg)) )\n"
-//                        + " ilike '%" + txtBuscar.getText() + "%'and stmovimento=1 and stnota =1 and stnat=1 and stunid=1 and stecft =1 "
-//                        + " group by nota.nota_documento,nota.nota_nota,nota.id_nota,nota.stnota ,movprodutobase.stmovimento,natureza.desc_natureza,natureza.tipo_natureza,ecft.ecft_nome\n"
-//                        + " order by id_referenciaNota desc\n"
-//                        + "                      "
-//                        + "");
-//                System.err.println("Tentando modo 2                            desc");
-//            }
-//        } else {
-//            if (ModoBusca == 2) {
-//                conex.executaSql2("select * from nota\n"
-//                        + "inner join ecft on fornecedorint=sis_ecft \n"
-//                        + "inner join natureza on naturezaint=id_referencianatureza\n"
-//                        + "where (coalesce((id_referenciaNota)) ||' '||coalesce(UPPER(desc_natureza))||' '||\n"
-//                        + "coalesce(UPPER(nota_operacao)) ||' '|| coalesce(UPPER(nota_documento))||' '|| coalesce((nota_nota))||' '||\n"
-//                        + "coalesce(UPPER(ecft_nome)) ||' '|| coalesce(UPPER(nota_situacao)) ||' '|| coalesce(UPPER(nota_observacao))||' '||\n"
-//                        + " coalesce(UPPER(nota_usu))  ||' '|| coalesce((nota_data))||' '|| coalesce((nota_registro)) )\n"
-//                        + "  ilike '%" + txtBuscar.getText() + "%' and stnota =1  and stnat=1  and stecft =1 order by id_referenciaNota   asc\n"
-//                        + "  ");
-//                System.err.println("Tentando modo 1                           asc");
-//                ModoBusca = 1;
-//            } else {
-//                conex.executaSql2(""
-//                        + "select  stnota,id_referenciaNota,nota_documento,nota_nota,desc_natureza,tipo_natureza,ecft_nome,id_nota,stnota,\n"
-//                        + "nota_data,nota_observacao,nota_registro,nota_usu,stmovimento\n"
-//                        + "from nota \n"
-//                        + " inner join movprodutobase on nota_mov=id_referenciaNota\n"
-//                        + " inner join produto on sis_prod=id_prod_ent\n"
-//                        + " inner join unidade on id_referenciaunidade=idunid\n"
-//                        + " inner join ecft on fornecedorint=sis_ecft \n"
-//                        + "inner join natureza on naturezaint=id_referencianatureza\n"
-//                        + " where (coalesce((id_referenciaNota)) ||' '||coalesce(UPPER(desc_natureza))||' '||\n"
-//                        + "coalesce(UPPER(nota_operacao)) ||' '|| coalesce(UPPER(nota_documento))||' '|| coalesce((nota_nota))||' '||\n"
-//                        + "coalesce(UPPER(ecft_nome)) ||' '|| coalesce(UPPER(nota_situacao)) ||' '|| coalesce(UPPER(nota_observacao))||' '||\n"
-//                        + " coalesce(UPPER(nota_usu))  ||' '|| coalesce((nota_data))||' '|| coalesce((nota_registro))||' '|| coalesce((id_prod_ent)) ||' '||coalesce((sis_prod))||' '||\n"
-//                        + " coalesce(UPPER(tipo_prod)) ||' '|| coalesce(UPPER(nome_prod)) ||' '||coalesce(UPPER(edicao_prod)) ||' '||coalesce(UPPER(desc_unidade))||' '||\n"
-//                        + " coalesce(UPPER(obs_prod))||' '|| coalesce(UPPER(usu_prod)) ||' '|| coalesce((data_reg)) )\n"
-//                        + " ilike '%" + txtBuscar.getText() + "%'and stmovimento=1 and stnota =1 and stnat=1 and stunid=1 and stecft =1 "
-//                        + " group by nota.nota_documento,nota.nota_nota,nota.id_nota,nota.stnota ,movprodutobase.stmovimento,natureza.desc_natureza,natureza.tipo_natureza,ecft.ecft_nome\n"
-//                        + " order by id_referenciaNota asc\n"
-//                        + "                      "
-//                        + "");
-//                System.err.println("Tentando modo 2                            asc");//ilike '%" + txtBuscar.getText() + "%'and stmovimento=1 and stnota =1
-//            }
-//        }
-//        try {
-//            conex.rs.first();
-//            do {///// , , , 
-//                String nota_data = conex.rs.getString("nota_data");
-//                if (nota_data == null) {
-//                    nota_data = "";
-//                } else {
-//                    nota_data = nota_data;
-//                }
-//                String Documento1 = conex.rs.getString("nota_documento");
-//                String Documento = conex.rs.getString("nota_documento") + " " + conex.rs.getString("nota_nota");
-//                if (Documento1.equals("Não definido")) {
-//                    Documento = "Não definido";
-//                } else {
-//                    Documento = Documento;
-//                }
-//                String Cliente = conex.rs.getString("ecft_nome");
-//                String registro = conex.rs.getString("nota_usu") + " " + conex.rs.getString("nota_registro");
-//                int stint = conex.rs.getInt("stnota");
-//                String status;
-//                if (stint == 1) {
-//                    status = "ATIVO";
-//                } else if (stint == 2) {
-//                    status = "ALTERADO";
-//                } else if (stint == 3) {
-//                    status = "EXCLUIDO";
-//                } else {
-//                    status = "INDEFINIDO";
-//                }
-//                dados.add(new Object[]{conex.rs.getInt("id_referenciaNota"),
-//                    conex.rs.getString("desc_natureza"), Documento, Cliente,
-//                    nota_data, conex.rs.getString("nota_observacao"),
-//                    registro, conex.rs.getInt("id_nota")});
-//            } while (conex.rs.next());
-//            btnNovo.setBackground(Color.lightGray);//[0,255,204]new Color(240, 240, 240)
-//        } catch (SQLException ex) {
-//
-//            if (ModoBusca == 1) {
-//                System.err.println("Erro tentar modo 1     /    erro" + ex);
-//                ModoBusca = 2;
-//            } else {
-//                System.err.println("Erro tentar modo 2     /    erro" + ex);
-//                ModoBusca = 1;
-//            }
-//
-//            btnNovo.setBackground(Color.yellow);
-//        }
-//        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-//        jTableListaProduto.setModel(modelo);
-//        jTableListaProduto.getColumnModel().getColumn(0).setPreferredWidth(60);
-//        jTableListaProduto.getColumnModel().getColumn(0).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(1).setPreferredWidth(100);
-//        jTableListaProduto.getColumnModel().getColumn(1).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(2).setPreferredWidth(120);
-//        jTableListaProduto.getColumnModel().getColumn(2).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(3).setPreferredWidth(200);
-//        jTableListaProduto.getColumnModel().getColumn(3).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(4).setPreferredWidth(100);
-//        jTableListaProduto.getColumnModel().getColumn(4).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(5).setPreferredWidth(380);
-//        jTableListaProduto.getColumnModel().getColumn(5).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(6).setPreferredWidth(200);
-//        jTableListaProduto.getColumnModel().getColumn(6).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(7).setPreferredWidth(80);
-//        jTableListaProduto.getColumnModel().getColumn(7).setResizable(true);
-//        jTableListaProduto.getTableHeader().setReorderingAllowed(false);
-//        jTableListaProduto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//        jTableListaProduto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        conex.desconecta();
-//    }
-    public void CarregaUltimo() {
-        conex.conexao();
-        conex.executaSql2("SELECT  sis_ecft  FROM ecft where sis_ecft is not null and sis_ecft !=0 ");
-        try {
-            conex.rs.last();
-            id_referencia = conex.rs.getInt("sis_ecft");
-            id_referencia = id_referencia + 1;
-        } catch (SQLException ex) {
-            id_referencia = 1;
-        }
-        JOptionPane.showMessageDialog(rootPane, id_referencia);
-        conex.desconecta();
-    }
-
-    public void BotaoCancelar() {
-        txtBuscar.setText(null);
-        txtBuscar.requestFocus();
-        ModoBusca = 2;
-        preencherTabela();
-    }
-
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         txtBuscar.requestFocus();
     }//GEN-LAST:event_formFocusGained
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
-        String TipoUsuario = Principal.jLabelTipoUsuario.getText();
-
-        if (TipoUsuario == "Manutenção") {
-            selecao_id = (int) tabela.getValueAt(tabela.getSelectedRow(), 1);
-        } else {
-            selecao_id = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
-        }
-        if (evt.getButton() == MouseEvent.BUTTON3) {
-
-//            JOptionPane.showMessageDialog(rootPane, "botao direito " + selecaoc);
-            int resposta = 0;
-            Object[] options = {"Relatório", "Protocolo", "Movimento"};
-            resposta = JOptionPane.showOptionDialog(null, "O que deseja vizualizar ?", "Informação", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            if (resposta == 0) {
-                System.out.println("0");
-//                selecao_id = (int) jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 0);
-                ChamaRelatorio();
-            } else if (resposta == 1) {
-                System.out.println("1");
-                String MinhaIdNota;
-                MinhaIdNota = String.valueOf(selecao_id);
-                prot.RecebeMInhaOs(MinhaIdNota, "", "", "");
-                System.out.println("selecao_id " + selecao_id);
-                prot.chamaProtocoloPreto();
-            } else if (resposta == 2) {
-            } else {
-                System.out.println("erro");
-            }
-
-        } else {
-
-            if (TipoUsuario == "Manutenção") {
-                selecaoc = (int) tabela.getValueAt(tabela.getSelectedRow(), 8);
-                System.out.println("selecaoc " + selecaoc);
-                if (evt.getClickCount() == 2) {
-                    selecaod = (int) tabela.getValueAt(tabela.getSelectedRow(), 8);
-                    System.out.println("selecaod " + selecaod);
-                    Principal.jLabelCodigoTela2.setText(String.valueOf(selecaod));
-                    Principal.jLabelCodigoTela.setText("MovimentoCadastroEditar");
-                    Principal.jButton1.doClick();
-                }
-            } else {
-                selecaoc = (int) tabela.getValueAt(tabela.getSelectedRow(), 7);
-                System.out.println("selecaoc " + selecaoc);
-                if (evt.getClickCount() == 2) {
-                    selecaod = (int) tabela.getValueAt(tabela.getSelectedRow(), 7);
-                    System.out.println("selecaod " + selecaod);
-                    Principal.jLabelCodigoTela2.setText(String.valueOf(selecaod));
-                    Principal.jLabelCodigoTela.setText("MovimentoCadastroEditar");
-                    Principal.jButton1.doClick();
-                }
-            }
-
-        }
 
     }//GEN-LAST:event_tabelaMouseClicked
 
-    public void ChamaRelatorio() {
-
-        String MinhaIdNota;
-        MinhaIdNota = String.valueOf(selecao_id);
-        prot.RecebeMInhaOs(MinhaIdNota, "", "", "");
-        prot.chamaRelatorio();
-    }
-
     private void tabelaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tabelaFocusGained
-        try {
-        } catch (Error err) {
-            System.out.println("Interface.Movimento.ListaMovimentoJIF.jTableListaProdutoFocusGained()      errrrooooooo");
-        }
+
     }//GEN-LAST:event_tabelaFocusGained
 
     private void jCheckBoxMenuItem_MostraTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem_MostraTabelaActionPerformed
         txtBuscar.requestFocus();
-        preencherTabela();
+
     }//GEN-LAST:event_jCheckBoxMenuItem_MostraTabelaActionPerformed
 
     private void jCheckBoxMenuItem_BuscaNumericaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem_BuscaNumericaActionPerformed
         txtBuscar.requestFocus();
-        preencherTabela();
+
     }//GEN-LAST:event_jCheckBoxMenuItem_BuscaNumericaActionPerformed
 
     private void tabelaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaKeyPressed
@@ -851,23 +330,7 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tabelaKeyPressed
 
     private void tabelaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaKeyReleased
-        String TipoUsuario = Principal.jLabelTipoUsuario.getText();
-        if (TipoUsuario == "Manutenção") {
-            if (evt.getKeyCode() == evt.VK_DOWN) {
-                selecaoc = (int) tabela.getValueAt(tabela.getSelectedRow(), 8);
-            }
-            if (evt.getKeyCode() == evt.VK_UP) {
-                selecaoc = (int) tabela.getValueAt(tabela.getSelectedRow(), 8);
-            }
-        } else {
-            if (evt.getKeyCode() == evt.VK_DOWN) {
-                selecaoc = (int) tabela.getValueAt(tabela.getSelectedRow(), 7);
-            }
-            if (evt.getKeyCode() == evt.VK_UP) {
-                selecaoc = (int) tabela.getValueAt(tabela.getSelectedRow(), 7);
-            }
-        }
-        System.out.println("selecaoc  -  down / up  = " + selecaoc);
+
     }//GEN-LAST:event_tabelaKeyReleased
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -883,14 +346,7 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jCheckBoxMenuItem_NotaActionPerformed
 
     private void tabelaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseReleased
-        if (selecaoc == 0) {
-        } else {
-            try {
-                selecaoc = (int) tabela.getValueAt(tabela.getSelectedRow(), 7);
-                System.out.println("MouseReleased  = " + selecaoc);
-            } catch (Exception err) {
-            }
-        }
+
     }//GEN-LAST:event_tabelaMouseReleased
 
     private void jRadioButtonMenuItem_ModoABActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem_ModoABActionPerformed
@@ -916,36 +372,12 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-  movimentoListaController.limparPesquisaProdutoLista(this);
+        movimentoListaController.limparPesquisaProdutoLista(this);
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // movimentoListaController.chamaEditar(this);
     }//GEN-LAST:event_btnEditarActionPerformed
-
-    public void BloqueiaJanela() {
-        Component[] componentes1 = jPanel1.getComponents(); // altere para o nome da variavel do seu painel
-        for (Component componente : componentes1) {
-            componente.setEnabled(false); // aqui por false
-        }
-    }
-
-//    public void LiberaJanela() {
-//        if (jButton_Filtrar.getText() == "Liberar") {
-//            this.setVisible(true);
-//            jButton_Filtrar.setText("jButton1");
-//            Component[] componentes1 = jPanel1.getComponents(); // altere para o nome da variavel do seu painel
-//            for (Component componente : componentes1) {
-//                componente.setEnabled(true); // aqui por false
-//            }
-//        } else {
-//            this.setVisible(true);
-//        }
-//    }
-    public void Recebe(String num) {
-        String ModoJanela = ((num));
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;

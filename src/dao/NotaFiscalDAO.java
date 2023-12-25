@@ -20,18 +20,17 @@ import model.Natureza;
 import model.NotaFiscal;
 
 public class NotaFiscalDAO {
-    
+
     private final ConexaoBD conex;
-    
+
     public NotaFiscalDAO() {
         conex = new ConexaoBD();
     }
-    
+
     public List<NotaFiscal> listarNotasPorBusca(String minhaBusca) {
         List<NotaFiscal> notas = new ArrayList<>();
         conex.conexao();
         String query = "SELECT * FROM nota "
-                + "inner join movprodutobase on nota_mov = id_referenciaNota "
                 + "inner join ecft on fornecedorint = sis_ecft "
                 + "inner join natureza on naturezaint = id_referencianatureza "
                 + "WHERE (COALESCE(CAST(id_nota AS TEXT), '') || ' ' || "
@@ -39,34 +38,34 @@ public class NotaFiscalDAO {
                 + "COALESCE(UPPER(nota_operacao), '') || ' ' || "
                 + "COALESCE(UPPER(nota_nota), '') || ' ' || "
                 + "COALESCE(UPPER(nota_observacao), '') || ' ' || "
-                + "COALESCE(CAST(nota_registro AS TEXT), '')) ILIKE ?  "
+                + "COALESCE(CAST(nota_registro AS TEXT), '')) ILIKE ?  AND stnota = 1 "
                 + "ORDER BY   id_nota DESC";
-        
+
         try (PreparedStatement pst = conex.con.prepareStatement(query)) {
             pst.setString(1, "%" + minhaBusca + "%");
             ResultSet rs = pst.executeQuery();
-            
+
             while (rs.next()) {
 
                 // Aqui você deve criar uma classe NotaFiscal e preenchê-la com os dados do resultado
                 NotaFiscal nota = new NotaFiscal();
                 nota.setId_nota(rs.getInt("id_nota"));
-                
+
                 nota.setNota_documento(rs.getString("nota_documento"));
                 nota.setNota_nota(rs.getString("nota_nota"));
                 nota.setNota_data(rs.getString("nota_data"));
-                
+
                 nota.setNota_observacao(rs.getString("nota_observacao"));
                 nota.setNota_registro(rs.getString("nota_registro"));
                 nota.setId_referencia(rs.getInt("id_referenciaNota"));
-                
+
                 Natureza natureza = new Natureza();
                 natureza.setId_natureza(rs.getInt("id_natureza"));
                 natureza.setId_referencia(rs.getInt("id_referencianatureza"));
                 natureza.setDesc_natureza(rs.getString("desc_natureza"));
                 natureza.setTipo_natureza(rs.getString("tipo_natureza"));
                 nota.setNatureza(natureza);
-                
+
                 Cliente cliente = new Cliente();
                 cliente.setCliente_nome(rs.getString("ecft_nome"));
                 nota.setCliente(cliente);
@@ -78,7 +77,21 @@ public class NotaFiscalDAO {
         } finally {
             conex.desconecta();
         }
-        
+
         return notas;
+    }
+
+    public int carregaUltimaIdReferenciaNota() {
+        conex.conexao();
+        conex.executaSql2("SELECT  *  FROM nota  where id_referencianota is not null and id_referencianota !=0 ORDER BY  id_referencianota DESC  LIMIT 1;");
+        try {
+            conex.rs.first();
+            return  conex.rs.getInt("id_referencianota");
+        } catch (SQLException ex) {
+            System.err.println("erro::" + ex.getMessage());
+            return 0;
+        } finally {
+            conex.desconecta();
+        }
     }
 }
