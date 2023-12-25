@@ -9,16 +9,7 @@ import ConectaBanco.ConexaoBD;
 import Consulta.JDialogBuscaProduto;
 import Consulta.JDialogBuscaProduto2;
 import Consulta.JDialogComplementar;
-import Consulta.JDialogComplementar2;
-import static Interface.MovimentoCadastroJIF.jComboBox_Situacao;
-import static Interface.MovimentoCadastroJIF.jLabelMeuSaldoProduto;
-import static Interface.MovimentoCadastroJIF.jLabel_Calculado;
-import static Interface.MovimentoCadastroJIF.jLabel_Complemento;
-import static Interface.MovimentoCadastroJIF.jLabel_IdMovimento;
-import static Interface.MovimentoCadastroJIF.jLabel_IdProduto;
-import static Interface.MovimentoCadastroJIF.jLabel_Setor;
-import static Interface.MovimentoCadastroJIF.jTextField_Busca_Produto_Nota;
-import static Interface.MovimentoCadastroJIF.jTextField_Quantidade_Nota;
+import Consulta.JDialogComplementar2; 
 import ModeloBeans.BeansPalete;
 import ModeloBeans.Beans_Movimento;
 import ModeloBeans.Beans_Nota;
@@ -634,7 +625,7 @@ public class FrameMovimentoComplemento extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox_SituacaoActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-MovimentoCadastroJIF.jButton_Fechar_Nota.doClick();
+//MovimentoCadastroJIF.jButton_Fechar_Nota.doClick();
     }//GEN-LAST:event_formWindowClosing
 
     /**

@@ -9,7 +9,7 @@ import Interface.Principal;
 import ModeloBeans.ModeloTabela;
 import ConectaBanco.ConexaoBD;
 import Interface.FrameMovimentoComplemento;
-import Interface.MovimentoCadastroJIF;
+import view.internal.MovimentoCadastroJIF;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 

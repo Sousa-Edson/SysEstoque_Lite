@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 package controller;
-
-import Interface.MovimentoListaJIF;
+ 
 import model.Produto;
 import view.internal.ProdutoListaJIF;
 import view.MenuPrincipal;
+import view.internal.MovimentoListaJIF;
 import view.internal.ProdutoCadastroJIF;
 import view.internal.UnidadeCadastroJIF;
 

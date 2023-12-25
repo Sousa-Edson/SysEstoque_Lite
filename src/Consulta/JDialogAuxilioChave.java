@@ -5,7 +5,7 @@
  */
 package Consulta;
 
-import Interface.MovimentoCadastroJIF;
+import view.internal.MovimentoCadastroJIF;
 import Interface.Principal;
 import ModeloBeans.ModeloTabela;
 import ConectaBanco.ConexaoBD;

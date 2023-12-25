@@ -22,6 +22,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
+import utils.ControleCores;
 
 //// jButton_Filtrar()
 /**
@@ -36,7 +37,6 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
     ConexaoBD conex = new ConexaoBD();
 //    ManipulaProtocolo prot = new ManipulaProtocolo();
     int id_referencia;
-    String SisProd;
 
     int CliqueDuplo = 0;
     int selecao = 0;
@@ -57,7 +57,7 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
     public MovimentoListaJIF() {
         initComponents();
         remover_Ico();
-//        ChamadaFormulario.ExecutaReferencia();
+        jPanel1.setBackground(ControleCores.pegarCorPadrao());
     }
 
     public void setPosicao() {
@@ -232,7 +232,7 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
                         .addComponent(jButtonNovo)
                         .addGap(83, 83, 83)
                         .addComponent(jRadioButtonOrdem)
-                        .addGap(0, 8, Short.MAX_VALUE)))
+                        .addGap(0, 20, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -250,7 +250,7 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
                     .addComponent(jButton4)
                     .addComponent(jRadioButtonOrdem))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -333,17 +333,11 @@ public class MovimentoListaJIF extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
