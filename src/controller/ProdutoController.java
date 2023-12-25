@@ -170,7 +170,7 @@ public class ProdutoController {
     }
 
     public void chamaUnidade(ProdutoCadastroJIF aThis) {
-        ControlaTelaInterna.ChamaCadastroUnidade();
+        TelaInternaController.ChamaCadastroUnidade();
     }
 
     public void carregaUnidade(ProdutoCadastroJIF form) {

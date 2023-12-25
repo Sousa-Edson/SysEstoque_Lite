@@ -34,12 +34,12 @@ public class ProdutoListaController {
 
     public void chamaCadastro(ProdutoListaJIF form) {
         produto = null;
-        ControlaTelaInterna.ChamaCadastroProduto(produto);
+        TelaInternaController.ChamaCadastroProduto(produto);
         form.getBtnEditar().setEnabled(false);
     }
 
     public void chamaEditar(ProdutoListaJIF form) {
-        ControlaTelaInterna.ChamaCadastroProduto(produto);
+        TelaInternaController.ChamaCadastroProduto(produto);
         form.getBtnEditar().setEnabled(false);
     }
 

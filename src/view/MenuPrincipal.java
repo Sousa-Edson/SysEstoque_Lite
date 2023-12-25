@@ -15,7 +15,7 @@ import BackupRestore.Novo.PostgresRestore_X86NOV;
 import Sistema.ManipulaProtocolo;
 import utils.ControleCores;
 import utils.UsuarioLogado;
-import controller.ControlaTelaInterna;
+import controller.TelaInternaController;
 import controller.MenuPrincipalController;
 import java.awt.Color;
 import static java.awt.Component.CENTER_ALIGNMENT;
@@ -894,7 +894,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu8ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        ControlaTelaInterna.ChamaListaProduto();
+        TelaInternaController.ChamaListaProduto();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
@@ -910,7 +910,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu8MousePressed
 
     private void menuChamaUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuChamaUnidadeActionPerformed
-        ControlaTelaInterna.ChamaCadastroUnidade();
+        TelaInternaController.ChamaCadastroUnidade();
     }//GEN-LAST:event_menuChamaUnidadeActionPerformed
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
@@ -1233,11 +1233,11 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_lblPapelDeParedeMouseClicked
 
     private void jButton_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ProdutoActionPerformed
-        ControlaTelaInterna.ChamaListaProduto();
+        TelaInternaController.ChamaListaProduto();
     }//GEN-LAST:event_jButton_ProdutoActionPerformed
 
     private void jButton_NotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NotaActionPerformed
-           ControlaTelaInterna.ChamaListaNota();
+           TelaInternaController.ChamaListaNota();
     }//GEN-LAST:event_jButton_NotaActionPerformed
 
     private void jButton_ConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ConsultaActionPerformed
