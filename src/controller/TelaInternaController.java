@@ -16,7 +16,7 @@ import view.internal.UnidadeCadastroJIF;
  *
  * @author edson
  */
-public class ControlaTelaInterna {
+public class TelaInternaController {
 
     private static UnidadeCadastroJIF unidadeCadastroJIF;
     private static ProdutoListaJIF produtoListaJIF;
