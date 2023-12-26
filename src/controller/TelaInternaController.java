@@ -34,33 +34,33 @@ public class TelaInternaController {
         if (loginJIF == null || !loginJIF.isVisible()) {
             loginJIF = new LoginJIF();
             MenuPrincipal.desktopPrincipal.add(loginJIF);
+            InternalFrameUtil.removerIcone(loginJIF);
             loginJIF.setVisible(true);
         }
         loginJIF.toFront();
         FramePositionUtil.setCenteredPosition(loginJIF);
-        InternalFrameUtil.removerIcone(loginJIF);
     }
 
     public static void chamaCadastroUnidade() {
         if (unidadeCadastroJIF == null || !unidadeCadastroJIF.isVisible()) {
             unidadeCadastroJIF = new UnidadeCadastroJIF();
             MenuPrincipal.desktopPrincipal.add(unidadeCadastroJIF);
+            InternalFrameUtil.removerIcone(unidadeCadastroJIF);
             unidadeCadastroJIF.setVisible(true);
         }
         unidadeCadastroJIF.toFront();
         FramePositionUtil.setCenteredPosition(unidadeCadastroJIF);
-        InternalFrameUtil.removerIcone(unidadeCadastroJIF);
     }
 
     public static void chamaListaProduto() {
         if (produtoListaJIF == null || !produtoListaJIF.isVisible()) {
             produtoListaJIF = new ProdutoListaJIF();
             MenuPrincipal.desktopPrincipal.add(produtoListaJIF);
+            InternalFrameUtil.removerIcone(produtoListaJIF);
             produtoListaJIF.setVisible(true);
         }
         produtoListaJIF.toFront();
         FramePositionUtil.setCenteredPosition(produtoListaJIF);
-        InternalFrameUtil.removerIcone(produtoListaJIF);
         produtoListaJIF.getTxtBuscar().requestFocus();
     }
 
@@ -73,28 +73,27 @@ public class TelaInternaController {
         }
         produtoCadastroJIF.toFront();
         FramePositionUtil.setCenteredPosition(produtoCadastroJIF);
-
     }
 
     public static void chamaListaNota() {
         if (movimentoListaJIF == null || !movimentoListaJIF.isVisible()) {
             movimentoListaJIF = new MovimentoListaJIF();
             MenuPrincipal.desktopPrincipal.add(movimentoListaJIF);
+            InternalFrameUtil.removerIcone(movimentoListaJIF);
             movimentoListaJIF.setVisible(true);
         }
         movimentoListaJIF.toFront();
         FramePositionUtil.setCenteredPosition(movimentoListaJIF);
-        InternalFrameUtil.removerIcone(movimentoListaJIF);
     }
 
     static void chamaNota() {
         if (movimentoCadastroJIF == null || !movimentoCadastroJIF.isVisible()) {
             movimentoCadastroJIF = new MovimentoCadastroJIF();
             MenuPrincipal.desktopPrincipal.add(movimentoCadastroJIF);
+            InternalFrameUtil.removerIcone(movimentoCadastroJIF);
             movimentoCadastroJIF.setVisible(true);
         }
         movimentoCadastroJIF.toFront();
         FramePositionUtil.setCenteredPosition(movimentoCadastroJIF);
-        InternalFrameUtil.removerIcone(movimentoCadastroJIF);
     }
 }

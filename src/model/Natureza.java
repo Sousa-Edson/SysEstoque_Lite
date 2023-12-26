@@ -70,5 +70,10 @@ public class Natureza {
         this.usuario_natureza = usuario_natureza;
     }
 
+    @Override
+    public String toString() {
+        return   desc_natureza  ;
+    }
+
     
 }

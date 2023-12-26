@@ -65,4 +65,9 @@ public class ConexaoBD {
             JOptionPane.showMessageDialog(null, "Erro ao fechar conexão com BD:\n" + ex.getMessage());
         }
     }
+
+    public PreparedStatement preparaSql(String sql) throws SQLException {
+        return con.prepareStatement(sql);
+    }
+     
 }

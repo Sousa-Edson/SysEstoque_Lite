@@ -6,12 +6,9 @@
 package view.internal;
 
 import controller.MovimentoListaController;
-import java.awt.Container;
-import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 import utils.ControleCores;
 
 //// jButton_Filtrar()

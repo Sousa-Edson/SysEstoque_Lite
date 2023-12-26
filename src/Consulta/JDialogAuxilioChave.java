@@ -411,7 +411,7 @@ public class JDialogAuxilioChave extends javax.swing.JDialog {
                 + jTextField9.getText() + " "
                 + jTextField10.getText() + " "
                 + jTextField11.getText());
-        MovimentoCadastroJIF.jTextField_Chave_Nota.setText(jText_Inserir.getText());
+        MovimentoCadastroJIF.txtChave.setText(jText_Inserir.getText());
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
