@@ -7,15 +7,12 @@ package view.internal;
 
 import utils.ControleCores;
 import controller.UnidadeController;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -23,9 +20,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  */
 public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
 
- 
     int id_unidade;
-  
 
     /**
      * Creates new form JIFTEste
@@ -34,13 +29,13 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
 
     public UnidadeCadastroJIF() {
         initComponents();
-        remover_Ico();
+
 //        setPosicao();
         unidadeController = new UnidadeController();
 
         groupFragmentado.add(rbFragmentadoNao);
         groupFragmentado.add(rbFragmentadoSim);
-        
+
         unidadeController.preencheTabela(this);
 
     }
@@ -329,7 +324,7 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
             unidadeController.salvarUnidade(this);
         } else {
             System.out.println("false");
-        } 
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyPressed
@@ -362,24 +357,6 @@ public class UnidadeCadastroJIF extends javax.swing.JInternalFrame {
             btnSalvar.requestFocus();
         }
     }//GEN-LAST:event_txtDescricaoKeyPressed
-
-    public void setPosicao() {
-        Dimension d = this.getDesktopPane().getSize();
-        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
-    }
-
-    public void remover_Ico() {
-        this.setFrameIcon(null);
-
-        // hack to remove system menu in Windows
-        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
-        Container north = (Container) ui.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
-    }
-
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

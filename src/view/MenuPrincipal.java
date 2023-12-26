@@ -894,7 +894,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu8ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        TelaInternaController.ChamaListaProduto();
+        TelaInternaController.chamaListaProduto();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
@@ -910,7 +910,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu8MousePressed
 
     private void menuChamaUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuChamaUnidadeActionPerformed
-        TelaInternaController.ChamaCadastroUnidade();
+        TelaInternaController.chamaCadastroUnidade();
     }//GEN-LAST:event_menuChamaUnidadeActionPerformed
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
@@ -1233,11 +1233,11 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_lblPapelDeParedeMouseClicked
 
     private void jButton_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ProdutoActionPerformed
-        TelaInternaController.ChamaListaProduto();
+        TelaInternaController.chamaListaProduto();
     }//GEN-LAST:event_jButton_ProdutoActionPerformed
 
     private void jButton_NotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NotaActionPerformed
-           TelaInternaController.ChamaListaNota();
+           TelaInternaController.chamaListaNota();
     }//GEN-LAST:event_jButton_NotaActionPerformed
 
     private void jButton_ConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ConsultaActionPerformed
@@ -1393,7 +1393,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
 //        } else if (MeuCodigo == "FechaCadastroProdutoEditar") {
 //            tela.FechaCadastroProdutoInternoEditar();
 //        } else if (MeuCodigo == "CadastroUnidade") {
-//            tela.ChamaCadastroUnidade();
+//            tela.chamaCadastroUnidade();
 ////        } else if (MeuCodigo == "CadastroUnidade") {
 ////            tela.ChamaCadastroUnidadeEditar();
 //        } else if (MeuCodigo == "ConsultaInterna") {

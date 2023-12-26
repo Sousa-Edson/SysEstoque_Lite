@@ -7,12 +7,9 @@ package view.internal;
 
 import utils.ControleCores;
 import controller.ProdutoListaController;
-import java.awt.Container;
-import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -27,7 +24,7 @@ public final class ProdutoListaJIF extends javax.swing.JInternalFrame {
         produtoListaController = new ProdutoListaController();
         
         initComponents();
-        remover_Ico();
+         
 
         pnPrincipal.setBackground(ControleCores.pegarCorPadrao());
        
@@ -232,22 +229,7 @@ public final class ProdutoListaJIF extends javax.swing.JInternalFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         produtoListaController.chamaEditar(this);
     }//GEN-LAST:event_btnEditarActionPerformed
-
-    public void setPosicao() {
-        Dimension d = this.getDesktopPane().getSize();
-        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
-    }
-
-    public void remover_Ico() {
-        this.setFrameIcon(null);
-
-        // hack to remove system menu in Windows
-        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
-        Container north = (Container) ui.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
-    }
+ 
 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables

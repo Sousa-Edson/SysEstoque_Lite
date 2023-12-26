@@ -23,8 +23,6 @@ import ModeloBeans.Beans_Transporte;
 import ModeloDao.Dao_Palete;
 
 import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.NumberFormat;
@@ -36,7 +34,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
@@ -136,24 +133,9 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         jComboBox_Fornecedor_Int.setVisible(false);
         jComboBox_Natureza_Tipo.setVisible(false);
         jComboBox_Natureza_Int.setVisible(false);
-        remover_Ico();
+        
     }
-
-    public void setPosicao() {
-        Dimension d = this.getDesktopPane().getSize();
-        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
-    }
-
-    public void remover_Ico() {
-        this.setFrameIcon(null);
-
-        // hack to remove system menu in Windows
-        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
-        Container north = (Container) ui.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
-    }
+ 
 
     public void EventoBuscaProduto() {
         //        jTextField_Busca_Produto_Nota.setText(jTextField_Busca_Produto_Nota.getText().toUpperCase());

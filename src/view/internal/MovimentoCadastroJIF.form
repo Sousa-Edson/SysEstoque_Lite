@@ -1500,7 +1500,7 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel37" pref="61" max="32767" attributes="0"/>
+                                      <Component id="jLabel37" max="32767" attributes="0"/>
                                       <Component id="jtAlt" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>

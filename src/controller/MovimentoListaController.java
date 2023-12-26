@@ -44,18 +44,14 @@ public class MovimentoListaController {
         form.getTabela().getColumnModel().getColumn(0).setPreferredWidth(60);
         form.getTabela().getColumnModel().getColumn(0).setResizable(true);
 
-//        form.getTabela().getColumnModel().getColumn(2).setMinWidth(460);
-//        form.getTabela().getColumnModel().getColumn(2).setResizable(true);
-//
-//        // Configura o renderizador de células para alinhar a terceira coluna à direita
-//        DefaultTableCellRenderer direitaRenderer = new DefaultTableCellRenderer();
-//        direitaRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
-//        form.getTabela().getColumnModel().getColumn(3).setCellRenderer(direitaRenderer);
-
         form.getTabela().getTableHeader().setReorderingAllowed(false);
 //        getjTable_Produto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         form.getTabela().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         form.getTxtBuscar().requestFocus();
+    }
+
+    public void chamaCadastro(MovimentoListaJIF aThis) {
+         TelaInternaController.chamaNota();
     }
 
 }

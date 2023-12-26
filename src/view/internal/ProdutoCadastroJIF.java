@@ -8,15 +8,12 @@ package view.internal;
 
 import utils.ControleCores;
 import controller.ProdutoController;
-import java.awt.Container;
-import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 import model.Produto;
 import model.Unidade;
 
@@ -31,7 +28,7 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 
     public ProdutoCadastroJIF(Produto produto) {
         initComponents();
-        remover_Ico();
+         
 
         EscondeInsereSaldoInicio();
 
@@ -47,21 +44,7 @@ public final class ProdutoCadastroJIF extends javax.swing.JInternalFrame {
 
     }
 
-    public void setPosicao() {
-        Dimension d = this.getDesktopPane().getSize();
-        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
-    }
-
-    public void remover_Ico() {
-        this.setFrameIcon(null);
-
-        // hack to remove system menu in Windows
-        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
-        Container north = (Container) ui.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
-    } 
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
