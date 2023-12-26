@@ -2044,7 +2044,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnHoraAtualKeyPressed
 
     private void btnHoraAtualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoraAtualActionPerformed
-       movimentoCadastroController.horaAtual(this);
+        movimentoCadastroController.horaAtual(this);
     }//GEN-LAST:event_btnHoraAtualActionPerformed
 
     private void btnDataAtualKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnDataAtualKeyPressed
@@ -3076,8 +3076,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         jTextField_Busca_Produto_Nota.setText(MinhaBusca);
     }
 
-    
-
     public void InsereNaTabela() {
         conex.conexao();
         try {
@@ -3249,9 +3247,10 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         return btnDataAtual;
     }
 
-    public static JButton getBtnExcluir() {
+    public   JButton getBtnExcluir() {
         return btnExcluir;
     }
+ 
 
     public JButton getBtnHoraAtual() {
         return btnHoraAtual;
@@ -3265,7 +3264,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         return dataNota;
     }
 
-    public static JTextField getTxtChave() {
+    public   JTextField getTxtChave() {
         return txtChave;
     }
 

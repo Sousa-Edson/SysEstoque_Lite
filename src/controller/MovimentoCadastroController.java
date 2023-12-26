@@ -21,24 +21,27 @@ import view.internal.MovimentoCadastroJIF;
  * @author edson
  */
 public class MovimentoCadastroController {
-
+    
     Color corPadrao;
-
+    
     SimpleDateFormat formato;
-
+    
     public MovimentoCadastroController() {
         corPadrao = ControleCores.pegarCorPadrao();
         formato = new SimpleDateFormat("dd/MM/yyyy");
     }
-
+    
     public void mudarCorPaineis(MovimentoCadastroJIF form) {
         form.getPnPrincipal().setBackground(corPadrao);
         form.getPnDados().setBackground(corPadrao);
         form.getPnTransporte().setBackground(corPadrao);
         form.getPnTopo().setBackground(corPadrao);
         form.getPnInformacao().setBackground(corPadrao);
-    }
 
+//        form.getBtnExcluir().setVisible(false);
+//        MovimentoCadastroJIF.getBtnExcluir().setVisible(false);
+    }
+    
     public void carregarNatureza(MovimentoCadastroJIF form) {
         NaturezaService naturezaService = new NaturezaService();
         List<Natureza> listaNaturezas = naturezaService.listarNaturezas();
@@ -47,7 +50,7 @@ public class MovimentoCadastroController {
             form.getCbNatureza().addItem(natureza);
         }
     }
-
+    
     public void carregarCliente(MovimentoCadastroJIF form) {
         ClienteService clienteService = new ClienteService();
         List<Cliente> listaClientes = clienteService.listarClientes(false);
@@ -56,25 +59,25 @@ public class MovimentoCadastroController {
             form.getCbCliente().addItem(cliente);
         }
     }
-
+    
     public void dataAtual(MovimentoCadastroJIF form) {
         if (form.getDataNota().getDate() == (null)) {
             try {
                 form.getDataNota().setDate(formato.parse(DataHoraAtual.obterDataFormatada()));
             } catch (ParseException ex) {
-                System.err.println("erro::"+ex.getMessage());
+                System.err.println("erro::" + ex.getMessage());
             }
         } else {
             form.getDataNota().setDate(null);
-        } 
+        }        
     }
-
+    
     public void horaAtual(MovimentoCadastroJIF form) {
-         if (form.getTxtHora().getText().trim().isEmpty()) {
-             form.getTxtHora().setText( DataHoraAtual.obterHoraFormatada());
+        if (form.getTxtHora().getText().trim().isEmpty()) {
+            form.getTxtHora().setText(DataHoraAtual.obterHoraFormatada());
         } else {
             form.getTxtHora().setText(null);
-        } 
+        }        
     }
-
+    
 }

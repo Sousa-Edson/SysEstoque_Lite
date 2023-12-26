@@ -7,7 +7,6 @@ package controller;
 
 import extras.FramePositionUtil;
 import extras.InternalFrameUtil;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 import model.Produto;
 import view.internal.ProdutoListaJIF;
 import view.MenuPrincipal;

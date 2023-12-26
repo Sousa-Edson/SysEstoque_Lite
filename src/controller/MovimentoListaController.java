@@ -25,7 +25,7 @@ public class MovimentoListaController {
     public MovimentoListaController() {
         notaService = new NotaFiscalService();
     }
-    
+
     public void limparPesquisaProdutoLista(MovimentoListaJIF form) {
         NotaFiscalTableModel modelo = new NotaFiscalTableModel();
         modelo.setNotas(new ArrayList<>());
@@ -51,7 +51,7 @@ public class MovimentoListaController {
     }
 
     public void chamaCadastro(MovimentoListaJIF aThis) {
-         TelaInternaController.chamaNota();
+        TelaInternaController.chamaNota();
     }
 
 }
