@@ -9,10 +9,10 @@ package model;
  * @author edson
  */
 public class Natureza {
-    
-    int id_natureza, id_referencia,status_natureza;
-    String tipo_natureza, desc_natureza, registro_natureza, 
-       usuario_natureza;
+
+    int id_natureza, id_referencia, status_natureza;
+    String tipo_natureza, desc_natureza, registro_natureza,
+            usuario_natureza;
 
     public int getId_natureza() {
         return id_natureza;
@@ -72,8 +72,7 @@ public class Natureza {
 
     @Override
     public String toString() {
-        return   desc_natureza  ;
+        return desc_natureza;
     }
 
-    
 }
