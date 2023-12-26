@@ -160,6 +160,9 @@ public class Cliente {
         this.cliente_registro = cliente_registro;
     }
 
-   
+    @Override
+    public String toString() {
+        return cliente_nome;
+    }
 
 }

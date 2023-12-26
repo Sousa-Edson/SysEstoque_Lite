@@ -214,10 +214,10 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
                 try {
                     selecao = (int) jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 0);
                     String Frag  = ""+jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 8);
-                    MovimentoCadastroJIF.jTextField_Fragmento_Variavel.setText(Frag);
+//                    MovimentoCadastroJIF.jTextField_Fragmento_Variavel.setText(Frag);
                     MovimentoCadastroJIF.jTextField_Busca_Produto_Nota.setText(selecao_nome);
                     MovimentoCadastroJIF.jLabelMeuSaldoProduto.setText(SelecaaoSaldo + " / " + SelecaaoUnid);
-                    MovimentoCadastroJIF.jLabel_IdProduto.setText("" + selecao);
+//                    MovimentoCadastroJIF.jLabel_IdProduto.setText("" + selecao);
                     System.out.println("certo ");
                 } catch (Exception e) {
                     System.out.println("erro " + e);

@@ -32,8 +32,8 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.Cliente;
 import model.Natureza;
-import utils.ControleCores;
 
 /**
  *
@@ -88,6 +88,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
         movimentoCadastroController.mudarCorPaineis(this);
         movimentoCadastroController.carregarNatureza(this);
+        movimentoCadastroController.carregarCliente(this);
 
     }
 
@@ -2240,7 +2241,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbNaturezaFocusLost
 
     private void cbNaturezaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbNaturezaItemStateChanged
-     
+
     }//GEN-LAST:event_cbNaturezaItemStateChanged
 
     public void ManipulaNatureza() {
@@ -3147,37 +3148,37 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     }
 
     public void PreencherFornecedor() {
-//        String busca_fornecedor = (String) jComboBox_Tipo_Fornecedor.getSelectedItem();
-        String busca_tudo = "FORN/CLIE";
-//        if (jLabel_OS.getText() == "Novo") {
-//            jComboBox_Fornecedor.removeAllItems();
-//        } else {
+////        String busca_fornecedor = (String) jComboBox_Tipo_Fornecedor.getSelectedItem();
+//        String busca_tudo = "FORN/CLIE";
+////        if (jLabel_OS.getText() == "Novo") {
+////            jComboBox_Fornecedor.removeAllItems();
+////        } else {
+////        }
+//        conex_Fornecedor.conexao();
+////        if (busca_fornecedor == "FORN/CLIE") {
+////            conex_Fornecedor.executaSql("select * from ecft where ecft_tipo != 'EMPRESA' and stecft=1 order by ecft_id asc");
+////        } else if (busca_fornecedor == "OUTRO") {
+////            conex_Fornecedor.executaSql("select * from ecft where ecft_tipo like '" + busca_fornecedor + "' and stecft=1 order by ecft_id asc");
+////        } else {
+////            conex_Fornecedor.executaSql("select * from ecft where ecft_tipo like '" + busca_fornecedor + "'or ecft_tipo like '" + busca_tudo + "' and stecft=1 order by ecft_id asc");
+////        }
+//        try {
+//            conex_Fornecedor.rs.first();
+//            cbCliente.removeAllItems();
+//            cbCliente.addItem(" ");
+////            jComboBox_Fornecedor_Int.removeAllItems();
+////            jComboBox_Fornecedor_Int.addItem("0");
+//            do {
+//                cbCliente.addItem(conex_Fornecedor.rs.getString("ecft_nome"));
+////                jComboBox_Fornecedor_Int.addItem(conex_Fornecedor.rs.getString("sis_ecft"));
+//                cbCliente.setBackground(Color.GRAY);
+//            } while (conex_Fornecedor.rs.next());
+//        } catch (SQLException ex) {
+//            cbCliente.setBackground(Color.red);
 //        }
-        conex_Fornecedor.conexao();
-//        if (busca_fornecedor == "FORN/CLIE") {
-//            conex_Fornecedor.executaSql("select * from ecft where ecft_tipo != 'EMPRESA' and stecft=1 order by ecft_id asc");
-//        } else if (busca_fornecedor == "OUTRO") {
-//            conex_Fornecedor.executaSql("select * from ecft where ecft_tipo like '" + busca_fornecedor + "' and stecft=1 order by ecft_id asc");
-//        } else {
-//            conex_Fornecedor.executaSql("select * from ecft where ecft_tipo like '" + busca_fornecedor + "'or ecft_tipo like '" + busca_tudo + "' and stecft=1 order by ecft_id asc");
-//        }
-        try {
-            conex_Fornecedor.rs.first();
-            cbCliente.removeAllItems();
-            cbCliente.addItem(" ");
-//            jComboBox_Fornecedor_Int.removeAllItems();
-//            jComboBox_Fornecedor_Int.addItem("0");
-            do {
-                cbCliente.addItem(conex_Fornecedor.rs.getString("ecft_nome"));
-//                jComboBox_Fornecedor_Int.addItem(conex_Fornecedor.rs.getString("sis_ecft"));
-                cbCliente.setBackground(Color.GRAY);
-            } while (conex_Fornecedor.rs.next());
-        } catch (SQLException ex) {
-            cbCliente.setBackground(Color.red);
-        }
-//        jComboBox_Fornecedor.setSelectedItem(" ");
-        conex_Fornecedor.desconecta();
-        cbCliente.setBackground(Color.yellow);
+////        jComboBox_Fornecedor.setSelectedItem(" ");
+//        conex_Fornecedor.desconecta();
+//        cbCliente.setBackground(Color.yellow);
 
     }
 
@@ -3249,7 +3250,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 //        cbNatureza.setSelectedItem(" ");
 //        cbNatureza.setBackground(Color.yellow);
 //    }
-
     public void PreencherTransporte() {
         ComboFocu = 0;
         conex_Transporte.conexao();
@@ -3382,7 +3382,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     public static javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnHoraAtual;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JComboBox<String> cbCliente;
+    private javax.swing.JComboBox<Cliente> cbCliente;
     public static javax.swing.JComboBox<Natureza> cbNatureza;
     private com.toedter.calendar.JDateChooser dataNota;
     private javax.swing.JButton jButton_Adicionar_Produto_Nota;
@@ -3488,12 +3488,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         return btnSalvar;
     }
 
-    public JComboBox<String> getCbCliente() {
-        return cbCliente;
-    }
-
-     
-
     public JDateChooser getDataNota() {
         return dataNota;
     }
@@ -3510,8 +3504,12 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         return txtNota;
     }
 
-    public static JComboBox<Natureza> getCbNatureza() {
+    public   JComboBox<Natureza> getCbNatureza() {
         return cbNatureza;
+    }
+
+    public JComboBox<Cliente> getCbCliente() {
+        return cbCliente;
     }
 
 }

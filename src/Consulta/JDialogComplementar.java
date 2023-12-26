@@ -52,9 +52,9 @@ public class JDialogComplementar extends javax.swing.JDialog {
         jTextField2.setText(c);
     }
       public void EnviaDados() {
-          MovimentoCadastroJIF.jLabel_Complemento.setText(jTextField1.getText());
-         MovimentoCadastroJIF.jLabel_Setor.setText(""+jComboBox1.getSelectedItem());
-        MovimentoCadastroJIF.jLabel_Calculado.setText( jTextField2.getText());
+//          MovimentoCadastroJIF.jLabel_Complemento.setText(jTextField1.getText());
+//         MovimentoCadastroJIF.jLabel_Setor.setText(""+jComboBox1.getSelectedItem());
+//        MovimentoCadastroJIF.jLabel_Calculado.setText( jTextField2.getText());
     }
 
     public void RecebeDadosMovimentoAlterado(String dado2) {

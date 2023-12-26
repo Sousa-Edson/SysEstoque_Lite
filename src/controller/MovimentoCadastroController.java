@@ -6,7 +6,9 @@ package controller;
 
 import java.awt.Color;
 import java.util.List;
+import model.Cliente;
 import model.Natureza;
+import service.ClienteService;
 import service.NaturezaService;
 import utils.ControleCores;
 import view.internal.MovimentoCadastroJIF;
@@ -37,6 +39,15 @@ public class MovimentoCadastroController {
         form.getCbNatureza().removeAllItems();
         for (Natureza natureza : listaNaturezas) {
             form.getCbNatureza().addItem(natureza);
+        }
+    }
+
+    public void carregarCliente(MovimentoCadastroJIF form) {
+        ClienteService clienteService = new ClienteService();
+        List<Cliente> listaClientes = clienteService.listarClientes(false);
+        form.getCbCliente().removeAllItems();
+        for (Cliente cliente : listaClientes) {
+            form.getCbCliente().addItem(cliente);
         }
     }
 
