@@ -64,6 +64,8 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         pnMenuInferior.setBackground(ControleCores.pegarCorPadrao());
         desktopPrincipal.setBackground(ControleCores.pegarCorPadrao());
         pnMenuPrincipal.setBackground(ControleCores.pegarCorPadrao());
+        
+        TelaInternaController.chamaNota();
     }
 
     /**

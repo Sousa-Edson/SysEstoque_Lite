@@ -186,17 +186,17 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="btnHoraAtual" alignment="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="btnDataAtual" alignment="0" min="-2" pref="19" max="-2" attributes="0"/>
+                                  <Component id="btnHoraAtual" pref="31" max="32767" attributes="0"/>
+                                  <Component id="btnDataAtual" max="32767" attributes="0"/>
                               </Group>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel3" min="-2" pref="39" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                                       <Component id="jLabel4" min="-2" pref="39" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                                   </Group>
@@ -227,13 +227,13 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="cbNatureza" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbNatureza" linkSize="12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel14" linkSize="12" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="cbCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbCliente" linkSize="12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel13" linkSize="12" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
@@ -297,15 +297,10 @@
               </AuxValues>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="dataNota">
-              <Events>
-                <EventHandler event="hierarchyChanged" listener="java.awt.event.HierarchyListener" parameters="java.awt.event.HierarchyEvent" handler="dataNotaHierarchyChanged"/>
-                <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="dataNotaAncestorAdded"/>
-                <EventHandler event="ancestorMoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="dataNotaAncestorMoved"/>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="dataNotaMouseClicked"/>
-                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="dataNotaPropertyChange"/>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="dataNotaKeyPressed"/>
-                <EventHandler event="vetoableChange" listener="java.beans.VetoableChangeListener" parameters="java.beans.PropertyChangeEvent" handler="dataNotaVetoableChange"/>
-              </Events>
+              <Properties>
+                <Property name="dateFormatString" type="java.lang.String" value="dd&apos;/&apos;MM&apos;/&apos;yyyy"/>
+                <Property name="inheritsPopupMenu" type="boolean" value="true"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
@@ -368,6 +363,9 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="ff" type="rgb"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/icons8-calend&#xe1;rio-20.png"/>
+                </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Atualizar Campos"/>
               </Properties>
               <Events>
@@ -379,6 +377,9 @@
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="ff" type="rgb"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/icons8-presente-20.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Limpa Relogio"/>
               </Properties>
@@ -453,12 +454,6 @@
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           <Component id="jTextField_Busca_Produto_Nota" min="-2" pref="516" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField_Quantidade_Nota" min="-2" pref="71" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabelMeuSaldoProduto" min="-2" pref="142" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButton_Adicionar_Produto_Nota" linkSize="7" min="-2" pref="55" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButton_Fechar_Nota" linkSize="7" min="-2" max="-2" attributes="0"/>
@@ -479,17 +474,12 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="jTextField_Busca_Produto_Nota" linkSize="8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_Texto_Produto1" linkSize="8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField_Quantidade_Nota" linkSize="8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel20" linkSize="8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton_Adicionar_Produto_Nota" linkSize="8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Component id="jButton_Fechar_Nota" linkSize="8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Component id="jButton_Excluir_Movimento_Nota" linkSize="8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jLabelMeuSaldoProduto" linkSize="8" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jTextField_Busca_Produto_Nota" linkSize="8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel_Texto_Produto1" linkSize="8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButton_Adicionar_Produto_Nota" linkSize="8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="jButton_Fechar_Nota" linkSize="8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="jButton_Excluir_Movimento_Nota" linkSize="8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="197" max="32767" attributes="0"/>
                       </Group>
@@ -512,22 +502,10 @@
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabelMeuSaldoProduto">
-                  <Properties>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                        <EtchetBorder/>
-                      </Border>
-                    </Property>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-                  </AuxValues>
-                </Component>
                 <Component class="javax.swing.JButton" name="jButton_Adicionar_Produto_Nota">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="33" green="33" red="ff" type="rgb"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/icons/icons8-inserir-20.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Inserir"/>
                     <Property name="toolTipText" type="java.lang.String" value="Inclui Produto"/>
@@ -539,8 +517,8 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton_Fechar_Nota">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="33" green="33" red="ff" type="rgb"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/icons/icons8-vassoura-20.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Limpar"/>
                     <Property name="toolTipText" type="java.lang.String" value="Limpa Produto"/>
@@ -557,6 +535,9 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="33" green="33" red="ff" type="rgb"/>
                     </Property>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/icons/icons8-remover-20.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Excluir"/>
                     <Property name="toolTipText" type="java.lang.String" value="Exclui Produto"/>
                     <Property name="enabled" type="boolean" value="false"/>
@@ -564,15 +545,6 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Excluir_Movimento_NotaActionPerformed"/>
                   </Events>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jTextField_Quantidade_Nota">
-                  <Events>
-                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField_Quantidade_NotaFocusLost"/>
-                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField_Quantidade_NotaKeyPressed"/>
-                  </Events>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField_Busca_Produto_Nota">
                   <Events>
@@ -583,11 +555,6 @@
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel20">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Qtd :"/>
-                  </Properties>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane4">
                   <AuxValues>

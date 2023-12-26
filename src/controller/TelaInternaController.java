@@ -86,7 +86,7 @@ public class TelaInternaController {
         FramePositionUtil.setCenteredPosition(movimentoListaJIF);
     }
 
-    static void chamaNota() {
+   public static  void chamaNota() {
         if (movimentoCadastroJIF == null || !movimentoCadastroJIF.isVisible()) {
             movimentoCadastroJIF = new MovimentoCadastroJIF();
             MenuPrincipal.desktopPrincipal.add(movimentoCadastroJIF);

@@ -5,12 +5,15 @@
 package controller;
 
 import java.awt.Color;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import model.Cliente;
 import model.Natureza;
 import service.ClienteService;
 import service.NaturezaService;
 import utils.ControleCores;
+import utils.DataHoraAtual;
 import view.internal.MovimentoCadastroJIF;
 
 /**
@@ -21,8 +24,11 @@ public class MovimentoCadastroController {
 
     Color corPadrao;
 
+    SimpleDateFormat formato;
+
     public MovimentoCadastroController() {
         corPadrao = ControleCores.pegarCorPadrao();
+        formato = new SimpleDateFormat("dd/MM/yyyy");
     }
 
     public void mudarCorPaineis(MovimentoCadastroJIF form) {
@@ -49,6 +55,26 @@ public class MovimentoCadastroController {
         for (Cliente cliente : listaClientes) {
             form.getCbCliente().addItem(cliente);
         }
+    }
+
+    public void dataAtual(MovimentoCadastroJIF form) {
+        if (form.getDataNota().getDate() == (null)) {
+            try {
+                form.getDataNota().setDate(formato.parse(DataHoraAtual.obterDataFormatada()));
+            } catch (ParseException ex) {
+                System.err.println("erro::"+ex.getMessage());
+            }
+        } else {
+            form.getDataNota().setDate(null);
+        } 
+    }
+
+    public void horaAtual(MovimentoCadastroJIF form) {
+         if (form.getTxtHora().getText().trim().isEmpty()) {
+             form.getTxtHora().setText( DataHoraAtual.obterHoraFormatada());
+        } else {
+            form.getTxtHora().setText(null);
+        } 
     }
 
 }

@@ -34,6 +34,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.Cliente;
 import model.Natureza;
+import utils.DataHoraAtual;
 
 /**
  *
@@ -194,13 +195,10 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         pnDados = new javax.swing.JPanel();
         jLabel_Texto_Produto1 = new javax.swing.JLabel();
-        jLabelMeuSaldoProduto = new javax.swing.JLabel();
         jButton_Adicionar_Produto_Nota = new javax.swing.JButton();
         jButton_Fechar_Nota = new javax.swing.JButton();
         jButton_Excluir_Movimento_Nota = new javax.swing.JButton();
-        jTextField_Quantidade_Nota = new javax.swing.JTextField();
         jTextField_Busca_Produto_Nota = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableListaProduto_Nota = new javax.swing.JTable();
         pnTransporte = new javax.swing.JPanel();
@@ -300,41 +298,8 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        dataNota.addHierarchyListener(new java.awt.event.HierarchyListener() {
-            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
-                dataNotaHierarchyChanged(evt);
-            }
-        });
-        dataNota.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                dataNotaAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-                dataNotaAncestorMoved(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        dataNota.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dataNotaMouseClicked(evt);
-            }
-        });
-        dataNota.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                dataNotaPropertyChange(evt);
-            }
-        });
-        dataNota.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                dataNotaKeyPressed(evt);
-            }
-        });
-        dataNota.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
-            public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
-                dataNotaVetoableChange(evt);
-            }
-        });
+        dataNota.setDateFormatString("dd'/'MM'/'yyyy");
+        dataNota.setInheritsPopupMenu(true);
 
         jLabel3.setText("Data :");
 
@@ -405,6 +370,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         });
 
         btnDataAtual.setForeground(new java.awt.Color(255, 51, 51));
+        btnDataAtual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-calendário-20.png"))); // NOI18N
         btnDataAtual.setToolTipText("Atualizar Campos");
         btnDataAtual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -418,6 +384,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         });
 
         btnHoraAtual.setForeground(new java.awt.Color(255, 51, 51));
+        btnHoraAtual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-presente-20.png"))); // NOI18N
         btnHoraAtual.setToolTipText("Limpa Relogio");
         btnHoraAtual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -472,15 +439,15 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
                             .addComponent(cbCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnTopoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnHoraAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(btnDataAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnHoraAtual, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                            .addComponent(btnDataAtual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnTopoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnTopoLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnTopoLayout.createSequentialGroup()
-                                .addGap(7, 7, 7)
+                                .addGap(1, 1, 1)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(1, 1, 1)))
                         .addGroup(pnTopoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -513,7 +480,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
                         .addGroup(pnTopoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(dataNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnDataAtual, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
+                            .addComponent(btnDataAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 21, Short.MAX_VALUE))
                         .addGap(9, 9, 9)
                         .addGroup(pnTopoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnTopoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -530,7 +497,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
             .addComponent(lblInformacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pnTopoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDataAtual, btnHoraAtual, dataNota, jLabel3, jLabel4, txtHora});
+        pnTopoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDataAtual, btnHoraAtual, cbCliente, cbNatureza, dataNota, jLabel13, jLabel14, jLabel3, jLabel4, txtHora});
 
         jLabel_Status_Visualizar.setText("Status :");
         jLabel_Status_Visualizar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -541,9 +508,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
         jLabel_Texto_Produto1.setText("Produto :");
 
-        jLabelMeuSaldoProduto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jButton_Adicionar_Produto_Nota.setForeground(new java.awt.Color(255, 51, 51));
+        jButton_Adicionar_Produto_Nota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-inserir-20.png"))); // NOI18N
         jButton_Adicionar_Produto_Nota.setText("Inserir");
         jButton_Adicionar_Produto_Nota.setToolTipText("Inclui Produto");
         jButton_Adicionar_Produto_Nota.addActionListener(new java.awt.event.ActionListener() {
@@ -557,7 +522,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton_Fechar_Nota.setForeground(new java.awt.Color(255, 51, 51));
+        jButton_Fechar_Nota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-vassoura-20.png"))); // NOI18N
         jButton_Fechar_Nota.setText("Limpar");
         jButton_Fechar_Nota.setToolTipText("Limpa Produto");
         jButton_Fechar_Nota.addActionListener(new java.awt.event.ActionListener() {
@@ -567,23 +532,13 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         });
 
         jButton_Excluir_Movimento_Nota.setForeground(new java.awt.Color(255, 51, 51));
+        jButton_Excluir_Movimento_Nota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-remover-20.png"))); // NOI18N
         jButton_Excluir_Movimento_Nota.setText("Excluir");
         jButton_Excluir_Movimento_Nota.setToolTipText("Exclui Produto");
         jButton_Excluir_Movimento_Nota.setEnabled(false);
         jButton_Excluir_Movimento_Nota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_Excluir_Movimento_NotaActionPerformed(evt);
-            }
-        });
-
-        jTextField_Quantidade_Nota.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField_Quantidade_NotaFocusLost(evt);
-            }
-        });
-        jTextField_Quantidade_Nota.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_Quantidade_NotaKeyPressed(evt);
             }
         });
 
@@ -600,8 +555,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
                 jTextField_Busca_Produto_NotaKeyPressed(evt);
             }
         });
-
-        jLabel20.setText("Qtd :");
 
         jTableListaProduto_Nota.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -634,12 +587,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
                 .addGap(8, 8, 8)
                 .addComponent(jTextField_Busca_Produto_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel20)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField_Quantidade_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelMeuSaldoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Adicionar_Produto_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Fechar_Nota)
@@ -659,16 +606,12 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
             pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnDadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField_Busca_Produto_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel_Texto_Produto1)
-                        .addComponent(jTextField_Quantidade_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel20)
-                        .addComponent(jButton_Adicionar_Produto_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton_Fechar_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton_Excluir_Movimento_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabelMeuSaldoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_Busca_Produto_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_Texto_Produto1)
+                    .addComponent(jButton_Adicionar_Produto_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_Fechar_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_Excluir_Movimento_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(197, Short.MAX_VALUE))
             .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnDadosLayout.createSequentialGroup()
@@ -677,7 +620,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
                     .addContainerGap()))
         );
 
-        pnDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton_Adicionar_Produto_Nota, jButton_Excluir_Movimento_Nota, jButton_Fechar_Nota, jLabel20, jLabelMeuSaldoProduto, jLabel_Texto_Produto1, jTextField_Busca_Produto_Nota, jTextField_Quantidade_Nota});
+        pnDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton_Adicionar_Produto_Nota, jButton_Excluir_Movimento_Nota, jButton_Fechar_Nota, jLabel_Texto_Produto1, jTextField_Busca_Produto_Nota});
 
         jTabbedPane1.addTab("Dados", pnDados);
 
@@ -2101,14 +2044,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnHoraAtualKeyPressed
 
     private void btnHoraAtualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoraAtualActionPerformed
-        if (txtHora.getText().isEmpty()) {
-            txtHora.setText(Principal.jLabel_Hora.getText());
-            String Relogio = (Principal.jLabel_Hora.getText());
-//            String MenuMinhaHoraSistema = (String.format("%1$tM:%1$tS", Relogio)); /// %1$tM:%1$tS
-            txtHora.setText(Relogio);
-        } else {
-            txtHora.setText(null);
-        }
+       movimentoCadastroController.horaAtual(this);
     }//GEN-LAST:event_btnHoraAtualActionPerformed
 
     private void btnDataAtualKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnDataAtualKeyPressed
@@ -2116,17 +2052,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnDataAtualKeyPressed
 
     private void btnDataAtualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDataAtualActionPerformed
-        if (dataNota.getDate() == (null)) {
-            try {
-                data = formato.parse(Principal.jLabel_Data.getText());
-                dataNota.setDate(data);
-            } catch (ParseException ex) {
-                //                Logger.getLogger(MovimentoJIF.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            dataNota.setDate(null);
-        }
-        ManipulaData();
+        movimentoCadastroController.dataAtual(this);
     }//GEN-LAST:event_btnDataAtualActionPerformed
 
     private void cbClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbClienteKeyPressed
@@ -2197,31 +2123,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     private void txtNotaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNotaFocusLost
 
     }//GEN-LAST:event_txtNotaFocusLost
-
-    private void dataNotaVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_dataNotaVetoableChange
-
-    }//GEN-LAST:event_dataNotaVetoableChange
-
-    private void dataNotaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dataNotaKeyPressed
-
-    }//GEN-LAST:event_dataNotaKeyPressed
-
-    private void dataNotaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dataNotaPropertyChange
-        ManipulaData();
-    }//GEN-LAST:event_dataNotaPropertyChange
-
-    private void dataNotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dataNotaMouseClicked
-        ManipulaData();        // TODO add your handling code here:
-    }//GEN-LAST:event_dataNotaMouseClicked
-
-    private void dataNotaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_dataNotaAncestorAdded
-    }//GEN-LAST:event_dataNotaAncestorAdded
-
-    private void dataNotaAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_dataNotaAncestorMoved
-    }//GEN-LAST:event_dataNotaAncestorMoved
-
-    private void dataNotaHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_dataNotaHierarchyChanged
-    }//GEN-LAST:event_dataNotaHierarchyChanged
 
     private void cbNaturezaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbNaturezaKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
@@ -2479,7 +2380,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 //            jLabel_IdMovimento.setText(busca_item);
             //            Evento_Busca_Movimento_Nota();
             //            flag_salvar = 2;
-            jTextField_Quantidade_Nota.requestFocus();
+//            jTextField_Quantidade_Nota.requestFocus();
             jButton_Excluir_Movimento_Nota.setEnabled(true);
             //            jButton_Adicionar_Produto_Nota.setText("Alterar produto");
 //            PreencheDadosAlterar();
@@ -2522,121 +2423,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     private void jTextField_Busca_Produto_NotaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_Busca_Produto_NotaFocusGained
         // evento_Verifica();
     }//GEN-LAST:event_jTextField_Busca_Produto_NotaFocusGained
-
-    private void jTextField_Quantidade_NotaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_Quantidade_NotaKeyPressed
-        if (evt.getKeyCode() == evt.VK_ENTER) {
-            if (jTextField_Quantidade_Nota.getText().isEmpty()) {
-                jTextField_Busca_Produto_Nota.requestFocus();
-            } else {
-                jButton_Adicionar_Produto_Nota.requestFocus();
-            }
-        }
-
-//        if (evt.getKeyCode() == evt.VK_F12) {
-//            if (jLabel_Calculado.getText().equals("")) {
-//                jLabel_Calculado.setText(jTextField_Quantidade_Nota.getText());
-//            } else {
-//            }
-//            Complementar.VerificaModo(MinhaNatureza);
-//            Complementar.RecebeDados(jLabel_Complemento.getText(), jLabel_Setor.getText(), jLabel_Calculado.getText());
-//            Complementar.setVisible(true);
-//        }
-        if (evt.getKeyCode() == evt.VK_DOWN) {
-            //            jFormattedTextFieldCep.requestFocus();
-        }
-        if (evt.getKeyCode() == evt.VK_UP) {
-            //            jTextField_Busca_Produto_PRO.requestFocus();
-        }
-    }//GEN-LAST:event_jTextField_Quantidade_NotaKeyPressed
-
-    private void jTextField_Quantidade_NotaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_Quantidade_NotaFocusLost
-//        int S_Natureza_Int = 0;
-//        System.out.println("jTextField_Fragmento_Variavel - " + jTextField_Fragmento_Variavel.getText());
-////        if (jLabel_Calculado.getText().isEmpty() | jLabel_Calculado.getText().equals(" ")) {
-////            jLabel_Calculado.setText(jTextField_Quantidade_Nota.getText());
-////        } else if (jLabel_Calculado.getText().equals("0") | jLabel_Calculado.getText() == "0") {
-////            jLabel_Calculado.setText(jTextField_Quantidade_Nota.getText());
-////        } else {
-////        }
-//        String s = jTextField_Quantidade_Nota.getText();
-//        if (jTextField_Fragmento_Variavel.getText().equals("1")) {
-//            //            JOptionPane.showMessageDialog(jLabel_Complemento, "1");
-//            if (s.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
-//                //          jLabel4.setText("letra");
-//                System.out.println("jTextField_Quantidade_Nota             ==               a");
-//            } else if (s.matches("^[0-9]*$")) {
-//                jTextField_Quantidade_Nota.setText(jTextField_Quantidade_Nota.getText() + ",000");
-//                System.out.println("jTextField_Quantidade_Nota             ==               b");
-//                //             jLabel4.setText("numero");
-//            } else if (s.matches("^[0-9,.]*$")) {
-//                System.out.println("jTextField_Quantidade_Nota             ==               c");
-//                String MeuValor = jTextField_Quantidade_Nota.getText();
-//                MeuValor = MeuValor.replace("R$", "").replace(" ", "").replace(".", "").replace(",", ".");
-//                Double num41 = (Double.parseDouble(MeuValor));
-//                BigDecimal df1 = new BigDecimal(num41);
-//                NumberFormat nf1 = NumberFormat.getInstance();// getCurrencyInstance
-//                nf1.setMinimumFractionDigits(3);
-//                nf1.setMaximumFractionDigits(3);
-//                String FormatoValorProd = nf1.format(df1);
-//
-//                jTextField_Quantidade_Nota.setText(FormatoValorProd);
-//                System.out.println("c   -     " + FormatoValorProd);
-//            } else {
-//                jTextField_Quantidade_Nota.setText(jTextField_Quantidade_Nota.getText() + ",000");
-//                //            jLabel4.setText("erro");
-//                System.out.println("jTextField_Quantidade_Nota             ==               d");
-//            }
-//        } else {
-//            if (jTextField_Fragmento_Variavel.getText().equals("0")) {
-//                //            JOptionPane.showMessageDialog(jLabel_Complemento, "1");
-//                if (s.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
-//                    //          jLabel4.setText("letra");
-//                    System.out.println(" jTextField_Fragmento_Variavel     ==     a");
-//                } else if (s.matches("^[0-9]*$")) {
-//                    jTextField_Quantidade_Nota.setText(jTextField_Quantidade_Nota.getText().replace(",000", "").replace(",00", "").replace(",0", "").replace(",", ""));
-//                    //             jLabel4.setText("numero");
-//                    System.out.println(" jTextField_Fragmento_Variavel     ==     b");
-//                } else if (s.matches("^[0-9,]*$")) {
-//                    jTextField_Quantidade_Nota.setText(jTextField_Quantidade_Nota.getText().replace(",000", "").replace(",00", "").replace(",0", "").replace(",", ""));
-//                    System.out.println(" jTextField_Fragmento_Variavel     ==     c");
-//                } else {
-//                    //                jTextField_Quantidade_Nota.setText(jTextField_Quantidade_Nota.getText() + ",000");
-//                    //            jLabel4.setText("erro");
-//                    System.out.println(" jTextField_Fragmento_Variavel     ==     d");
-//                }
-//                //            JOptionPane.showMessageDialog(jLabel_Complemento, "0");
-//            }
-//        }
-//        String VerQuantidade = jTextField_Quantidade_Nota.getText().replace(" ", "").replace(".", "").replace(",", ".");
-//        System.out.println("Natureza ------------------------------------------  " + jComboBox_Natureza_Int.getSelectedItem());
-//        //         try{
-//            String S_Natureza = "" + jComboBox_Natureza_Int.getSelectedItem();
-//            S_Natureza_Int = Integer.parseInt(S_Natureza);
-//            //         }
-//        //         catch( Exception ex){JOptionPane.showMessageDialog(jLabel_Complemento, "erro "+ex);}
-//        System.out.println("Natureza int  " + S_Natureza_Int + "    S_Natureza    " + S_Natureza + " jComboBox_Natureza ==  " + jComboBox_Natureza.getSelectedItem());
-//        if (VerQuantidade.isEmpty()) {
-//            System.out.println("Resultado     -  vazio  ");
-//        } else if (VerQuantidade.equals("null") | VerQuantidade.equals(null)) {
-//            System.out.println("Resultado     -  null  ");
-//        } else if (S_Natureza_Int == 1) {
-//            System.out.println("Interface.MovimentoCadastroJIF.jTextField_Quantidade_NotaFocusLost()      -            Tipo Entrada ok");
-//        } else {
-//            System.out.println("jTextField_Varieavel_SaldoProduto - " + jTextField_Varieavel_SaldoProduto.getText());
-////            Double DQuantidade = Double.parseDouble(VerQuantidade);
-////            Double DSaldo = Double.parseDouble(jTextField_Varieavel_SaldoProduto.getText());
-////            Double Resultado;
-////            Resultado = DSaldo - DQuantidade;
-////            System.err.println("Resultado     -    " + Resultado);
-////            if (Resultado == 0.0) {
-////                JOptionPane.showMessageDialog(jLabel_Complemento, "Zerando saldo produto");
-////            } else if (DQuantidade > DSaldo) {
-////                JOptionPane.showMessageDialog(jLabel_Complemento, "Saldo produto insuficiente");
-////            } else {
-////            }
-////            jTextField_Varieavel_SaldoProduto.setText("");
-//        }
-    }//GEN-LAST:event_jTextField_Quantidade_NotaFocusLost
 
     private void jButton_Excluir_Movimento_NotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Excluir_Movimento_NotaActionPerformed
 
@@ -3290,17 +3076,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         jTextField_Busca_Produto_Nota.setText(MinhaBusca);
     }
 
-    public void ManipulaData() {
-        String MenuMinhaData;
-        Date dataSistema = dataNota.getDate();
-        if (dataSistema == null) {
-        } else {
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
-            MenuMinhaData = (formato.format(dataSistema));
-//            jTextField_data_variavel.setText(MenuMinhaData);
-            System.out.println("ManipulaData   " + MenuMinhaData);
-        }
-    }
+    
 
     public void InsereNaTabela() {
         conex.conexao();
@@ -3395,7 +3171,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -3408,7 +3183,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    public static javax.swing.JLabel jLabelMeuSaldoProduto;
     private javax.swing.JLabel jLabel_Status_Visualizar;
     public static javax.swing.JLabel jLabel_Texto_Produto1;
     private javax.swing.JLabel jLabel_Titulo1;
@@ -3428,7 +3202,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTableListaProduto_Nota;
     private javax.swing.JTextArea jTextArea_Observacao;
     public static javax.swing.JTextField jTextField_Busca_Produto_Nota;
-    public static javax.swing.JTextField jTextField_Quantidade_Nota;
     private javax.swing.JLabel lblInformacoes;
     private javax.swing.JPanel pnDados;
     private javax.swing.JPanel pnInformacao;
@@ -3504,7 +3277,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         return txtNota;
     }
 
-    public   JComboBox<Natureza> getCbNatureza() {
+    public JComboBox<Natureza> getCbNatureza() {
         return cbNatureza;
     }
 
