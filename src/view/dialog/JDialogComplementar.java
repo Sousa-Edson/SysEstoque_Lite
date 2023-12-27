@@ -256,7 +256,7 @@ public class JDialogComplementar extends javax.swing.JDialog {
         movimento.setQtd_prod(quantidadeDouble);
         movimento.setQtd_prod_ex(quantidade);
         System.out.println("" + movimento.toString());
-        MovimentoCadastroJIF.
+//        MovimentoCadastroJIF.
 //        this.dispose();
     }//GEN-LAST:event_btnInserirProdutoActionPerformed
 
