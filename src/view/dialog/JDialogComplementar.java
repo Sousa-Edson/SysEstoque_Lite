@@ -6,6 +6,7 @@
 package view.dialog;
 
 import ModeloBeans.Beans_Movimento;
+import controller.MovimentoCadastroController;
 import model.Produto;
 import utils.ControleCores;
 import utils.ManipulaValor;
@@ -40,6 +41,8 @@ public class JDialogComplementar extends javax.swing.JDialog {
         lblObservacao.setText("<html>" + produto.getObs_prod() + "</html>");
 
         movimento.setId_prod_ent(produto.getId_prod());
+        movimento.setValor_moeda(produto.getValor_ex());
+        movimento.setValor_real(produto.getValor());
     }
 
     /**
@@ -256,8 +259,8 @@ public class JDialogComplementar extends javax.swing.JDialog {
         movimento.setQtd_prod(quantidadeDouble);
         movimento.setQtd_prod_ex(quantidade);
         System.out.println("" + movimento.toString());
-//        MovimentoCadastroJIF.
-//        this.dispose();
+        MovimentoCadastroController.movimentos.add(movimento);
+        this.dispose();
     }//GEN-LAST:event_btnInserirProdutoActionPerformed
 
     private void txtQuantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyPressed

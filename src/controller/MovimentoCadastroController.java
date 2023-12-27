@@ -38,7 +38,7 @@ public class MovimentoCadastroController {
     Produto produto;
     ProdutoService produtoService;
 
-    
+    public static List<Beans_Movimento> movimentos;
 
     public MovimentoCadastroController() {
         corPadrao = ControleCores.pegarCorPadrao();
@@ -47,7 +47,9 @@ public class MovimentoCadastroController {
         jDialogBuscaProduto = new JDialogBuscaProduto(null, true);
 
         produtoService = new ProdutoService();
-      
+        
+        movimentos= new ArrayList<>();
+
     }
 
     public void mudarCorPaineis(MovimentoCadastroJIF form) {
@@ -147,4 +149,9 @@ public class MovimentoCadastroController {
         }
     }
 
+    public void carregaProdutos() {
+        for (Beans_Movimento movimento : movimentos) {
+            System.out.println("p::" + movimento);
+        }
+    }
 }

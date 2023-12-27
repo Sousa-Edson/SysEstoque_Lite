@@ -948,31 +948,13 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 
-        AtualizarTudo();
+//        AtualizarTudo();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     public void MovimentoBancoTemporarioAlterado() {
 
     }
 
-    public void ExecutaSaldo() {
-        String MeuExecutaSaldo = String.valueOf(id_referencia);
-        System.out.println("aquiExecutaSaldo()        Verificando            " + MeuExecutaSaldo);
-        conexSaldo.conexao();
-        try {
-            java.sql.PreparedStatement pst = conexSaldo.con.prepareStatement("update produto as prod set \n"
-                    + "saldo_prod=( select  sum(qtd_mov) as qtd_prod  from movprodutobase as base\n"
-                    + " where id_prod_ent=sis_prod and stmovimento=1 and stsaldo=1 \n"
-                    + " GROUP BY   prod.sis_prod order by sis_prod asc )\n"
-                    + " from movprodutobase as base\n"
-                    + "where prod.sis_prod=base.id_prod_ent and nota_mov='" + MeuExecutaSaldo + "' and base.stsaldo=1");
-            pst.execute();
-            System.out.println("aquiExecutaSaldo() ok");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao ExecutaSaldo -- \n" + ex);
-        }
-        conexSaldo.desconecta();
-    }
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
 //        PreencherTabela();
@@ -1122,7 +1104,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     }
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        CarregaSistemaRepeteUltimo();
+//        CarregaSistemaRepeteUltimo();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jRadioButton_ativa_VizualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_ativa_VizualizarActionPerformed
@@ -1158,7 +1140,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbClienteFocusGained
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
-        LimpaSistema();
+//        LimpaSistema();
 //        LimpaCampoProduto();
     }//GEN-LAST:event_formInternalFrameClosing
 
@@ -1171,7 +1153,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        //    produtoController.limparCampos(this);
+        movimentoCadastroController.carregaProdutos();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -1212,7 +1194,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
     private void jComboBox_transportadoraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox_transportadoraKeyPressed
         if (evt.getKeyCode() == evt.VK_F5) {
-            PreencherTransporte();
+//            PreencherTransporte();
         }
     }//GEN-LAST:event_jComboBox_transportadoraKeyPressed
 
@@ -1250,23 +1232,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
     private void jTableListaProduto_NotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaProduto_NotaMouseClicked
 
-        if (jTableListaProduto_Nota.isEnabled()) {
-            String busca_Lista = "" + jTableListaProduto_Nota.getValueAt(jTableListaProduto_Nota.getSelectedRow(), 8);
-            //            jLabel_Id_Mov.setText((busca_Lista));
-            //            jLabelIdMovi.setText((busca_Lista));
-            String busca_item = "" + jTableListaProduto_Nota.getValueAt(jTableListaProduto_Nota.getSelectedRow(), 0);
-//            jLabel_IdMovimento.setText(busca_item);
-            //            Evento_Busca_Movimento_Nota();
-            //            flag_salvar = 2;
-//            jTextField_Quantidade_Nota.requestFocus();
-            btnRemoverUmProduto.setEnabled(true);
-            //            jButton_Adicionar_Produto_Nota.setText("Alterar produto");
-//            PreencheDadosAlterar();
-//            FlagAlterar = 1;
-//            Referencia_Movimento = "" + jTableListaProduto_Nota.getValueAt(jTableListaProduto_Nota.getSelectedRow(), 0);
-            //                        JOptionPane.showMessageDialog(rootPane, Referencia_Movimento);
-        } else {
-        }
+
     }//GEN-LAST:event_jTableListaProduto_NotaMouseClicked
 
     private void txtBuscarUmProdutoPorNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarUmProdutoPorNomeKeyPressed
@@ -1300,504 +1266,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     private void btnInserirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirProdutoActionPerformed
         movimentoCadastroController.chamaFormularioComplementar(this);
     }//GEN-LAST:event_btnInserirProdutoActionPerformed
-
-    public void BotaoExcluir() {
-        beans.setNota_status(3);
-        beans.setId_nota(id_nota);
-        dao.Excluir(beans);
-        // this.dispose();
-    }
-
-    public void BotaoSalvar() {
-        PreencherMeuTotal();
-//        SelecionarNatureza();
-        if (MinhaIdNota == "novo") {
-            CarregaUltimo();
-//            InsereDadosNota();
-            dao.Salvar(beans);
-            SalvarMovimentoBanco();
-//            JOptionPane.showMessageDialog(rootPane, "Entrou novo");
-        } else {
-//            JOptionPane.showMessageDialog(rootPane, "Entrou alterar");
-            beans.setNota_status(2);
-//            beans.setId_nota(id_nota);
-            beans.setId_referencia(id_referencia);
-            dao.Alterar2(beans);
-//            CarregaUltimo();
-//            InsereDadosNota();
-            dao.Salvar(beans);
-            SalvarMovimentoBanco();
-        }
-//        SalvarTransporte();
-    }
-
-    public void SalvarTransporte() {
-        beanst.setModalidade((String) jComboBox_modalidade.getSelectedItem());
-        beanst.setTransportadora((String) jComboBox_transportadora.getSelectedItem());
-        beanst.setMotorista(vol_motorista.getText());
-
-        String placa = (vol_placa.getText());
-        if (placa.equals("   -    ")) {
-            beanst.setPlaca("");
-        } else {
-            beanst.setPlaca(vol_placa.getText());
-        }
-        String uf = (vol_uf.getText());
-        if (uf.equals("  ")) {
-            beanst.setUf("");
-        } else {
-            beanst.setUf(vol_uf.getText());
-        }
-
-        beanst.setQuantidade(vol_quantidade.getText());
-        beanst.setEspecie(vol_especie.getText());
-        beanst.setNumeracao(vol_numeracao.getText());
-        beanst.setPesobruto(vol_peso_bruto.getText());
-        beanst.setPesoliquido(vol_peso_liquido.getText());
-
-        beanst.setOsnota(id_referencia);
-        beanst.setOnline(0);
-        daot.Alterar(beanst);
-        beanst.setOnline(1);
-        daot.Salvar(beanst);
-    }
-
-    public void SalvarMovimentoBanco() {
-        MovimentoUpdatePrimario();
-//        MovimentoBancoUpdateTodos();
-        MovimentoBancoInsert();
-    }
-
-    public void MovimentoUpdatePrimario() {
-        String busca = String.valueOf(id_referencia);
-        conex.conexao();
-        try {
-            if (MinhaNatureza.equals("ENTRADA")) {
-                java.sql.PreparedStatement pst = conex.con.prepareStatement("UPDATE movproduto as base SET qtd_mov=qtd_prod "
-                        + " WHERE  base.nota_mov='" + busca + "'");
-                pst.execute();
-                System.out.println(" MovimentoUpdatePrimario -- MinhaNatureza ENTRADA - ok ");
-            } else if (MinhaNatureza.equals("SAIDA")) {
-                java.sql.PreparedStatement pst = conex.con.prepareStatement("UPDATE movproduto as base SET qtd_mov=-qtd_prod "
-                        + " WHERE  base.nota_mov='" + busca + "'");
-                pst.execute();
-                System.out.println("MovimentoUpdatePrimario -- MinhaNatureza SAIDA - ok ");
-            } else {
-                System.out.println(" MovimentoUpdatePrimario -- MinhaNatureza ????????   -- ERRO");
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao MovimentoUpdatePrimario() - " + ex);
-        }
-        conex.desconecta();
-    }
-
-    public void MovimentoBancoUpdateTodos() {
-        String busca = String.valueOf(id_referencia);
-
-        conex.conexao();
-        try {
-            java.sql.PreparedStatement pst = conex.con.prepareStatement("UPDATE movprodutobase as base\n"
-                    + "      SET stmovimento=2 from movproduto as temp\n"
-                    + " WHERE base.stmovimento = 3 and base.nota_mov='" + busca + "'");
-            pst.execute();
-//            JOptionPane.showMessageDialog(rootPane, " MovimentoBancoUpdateTodos "+id_referencia);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao MovimentoBancoUpdateTodos() . \\n" + ex);
-        }
-        conex.desconecta();
-    }
-
-    public void MovimentoBancoTemporarioApagar() {
-
-        conexApaga.conexao();
-        try {
-            java.sql.PreparedStatement pst = conexApaga.con.prepareStatement("TRUNCATE TABLE movproduto RESTART IDENTITY;");
-            pst.execute();
-            System.out.println("aqui movimento temporario apagar ok");
-//            JOptionPane.showMessageDialog(rootPane, " MovimentoBancoTemporarioApagar ");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao MovimentoBancoTemporarioApagar() . \\n" + ex);
-        }
-        conexApaga.desconecta();
-    }
-
-    public void MovimentoBancoTemporario() {
-        int busca = id_referencia;
-        conexInsere.conexao();
-        try {
-            java.sql.PreparedStatement pst = conexInsere.con.prepareStatement(" INSERT INTO movproduto  (\n"
-                    + "             id_prod_ent, data_mov, nota_mov, sistema_mov, qtd_mov, \n"
-                    + "            qtd_prod, qtd_prod_ex, qtd_calc, qtd_calc_ex, valor_real, valor_moeda, \n"
-                    + "            destino_mov, complemento_mov, registro_mov, status_mov, volume, \n"
-                    + "            usuario_mov, modo_mov, total_mov)\n"
-                    + "    SELECT  id_prod_ent, data_mov, nota_mov, sistema_mov, qtd_mov, \n"
-                    + "       qtd_prod, qtd_prod_ex, qtd_calc, qtd_calc_ex, valor_real, valor_moeda, \n"
-                    + "       destino_mov, complemento_mov, registro_mov, status_mov, volume, \n"
-                    + "       usuario_mov, modo_mov, total_mov\n"
-                    + "  FROM movprodutobase"
-                    + " WHERE status_mov='ATIVO' and nota_mov='" + busca + "'");//// status_mov='ATIVO' and
-
-            pst.execute();
-            System.out.println(".............................................MovimentoBancoTemporario.......................");
-//            JOptionPane.showMessageDialog(null, "MovimentoBancoTemporario");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao MovimentoBancoTemporario() . \\n" + ex);
-        }
-        conexInsere.desconecta();
-    }
-
-    public void MovimentoBancoInsert() {
-        int busca = id_referencia;
-        conex.conexao();
-        try {
-            java.sql.PreparedStatement pst1 = conex.con.prepareStatement("UPDATE movprodutobase as w\n"
-                    + "   SET id_prod_ent=base.id_prod_ent, data_mov=base.data_mov, nota_mov=base.nota_mov, qtd_mov=base.qtd_mov, qtd_prod=base.qtd_prod, \n"
-                    + "       qtd_prod_ex=base.qtd_prod_ex, qtd_calc=base.qtd_calc, qtd_calc_ex=base.qtd_calc_ex, valor_real=base.valor_real, valor_moeda=base.valor_moeda, \n"
-                    + "       destino_mov=base.destino_mov, complemento_mov=base.complemento_mov, registro_mov=base.registro_mov, volume=base.volume, usuario_mov=base.usuario_mov, \n"
-                    + "       modo_mov=base.modo_mov, total_mov=base.total_mov, sistema_mov=base.sistema_mov, stmovimento=base.stmovimento\n"
-                    + "       FROM movproduto as base\n"
-                    + " WHERE base.idmovtemp = w.id_mov ");
-            pst1.execute();
-            System.out.println("update \n ----------------------------------------------------------\n OK ");
-            java.sql.PreparedStatement pst = conex.con.prepareStatement(" INSERT INTO movprodutobase  (\n"
-                    + "             id_prod_ent, data_mov, nota_mov, sistema_mov, qtd_mov, \n"
-                    + "            qtd_prod, qtd_prod_ex, qtd_calc, qtd_calc_ex, valor_real, valor_moeda, \n"
-                    + "            destino_mov, complemento_mov, registro_mov, stmovimento, volume, \n"
-                    + "            usuario_mov, modo_mov, total_mov,stsaldo)\n"
-                    + "    SELECT  id_prod_ent, data_mov, nota_mov, sistema_mov, qtd_mov, \n"
-                    + "       qtd_prod, qtd_prod_ex, qtd_calc, qtd_calc_ex, valor_real, valor_moeda, \n"
-                    + "       destino_mov, complemento_mov, registro_mov, stmovimento, volume, \n"
-                    + "       usuario_mov, modo_mov, total_mov,1\n"
-                    + "  FROM movproduto"
-                    + " WHERE  nota_mov='" + busca + "' and idmovtemp is null and stmovimento=1 and intmodotbl=1");//// status_mov='ATIVO' and
-
-            pst.execute();
-            System.out.println("insert \n -------------------------------------------------------\n OK ");
-        } catch (SQLException ex) {
-            System.out.println("Interface.MovimentoCadastroJIF.MovimentoBancoInsert  -- erro " + ex);
-            JOptionPane.showMessageDialog(null, "Erro ao MovimentoBancoInsert() . \\n" + ex);
-        }
-        conex.desconecta();
-    }
-
-    public void CarregaFormulario() {
-
-    }
-
-    public void CarregaSistema() {
-        System.out.println("-------- CarregaSistema ---------- " + MinhaIdNota);
-        conex.conexao();
-        conex.executaSql2("SELECT  id_referencianatureza,id_natureza,stnota,id_nota, id_referencianota,nota_observacao,desc_natureza,tipo_natureza,"
-                + "ecft_nome,ecft_tipo,nota_documento,nota_situacao,nota_nota,nota_chave,nota_hora,nota_data,"
-                + "modalidade, transportadora, motorista, placa, \n"
-                + "       uf, quantidade, especie, numeracao, pesobruto, pesoliquido\n"
-                + " FROM NOTA \n"
-                + "inner join ecft on fornecedorint=sis_ecft \n"
-                + "inner join natureza on naturezaint=id_referencianatureza\n"
-                + "where id_nota is not null and id_nota !=0 and "
-                + "id_nota ='" + MinhaIdNota + "' order by id_nota asc");
-        try {
-            conex.rs.last();
-            String DescNatureza = (conex.rs.getString("desc_natureza"));
-            String IdNatureza = (conex.rs.getString("id_referencianatureza"));
-//            DescNatureza = IdNatureza + " " + DescNatureza;
-            DescNatureza = DescNatureza + " | " + IdNatureza;
-//            MinhaNaturezaInt = conex.rs.getInt("id_natureza");
-            id_nota = conex.rs.getInt("id_nota");
-            id_referencia = conex.rs.getInt("id_referencianota");
-            jTextArea_Observacao.setText(conex.rs.getString("nota_observacao"));
-            MinhaNatureza = conex.rs.getString("tipo_natureza");
-            cbNatureza.setSelectedItem(DescNatureza);
-//            jComboBox_Tipo_Fornecedor.setSelectedItem(conex.rs.getString("ecft_tipo"));
-            cbCliente.setSelectedItem(conex.rs.getString("ecft_nome"));
-            System.out.println("Interface.MovimentoCadastroJIF.CarregaSistema()" + conex.rs.getString("ecft_nome"));
-//            jComboBox_Documento.setSelectedItem(conex.rs.getString("nota_documento"));
-//            jComboBox_Situacao.setSelectedItem(conex.rs.getString("nota_situacao"));
-            String nota_situacao_Visualizar = (conex.rs.getString("nota_situacao"));
-            if (nota_situacao_Visualizar.equals("7-ENTRADA") | nota_situacao_Visualizar.equals("ENTRADA")) {
-                jLabel_Status_Visualizar.setText("      ");
-            } else {
-                jLabel_Status_Visualizar.setText("Status : " + conex.rs.getString("nota_situacao"));
-            }
-
-            txtNota.setText(conex.rs.getString("nota_nota"));
-            txtChave.setText(conex.rs.getString("nota_chave"));// 
-            txtHora.setText(conex.rs.getString("nota_hora"));
-            String insereData = (conex.rs.getString("nota_data"));
-
-            try {
-                data = formato.parse(insereData);
-            } catch (ParseException exd) {
-                System.out.println("erro data " + exd);
-            }
-            dataNota.setDate(data);
-//            CarregaTransporte();
-            jComboBox_modalidade.setSelectedItem((conex.rs.getString("modalidade")));
-            jComboBox_transportadora.setSelectedItem(conex.rs.getString("transportadora"));
-            String placa = (conex.rs.getString("placa"));
-            if (placa == ("   -    ")) {
-                vol_placa.setText(null);
-            } else {
-                vol_placa.setText(placa);
-            }
-            String uf = (conex.rs.getString("uf"));
-            if (uf == ("   -    ")) {
-                vol_uf.setText(null);
-            } else {
-                vol_uf.setText(uf);
-            }
-            vol_motorista.setText(conex.rs.getString("motorista"));
-            vol_quantidade.setText(conex.rs.getString("quantidade"));
-            vol_especie.setText(conex.rs.getString("especie"));
-            vol_numeracao.setText(conex.rs.getString("numeracao"));
-            vol_peso_bruto.setText(conex.rs.getString("pesobruto"));
-            vol_peso_liquido.setText(conex.rs.getString("pesoliquido"));
-
-        } catch (SQLException ex) {
-            System.out.println("erro  CarregaSistema   " + ex);
-//            JOptionPane.showMessageDialog(rootPane, "erro" + ex);
-//            LimpaSistema();
-        }
-//        JOptionPane.showMessageDialog(rootPane, id_referencia);
-        conex.desconecta();
-        this.setTitle("Cadastro Movimento [ " + MinhaNatureza + " ] Id Referencia : " + id_referencia);
-    }
-
-    public void LimpaSistema() {
-
-        txtNota.setText(null);
-        txtChave.setText(null);
-        txtHora.setText(null);
-//            data = formato.parse(null);
-        data = null;
-        dataNota.setDate(data);
-        LimpaTransporte();
-
-    }
-
-    public void LimpaTransporte() {
-        jComboBox_modalidade.setSelectedItem("0-NÃO DEFINIDO");
-        jComboBox_transportadora.setSelectedItem("NÃO DEFINIDO");
-        vol_placa.setText(null);
-        vol_uf.setText(null);
-        vol_motorista.setText("");
-        vol_quantidade.setText("");
-        vol_especie.setText("");
-        vol_numeracao.setText("");
-        vol_peso_bruto.setText("");
-        vol_peso_liquido.setText("");
-    }
-
-    public void LimpaSistema2() {
-
-        txtChave.setText(null);
-        txtHora.setText(null);
-        txtNota.setText(null);
-        data = null;
-        dataNota.setDate(data);
-        LimpaTransporte();
-        lblInformacoes.setText("");
-        System.out.println("LimpaSistema2  -- ");
-    }
-
-    public void CarregaUltimo() {
-        conex.conexao();
-        conex.executaSql2("SELECT  id_referencianota  FROM NOTA where id_referencianota is not null and id_referencianota !=0 order by id_referencianota asc");
-        try {
-            conex.rs.last();
-            id_referencia = conex.rs.getInt("id_referencianota");
-            id_referencia = id_referencia + 1;
-            System.out.println("Interface.Movimento.MovimentoJIFAlterado.CarregaUltimo() \n " + id_referencia);
-        } catch (SQLException ex) {
-            id_referencia = 1;
-        }
-        conex.desconecta();
-    }
-
-    public void AtualizarTudo() {
-//        PreencherFornecedor();
-//        PreencherNatureza();
-//        PreencherTransporte();
-        LimparTabela();
-        SelecaoReferencia_Movimento = null;
-//        limpaCamposPalete();
-//        jLabel_preenche_texto.setText("");
-//        BloqueiaCamposPalete();
-    }
-
-    private void LimparTabela() {
-        ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{};
-        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-//        jTablePalete.setModel(modelo);
-        jTableListaProduto_Nota.setModel(modelo);
-//        jTableListaProduto_Complemento.setModel(modelo);
-//        jTableListaProduto_Palete_Produto.setModel(modelo);
-    }
-
-    private void LimparTabelaPalete() {
-        ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{};
-        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-//        jTablePalete.setModel(modelo);
-//        jTableListaProduto_Nota.setModel(modelo);
-//        jTableListaProduto_Complemento.setModel(modelo);
-//        jTableListaProduto_Palete_Produto.setModel(modelo);
-    }
-
-    public void PreencherMeuTotal() {
-        String MeuValor;
-        int MinhaOs = id_referencia;
-        System.err.println("PreencherMeuTotal()                  INICIO ");
-        conex_MeuTotal.conexao();
-
-        conex_MeuTotal.executaSql("SELECT sum(qtd_prod) as qtd_prod , sum(qtd_calc) as calc_mov ,sum(valor_real*qtd_prod ) as valor_real ,nota_mov  from movproduto  where nota_mov='" + MinhaOs + "' and stmovimento = 1 and modo_mov='1' GROUP BY   movproduto.nota_mov order by nota_mov asc");
-        try {
-            conex_MeuTotal.rs.first();
-            MeuTotal = (conex_MeuTotal.rs.getString("qtd_prod"));
-            MeuValor = (conex_MeuTotal.rs.getString("valor_real"));
-            System.err.println("PreencherMeuTotal()                  INICIO " + MeuValor);
-            Double num4 = Double.parseDouble(String.valueOf(MeuValor));
-            BigDecimal df = new BigDecimal(num4);
-            NumberFormat nf = NumberFormat.getCurrencyInstance();
-            nf.setMinimumFractionDigits(2);
-            nf.setMaximumFractionDigits(2);
-            String FormatoReal = nf.format(df);
-
-            Double num4a = Double.parseDouble(String.valueOf(MeuTotal));
-            BigDecimal dfa = new BigDecimal(num4a);
-            NumberFormat nfa = NumberFormat.getInstance();
-            nfa.setMinimumFractionDigits(3);
-            nfa.setMaximumFractionDigits(3);
-            String FormatoReala = nfa.format(dfa);
-            FormatoReala = FormatoReala.replace(",0000", "");
-
-            lblInformacoes.setText("<html><b> Total " + FormatoReala + "  </b><br>    " + FormatoReal + "</html>");
-            System.err.println("PreencherMeuTotal()                  CERTO ");
-            System.err.println(" Total   -           FormatoReala" + FormatoReala + "    FormatoReal    " + FormatoReal);
-            MeuTotal = FormatoReal;
-            System.err.println(" MeuTotal    -     FormatoReal          -        " + FormatoReal);
-        } catch (SQLException ex) {
-            System.err.println("PreencherMeuTotal()                  ERRO ");
-            lblInformacoes.setText(" Total " + "  0    " + "R$ 0,00");
-            MeuTotal = "0";
-        }
-        conex_MeuTotal.desconecta();
-
-    }
-
-    public void PreencherTransporte() {
-        ComboFocu = 0;
-        conex_Transporte.conexao();
-        conex_Transporte.executaSql("select * from ecft where ecft_tipo = 'TRANSPORTE' and stecft=1 order by ecft_id asc");
-        try {
-            conex_Transporte.rs.first();
-            jComboBox_transportadora.removeAllItems();
-//            jComboBox_transportadoraInt.removeAllItems();
-//            jComboBox_transportadora.addItem("NÃO DEFINIDO");
-//            jComboBox_transportadoraInt.addItem("0");
-            do {
-                jComboBox_transportadora.addItem(conex_Transporte.rs.getString("ecft_nome"));
-//                jComboBox_transportadoraInt.addItem(conex_Transporte.rs.getString("sis_ecft"));
-                jComboBox_transportadora.setBackground(Color.GRAY);
-            } while (conex_Transporte.rs.next());
-            System.out.println("PreencherTransporte ok ");
-            ComboFocu = 1;
-        } catch (SQLException ex) {
-            jComboBox_transportadora.setBackground(Color.red);
-            System.out.println("PreencherTransporte erro " + ex);
-        }
-        conex_Transporte.desconecta();
-        jComboBox_transportadora.setSelectedItem("NÃO DEFINIDO");
-//        jComboBox_transportadoraInt.setSelectedItem("0");
-    }
-
-    public void RecebeIdNota(String IdNota) {
-        MinhaIdNota = IdNota;
-//        JOptionPane.showMessageDialog(rootPane, MinhaIdNota);
-    }
-
-    public void RecebeReferenciaMovimento(String ReferenciaMovi) {
-//        Referencia_Movimento = ReferenciaMovi;
-//        JOptionPane.showMessageDialog(rootPane, Referencia_Movimento); jComboBox_Situacao
-    }
-
-    public void RecebeDescricaoBusca(String MinhaBusca) {
-        txtBuscarUmProdutoPorNome.setText(MinhaBusca);
-    }
-
-    public void InsereNaTabela() {
-        conex.conexao();
-        try {
-            java.sql.PreparedStatement pstUpdate = conex.con.prepareStatement("TRUNCATE TABLE paletetemp RESTART IDENTITY;");
-            pstUpdate.execute();
-//            JOptionPane.showMessageDialog(null, "OK");
-        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "ERRO" + ex);
-        }
-        try {
-            java.sql.PreparedStatement pstUpdate = conex.con.prepareStatement("INSERT INTO paletetemp(\n"
-                    + "             pctpad, lastro, altura, pctavu, totpct, unavu, totparc, \n"
-                    + "            mov_palete, qtd_palete, nota_palete, verifica_principal, stpalete, \n" /// status_palete,
-                    + "            usuario_palete, registro_palete, id_palete)\n"
-                    + "    SELECT  pctpad, lastro, altura, pctavu, totpct, unavu, totparc, \n"
-                    + "       mov_palete, qtd_palete, nota_palete, '0',  stpalete, \n"
-                    + "       usuario_palete, registro_palete, id_palete\n"
-                    + "  FROM palete where mov_palete ='" + SelecaoReferencia_Movimento + "' and stpalete=1 order by idlinha asc ");
-            pstUpdate.execute();// '" + MinhaOs + "' 
-            //  JOptionPane.showMessageDialog(null, "OK");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "ERRO insere" + ex);
-        }
-
-        conex.desconecta();
-    }
-
-    public void CarregaSistemaRepeteUltimo() {
-        conex.conexao();
-        conex.executaSql2("SELECT  id_referencianatureza,id_natureza,stnota,id_nota, id_referencianota,nota_observacao,desc_natureza,tipo_natureza,"
-                + "ecft_nome,ecft_tipo,nota_documento,nota_situacao,nota_nota,nota_chave,nota_hora,nota_data,"
-                + "modalidade, transportadora, motorista, placa, \n"
-                + "       uf, quantidade, especie, numeracao, pesobruto, pesoliquido\n"
-                + " FROM NOTA \n"
-                + "inner join ecft on fornecedorint=sis_ecft \n"
-                + "inner join natureza on naturezaint=id_referencianatureza\n"
-                + "where id_nota is not null and id_nota !=0  " // and
-                + " order by id_nota asc");//id_nota ='" + MinhaIdNota + "'
-        try {
-            conex.rs.last();
-            String DescNatureza = (conex.rs.getString("desc_natureza"));
-            String IdNatureza = (conex.rs.getString("id_referencianatureza"));
-            DescNatureza = DescNatureza + " | " + IdNatureza;
-//            MinhaNaturezaInt = conex.rs.getInt("id_natureza");
-            MinhaNatureza = conex.rs.getString("tipo_natureza");
-            cbNatureza.setSelectedItem(DescNatureza);
-//            jComboBox_Tipo_Fornecedor.setSelectedItem(conex.rs.getString("ecft_tipo"));
-            cbCliente.setSelectedItem(conex.rs.getString("ecft_nome"));
-//            jComboBox_Documento.setSelectedItem(conex.rs.getString("nota_documento"));
-//            jComboBox_Situacao.setSelectedItem(conex.rs.getString("nota_situacao"));
-            String nota_situacao_Visualizar = (conex.rs.getString("nota_situacao"));
-            if (nota_situacao_Visualizar.equals("7-ENTRADA") | nota_situacao_Visualizar.equals("ENTRADA")) {
-                jLabel_Status_Visualizar.setText("      ");
-            } else {
-                jLabel_Status_Visualizar.setText("Status : " + conex.rs.getString("nota_situacao"));
-            }
-            txtNota.setText(conex.rs.getString("nota_nota"));
-            txtChave.setText(conex.rs.getString("nota_chave"));// 
-            txtHora.setText(conex.rs.getString("nota_hora"));
-            String insereData = (conex.rs.getString("nota_data"));
-            try {
-                data = formato.parse(insereData);
-            } catch (ParseException exd) {
-                System.out.println("erro data " + exd);
-            }
-            dataNota.setDate(data);
-        } catch (SQLException ex) {
-            System.out.println("erro  CarregaSistema   " + ex);
-        }
-        conex.desconecta();
-        this.setTitle("Cadastro Movimento [ " + MinhaNatureza + " ] Id Referencia : " + id_referencia);
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
