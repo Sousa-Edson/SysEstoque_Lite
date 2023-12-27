@@ -9,7 +9,10 @@ import ModeloBeans.Beans_Movimento;
 import controller.MovimentoCadastroController;
 import model.Produto;
 import utils.ControleCores;
+import utils.DataHoraAtual;
+import utils.FormatarDinheiro;
 import utils.ManipulaValor;
+import utils.UsuarioLogado;
 import view.internal.MovimentoCadastroJIF;
 
 /**
@@ -43,6 +46,16 @@ public class JDialogComplementar extends javax.swing.JDialog {
         movimento.setId_prod_ent(produto.getId_prod());
         movimento.setValor_moeda(produto.getValor_ex());
         movimento.setValor_real(produto.getValor());
+        movimento.setUsuario_mov(UsuarioLogado.getNome());
+        movimento.setRegistro_mov(DataHoraAtual.obterDataHoraFormatada());
+        movimento.setModo_mov(1);
+        movimento.setStsaldo(1);
+        movimento.setStatus_mov(1);
+
+        movimento.setData_mov("" + DataHoraAtual.obterDataHoraFormatada());
+
+        movimento.setDestino_mov("setDestino_mov");
+        movimento.setVolume("volume");
     }
 
     /**
@@ -258,6 +271,11 @@ public class JDialogComplementar extends javax.swing.JDialog {
         movimento.setQtd_mov(quantidadeDouble);
         movimento.setQtd_prod(quantidadeDouble);
         movimento.setQtd_prod_ex(quantidade);
+
+        movimento.setTotal_mov(FormatarDinheiro.formatarDinheiro(movimento.getValor_real() * movimento.getQtd_prod()));
+
+        movimento.setComplemento_mov(txtComplemento.getText().toUpperCase());
+
         System.out.println("" + movimento.toString());
         MovimentoCadastroController.movimentos.add(movimento);
         this.dispose();
