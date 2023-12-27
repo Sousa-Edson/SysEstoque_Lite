@@ -452,13 +452,13 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel_Texto_Produto1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                          <Component id="jTextField_Busca_Produto_Nota" min="-2" pref="516" max="-2" attributes="0"/>
+                          <Component id="txtBuscarUmProdutoPorNome" min="-2" pref="516" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton_Adicionar_Produto_Nota" linkSize="7" min="-2" pref="55" max="-2" attributes="0"/>
+                          <Component id="btnInserirProduto" linkSize="7" min="-2" pref="55" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton_Fechar_Nota" linkSize="7" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnLimparCampoBuscaProduto" linkSize="7" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton_Excluir_Movimento_Nota" linkSize="7" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnRemoverUmProduto" linkSize="7" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -475,11 +475,11 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextField_Busca_Produto_Nota" linkSize="8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtBuscarUmProdutoPorNome" linkSize="8" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel_Texto_Produto1" linkSize="8" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton_Adicionar_Produto_Nota" linkSize="8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="jButton_Fechar_Nota" linkSize="8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="jButton_Excluir_Movimento_Nota" linkSize="8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="btnInserirProduto" linkSize="8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="btnLimparCampoBuscaProduto" linkSize="8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="btnRemoverUmProduto" linkSize="8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="197" max="32767" attributes="0"/>
                       </Group>
@@ -502,7 +502,7 @@
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton_Adicionar_Produto_Nota">
+                <Component class="javax.swing.JButton" name="btnInserirProduto">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icons/icons8-inserir-20.png"/>
@@ -511,11 +511,11 @@
                     <Property name="toolTipText" type="java.lang.String" value="Inclui Produto"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Adicionar_Produto_NotaActionPerformed"/>
-                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jButton_Adicionar_Produto_NotaKeyPressed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInserirProdutoActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnInserirProdutoKeyPressed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton_Fechar_Nota">
+                <Component class="javax.swing.JButton" name="btnLimparCampoBuscaProduto">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icons/icons8-vassoura-20.png"/>
@@ -524,13 +524,13 @@
                     <Property name="toolTipText" type="java.lang.String" value="Limpa Produto"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Fechar_NotaActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimparCampoBuscaProdutoActionPerformed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton_Excluir_Movimento_Nota">
+                <Component class="javax.swing.JButton" name="btnRemoverUmProduto">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="33" green="33" red="ff" type="rgb"/>
@@ -543,14 +543,14 @@
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Excluir_Movimento_NotaActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoverUmProdutoActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField_Busca_Produto_Nota">
+                <Component class="javax.swing.JTextField" name="txtBuscarUmProdutoPorNome">
                   <Events>
-                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField_Busca_Produto_NotaFocusGained"/>
-                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField_Busca_Produto_NotaFocusLost"/>
-                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField_Busca_Produto_NotaKeyPressed"/>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtBuscarUmProdutoPorNomeFocusGained"/>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtBuscarUmProdutoPorNomeFocusLost"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscarUmProdutoPorNomeKeyPressed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>

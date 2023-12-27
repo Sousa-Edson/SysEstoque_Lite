@@ -15,9 +15,9 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
+import javax.swing.JButton;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -26,22 +26,21 @@ import javax.swing.ListSelectionModel;
  */
 public class JDialogBuscaProduto extends javax.swing.JDialog {
 
-    Principal menu;
     ConexaoBD conex = new ConexaoBD();
 
     int numBusca = 1;
     int selecao;
-    String meu_local;
     String selecao_nome;
     String selecao_id;
-    int ordem = 0;
-    ImageIcon img;
-    int CliqueDuplo;
-    int selecaoB = 0;
 
     public JDialogBuscaProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    public void recebeBusca(String busca) {
+        System.out.println("BUSCA:::" + busca);
+        txtBusca.setText(busca);
     }
 
     /**
@@ -54,12 +53,12 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField_Busca = new javax.swing.JTextField();
+        txtBusca = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable_Produto = new javax.swing.JTable();
-        jButton4 = new javax.swing.JButton();
-        jButton_Limpar = new javax.swing.JButton();
-        jButton_Filtro = new javax.swing.JButton();
+        tabela = new javax.swing.JTable();
+        btnBuscar = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea_MeuTexto = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
@@ -81,13 +80,13 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTextField_Busca.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_BuscaKeyPressed(evt);
+                txtBuscaKeyPressed(evt);
             }
         });
 
-        jTable_Produto.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -98,32 +97,32 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
 
             }
         ));
-        jTable_Produto.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable_ProdutoMouseClicked(evt);
+                tabelaMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable_Produto);
+        jScrollPane1.setViewportView(tabela);
 
-        jButton4.setText("Buscar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton_Limpar.setForeground(new java.awt.Color(255, 51, 51));
-        jButton_Limpar.setText("Limpar");
-        jButton_Limpar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_LimparActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
-        jButton_Filtro.setText("Cadastrar");
-        jButton_Filtro.addActionListener(new java.awt.event.ActionListener() {
+        btnLimpar.setForeground(new java.awt.Color(255, 51, 51));
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_FiltroActionPerformed(evt);
+                btnLimparActionPerformed(evt);
+            }
+        });
+
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
             }
         });
 
@@ -143,13 +142,13 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField_Busca, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_Limpar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_Filtro)
+                        .addComponent(btnCadastrar)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -160,10 +159,10 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_Busca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton_Limpar)
-                    .addComponent(jButton_Filtro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnLimpar)
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -173,7 +172,7 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton_Filtro, jButton_Limpar});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCadastrar, btnLimpar});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -195,76 +194,79 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable_ProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ProdutoMouseClicked
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         if (evt.getButton() == MouseEvent.BUTTON3) {
         } else {
-            String MeuTexto = (String) jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 5);
+            String MeuTexto = (String) tabela.getValueAt(tabela.getSelectedRow(), 5);
             jTextArea_MeuTexto.setText(MeuTexto);
 //            jLabel1.setText("<html>"+MeuTexto+"  </html>");
-            selecao_nome = (String) jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 1);
-            jTextField_Busca.setText(selecao_nome);
-            selecao_id = "" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 7);
-            selecao = (int) jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 0);
+            selecao_nome = (String) tabela.getValueAt(tabela.getSelectedRow(), 1);
+            txtBusca.setText(selecao_nome);
+            selecao_id = "" + tabela.getValueAt(tabela.getSelectedRow(), 7);
+            selecao = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
             System.out.println("selecao_id " + selecao_id);
             PreencheDadosProduto();
-            String SelecaaoSaldo = (String) jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 2);
-            String SelecaaoUnid = (String) jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 3);
+            String SelecaaoSaldo = (String) tabela.getValueAt(tabela.getSelectedRow(), 2);
+            String SelecaaoUnid = (String) tabela.getValueAt(tabela.getSelectedRow(), 3);
 //        jLabel1.setText(selecao_id);
             if (evt.getClickCount() == 2) {
                 try {
-                    selecao = (int) jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 0);
-                    String Frag  = ""+jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 8);
+                    selecao = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
+                    String Frag = "" + tabela.getValueAt(tabela.getSelectedRow(), 8);
 //                    MovimentoCadastroJIF.jTextField_Fragmento_Variavel.setText(Frag);
-                    MovimentoCadastroJIF.jTextField_Busca_Produto_Nota.setText(selecao_nome);
-                    MovimentoCadastroJIF.jLabelMeuSaldoProduto.setText(SelecaaoSaldo + " / " + SelecaaoUnid);
+//                    MovimentoCadastroJIF.jLabelMeuSaldoProduto.setText(SelecaaoSaldo + " / " + SelecaaoUnid);
 //                    MovimentoCadastroJIF.jLabel_IdProduto.setText("" + selecao);
+
+//                    MovimentoCadastroJIF.txtBuscarUmProdutoPorNome.setText(selecao_nome);
+                    MovimentoCadastroJIF.getTxtBuscarUmProdutoPorNomeStatic().setText(selecao_nome);
+                    MovimentoCadastroJIF.setIdProduto(Integer.parseInt(selecao_id));
                     System.out.println("certo ");
                 } catch (Exception e) {
                     System.out.println("erro " + e);
                 }
- jButton_Limpar.doClick();
+                btnLimpar.doClick();
                 this.dispose();
             }
         }
 
 
-    }//GEN-LAST:event_jTable_ProdutoMouseClicked
+    }//GEN-LAST:event_tabelaMouseClicked
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        jTextField_Busca.setText(jTextField_Busca.getText().toUpperCase());
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        txtBusca.setText(txtBusca.getText().toUpperCase());
         if (numBusca == 3) {
             numBusca = 2;
         } else {
             numBusca = 3;
         }
         preencherTabela();
-        jTextField_Busca.requestFocus();
-    }//GEN-LAST:event_jButton4ActionPerformed
+        txtBusca.requestFocus();
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
 
-    private void jButton_LimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LimparActionPerformed
-        jTextField_Busca.setText("");
-        jTextField_Busca.requestFocus();
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        txtBusca.setText("");
+        txtBusca.requestFocus();
         jTextArea_MeuTexto.setText("");
         jLabel1.setText("");
-    }//GEN-LAST:event_jButton_LimparActionPerformed
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         numBusca = 3;
         preencherTabela();
-        jTextField_Busca.requestFocus();
+        txtBusca.requestFocus();
     }//GEN-LAST:event_formWindowGainedFocus
 
-    private void jTextField_BuscaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_BuscaKeyPressed
+    private void txtBuscaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            jTextField_Busca.setText(jTextField_Busca.getText().toUpperCase());
+            txtBusca.setText(txtBusca.getText().toUpperCase());
             if (numBusca == 3) {
                 numBusca = 3;
             } else {
                 numBusca = 2;
             }
             preencherTabela();
-            jTextField_Busca.requestFocus();
+            txtBusca.requestFocus();
         }
 
         if (evt.getKeyCode() == evt.VK_ESCAPE) {
@@ -272,17 +274,17 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
 //             JOptionPane.showMessageDialog(rootPane, "fechar");
         }
 
-    }//GEN-LAST:event_jTextField_BuscaKeyPressed
+    }//GEN-LAST:event_txtBuscaKeyPressed
 
-    private void jButton_FiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_FiltroActionPerformed
-  Principal.jLabelCodigoTela2.setText("novo");
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        Principal.jLabelCodigoTela2.setText("novo");
         Principal.jLabelCodigoTela.setText("CadastroProduto");
         Principal.jButton1.doClick();
- this.dispose();
-    }//GEN-LAST:event_jButton_FiltroActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
- jButton_Limpar.doClick();
+        btnLimpar.doClick();
     }//GEN-LAST:event_formWindowClosing
 
     public void abre_Produtos() {
@@ -292,7 +294,7 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
     }
 
     public void preencherTabela() {
-        String MinhaBusca = jTextField_Busca.getText();
+        String MinhaBusca = txtBusca.getText();
         MinhaBusca = MinhaBusca.replace("Nº ", "");
         MinhaBusca = MinhaBusca.replace("N° ", "");
         MinhaBusca = MinhaBusca.replace("Nº", "");//  N°
@@ -346,8 +348,8 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
                 String FormatoReal = nf.format(df);////conex.rs.getString("saldo_prod")
 
                 dados.add(new Object[]{conex.rs.getInt("sis_prod"), descricao, FormatoReal, conex.rs.getString("sigla_unidade"),
-                    conex.rs.getString("valor_prod_ex"), conex.rs.getString("obs_prod"), conex.rs.getString("data_reg"), conex.rs.getInt("id_prod")
-                        , conex.rs.getInt("fragmento_unidade")
+                    conex.rs.getString("valor_prod_ex"), conex.rs.getString("obs_prod"), conex.rs.getString("data_reg"), conex.rs.getInt("id_prod"),
+                    conex.rs.getInt("fragmento_unidade")
                 });
             } while (conex.rs.next());
             System.out.println("preencherTabela erro ");
@@ -358,30 +360,30 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
 
         ModeloTabela modelo = new ModeloTabela(dados, colunas);
 
-        jTable_Produto.setModel(modelo);
-        jTable_Produto.getColumnModel().getColumn(0).setPreferredWidth(40);
-        jTable_Produto.getColumnModel().getColumn(0).setResizable(false);
-        jTable_Produto.getColumnModel().getColumn(1).setPreferredWidth(330);
-        jTable_Produto.getColumnModel().getColumn(1).setResizable(true);
-        jTable_Produto.getColumnModel().getColumn(2).setPreferredWidth(80);
-        jTable_Produto.getColumnModel().getColumn(2).setResizable(true);
-        jTable_Produto.getColumnModel().getColumn(3).setPreferredWidth(80);
-        jTable_Produto.getColumnModel().getColumn(3).setResizable(true);
-        jTable_Produto.getColumnModel().getColumn(4).setPreferredWidth(80);
-        jTable_Produto.getColumnModel().getColumn(4).setResizable(true);
-        jTable_Produto.getColumnModel().getColumn(5).setPreferredWidth(280);
-        jTable_Produto.getColumnModel().getColumn(5).setResizable(true);
+        tabela.setModel(modelo);
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(40);
+        tabela.getColumnModel().getColumn(0).setResizable(false);
+        tabela.getColumnModel().getColumn(1).setPreferredWidth(330);
+        tabela.getColumnModel().getColumn(1).setResizable(true);
+        tabela.getColumnModel().getColumn(2).setPreferredWidth(80);
+        tabela.getColumnModel().getColumn(2).setResizable(true);
+        tabela.getColumnModel().getColumn(3).setPreferredWidth(80);
+        tabela.getColumnModel().getColumn(3).setResizable(true);
+        tabela.getColumnModel().getColumn(4).setPreferredWidth(80);
+        tabela.getColumnModel().getColumn(4).setResizable(true);
+        tabela.getColumnModel().getColumn(5).setPreferredWidth(280);
+        tabela.getColumnModel().getColumn(5).setResizable(true);
 
-        jTable_Produto.getColumnModel().getColumn(6).setPreferredWidth(80);
-        jTable_Produto.getColumnModel().getColumn(6).setResizable(true);
-        jTable_Produto.getColumnModel().getColumn(7).setPreferredWidth(80);
-        jTable_Produto.getColumnModel().getColumn(7).setResizable(true);
-         jTable_Produto.getColumnModel().getColumn(8).setPreferredWidth(80);
-        jTable_Produto.getColumnModel().getColumn(8).setResizable(true);
+        tabela.getColumnModel().getColumn(6).setPreferredWidth(80);
+        tabela.getColumnModel().getColumn(6).setResizable(true);
+        tabela.getColumnModel().getColumn(7).setPreferredWidth(80);
+        tabela.getColumnModel().getColumn(7).setResizable(true);
+        tabela.getColumnModel().getColumn(8).setPreferredWidth(80);
+        tabela.getColumnModel().getColumn(8).setResizable(true);
 
-        jTable_Produto.getTableHeader().setReorderingAllowed(false);
-        jTable_Produto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        jTable_Produto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabela.getTableHeader().setReorderingAllowed(false);
+        tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         conex.desconecta();
 
@@ -409,8 +411,8 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
                 fornecedor = " " + conex.rs.getString("ecft_nome");
                 fornecedor = " Fornecedor/Cliente " + fornecedor;
                 System.out.println("selecao--- ok ");
-            } catch (Exception e) {
-                System.out.println("selecao--- erro " + e);
+            } catch (SQLException e) {
+                System.out.println("selecao--- erro " + e.getMessage());
                 fornecedor = "";
             }
             jLabel1.setText("<html>&nbsp; &nbsp;Registrado : " + registro + "" + fornecedor + "<br>&nbsp; &nbsp;Ncm : " + ncm + "  Cfop : " + cfop + "<br>&nbsp; &nbsp; Usuario : " + usu_prod + "  </html>");
@@ -423,11 +425,10 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
     }
 
     public void recebe_nome(String nome) {
-        jTextField_Busca.setText(nome);
+        txtBusca.setText(nome);
     }
 
     public void recebe_local(String local) {
-        meu_local = (local);
     }
 
     /**
@@ -608,19 +609,36 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton_Filtro;
-    private javax.swing.JButton jButton_Limpar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable_Produto;
     private javax.swing.JTextArea jTextArea_MeuTexto;
-    public static javax.swing.JTextField jTextField_Busca;
+    private javax.swing.JTable tabela;
+    public static javax.swing.JTextField txtBusca;
     // End of variables declaration//GEN-END:variables
 
-    private ImageIcon createImageIcon(String imagesstock_stoppng, String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public JButton getBtnBuscar() {
+        return btnBuscar;
     }
+
+    public JButton getBtnCadastrar() {
+        return btnCadastrar;
+    }
+
+    public JButton getBtnLimpar() {
+        return btnLimpar;
+    }
+
+    public JTable getTabela() {
+        return tabela;
+    }
+
+    public JTextField getTxtBusca() {
+        return txtBusca;
+    }
+
 }

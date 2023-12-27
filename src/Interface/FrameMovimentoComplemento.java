@@ -8,7 +8,7 @@ package Interface;
 import ConectaBanco.ConexaoBD;
 import Consulta.JDialogBuscaProduto;
 import Consulta.JDialogBuscaProduto2;
-import Consulta.JDialogComplementar;
+import view.dialog.JDialogComplementar;
 import Consulta.JDialogComplementar2; 
 import ModeloBeans.BeansPalete;
 import ModeloBeans.Beans_Movimento;

@@ -7,12 +7,11 @@
 package view.internal;
 
 import Interface.Principal;
-import Consulta.JDialogBuscaProduto;
-import Consulta.JDialogComplementar;
 import ModeloBeans.Beans_Nota;
 import ModeloBeans.ModeloTabela;
 import ConectaBanco.ConexaoBD;
 import Consulta.JDialogAuxilioChave;
+import ModeloBeans.Beans_Movimento;
 import ModeloDao.Dao_Nota;
 import ModeloDao.Dao_Transporte;
 import ModeloBeans.Beans_Transporte;
@@ -27,6 +26,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -34,7 +34,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.Cliente;
 import model.Natureza;
-import utils.DataHoraAtual;
 
 /**
  *
@@ -43,8 +42,6 @@ import utils.DataHoraAtual;
 /// pree
 public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
-    ConexaoBD conex_Fornecedor = new ConexaoBD();
-    ConexaoBD conex_Natureza = new ConexaoBD();
     ConexaoBD conex_MeuTotal = new ConexaoBD();
     ConexaoBD conex_Transporte = new ConexaoBD();
 
@@ -62,8 +59,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     Dao_Transporte daot = new Dao_Transporte();
 
     Principal menu;
-    JDialogComplementar Complementar = new JDialogComplementar(menu, rootPaneCheckingEnabled);
-    JDialogBuscaProduto BP = new JDialogBuscaProduto(menu, rootPaneCheckingEnabled);
+
 //DialogCalculado CC = new JDialogCalculado(menu, rootPaneCheckingEnabled);
     int id_referencia;
     int id_nota;
@@ -78,7 +74,9 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     int ComboFocu = 0;
     int ComboFocuNatureza = 0;
 
+    private static int idProduto = 0;
     MovimentoCadastroController movimentoCadastroController;
+    public static List<Beans_Movimento> movimentos;
 
     /**
      * Creates new form MovimentoJIF
@@ -91,80 +89,10 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         movimentoCadastroController.carregarNatureza(this);
         movimentoCadastroController.carregarCliente(this);
 
+        movimentos = new ArrayList<>();
+
     }
 
-//    
-//
-//    public void BuscaProdutoDescricao() {
-//        Id_Prod_Ent = (0);
-//        jLabel_IdProduto.setText("0");
-//        String FormatoReal = null;
-//        String descricao;
-//        String edicao;
-//
-//        String MinhaBusca = (jTextField_Busca_Produto_Nota.getText());
-//        MinhaBusca = MinhaBusca.replace("Nº ", "");
-//        MinhaBusca = MinhaBusca.replace("N° ", "");
-//        MinhaBusca = MinhaBusca.replace("Nº", "");//  N°
-//        MinhaBusca = MinhaBusca.replace("N°", "");
-//        System.out.println("MinhaBusca " + MinhaBusca);
-//        int Id_Prod_comparar;
-//        conex.conexao();
-//        conex.executaSql("select * from produto inner join unidade on  idunid=id_unidade where   (coalesce((sis_prod)) ||' '||coalesce((tipo_prod))||' '||coalesce((nome_prod))||' '||coalesce((edicao_prod))) ilike '%" + MinhaBusca + "%' and stprod=1  order by id_prod asc");
-//        try {
-//            conex.rs.last();/// un_prod
-//            String SelecaaoSaldo = (conex.rs.getString("saldo_prod"));
-//            System.out.println("Interface.Movimento.MovimentoJIFAlterado.BuscaProdutoId()    A\n " + SelecaaoSaldo);
-//            if (SelecaaoSaldo == null | SelecaaoSaldo.equals("null")) {
-//                SelecaaoSaldo = "0";
-//                System.out.println("saldo null");
-//            } else {
-//                SelecaaoSaldo = SelecaaoSaldo.replace(".", ".").replace(",", ".");
-//                System.out.println("saldo certo");
-//                Double num4 = Double.parseDouble(String.valueOf(SelecaaoSaldo));
-//                BigDecimal df = new BigDecimal(num4);
-//                NumberFormat nf = NumberFormat.getInstance();
-////                 nf.setMinimumFractionDigits(3);
-//                nf.setMaximumFractionDigits(4);
-//                FormatoReal = nf.format(df);
-//            }
-//
-//            System.out.println("BuscaProdutoDescricao OK " + " " + FormatoReal);
-//            String SelecaaoUnid = (conex.rs.getString("sigla_unidade"));
-//            jLabelMeuSaldoProduto.setText(FormatoReal + " / " + SelecaaoUnid);
-//            ValorMoeda = (conex.rs.getString("valor_prod_ex"));
-//            ValorReal = (Double.parseDouble(conex.rs.getString("valor_prod")));
-//            Id_Prod_Ent = (Integer.parseInt(conex.rs.getString("sis_prod")));
-//            edicao = conex.rs.getString("edicao_prod");
-//
-//            if (edicao.equals(null) | edicao.equals("") | edicao.equals(" ")) {
-//                edicao = "";
-//            } else {
-//                edicao = " N° " + edicao;
-//            }
-//
-//            descricao = " " + conex.rs.getString("tipo_prod") + " " + conex.rs.getString("nome_prod") + edicao;
-//            descricao = descricao.toUpperCase();
-//            System.out.println("BuscaProdutoDescricao OK " + " " + descricao);
-//            conex.rs.first();
-//            Id_Prod_comparar = (Integer.parseInt(conex.rs.getString("sis_prod")));
-//            if (Id_Prod_comparar == Id_Prod_Ent) {
-//                jLabel_IdProduto.setText(String.valueOf(Id_Prod_Ent));
-//                jTextField_Busca_Produto_Nota.setText(descricao);
-//                System.out.println(" BuscaProdutoDescricao() " + "É igual");
-//            } else {
-//                System.out.println(" BuscaProdutoDescricao() " + "Não é igual");
-//                BP.recebe_nome(MinhaBusca);
-//                jLabelMeuSaldoProduto.setText("");
-//                BP.setVisible(true);
-//            }
-//        } catch (SQLException ex) {
-//            System.out.println(" BuscaProdutoDescricao() " + ex);
-//
-//        }
-//        conex.desconecta();
-//
-//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -195,10 +123,10 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         pnDados = new javax.swing.JPanel();
         jLabel_Texto_Produto1 = new javax.swing.JLabel();
-        jButton_Adicionar_Produto_Nota = new javax.swing.JButton();
-        jButton_Fechar_Nota = new javax.swing.JButton();
-        jButton_Excluir_Movimento_Nota = new javax.swing.JButton();
-        jTextField_Busca_Produto_Nota = new javax.swing.JTextField();
+        btnInserirProduto = new javax.swing.JButton();
+        btnLimparCampoBuscaProduto = new javax.swing.JButton();
+        btnRemoverUmProduto = new javax.swing.JButton();
+        txtBuscarUmProdutoPorNome = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableListaProduto_Nota = new javax.swing.JTable();
         pnTransporte = new javax.swing.JPanel();
@@ -508,51 +436,51 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
         jLabel_Texto_Produto1.setText("Produto :");
 
-        jButton_Adicionar_Produto_Nota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-inserir-20.png"))); // NOI18N
-        jButton_Adicionar_Produto_Nota.setText("Inserir");
-        jButton_Adicionar_Produto_Nota.setToolTipText("Inclui Produto");
-        jButton_Adicionar_Produto_Nota.addActionListener(new java.awt.event.ActionListener() {
+        btnInserirProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-inserir-20.png"))); // NOI18N
+        btnInserirProduto.setText("Inserir");
+        btnInserirProduto.setToolTipText("Inclui Produto");
+        btnInserirProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_Adicionar_Produto_NotaActionPerformed(evt);
+                btnInserirProdutoActionPerformed(evt);
             }
         });
-        jButton_Adicionar_Produto_Nota.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnInserirProduto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jButton_Adicionar_Produto_NotaKeyPressed(evt);
+                btnInserirProdutoKeyPressed(evt);
             }
         });
 
-        jButton_Fechar_Nota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-vassoura-20.png"))); // NOI18N
-        jButton_Fechar_Nota.setText("Limpar");
-        jButton_Fechar_Nota.setToolTipText("Limpa Produto");
-        jButton_Fechar_Nota.addActionListener(new java.awt.event.ActionListener() {
+        btnLimparCampoBuscaProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-vassoura-20.png"))); // NOI18N
+        btnLimparCampoBuscaProduto.setText("Limpar");
+        btnLimparCampoBuscaProduto.setToolTipText("Limpa Produto");
+        btnLimparCampoBuscaProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_Fechar_NotaActionPerformed(evt);
+                btnLimparCampoBuscaProdutoActionPerformed(evt);
             }
         });
 
-        jButton_Excluir_Movimento_Nota.setForeground(new java.awt.Color(255, 51, 51));
-        jButton_Excluir_Movimento_Nota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-remover-20.png"))); // NOI18N
-        jButton_Excluir_Movimento_Nota.setText("Excluir");
-        jButton_Excluir_Movimento_Nota.setToolTipText("Exclui Produto");
-        jButton_Excluir_Movimento_Nota.setEnabled(false);
-        jButton_Excluir_Movimento_Nota.addActionListener(new java.awt.event.ActionListener() {
+        btnRemoverUmProduto.setForeground(new java.awt.Color(255, 51, 51));
+        btnRemoverUmProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-remover-20.png"))); // NOI18N
+        btnRemoverUmProduto.setText("Excluir");
+        btnRemoverUmProduto.setToolTipText("Exclui Produto");
+        btnRemoverUmProduto.setEnabled(false);
+        btnRemoverUmProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_Excluir_Movimento_NotaActionPerformed(evt);
+                btnRemoverUmProdutoActionPerformed(evt);
             }
         });
 
-        jTextField_Busca_Produto_Nota.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtBuscarUmProdutoPorNome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField_Busca_Produto_NotaFocusGained(evt);
+                txtBuscarUmProdutoPorNomeFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField_Busca_Produto_NotaFocusLost(evt);
+                txtBuscarUmProdutoPorNomeFocusLost(evt);
             }
         });
-        jTextField_Busca_Produto_Nota.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtBuscarUmProdutoPorNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_Busca_Produto_NotaKeyPressed(evt);
+                txtBuscarUmProdutoPorNomeKeyPressed(evt);
             }
         });
 
@@ -585,13 +513,13 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel_Texto_Produto1)
                 .addGap(8, 8, 8)
-                .addComponent(jTextField_Busca_Produto_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtBuscarUmProdutoPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton_Adicionar_Produto_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnInserirProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton_Fechar_Nota)
+                .addComponent(btnLimparCampoBuscaProduto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton_Excluir_Movimento_Nota)
+                .addComponent(btnRemoverUmProduto)
                 .addContainerGap())
             .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnDadosLayout.createSequentialGroup()
@@ -600,18 +528,18 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
                     .addContainerGap()))
         );
 
-        pnDadosLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton_Adicionar_Produto_Nota, jButton_Excluir_Movimento_Nota, jButton_Fechar_Nota});
+        pnDadosLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnInserirProduto, btnLimparCampoBuscaProduto, btnRemoverUmProduto});
 
         pnDadosLayout.setVerticalGroup(
             pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnDadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_Busca_Produto_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscarUmProdutoPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_Texto_Produto1)
-                    .addComponent(jButton_Adicionar_Produto_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_Fechar_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_Excluir_Movimento_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnInserirProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimparCampoBuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRemoverUmProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(197, Short.MAX_VALUE))
             .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnDadosLayout.createSequentialGroup()
@@ -620,7 +548,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
                     .addContainerGap()))
         );
 
-        pnDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton_Adicionar_Produto_Nota, jButton_Excluir_Movimento_Nota, jButton_Fechar_Nota, jLabel_Texto_Produto1, jTextField_Busca_Produto_Nota});
+        pnDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnInserirProduto, btnLimparCampoBuscaProduto, btnRemoverUmProduto, jLabel_Texto_Produto1, txtBuscarUmProdutoPorNome});
 
         jTabbedPane1.addTab("Dados", pnDados);
 
@@ -1018,791 +946,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-//    public void LimpaCampoProduto() {
-//        Id_Prod_Ent = 0;
-//        jTextField_Busca_Produto_Nota.setText(null);
-//        jTextField_Quantidade_Nota.setText(null);
-//        jTextField_Busca_Produto_Nota.requestFocus();
-//        jLabel_IdProduto.setText("0");
-//        jLabel_Calculado.setText("");
-//        jLabel_Complemento.setText("");
-//        jLabel_Setor.setText("");
-//        jTextField_Busca_Produto_Nota.setBackground(Color.white);
-//        jTextField_Quantidade_Nota.setBackground(Color.white);
-//        PreencherTabela();
-//    }
-//
-//    public void BotaoAdicionarProduto() {
-//        String s = jTextField_Busca_Produto_Nota.getText();
-//        String q = jTextField_Quantidade_Nota.getText();
-//        if (jLabel_IdProduto.getText().equals("0")) {
-//            if (s.matches("^[0-9]*$")) {
-//                jLabel_IdProduto.setText(jTextField_Busca_Produto_Nota.getText());
-//            } else {
-//
-//            }
-//        } else {
-//        }
-//        if (jLabel_IdProduto.getText().equals("0") | jLabel_IdProduto.getText().equals("") | jLabel_IdProduto.getText().equals(null)) { /// |jLabel_IdProduto.getText() == ""
-//            JOptionPane.showMessageDialog(rootPane, "if");
-//        } else {
-//            BuscaProdutoId();
-//            if (jTextField_Quantidade_Nota.getText().equals("")
-//                    | jTextField_Quantidade_Nota.getText().equals(" ")
-//                    | jTextField_Quantidade_Nota.getText().equals(null)) {
-//                jTextField_Quantidade_Nota.requestFocus();
-//                jTextField_Quantidade_Nota.setBackground(Color.red);
-//            } else {
-//                jTextField_Quantidade_Nota.setBackground(null);
-//                jTextField_Quantidade_Nota.setText(jTextField_Quantidade_Nota.getText().replace(" ", ""));
-//                q = jTextField_Quantidade_Nota.getText();
-//                if (q.matches("^[0-9,.]*$")) {
-//                    System.out.println("Interface.Movimento.MovimentoJIF.jButton_Adicionar_Produto_NotaActionPerformed()" + Referencia_Movimento);
-//                    EventoCalculaQuantidade_X_Valor();
-//                    BotaoSalvarMovimento();
-//                    LimpaCampoProduto();
-//                } else {
-//                    jTextField_Quantidade_Nota.requestFocus();
-//                    jTextField_Quantidade_Nota.setBackground(Color.red);
-//                }
-//            }
-//        }
-//        PreencherTabela();
-//
-//    }
-//    public void PreencherTabela() {
-//        PreencherTabelaMovimento();
-//        PreencherTabelaComplemento();
-//        PreencherTabelaProdutoPalete();
-//    }
-//    public void PreencherTabelaMovimento() {
-//        jLabelMeuSaldoProduto.setText("");
-//        ArrayList dados = new ArrayList();
-//        String[] colunas = new String[]{"Item", "Id", "Descrição", "Unid", "Qtd", "Calc", "V.Unit", "V.Total", ""};// "Usuario", "Registro"
-//        conexTabela.conexao();
-//        conexTabela.executaSql2("SELECT * FROM movproduto inner join produto on id_prod_ent=sis_prod \n"
-//                + " inner join unidade on idunid= id_unidade where nota_mov='" + id_referencia + "' and modo_mov='1' "
-//                + "and stprod = 1 and stmovimento=1 or stmovimento=4  order by id_mov asc ");
-//        try {
-//            conexTabela.rs.first();
-//            do {
-//                String descricao;
-//                String edicao;
-//                String texto_movimento;
-//                edicao = conexTabela.rs.getString("edicao_prod");
-//                if (edicao.equals(null) | edicao.equals("") | edicao.equals(" ")) {
-//                    edicao = "";
-//                } else {
-//                    edicao = " N° " + edicao;
-//                }
-//                descricao = " " + conexTabela.rs.getString("tipo_prod") + " " + conexTabela.rs.getString("nome_prod") + edicao;
-//                descricao = descricao.toUpperCase();
-//                texto_movimento = "" + descricao + "  " + conexTabela.rs.getString("complemento_mov") + "  " + conexTabela.rs.getString("destino_mov");;
-//                dados.add(new Object[]{
-//                    conexTabela.rs.getInt("id_mov"), conexTabela.rs.getInt("id_prod_ent"), texto_movimento, conexTabela.rs.getString("sigla_unidade"),
-//                    conexTabela.rs.getString("qtd_prod_ex"), conexTabela.rs.getString("qtd_calc_ex"), conexTabela.rs.getString("valor_moeda"),
-//                    conexTabela.rs.getString("total_mov"), conexTabela.rs.getString("sistema_mov")});
-//            } while (conexTabela.rs.next());
-//            System.out.println("preencher tabela ok");
-//        } catch (SQLException ex) {
-//            System.out.println("erro tabela\n" + ex);
-//        }
-//        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-//
-//        jTableListaProduto_Nota.setModel(modelo);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(0).setPreferredWidth(40);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(0).setResizable(true);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(1).setPreferredWidth(40);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(1).setResizable(true);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(2).setPreferredWidth(550);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(2).setResizable(true);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(3).setPreferredWidth(60);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(3).setResizable(true);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(4).setPreferredWidth(60);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(4).setResizable(true);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(5).setPreferredWidth(60);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(5).setResizable(true);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(6).setPreferredWidth(80);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(6).setResizable(true);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(7).setPreferredWidth(120);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(7).setResizable(true);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(8).setPreferredWidth(00);
-//        jTableListaProduto_Nota.getColumnModel().getColumn(8).setResizable(true);
-//        jTableListaProduto_Nota.getTableHeader().setReorderingAllowed(false);
-//        jTableListaProduto_Nota.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//        jTableListaProduto_Nota.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        conexTabela.desconecta();
-//    }
-//
-//    public void PreencherTabelaComplemento() {
-//
-//        ArrayList dados = new ArrayList();
-//        String[] colunas = new String[]{"Item", "Id", "Descrição", "Unid", "Qtd", "Calc", "V.Unit", "V.Total", ""};// "Usuario", "Registro"
-//        conexTabela.conexao();
-//        conexTabela.executaSql2("SELECT * FROM movproduto \n"
-//                + " inner join produto on id_prod_ent=sis_prod \n"
-//                + " inner join unidade on idunid= id_unidade\n"
-//                + "where nota_mov='" + id_referencia + "'\n"
-//                + "  and stprod = 1 and modo_mov='2'  and stmovimento=1 or stmovimento=4 order by id_mov asc ");
-//        try {
-//            conexTabela.rs.first();
-//            do {
-//                String descricao;
-//                String edicao;
-//                String texto_movimento;
-//                edicao = conexTabela.rs.getString("edicao_prod");
-//                if (edicao.equals(null) | edicao.equals("") | edicao.equals(" ")) {
-//                    edicao = "";
-//                } else {
-//                    edicao = " N° " + edicao;
-//                }
-//                descricao = " " + conexTabela.rs.getString("tipo_prod") + " " + conexTabela.rs.getString("nome_prod") + edicao;
-//                descricao = descricao.toUpperCase();
-//                texto_movimento = "" + descricao + "  " + conexTabela.rs.getString("complemento_mov") + "  " + conexTabela.rs.getString("destino_mov");;
-//                dados.add(new Object[]{
-//                    conexTabela.rs.getInt("id_mov"), conexTabela.rs.getInt("id_prod_ent"), texto_movimento, conexTabela.rs.getString("sigla_unidade"),
-//                    conexTabela.rs.getString("qtd_prod_ex"), conexTabela.rs.getString("qtd_calc_ex"), conexTabela.rs.getString("valor_moeda"),
-//                    conexTabela.rs.getString("total_mov"), conexTabela.rs.getString("sistema_mov")});
-//            } while (conexTabela.rs.next());
-//            System.out.println("preencher tabela ok");
-//        } catch (SQLException ex) {
-//            System.out.println("erro tabela\n" + ex);
-//        }
-//        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-//
-//        jTableListaProduto_Complemento.setModel(modelo);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(0).setPreferredWidth(40);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(0).setResizable(true);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(1).setPreferredWidth(40);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(1).setResizable(true);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(2).setPreferredWidth(550);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(2).setResizable(true);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(3).setPreferredWidth(60);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(3).setResizable(true);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(4).setPreferredWidth(60);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(4).setResizable(true);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(5).setPreferredWidth(60);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(5).setResizable(true);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(6).setPreferredWidth(80);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(6).setResizable(true);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(7).setPreferredWidth(120);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(7).setResizable(true);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(8).setPreferredWidth(00);
-//        jTableListaProduto_Complemento.getColumnModel().getColumn(8).setResizable(true);
-//        jTableListaProduto_Complemento.getTableHeader().setReorderingAllowed(false);
-//        jTableListaProduto_Complemento.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//        jTableListaProduto_Complemento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        conexTabela.desconecta();
-//    }
-//
-//    public void PreencherTabelaProdutoPalete() {
-//        BloqueiaCamposPalete();
-//        ArrayList dados = new ArrayList();
-//        String[] colunas = new String[]{"Item", "Descrição", "Unid", "Qtd", ""};
-//        conexTabela.conexao();
-//        conexTabela.executaSql2(""
-//                + "SELECT * FROM movproduto \n"
-//                + " inner join produto on id_prod_ent=sis_prod \n"
-//                + " inner join unidade on idunid= id_unidade\n"
-//                + "where nota_mov='" + id_referencia + "'\n"
-//                + "and modo_mov='1' and stprod = 1  and stmovimento=1 or stmovimento=4 order by id_mov asc ");
-//        try {
-//            conexTabela.rs.first();
-//            do {
-//                String descricao;
-//                String edicao;
-//                String texto_movimento;
-//                edicao = conexTabela.rs.getString("edicao_prod");
-//                if (edicao.equals(null) | edicao.equals("") | edicao.equals(" ")) {
-//                    descricao = conexTabela.rs.getString("tipo_prod") + " " + conexTabela.rs.getString("nome_prod");
-//                } else {
-//                    descricao = conexTabela.rs.getString("tipo_prod") + " " + conexTabela.rs.getString("nome_prod") + " " + conexTabela.rs.getString("edicao_prod");
-//                }
-//                texto_movimento = "" + descricao + "  " + conexTabela.rs.getString("complemento_mov") + "  " + conexTabela.rs.getString("destino_mov");;
-//                dados.add(new Object[]{
-//                    conexTabela.rs.getInt("id_mov"), texto_movimento, conexTabela.rs.getString("sigla_unidade"),
-//                    conexTabela.rs.getString("qtd_prod_ex"), conexTabela.rs.getString("sistema_mov")});
-//            } while (conexTabela.rs.next()); ///// total_mov     usuario_mov
-//            System.out.println("PreencherTabelaProdutoPalete ok");
-//        } catch (SQLException ex) {
-//            System.out.println("PreencherTabelaProdutoPalete erro " + ex);
-//        }
-//        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-//
-//        jTableListaProduto_Palete_Produto.setModel(modelo);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(0).setPreferredWidth(40);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(0).setResizable(true);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(1).setPreferredWidth(530);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(1).setResizable(true);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(2).setPreferredWidth(60);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(2).setResizable(true);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(3).setPreferredWidth(60);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(3).setResizable(true);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(4).setPreferredWidth(00);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(4).setResizable(true);
-//        jTableListaProduto_Palete_Produto.getTableHeader().setReorderingAllowed(false);
-//        jTableListaProduto_Palete_Produto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//        jTableListaProduto_Palete_Produto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//
-//        conexTabela.desconecta();
-//
-//    }
-//
-//    public void PreencherTabelaProdutoPalete_2() {
-//        String Sistema_mov_para_palete = "" + jTableListaProduto_Palete_Produto.getValueAt(jTableListaProduto_Palete_Produto.getSelectedRow(), 4);
-//        System.out.println("Interface.MovimentoCadastroJIF.PreencherTabelaProdutoPalete_2()    +Sistema_mov_para_palete " + Sistema_mov_para_palete);
-////        BloqueiaCamposPalete();
-//        ArrayList dados = new ArrayList();
-//        String[] colunas = new String[]{"Item", "Descrição", "Unid", "Qtd", ""};
-//        conexTabela.conexao();
-//        conexTabela.executaSql2(""
-//                + "SELECT * FROM movproduto \n"
-//                + " inner join produto on id_prod_ent=sis_prod \n"
-//                + " inner join unidade on idunid= id_unidade\n"
-//                + "where nota_mov='" + id_referencia + "'\n"
-//                + " and modo_mov='1' and stprod = 1 and sistema_mov = '" + SelecaoReferencia_Movimento + "' and stmovimento=1 or stmovimento=4  order by id_mov asc ");
-//        try {
-//            conexTabela.rs.first();
-//            do {
-//                String descricao;
-//                String edicao;
-//                String texto_movimento;
-//                edicao = conexTabela.rs.getString("edicao_prod");
-//                if (edicao.equals(null) | edicao.equals("") | edicao.equals(" ")) {
-//                    descricao = conexTabela.rs.getString("tipo_prod") + " " + conexTabela.rs.getString("nome_prod");
-//                } else {
-//                    descricao = conexTabela.rs.getString("tipo_prod") + " " + conexTabela.rs.getString("nome_prod") + " " + conexTabela.rs.getString("edicao_prod");
-//                }
-//                texto_movimento = "" + descricao + "  " + conexTabela.rs.getString("complemento_mov") + "  " + conexTabela.rs.getString("destino_mov");;
-//                dados.add(new Object[]{
-//                    conexTabela.rs.getInt("id_mov"), texto_movimento, conexTabela.rs.getString("sigla_unidade"),
-//                    conexTabela.rs.getString("qtd_prod_ex"), conexTabela.rs.getString("sistema_mov")});
-//            } while (conexTabela.rs.next()); ///// total_mov     usuario_mov
-//            System.out.println("PreencherTabelaProdutoPalete ok   77777777777 ");
-//        } catch (SQLException ex) {
-//            System.out.println("PreencherTabelaProdutoPalete erro  77777777777 " + ex);
-//        }
-//        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-//
-//        jTableListaProduto_Palete_Produto.setModel(modelo);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(0).setPreferredWidth(40);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(0).setResizable(true);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(1).setPreferredWidth(230);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(1).setResizable(true);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(2).setPreferredWidth(60);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(2).setResizable(true);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(3).setPreferredWidth(60);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(3).setResizable(true);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(4).setPreferredWidth(00);
-//        jTableListaProduto_Palete_Produto.getColumnModel().getColumn(4).setResizable(true);
-//        jTableListaProduto_Palete_Produto.getTableHeader().setReorderingAllowed(false);
-//        jTableListaProduto_Palete_Produto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//        jTableListaProduto_Palete_Produto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//
-//        conexTabela.desconecta();
-//
-//    }
-//
-//    public void EventoUptadeMovimento() {
-//        conex.conexao();
-//        try {
-//            if (MinhaNatureza == "ENTRADA") {
-//                java.sql.PreparedStatement pst = conex.con.prepareStatement(" UPDATE movproduto SET qtd_mov=qtd_prod  WHERE sistema_mov='" + Referencia_Movimento + "'");
-//                pst.execute();
-//            } else if (MinhaNatureza == "SAIDA") {
-//                java.sql.PreparedStatement pst = conex.con.prepareStatement(" UPDATE movproduto   SET qtd_mov=-qtd_mov WHERE sistema_mov='" + Referencia_Movimento + "'");
-//                pst.execute();
-//            } else {
-//                JOptionPane.showMessageDialog(null, "ERRO movproduto");
-//            }
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Erro ao Alterar\n" + ex);
-//        }
-//        conex.desconecta();
-//    }
-//
-//    public void BotaoSalvarMovimento() {
-//        if (FlagAlterar == 1) {
-//            Mbeans.setStatus_mov(2);
-//            int refint = Integer.parseInt(Referencia_Movimento);
-//            Mbeans.setId_mov((refint));
-//            System.out.println("Referencia_Movimento    -               " + Referencia_Movimento);
-//            Mbeans.setIntmodotbl(0);
-//            Mdao.AlterarMovProduto(Mbeans);
-//            FlagAlterar = 0;
-//            System.out.println("Alterar2    OK");
-//        } else {
-//            System.out.println("Referencia_Movimento=MenuPrincipal.jLabel_Movendo.getText();" + Referencia_Movimento);
-//            verificador01 = verificador01 + 1;
-//            System.out.println("verificador01  --  " + verificador01);
-//        }
-//        Mbeans.setId_prod_ent(Id_Prod_Ent);
-//        Mbeans.setData_mov(Principal.jLabel_Data.getText());///// refe
-//        Mbeans.setNota_mov(id_referencia);
-//        Referencia_Movimento = Principal.jLabel_Data2.getText() + Principal.jLabel_Hora.getText() + id_referencia;
-//        Referencia_Movimento = Referencia_Movimento.replace("/", "").replace(":", "").replace(" ", "");
-//        Referencia_Movimento = Referencia_Movimento + verificador01;
-//        Mbeans.setSistema_mov((Referencia_Movimento));
-//        System.out.println("Referencia_Movimento " + Referencia_Movimento);
-//
-//        String MinhaQtdMov = (jTextField_Quantidade_Nota.getText());
-//        MinhaQtdMov = MinhaQtdMov.replace(",", ".");
-//        if (MinhaNatureza == "ENTRADA") {
-//            Mbeans.setQtd_mov(Double.parseDouble(MinhaQtdMov));
-//        } else if (MinhaNatureza == "SAIDA") {
-//            Mbeans.setQtd_mov((Double.parseDouble("-" + MinhaQtdMov)));
-//        } else {
-//            Mbeans.setQtd_mov(Double.parseDouble(MinhaQtdMov));
-//        }
-//
-//        Mbeans.setQtd_prod(Double.parseDouble(MinhaQtdMov));
-//        Mbeans.setQtd_prod_ex((jTextField_Quantidade_Nota.getText()));
-//        if (jLabel_Calculado.getText() == "") {
-//            jLabel_Calculado.setText(jTextField_Quantidade_Nota.getText());
-//        } else {
-//        }
-//        String MinhaQtdCalc = (jLabel_Calculado.getText());
-//        MinhaQtdCalc = MinhaQtdCalc.replace(",", ".");
-//        Mbeans.setQtd_calc(Double.parseDouble(MinhaQtdCalc));
-//        Mbeans.setQtd_calc_ex((jLabel_Calculado.getText()));
-//        Mbeans.setValor_real((ValorReal));
-//        Mbeans.setValor_moeda(ValorMoeda);
-//        Mbeans.setDestino_mov((jLabel_Setor.getText()));
-//        jLabel_Complemento.setText(jLabel_Complemento.getText().toUpperCase());
-//        Mbeans.setComplemento_mov((jLabel_Complemento.getText()));
-//        Mbeans.setRegistro_mov(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
-//        Mbeans.setStatus_mov(1);
-//        Mbeans.setVolume("VOL");
-//        Mbeans.setUsuario_mov(Principal.jLabelNomeUsuario.getText());
-//        Mbeans.setModo_mov(1);// PRIMARIO
-//        Mbeans.setTotal_mov(resultado_Calculo_Formatado);// TOTAL
-//        Mbeans.setIntmodotbl(1);
-//        Mdao.SalvarMovProduto(Mbeans);
-//
-//    }
-//
-//    public void EventoCalculaQuantidade_X_Valor() {
-//
-//        try {
-//            double soma, num1 = 0, num2 = 0;
-//            num1 = Double.parseDouble(jTextField_Quantidade_Nota.getText().replace(",", "."));
-//            num2 = (ValorReal);
-//            soma = num1 * num2;
-//            String resultado = String.valueOf(soma);
-//            resultado_Calculo_Valor = (resultado);
-//            BigDecimal valor = new BigDecimal(resultado_Calculo_Valor);
-//            NumberFormat nf = NumberFormat.getCurrencyInstance();
-//            String formatado = nf.format(valor);
-//            resultado_Calculo_Formatado = (formatado); //            
-//        } catch (Exception erro) {
-//            JOptionPane.showMessageDialog(null, "   erro:\n verifique\n " + erro);
-//        }
-//    }
-//
-//    public void PreencheDadosAlterar() {
-//        String IdAlterar = jLabel_IdMovimento.getText();
-//        System.out.println("************************ " + IdAlterar);
-//        String descricao;
-//        String edicao;
-//        String FormatoReal = null;
-//        Id_Prod_Ent = Integer.parseInt(jLabel_IdProduto.getText());
-//
-//        conex_Movimento.conexao();
-//        conex_Movimento.executaSql(""
-//                + "SELECT * FROM movproduto  inner join produto on id_prod_ent=sis_prod \n"
-//                + "inner join unidade on  idunid=id_unidade where id_mov ='" + IdAlterar + "'and stprod=1 and stmovimento=1 \n"
-//                + " order by id_mov asc"
-//                + ""
-//                + "");
-//        try {
-//            conex_Movimento.rs.last();
-//            String Fragmento_Variavel;
-//            int Fragmento_Variavel_Int = (conex_Movimento.rs.getInt("fragmento_unidade"));
-//            if (Fragmento_Variavel_Int == 1) {
-//                Fragmento_Variavel = "1";
-//            } else {
-//                Fragmento_Variavel = "0";
-//            }
-//            jTextField_Fragmento_Variavel.setText(Fragmento_Variavel);
-//            System.out.println("Fragmento_Variavel   -   " + Fragmento_Variavel);
-//            String Fragmento_Variavel_SaldoProduto = (conex_Movimento.rs.getString("saldo_prod"));
-//            jTextField_Varieavel_SaldoProduto.setText(Fragmento_Variavel_SaldoProduto);
-//            System.out.println("Fragmento_Variavel_SaldoProduto   -   " + Fragmento_Variavel_SaldoProduto);
-//            String SelecaaoSaldo = (conex_Movimento.rs.getString("saldo_prod"));
-//            if (SelecaaoSaldo == null) {
-//                System.out.println("selecao saldo null");
-//            } else if (SelecaaoSaldo.equals("null")) {
-//                System.out.println("selecao saldo null");
-//            } else {
-//                System.out.println("selecao saldo Ok");
-//                System.out.println("Interface.Movimento.MovimentoJIFAlterado.BuscaProdutoId()    A\n " + SelecaaoSaldo);
-//                SelecaaoSaldo = SelecaaoSaldo.replace(".", ".").replace(",", ".");
-//                System.out.println("Interface.Movimento.MovimentoJIFAlterado.BuscaProdutoId()   B \n " + SelecaaoSaldo);
-//                Double num4 = Double.parseDouble(String.valueOf(SelecaaoSaldo));
-//                System.out.println("Interface.Movimento.MovimentoJIFAlterado.BuscaProdutoId()    C\n " + num4);
-//                BigDecimal df = new BigDecimal(num4);
-//                NumberFormat nf = NumberFormat.getInstance();
-//                nf.setMaximumFractionDigits(4);
-//                FormatoReal = nf.format(df);
-//            }
-//
-//            System.out.println("Interface.Movimento.MovimentoJIFAlterado.BuscaProdutoId()    D\n " + FormatoReal);
-//            String SelecaaoUnid = (conex_Movimento.rs.getString("sigla_unidade"));
-//            jLabelMeuSaldoProduto.setText(FormatoReal + " / " + SelecaaoUnid);
-//            ValorMoeda = (conex_Movimento.rs.getString("valor_prod_ex"));
-//            ValorReal = (Double.parseDouble(conex_Movimento.rs.getString("valor_prod")));
-//            edicao = conex_Movimento.rs.getString("edicao_prod");
-//            if (edicao.equals(null) | edicao.equals("") | edicao.equals(" ")) {
-//                edicao = "";
-//            } else {
-//                edicao = " N° " + edicao;
-//            }
-//            descricao = " " + conex_Movimento.rs.getString("tipo_prod") + " " + conex_Movimento.rs.getString("nome_prod") + edicao;
-//            descricao = descricao.toUpperCase();
-//            jTextField_Busca_Produto_Nota.setText(descricao);
-//            Id_Prod_Ent = (Integer.parseInt(conex_Movimento.rs.getString("sis_prod")));
-//            jLabel_IdProduto.setText(String.valueOf(Id_Prod_Ent));
-//            jTextField_Quantidade_Nota.setText(conex_Movimento.rs.getString("qtd_prod_ex"));
-//            jLabel_Calculado.setText(conex_Movimento.rs.getString("qtd_calc_ex"));
-//            jLabel_IdProduto.setText(conex_Movimento.rs.getString("id_prod_ent"));
-//            jTextField_Busca_Produto_Nota.setText(descricao);
-//            jTextField_Busca_Produto_Nota.setBackground(Color.yellow);
-//            jTextField_Quantidade_Nota.setBackground(Color.yellow);
-//            jLabel_Complemento.setText(conex_Movimento.rs.getString("complemento_mov"));
-//            jLabel_Setor.setText(conex_Movimento.rs.getString("destino_mov"));
-//            System.out.print("............................   " + descricao + "   " + jLabel_Complemento.getText() + "   " + jLabel_Setor.getText());
-//
-//        } catch (SQLException ex) {
-//            System.out.println("BuscaProdutoId() " + ex);
-//            jLabelMeuSaldoProduto.setText("");
-//            Id_Prod_Ent = (0);
-//            jLabel_IdProduto.setText("0");
-//            System.out.println("BuscaProdutoId() " + ex);
-////                BP.recebe_nome(jTextField_Busca_Produto_Nota.getText());
-////                BP.setVisible(true);
-//
-//        }
-//
-//        conex_Movimento.desconecta();
-//        String descricao;
-//        String edicao; String FormatoReal = null; String Fragmento_Variavel;
-//        String IdAlterar = jLabel_IdMovimento.getText();
-//        System.out.println("************************ "+IdAlterar);
-//        conex_Movimento.conexao();
-//        conex_Movimento.executaSql("SELECT * FROM movproduto  inner join produto on id_prod_ent=sis_prod \n"
-//                + "inner join unidade on  idunid=id_unidade where id_mov ='" + IdAlterar + "'and stprod=1 and stmovimento=1 "
-//                        + " order by id_mov asc"); /// and status_prod='ATIVO' and status_mov='ATIVO'
-//a
-//        try {
-//            conex_Movimento.rs.first();
-//            edicao = conex_Movimento.rs.getString("edicao_prod");
-//            if (edicao.equals(null) | edicao.equals("") | edicao.equals(" ")) {
-//                edicao = "";
-//            } else {
-//                edicao = " N° " + edicao;
-//            }
-//           
-////            int Fragmento_Variavel_Int = (conex.rs.getInt("fragmento_unidade"));
-////            if (Fragmento_Variavel_Int == 1) {
-////                Fragmento_Variavel = "1";
-////            } else {
-////                Fragmento_Variavel = "0";
-////            }
-////            jTextField_Fragmento_Variavel.setText(Fragmento_Variavel);
-//            descricao = " " + conex_Movimento.rs.getString("tipo_prod") + " " + conex_Movimento.rs.getString("nome_prod") + edicao;
-//            descricao = descricao.toUpperCase();
-//            jTextField_Quantidade_Nota.setText(conex_Movimento.rs.getString("qtd_prod_ex"));
-//            jLabel_Calculado.setText(conex_Movimento.rs.getString("qtd_calc_ex"));
-//            jLabel_IdProduto.setText(conex_Movimento.rs.getString("id_prod_ent"));
-//            jTextField_Busca_Produto_Nota.setText(descricao);
-//            jTextField_Busca_Produto_Nota.setBackground(Color.yellow);
-//            jTextField_Quantidade_Nota.setBackground(Color.yellow);
-//            jLabel_Complemento.setText(conex_Movimento.rs.getString("complemento_mov"));
-//            jLabel_Setor.setText(conex_Movimento.rs.getString("destino_mov"));
-//            System.out.print("............................   " + descricao + "   " + jLabel_Complemento.getText() + "   " + jLabel_Setor.getText());
-//       
-////             System.out.println("Fragmento_Variavel_SaldoProduto   -   " + Fragmento_Variavel_SaldoProduto);
-//                String SelecaaoSaldo = (conex.rs.getString("saldo_prod"));
-//                if (SelecaaoSaldo == null) {
-//                    System.out.println("selecao saldo null");
-//                } else if (SelecaaoSaldo.equals("null")) {
-//                    System.out.println("selecao saldo null");
-//                } else {
-//                    System.out.println("selecao saldo Ok");
-//                    System.out.println("Interface.Movimento.MovimentoJIFAlterado.BuscaProdutoId()    A\n " + SelecaaoSaldo);
-//                    SelecaaoSaldo = SelecaaoSaldo.replace(".", ".").replace(",", ".");
-//                    System.out.println("Interface.Movimento.MovimentoJIFAlterado.BuscaProdutoId()   B \n " + SelecaaoSaldo);
-//                    Double num4 = Double.parseDouble(String.valueOf(SelecaaoSaldo));
-//                    System.out.println("Interface.Movimento.MovimentoJIFAlterado.BuscaProdutoId()    C\n " + num4);
-//                    BigDecimal df = new BigDecimal(num4);
-//                    NumberFormat nf = NumberFormat.getInstance();
-//                    nf.setMaximumFractionDigits(4);
-//                    FormatoReal = nf.format(df);
-//                }
-//
-//                System.out.println("Interface.Movimento.MovimentoJIFAlterado.BuscaProdutoId()    D\n " + FormatoReal);
-//                String SelecaaoUnid = (conex.rs.getString("sigla_unidade"));
-//                jLabelMeuSaldoProduto.setText(FormatoReal + " / " + SelecaaoUnid);
-//        
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(rootPane,"Alterar"+ ex);
-//            jTextField_Busca_Produto_Nota.setBackground(Color.red);
-//        }
-//        conex_Movimento.desconecta();
-//    }
-//    public void PreencheTabelaPalete() {
-//        jbALis.setEnabled(false);
-//        jbALin.setEnabled(false);
-//        System.out.println("PreencheTabelaPalete() Referencia_Movimento : " + SelecaoReferencia_Movimento);
-//        conex.conexao();
-//        ArrayList dados = new ArrayList();
-//        String[] colunas = new String[]{"Linha", "Pct Padr.", "Lastro", "Altura", "Pct Avu", "Qtd Pct", "Un. Avu.", "Total"};
-//// "No",
-//        conex.executaSql2("select row_number() OVER (PARTITION by 0) as contador,pctpad ,  lastro ,  altura ,  pctavu ,  totpct ,  unavu ,  totparc , \n"
-//                + " mov_palete ,  qtd_palete ,id_palete, idlinha from paletetemp\n"
-//                + " where mov_palete='" + SelecaoReferencia_Movimento + "'  and  stpalete=1 order by idlinha asc");//// and verifica_temp is null
-//        try {
-//            conex.rs.first();
-//            do {
-//                String pacote = (conex.rs.getString("pctpad"));
-//                String lastro = (conex.rs.getString("lastro"));
-//                String altura = (conex.rs.getString("altura"));
-//                String avulso = (conex.rs.getString("pctavu"));
-//                String totalpacote = (conex.rs.getString("totpct"));
-//                String uniavulso = (conex.rs.getString("unavu"));
-//                String totalfinal = (conex.rs.getString("totparc"));
-//
-//                pacote = pacote.replace(".0", "").replace(".", ",");
-//                lastro = lastro.replace(".0", "").replace(".", ",");
-//                altura = altura.replace(".0", "").replace(".", ",");
-//                avulso = avulso.replace(".0", "").replace(".", ",");
-//                totalpacote = totalpacote.replace(".0", "").replace(".", ",");
-//                uniavulso = uniavulso.replace(".0", "").replace(".", ",");
-//                totalfinal = totalfinal.replace(".0", "").replace(".", ",");
-//                dados.add(new Object[]{conex.rs.getInt("idlinha"), pacote, lastro,
-//                    altura, avulso, totalpacote,
-//                    uniavulso, totalfinal});
-//
-//            } while (conex.rs.next());
-//        } catch (SQLException ex) {
-//            System.err.println("Erro na tabela palete  444444 : \n" + ex);
-//        }
-//        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-//
-//        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
-//        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-//        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
-//        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
-//        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-//        direita.setHorizontalAlignment(SwingConstants.RIGHT);
-//
-//        jTablePalete.setModel(modelo);
-//
-//        jTablePalete.getColumnModel().getColumn(0).setPreferredWidth(60);
-//        jTablePalete.getColumnModel().getColumn(0).setResizable(true);
-////        jTablePalllet.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-//        jTablePalete.getColumnModel().getColumn(1).setPreferredWidth(60);
-//        jTablePalete.getColumnModel().getColumn(1).setResizable(true);
-////        jTablePalete.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-//        jTablePalete.getColumnModel().getColumn(2).setPreferredWidth(60);
-//        jTablePalete.getColumnModel().getColumn(2).setResizable(true);
-//        jTablePalete.getColumnModel().getColumn(3).setPreferredWidth(60);
-//        jTablePalete.getColumnModel().getColumn(3).setResizable(true);
-//        jTablePalete.getColumnModel().getColumn(4).setPreferredWidth(60);
-//        jTablePalete.getColumnModel().getColumn(4).setResizable(true);
-//        jTablePalete.getColumnModel().getColumn(5).setPreferredWidth(60);
-//        jTablePalete.getColumnModel().getColumn(5).setResizable(true);
-//        jTablePalete.getColumnModel().getColumn(6).setPreferredWidth(60);
-//        jTablePalete.getColumnModel().getColumn(6).setResizable(true);
-//        jTablePalete.getColumnModel().getColumn(7).setPreferredWidth(80);
-//        jTablePalete.getColumnModel().getColumn(7).setResizable(true);
-//
-//        jTablePalete.getTableHeader().setReorderingAllowed(false);
-//        jTablePalete.setAutoResizeMode(jTablePalete.AUTO_RESIZE_OFF);
-//        jTablePalete.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        conex.desconecta();
-//    }
-//
-//    public void SomaTotalPalete() {
-//
-//        conex.conexao();
-//        conex.executaSql2("SELECT sum(cast( cast(replace(totparc,',','.' )as text) as float) )AS totparc,paletetemp.mov_palete FROM paletetemp "
-//                + "where mov_palete='" + SelecaoReferencia_Movimento + "'and stpalete='1'"
-//                + " GROUP BY  paletetemp.mov_palete "
-//                + "  order by mov_palete asc");//// and verifica_temp is null
-//        try {
-//            conex.rs.first();
-//            CalcTotalFinal = (conex.rs.getString("totparc"));
-//            Double soma9 = (conex.rs.getDouble("totparc"));
-//            System.err.println("Calculado : " + CalcTotalFinal);
-//            CalcTotalFinal = ((String.format("%.4f", soma9)));
-//            CalcTotalFinal = CalcTotalFinal.replace(",0000", "");
-//            System.err.println("ok  SomaTotalPalete totparc : " + SelecaoReferencia_Movimento);
-//            System.err.println(" ** Calculado : " + CalcTotalFinal + " **");
-//            jLabel_Informacoes.setText("  Total palete = " + CalcTotalFinal);
-//        } catch (SQLException ex) {
-//            System.err.println("Erro SomaTotalPalete totparc : " + SelecaoReferencia_Movimento + "   -   /n" + ex);
-//        }
-//        conex.desconecta();
-//    }
-//
-//    public void SomaLinhaPaleteExibir() {
-//        double soma, soma2, num1 = 0, num2 = 0, num3 = 0, pac = 0, pacavu = 0, avu = 0;
-//        try {
-//            if (jtPctPad.getText().isEmpty()) {
-//                jtPctPad.requestFocus();
-//            }
-//            if (jtLast.getText().isEmpty()) {
-//                jtLast.setText("0");
-//            }
-//            if (jtAlt.getText().isEmpty()) {
-//                jtAlt.setText("0");
-//            }
-//            if (jtPctAvu.getText().isEmpty()) {
-//                jtPctAvu.setText("0");
-//            }
-//            if (jtUnAvu.getText().isEmpty()) {
-//                jtUnAvu.setText("0");
-//            } else {
-//            }
-//            num1 = Double.parseDouble(jtAlt.getText().replace(",", "."));
-//            num2 = Double.parseDouble(jtLast.getText().replace(",", "."));
-//            num3 = Double.parseDouble(jtPctAvu.getText().replace(",", "."));
-//            avu = Double.parseDouble(jtUnAvu.getText().replace(",", "."));
-//            pacavu = Double.parseDouble(jtPctAvu.getText().replace(",", "."));
-//            pac = Double.parseDouble(jtPctPad.getText().replace(",", "."));
-//            soma = num1 * num2 + num3;
-//            String resultado = Double.toString(soma);
-//            jtTotPct.setText((String.format("%.4f", soma)));
-//            jtTotPct.setText(jtTotPct.getText().replace(",0000", ""));
-//            soma2 = soma * pac + avu;
-//            jtTotParc.setText((String.format("%.4f", soma2)));
-//            jtTotParc.setText(jtTotParc.getText().replace(",0000", ""));
-//            System.err.println("soma: " + soma);
-//            System.err.println("soma2: " + soma2);
-//            double valor_decimal = ((soma2 * 100));
-//            System.err.println("soma3: " + valor_decimal);
-//        } catch (Exception erro) {
-//            JOptionPane.showMessageDialog(null, "Ocorreu um erro verifique\n: " + erro);
-//        }
-//    }
-//
-//    public void SalvaPalete() {
-//        beansp.setUsuario(menu.jLabelNomeUsuario.getText());
-//        beansp.setRegistro(menu.jLabel_Data.getText() + " - " + menu.jLabel_Hora.getText());
-//        beansp.setPctpad(jtPctPad.getText());
-//        beansp.setLastro(jtLast.getText());
-//        beansp.setAltura(jtAlt.getText());
-//        beansp.setPctavu(jtPctAvu.getText());
-//        beansp.setUnavu(jtUnAvu.getText());
-//        beansp.setTotpct(jtTotPct.getText());
-//        beansp.setTotparc(jtTotParc.getText());
-//        beansp.setMov_palete(SelecaoReferencia_Movimento);
-//        beansp.setNota_palete(String.valueOf(id_referencia));
-//        if (FlagPalete == 1) {
-//            beansp.setVerifica_principal(2);
-//            beansp.setStpalete(1);
-//            beansp.setIdlinha(Integer.parseInt(Id_Linha));
-//            daop.AlterarTemp(beansp);
-//            FlagPalete = 0;
-//        } else {
-//            Principal.jButton3.doClick();
-//            beansp.setId_palete(Principal.jLabel_Gerador_De_Codigo.getText());
-//            beansp.setVerifica_principal(1);
-//            beansp.setStpalete(1);
-//            daop.SalvarTemp(beansp);
-//        }
-//
-//        System.err.println("SelecaoReferencia_Movimento : " + SelecaoReferencia_Movimento);
-//    }
-//
-//    public void DesbloqueiaCamposPalete() {
-//        jtAlt.setEnabled(!false);
-//        jtLast.setEnabled(!false);
-//        jtPctAvu.setEnabled(!false);
-//        jtUnAvu.setEnabled(!false);
-//        jtTotPct.setEnabled(false);
-//        jtTotParc.setEnabled(false);
-//        jtPctPad.setEnabled(!false);
-//        FlagPalete = 0;
-//        jbALis.setEnabled(false);
-//        jbALin.setEnabled(false);
-//        jbAdicionar.setEnabled(!false);
-//        jbLimpar.setEnabled(!false);
-//        jButton_Bandeira1.setEnabled(!false);
-//        jTablePalete.setEnabled(true);
-//    }
-//
-//    public void BloqueiaCamposPalete() {
-//        jtAlt.setEnabled(false);
-//        jtLast.setEnabled(false);
-//        jtPctAvu.setEnabled(false);
-//        jtUnAvu.setEnabled(false);
-//        jtTotPct.setEnabled(false);
-//        jtTotParc.setEnabled(false);
-//        jtPctPad.setEnabled(false);
-//        FlagPalete = 0;
-//        jbALis.setEnabled(false);
-//        jbALin.setEnabled(false);
-//        jbAdicionar.setEnabled(false);
-//        jbLimpar.setEnabled(false);
-//        jButton_Bandeira1.setEnabled(false);
-//    }
-//
-//    public void limpaCamposPalete() {
-//        jtAlt.setText("");
-//        jtLast.setText("");
-//        jtPctAvu.setText("");
-//        jtUnAvu.setText("");
-//        jtTotPct.setText("");
-//        jtTotParc.setText("");
-//        jtPctPad.setText("");
-//        jtPctPad.requestFocus();
-//        FlagPalete = 0;
-//        jbALis.setEnabled(false);
-//        jbALin.setEnabled(false);
-//    }
-//
-//    public void EventoFechaMovimento() {
-//        jLabelMeuSaldoProduto.setText("");
-//        MovimentoBancoTemporarioApagar();
-//        LimpaTransporte();
-//        BloqueiaCamposPalete();
-//        jTablePalete.setEnabled(false);
-//        LimparTabela();
-//        AtualizaListaMovimentos();
-//        jComboBox_Situacao.setSelectedItem("1-CALCULADO");
-//        Principal.jLabelCodigoTela.setText("FechaMovimentoCadastro");
-//        Principal.jButton1.doClick();
-//        jTextArea_Observacao.setText("");
-//        Principal.jLabelCodigoTela.setText("AtualizaTudo");
-//        Principal.jButton1.doClick();
-//    }
-//
-//    public void AtualizaListaMovimentos() {
-//        try {
-//            System.out.println("Interface.Movimento.MovimentoJIFAlterado.AtualizaListaMovimentos()     4\n");
-//        } catch (Error err) {
-//            System.out.println("Interface.Movimento.MovimentoJIFAlterado.AtualizaListaMovimentos()     4\n" + err);
-//        }
-//
-//        try {
-//        } catch (Error err) {
-//            System.out.println("Interface.Movimento.MovimentoJIFAlterado.AtualizaListaMovimentos()    1\n" + err);
-//        }
-//        try {
-////            JIF_Consultas.jTextField_Buscar.requestFocus();
-//        } catch (Error err) {
-//            System.out.println("Interface.Movimento.MovimentoJIFAlterado.AtualizaListaMovimentos()     2\n" + err);
-//        }
-//        try {
-////            ListaMovimentoJIF.jTextField_Busca.requestFocus();
-//        } catch (Error err) {
-//            System.out.println("Interface.Movimento.MovimentoJIFAlterado.AtualizaListaMovimentos()     3\n" + err);
-//        }
-//
-//    }
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 
         AtualizarTudo();
@@ -1844,147 +987,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-//    public void ExecutaCopiaUpdate() {
-//        if (MinhaCopia.equals(null) | MinhaCopia.equals("") | MinhaCopia.equals("null")) {
-//            System.out.println(".............................aqui MovimentoBancoTemporarioAlterar sistema_mov null");
-//        } else {
-//            conex.conexao();
-//            conex.executaSql(""
-//                    + "SELECT * FROM movproduto  where nota_mov='" + id_referencia + "'"
-//                    + "and status_mov='ATIVO'   order by id_mov asc "
-//                    + "");
-//        }
-//        try {
-//            conex.rs.first();
-//            int numero = 1;
-//            do {
-//                numero = numero + 1;
-//            } while (conex.rs.next());
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(rootPane, "erro\nExecutaCopiaUpdate\n" + ex);
-//            System.out.println("erro\nExecutaCopiaUpdate\n" + ex);
-//        }
-//        conex.desconecta();
-//    }
-//
-//    public void VerificaSeTemPalete() {
-//        conex2.conexao();
-//        conex2.executaSql("SELECT * FROM palete WHERE mov_palete='" + MinhaIdSistema + "'  ");
-//        System.err.println("mov_palete            MinhaIdSistema"
-//                + "11"
-//                + ""
-//                + "=  " + MinhaIdSistema);
-//        try {
-//            do {
-//                conex2.rs.first();
-//                String MeuMovPalete = (conex2.rs.getString("mov_palete"));
-//
-//                java.sql.PreparedStatement pst = conex2.con.prepareStatement(""
-//                        + "insert into palete(  pctpad, lastro, altura, pctavu, totpct, unavu, totparc, \n"
-//                        + "       mov_palete, qtd_palete, nota_palete,"
-//                        + "verifica_principal, status_palete, usuario_palete, registro_palete\n"
-//                        + "          )"
-//                        + "SELECT  pctpad, lastro, altura, pctavu, totpct, unavu, totparc, \n"
-//                        + "    '" + MeuMovPaleteReferencia + "',  qtd_palete, '" + id_referencia + "'"
-//                        + ", '" + id_referencia + "' ,'ATIVO', usuario_palete, registro_palete      \n"
-//                        + "  FROM palete where mov_palete='" + MeuMovPalete + "'  and status_palete='ATIVO' "
-//                        + "order by idlinha asc ");
-//                pst.execute();
-//                System.out.println("MeuMovPalete " + MeuMovPalete);
-//            } while (conex.rs.next());
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(rootPane, "erro\nVerificaSeTemPalete\n" + ex);
-//        }
-//
-//        conex2.desconecta();
-//    }
-//
-//    public void ExecutaCopia() {
-//        id_referenciUltimo = id_referencia;
-////        MinhsaIdNota = "Novo";
-//        CarregaUltimo();
-//        MinhaIdNota = "Novo";
-//        System.out.println("##### MinhaIdNota = '" + id_referenciUltimo + "'  [ Novo] '" + id_referencia + "'  ");
-//        MovimentoBancoTemporarioAlterado();
-//        ExecutaCopiaUpdate();
-//        VerificaEFazUpdatePalete();
-//        this.setTitle("Cadastro Movimento [ " + MinhaNatureza + " ] Id Referencia : " + id_referencia);
-//        PreencherTabela();
-//        jComboBox_Situacao.setSelectedItem("1-CALCULADO");
-//    }
-//    public void VerificaEFazUpdatePalete() {
-//        conex.conexao();
-//        try {
-//            java.sql.PreparedStatement pst = conex.con.prepareStatement("UPDATE palete\n"
-//                    + "   SET \n"
-//                    + "       verifica_principal=cast (nota_palete as integer)");
-//            pst.execute();
-//            System.out.println("UPDATE palete 2   OK");
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "UPDATE palete 2   ERRO" + ex);
-//            System.out.println("UPDATE palete     2        ERRO" + ex);
-//        }
-//        conex.desconecta();
-//    }
-//    public void EventoSalvaPalete() {
-//        if (SelecaoReferencia_Movimento == null) {
-//        } else if (jtPctPad.getText().isEmpty()) {
-//        } else {
-//            SomaLinhaPaleteExibir();
-//            SalvaPalete();
-//            PreencheTabelaPalete();
-//            SomaTotalPalete();
-//            System.out.println("Normal ate aqui");
-//            ContaTotalLinhas();
-//            System.out.println("Normal ate aqui    tudo ok");
-//            if (jtPctPad.getText().isEmpty()) {
-//                jtPctPad.requestFocus();
-//            } else {
-//                jtLast.requestFocus();
-//            }
-//        }
-//    }
-//    public void ContaTotalLinhas() {
-//        System.out.println("UContaTotalLinhas  SelecaoReferencia_Movimento   - " + SelecaoReferencia_Movimento);
-//        if (SelecaoReferencia_Movimento.isEmpty()) {
-//            JOptionPane.showMessageDialog(rootPane, "linha vazia");
-//        } else {
-//            String busca = SelecaoReferencia_Movimento;
-//            conex.conexao();
-//            conex.executaSql2(" select count(mov_palete) as linha,mov_palete  FROM paletetemp where stpalete=1 and mov_palete='" + busca + "' "
-//                    + " GROUP BY paletetemp.mov_palete"
-//                    + "");
-//            try {
-//                conex.rs.first();
-//                ContadorLinha = String.valueOf(conex.rs.getInt("linha"));
-//
-//                try {
-//                    java.sql.PreparedStatement pst = conex.con.prepareStatement(""
-//                            + "UPDATE paletetemp   SET  qtd_palete= '" + ContadorLinha + "' where mov_palete='" + busca + "' \n"
-//                            + "");
-//                    pst.execute();
-//                    System.out.println("UPDATE palete contador de linhas  OK  " + ContadorLinha);
-//                } catch (SQLException ex) {
-//                    System.out.println("UPDATE palete       contador de linhas      ERRO" + ex);
-//                }
-//                try {
-//                    java.sql.PreparedStatement pst = conex.con.prepareStatement(""
-//                            + "UPDATE palete   SET  qtd_palete= '" + ContadorLinha + "' where mov_palete='" + busca + "' \n"
-//                            + "");
-//                    pst.execute();
-//                    System.out.println("UPDATE palete contador de linhas  OK  " + ContadorLinha);
-//                } catch (SQLException ex) {
-//                    System.out.println("UPDATE palete       contador de linhas      ERRO" + ex);
-//                }
-//            } catch (SQLException ex) {
-//                System.out.println("UPDATE palete       contador de linhas      ERRO" + ex);
-//                ContadorLinha = "0";
-//            }
-//            conex.desconecta();
-//        }
-//    }
-    public void EnviaDados(String A, String B, String C) {
-    }
 
     private void txtHoraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHoraKeyPressed
 
@@ -2008,36 +1010,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtHoraFocusLost
 
-//    public void AjustaMinhaHora() {
-//        String s = jTextField_Hora.getText().replace(":", "");
-//        if (s.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
-//            System.out.println("Interface.Movimento.MovimentoJIFAlterado.AjustaMinhaHora()      ERRRROOOOOOOO");
-//            jTextField_Hora.setBackground(Color.red);
-//        } else if (s.matches("^[0-9]*$")) {
-//            if (s.length() > 3) {
-//                if (s.length() == 4) {
-//                    String formatado = s.substring(0, 2) + ":" + s.substring(2, 4);
-//                    System.err.println("    ddddd   " + formatado); ////   (11)4168-3085
-//                    jTextField_Hora.setText(formatado);
-//                } else if (s.length() == 6) {
-//                    String formatado = s.substring(0, 2) + ":" + s.substring(2, 4) + ":" + s.substring(4, 6);
-//                    System.err.println("    ddddd   " + formatado); ////   (11)4168-3085
-//                    jTextField_Hora.setText(formatado);
-//                } else if (s.length() < 6) {
-//                } else if (s.length() > 7 | s.length() == 3 | s.length() == 5) {
-//                    System.err.println("    eeee   erro");
-//                    jTextField_Hora.setText("");
-//                    jTextField_Hora.requestFocus();
-//                    jTextField_Hora.setBackground(Color.red);
-//                } else {
-//                    System.err.println("    ddddd   erro");
-//                    jTextField_Hora.setText("");
-//                    jTextField_Hora.requestFocus();
-//                }
-//                jTextField_Hora.setBackground(Color.white);
-//            }
-//        }
-//    }
 
     private void btnHoraAtualKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnHoraAtualKeyPressed
         // TODO add your handling code here:
@@ -2060,7 +1032,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
             txtHora.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_F5) {
-            PreencherFornecedor();
+//            PreencherFornecedor();
         }
     }//GEN-LAST:event_cbClienteKeyPressed
 
@@ -2165,96 +1137,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     private void cbClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbClienteFocusLost
 //        SelecionarFornecedor();
     }//GEN-LAST:event_cbClienteFocusLost
-//    public void LancaNaTabelaMovimento() {
-//        conex_Palete2.conexao();
-//        System.err.println("**** LancaNaTabelaMovimento - CalcTotalFinal " + CalcTotalFinal);
-//        System.err.println("**** LancaNaTabelaMovimento - SelecaoReferencia_Movimento " + SelecaoReferencia_Movimento);
-//        try {
-//            java.sql.PreparedStatement pst = conex_Palete2.con.prepareStatement(" UPDATE movproduto"
-//                    + "   SET  qtd_calc='" + CalcTotalFinal + "', qtd_calc_ex='" + CalcTotalFinal + "'"
-//                    + " WHERE stmovimento=1 and sistema_mov='" + SelecaoReferencia_Movimento + "'  ");
-//            pst.execute();
-//            System.out.print("LancaNaTabelaPalete modificado    UPDATE   ok");
-//        } catch (SQLException ex) {
-//            System.out.print("LancaNaTabelaPalete  modificado   UPDATE   erro   " + ex);
-//        }
-//
-//        conex_Palete2.desconecta();
-//    }
-//
-//    public void LancaNaTabelaPalete() {
-//        conex_Palete.conexao();
-//        try {
-//            java.sql.PreparedStatement pst = conex_Palete.con.prepareStatement(""
-//                    + "UPDATE palete as p\n"
-//                    + "   SET  stpalete='2'\n"
-//                    + "from paletetemp as t\n"
-//                    + "where t.id_palete=p.id_palete and t.verifica_principal='2' ");
-//            pst.execute();
-//            System.out.print("LancaNaTabelaPalete modificado    UPDATE   ok");
-//        } catch (SQLException ex) {
-//            System.out.print("LancaNaTabelaPalete  modificado   UPDATE   erro   " + ex);
-//        }
-//
-//        try {
-//            java.sql.PreparedStatement pst = conex_Palete.con.prepareStatement(""
-//                    + "INSERT INTO palete  (\n"
-//                    + "             pctpad, lastro, altura, pctavu, totpct, unavu, totparc, \n"
-//                    + "            mov_palete, qtd_palete, nota_palete, verifica_principal, usuario_palete, \n"
-//                    + "            registro_palete, id_palete, stpalete)\n"
-//                    + " SELECT  pctpad, lastro, altura, pctavu, totpct, unavu, totparc, \n"
-//                    + "       mov_palete, qtd_palete, nota_palete, verifica_principal, usuario_palete, \n"
-//                    + "       registro_palete, id_palete, stpalete\n"
-//                    + "  FROM paletetemp\n"
-//                    + "  where mov_palete=mov_palete and verifica_principal='2' ");
-//            pst.execute();
-//            System.out.print("LancaNaTabelaPalete    INSERT    ok");
-//        } catch (SQLException ex) {
-//            System.out.print("LancaNaTabelaPalete    INSERT    erro   " + ex);
-//        }
-//        try {
-//            java.sql.PreparedStatement pst = conex_Palete.con.prepareStatement(""
-//                    + "INSERT INTO palete  (\n"
-//                    + "             pctpad, lastro, altura, pctavu, totpct, unavu, totparc, \n"
-//                    + "            mov_palete, qtd_palete, nota_palete, verifica_principal, usuario_palete, \n"
-//                    + "            registro_palete, id_palete, stpalete)\n"
-//                    + " SELECT  pctpad, lastro, altura, pctavu, totpct, unavu, totparc, \n"
-//                    + "       mov_palete, qtd_palete, nota_palete, verifica_principal, usuario_palete, \n"
-//                    + "       registro_palete, id_palete, stpalete\n"
-//                    + "  FROM paletetemp\n"
-//                    + "  where mov_palete=mov_palete and verifica_principal='1' ");
-//            pst.execute();
-//            System.out.print("LancaNaTabelaPalete    INSERT    ok");
-//        } catch (SQLException ex) {
-//            System.out.print("LancaNaTabelaPalete    INSERT    erro   " + ex);
-//        }
-//
-//        try {
-//            java.sql.PreparedStatement pst = conex_Palete.con.prepareStatement(""
-//                    + "UPDATE palete as p\n"
-//                    + "   SET  stpalete='3'\n"
-//                    + "from paletetemp as t\n"
-//                    + "where t.id_palete=p.id_palete and t.verifica_principal='3' ");
-//            pst.execute();
-//            System.out.print("LancaNaTabelaPalete modificado  excluido  UPDATE   ok");
-//        } catch (SQLException ex) {
-//            System.out.print("LancaNaTabelaPalete  modificado  excluido  UPDATE   erro   " + ex);
-//        }
-//
-//        try {
-//            java.sql.PreparedStatement pst = conex_Palete.con.prepareStatement(""
-//                    + "UPDATE palete as p\n"
-//                    + "   SET  stpalete='3'\n"
-//                    + "from paletetemp as t\n"
-//                    + "where t.mov_palete=p.mov_palete and t.verifica_principal='3' ");
-//            pst.execute();
-//            System.out.print("LancaNaTabelaPalete modificado  excluido  UPDATE   ok");
-//        } catch (SQLException ex) {
-//            System.out.print("LancaNaTabelaPalete  modificado  excluido  UPDATE   erro   " + ex);
-//        }
-//
-//        conex_Palete.desconecta();
-//    }
+
 
     private void cbNaturezaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbNaturezaFocusGained
 //        SelecionarNaturezaInt = 1;
@@ -2304,17 +1187,17 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_vol_numeracaoActionPerformed
 
     private void vol_placaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vol_placaKeyReleased
-        AjustaMinhaPlaca();
+//        AjustaMinhaPlaca();
     }//GEN-LAST:event_vol_placaKeyReleased
 
     private void vol_placaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vol_placaFocusLost
         //aqui
-        AjustaMinhaPlaca();
+        //  AjustaMinhaPlaca();
         vol_placa.setText(vol_placa.getText().toUpperCase());
     }//GEN-LAST:event_vol_placaFocusLost
 
     private void vol_ufFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vol_ufFocusLost
-        AjustaMinhaUf();
+//        AjustaMinhaUf();
         vol_uf.setText(vol_uf.getText().toUpperCase());
     }//GEN-LAST:event_vol_ufFocusLost
 
@@ -2353,11 +1236,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         } else {
             if (ComboFocu == 0) {
             } else {
-//                jComboBox_transportadoraInt.setSelectedIndex(jComboBox_transportadora.getSelectedIndex());
-//                System.out.println("==========  String " + jComboBox_transportadora.getSelectedItem());
-//                System.out.println("==========  Int " + jComboBox_transportadoraInt.getSelectedItem());
-//                System.out.println("==========  Int " + jComboBox_transportadoraInt.getSelectedIndex());
-                //            exibe_transporte();//preenche_Transporte();
             }
         }
     }//GEN-LAST:event_jComboBox_transportadoraItemStateChanged
@@ -2381,7 +1259,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
             //            Evento_Busca_Movimento_Nota();
             //            flag_salvar = 2;
 //            jTextField_Quantidade_Nota.requestFocus();
-            jButton_Excluir_Movimento_Nota.setEnabled(true);
+            btnRemoverUmProduto.setEnabled(true);
             //            jButton_Adicionar_Produto_Nota.setText("Alterar produto");
 //            PreencheDadosAlterar();
 //            FlagAlterar = 1;
@@ -2391,152 +1269,37 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTableListaProduto_NotaMouseClicked
 
-    private void jTextField_Busca_Produto_NotaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_Busca_Produto_NotaKeyPressed
+    private void txtBuscarUmProdutoPorNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarUmProdutoPorNomeKeyPressed
 
-        if (evt.getKeyCode() == evt.VK_F12) {
-            Complementar.PreencherSetor();
+        movimentoCadastroController.validarNomeProduto(this, evt);
+    }//GEN-LAST:event_txtBuscarUmProdutoPorNomeKeyPressed
 
-            //            CD.RecebeDadosMovimentoAlterado(MinhaNatureza, jLabel_Complemento.getText(), jLabel_Setor.getText());
-            Complementar.VerificaModo(MinhaNatureza);
-//            Complementar.RecebeDados(jLabel_Complemento.getText(), jLabel_Setor.getText(), jLabel_Calculado.getText());
-            Complementar.setVisible(true);
+    private void txtBuscarUmProdutoPorNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarUmProdutoPorNomeFocusLost
 
-        }
-        if (evt.getKeyCode() == evt.VK_F2) {
-            String BuscaNome = jTextField_Busca_Produto_Nota.getText();
-            BP.recebe_nome(BuscaNome);
-            BP.setVisible(true);
-        }
-        if (evt.getKeyCode() == evt.VK_ENTER) {
-//            EventoBuscaProduto();
-            if (jTextField_Busca_Produto_Nota.getText().isEmpty()) {
-//                jLabel_IdProduto.setText("0");
-            } else {
-            }
-        }
-    }//GEN-LAST:event_jTextField_Busca_Produto_NotaKeyPressed
+    }//GEN-LAST:event_txtBuscarUmProdutoPorNomeFocusLost
 
-    private void jTextField_Busca_Produto_NotaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_Busca_Produto_NotaFocusLost
-
-    }//GEN-LAST:event_jTextField_Busca_Produto_NotaFocusLost
-
-    private void jTextField_Busca_Produto_NotaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_Busca_Produto_NotaFocusGained
+    private void txtBuscarUmProdutoPorNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarUmProdutoPorNomeFocusGained
         // evento_Verifica();
-    }//GEN-LAST:event_jTextField_Busca_Produto_NotaFocusGained
+    }//GEN-LAST:event_txtBuscarUmProdutoPorNomeFocusGained
 
-    private void jButton_Excluir_Movimento_NotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Excluir_Movimento_NotaActionPerformed
+    private void btnRemoverUmProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverUmProdutoActionPerformed
 
-//        int resposta = 0;
-//        //        String status = jLabel_Status_Nota.getText();
-//        resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir/ativar ? ");
-//        if (resposta == JOptionPane.YES_OPTION) {
-//            Mbeans.setId_mov(Integer.parseInt(jLabel_IdMovimento.getText()));
-//            Mbeans.setRegistro_mov(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
-//            Mbeans.setStatus_mov(3);
-//            Mbeans.setUsuario_mov(Principal.jLabelNomeUsuario.getText());
-//            Mdao.ExcluirMovProduto(Mbeans);
-//            System.out.println("Interface.MovimentoCadastroJIF.jButton_Excluir_Movimento_NotaActionPerformed()     ");
-//            LimpaCampoProduto();
-//            FlagAlterar = 0;
-//        }
-        jButton_Excluir_Movimento_Nota.setEnabled(false);
-    }//GEN-LAST:event_jButton_Excluir_Movimento_NotaActionPerformed
+        btnRemoverUmProduto.setEnabled(false);
+    }//GEN-LAST:event_btnRemoverUmProdutoActionPerformed
 
-    private void jButton_Fechar_NotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Fechar_NotaActionPerformed
+    private void btnLimparCampoBuscaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCampoBuscaProdutoActionPerformed
+        movimentoCadastroController.limparBuscarUmProdutoPorNome(this);
+    }//GEN-LAST:event_btnLimparCampoBuscaProdutoActionPerformed
 
-    }//GEN-LAST:event_jButton_Fechar_NotaActionPerformed
-
-    private void jButton_Adicionar_Produto_NotaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton_Adicionar_Produto_NotaKeyPressed
+    private void btnInserirProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnInserirProdutoKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
 //            BotaoAdicionarProduto();
         }
-    }//GEN-LAST:event_jButton_Adicionar_Produto_NotaKeyPressed
+    }//GEN-LAST:event_btnInserirProdutoKeyPressed
 
-    private void jButton_Adicionar_Produto_NotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Adicionar_Produto_NotaActionPerformed
-//        BotaoAdicionarProduto();
-    }//GEN-LAST:event_jButton_Adicionar_Produto_NotaActionPerformed
-
-    public void AjustaMinhaUf() {
-        String s = vol_uf.getText().replace(".", "").replace("-", "");
-        String formatadoA, formatadoC;
-        formatadoA = s.substring(0, 2);
-        System.out.println("formatadoA     " + formatadoA);
-        if (formatadoA.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
-            formatadoC = formatadoA;
-        } else {
-            System.out.println("if uf   erase ");
-            formatadoC = "";
-            vol_uf.requestFocus();
-        }
-        System.err.println("    uf   " + formatadoC);
-        vol_uf.setText(formatadoC);
-    }
-
-    public void AjustaMinhaPlaca() {
-
-        String s = vol_placa.getText().replace(".", "").replace("-", "");
-        String formatadoA, formatadoB, formatadoC;
-        int contar = s.length();
-        if (contar <= 4) {
-        } else {
-            formatadoA = s.substring(0, 3);
-            System.out.println("formatadoA     " + formatadoA);
-            formatadoB = s.substring(3, 7);
-            System.out.println("formatadoB     " + formatadoB);
-            if (formatadoA.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
-                formatadoA = formatadoA;
-            } else {
-                formatadoA = "erro A";
-            }
-            if (formatadoB.matches("^[0-9]*$")) {
-                formatadoB = formatadoB;
-            } else {
-                formatadoB = "erro B";
-            }
-            if (formatadoB == "erro B" | formatadoA == "erro A") {
-                System.out.println("if    erase ");
-                formatadoC = "";
-                vol_placa.requestFocus();
-            } else {
-                formatadoC = formatadoA + "-" + formatadoB;
-            }
-            System.err.println("    placa   " + formatadoC);
-            vol_placa.setText(formatadoC);
-        }
-    }
-
-    public void AjustaMeuCep() {
-        String s = vol_placa.getText().replace(".", "").replace("-", "");
-        if (s.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
-            System.out.println("Ajuste deu ................................ERRRROOOOOOOO");
-            vol_placa.setBackground(Color.red);
-        } else if (s.length() > 10) {
-            System.err.println("    eeee   erro");
-            vol_placa.setText("");
-            vol_placa.requestFocus();
-        } else if (s.length() > 9) {
-            System.err.println("    eeee   14    erro");
-            vol_placa.setText("");
-            vol_placa.requestFocus();
-        } else if (s.matches("^[0-9]*$")) {
-            // www-1234    7
-            if (s.length() == 8) {
-                String formatado = s.substring(0, 2) + "." + s.substring(2, 5) + "-" + s.substring(5, 8);
-                System.err.println("    ddddd   " + formatado); ////   06.415-240
-                vol_placa.setText(formatado);
-            } else if (s.length() < 8) {
-            } else if (s.length() > 8) {
-                System.err.println("    eeee   erro");
-                vol_placa.setText("");
-                vol_placa.requestFocus();
-            } else {
-                System.err.println("    ddddd   erro");
-                vol_placa.setText("");
-                vol_placa.requestFocus();
-            }
-            vol_placa.setBackground(null);
-        }
-    }
+    private void btnInserirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirProdutoActionPerformed
+        movimentoCadastroController.chamaFormularioComplementar(this);
+    }//GEN-LAST:event_btnInserirProdutoActionPerformed
 
     public void BotaoExcluir() {
         beans.setNota_status(3);
@@ -2851,57 +1614,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         conex.desconecta();
     }
 
-//    public void InsereDadosNota() {
-//        if (jDateChooser_Data_Nota.getDate() == (null)) {
-//            MinhaData = ("");
-//        } else {
-//            data = jDateChooser_Data_Nota.getDate();
-//            MinhaData = (formato.format(data));
-//        }
-//        beans.setId_referencia(id_referencia);
-//        beans.setNota_operacao(MinhaNatureza);
-//        beans.setNota_registro(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
-//        beans.setNota_status(1);
-//        beans.setNota_total(MeuTotal); // ver total
-//        beans.setNota_usuario(Principal.jLabelNomeUsuario.getText());
-//        beans.setNota_data(MinhaData);
-////        beans.setNatureza((String) jComboBox_Natureza.getSelectedItem());//
-//        String ConvertNatureza = "" + jComboBox_Natureza_Int.getSelectedItem();
-//        MinhaNaturezaInt = (Integer.parseInt(ConvertNatureza));
-//        beans.setNatureza(MinhaNaturezaInt);
-////        beans.setNota_documento((String) jComboBox_Documento.getSelectedItem());
-////        beans.setNota_fornecedor((String) jComboBox_Fornecedor.getSelectedItem());
-//        String MeuFornecedorString = "" + jComboBox_Fornecedor_Int.getSelectedItem();
-//        MeuFornecedorInt = Integer.parseInt(MeuFornecedorString);
-//        beans.setNota_fornecedor(MeuFornecedorInt);
-//        MinhaNatureza = "" + jComboBox_Natureza_Tipo.getSelectedItem();
-//        if (MinhaNatureza.equals("ENTRADA")) {
-//            beans.setNota_situacao(("ENTRADA"));
-//        } else {
-////            beans.setNota_situacao((String) jComboBox_Situacao.getSelectedItem());
-//        }
-//        beans.setNota_chave(jTextField_Chave_Nota.getText());
-//        beans.setNota_nota(jTextField_Nota.getText());
-//        beans.setNota_hora(jTextField_Hora.getText());
-//        jTextArea_Observacao.setText(jTextArea_Observacao.getText().toUpperCase());
-//        beans.setNota_observacao(jTextArea_Observacao.getText());
-//
-//        beans.setModalidade("" + jComboBox_modalidade.getSelectedItem());
-//        beans.setMotorista(vol_motorista.getText());
-//        beans.setTransportadora("" + jComboBox_transportadora.getSelectedItem());
-//        beans.setPlaca(vol_placa.getText());
-//        beans.setPesoliquido(vol_peso_liquido.getText());
-//        beans.setPesobruto(vol_peso_bruto.getText());
-//        beans.setUf(vol_uf.getText());
-//        beans.setEspecie(vol_especie.getText());
-//        beans.setNumeracao(vol_numeracao.getText());
-//        beans.setQuantidade(vol_quantidade.getText());
-////        String IntTransportadora = "" + jComboBox_transportadoraInt.getSelectedItem();
-////        beans.setMotoristaint(Integer.parseInt(IntTransportadora));
-//        String IntEmpresa = menu.jLabel_Empresa.getText();
-//        beans.setEmpresaint(Integer.parseInt(IntEmpresa));
-//        beans.setDatavariavel(jTextField_data_variavel.getText());
-//    }
     public void AtualizarTudo() {
 //        PreencherFornecedor();
 //        PreencherNatureza();
@@ -2931,41 +1643,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 //        jTableListaProduto_Nota.setModel(modelo);
 //        jTableListaProduto_Complemento.setModel(modelo);
 //        jTableListaProduto_Palete_Produto.setModel(modelo);
-    }
-
-    public void PreencherFornecedor() {
-////        String busca_fornecedor = (String) jComboBox_Tipo_Fornecedor.getSelectedItem();
-//        String busca_tudo = "FORN/CLIE";
-////        if (jLabel_OS.getText() == "Novo") {
-////            jComboBox_Fornecedor.removeAllItems();
-////        } else {
-////        }
-//        conex_Fornecedor.conexao();
-////        if (busca_fornecedor == "FORN/CLIE") {
-////            conex_Fornecedor.executaSql("select * from ecft where ecft_tipo != 'EMPRESA' and stecft=1 order by ecft_id asc");
-////        } else if (busca_fornecedor == "OUTRO") {
-////            conex_Fornecedor.executaSql("select * from ecft where ecft_tipo like '" + busca_fornecedor + "' and stecft=1 order by ecft_id asc");
-////        } else {
-////            conex_Fornecedor.executaSql("select * from ecft where ecft_tipo like '" + busca_fornecedor + "'or ecft_tipo like '" + busca_tudo + "' and stecft=1 order by ecft_id asc");
-////        }
-//        try {
-//            conex_Fornecedor.rs.first();
-//            cbCliente.removeAllItems();
-//            cbCliente.addItem(" ");
-////            jComboBox_Fornecedor_Int.removeAllItems();
-////            jComboBox_Fornecedor_Int.addItem("0");
-//            do {
-//                cbCliente.addItem(conex_Fornecedor.rs.getString("ecft_nome"));
-////                jComboBox_Fornecedor_Int.addItem(conex_Fornecedor.rs.getString("sis_ecft"));
-//                cbCliente.setBackground(Color.GRAY);
-//            } while (conex_Fornecedor.rs.next());
-//        } catch (SQLException ex) {
-//            cbCliente.setBackground(Color.red);
-//        }
-////        jComboBox_Fornecedor.setSelectedItem(" ");
-//        conex_Fornecedor.desconecta();
-//        cbCliente.setBackground(Color.yellow);
-
     }
 
     public void PreencherMeuTotal() {
@@ -3009,33 +1686,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
     }
 
-//    public void PreencherNatureza() {
-//
-//        conex_Natureza.conexao();
-//        conex_Natureza.executaSql("SELECT id_natureza, id_referencianatureza, tipo_natureza, desc_natureza, registro_natureza, \n"
-//                + "       usuario_natureza\n"
-//                + "  FROM natureza  where stnat=1  order by id_referencianatureza asc");
-//        try {
-//            conex_Natureza.rs.first();
-//            cbNatureza.removeAllItems();
-//            cbNatureza.addItem(" ");
-//
-//            do {
-//                String DescNatureza = (conex_Natureza.rs.getString("desc_natureza"));
-//                String IdNatureza = (conex_Natureza.rs.getString("id_referencianatureza"));
-//                String TipoNatureza = (conex_Natureza.rs.getString("tipo_natureza"));
-//                DescNatureza = DescNatureza + " | " + IdNatureza;
-//                cbNatureza.addItem(DescNatureza);
-//
-//                cbNatureza.setBackground(Color.LIGHT_GRAY);
-//            } while (conex_Natureza.rs.next());
-//        } catch (SQLException ex) {
-//            cbNatureza.setBackground(Color.red);
-//        }
-//        conex_Natureza.desconecta();
-//        cbNatureza.setSelectedItem(" ");
-//        cbNatureza.setBackground(Color.yellow);
-//    }
     public void PreencherTransporte() {
         ComboFocu = 0;
         conex_Transporte.conexao();
@@ -3073,7 +1723,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     }
 
     public void RecebeDescricaoBusca(String MinhaBusca) {
-        jTextField_Busca_Produto_Nota.setText(MinhaBusca);
+        txtBuscarUmProdutoPorNome.setText(MinhaBusca);
     }
 
     public void InsereNaTabela() {
@@ -3155,13 +1805,13 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnDataAtual;
     public static javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnHoraAtual;
+    private javax.swing.JButton btnInserirProduto;
+    public static javax.swing.JButton btnLimparCampoBuscaProduto;
+    private javax.swing.JButton btnRemoverUmProduto;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<Cliente> cbCliente;
     public static javax.swing.JComboBox<Natureza> cbNatureza;
     private com.toedter.calendar.JDateChooser dataNota;
-    private javax.swing.JButton jButton_Adicionar_Produto_Nota;
-    private javax.swing.JButton jButton_Excluir_Movimento_Nota;
-    public static javax.swing.JButton jButton_Fechar_Nota;
     private javax.swing.JComboBox<String> jComboBox_modalidade;
     private javax.swing.JComboBox<String> jComboBox_transportadora;
     private javax.swing.JLabel jLabel10;
@@ -3199,13 +1849,13 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableListaProduto_Nota;
     private javax.swing.JTextArea jTextArea_Observacao;
-    public static javax.swing.JTextField jTextField_Busca_Produto_Nota;
     private javax.swing.JLabel lblInformacoes;
     private javax.swing.JPanel pnDados;
     private javax.swing.JPanel pnInformacao;
     private javax.swing.JPanel pnPrincipal;
     private javax.swing.JPanel pnTopo;
     private javax.swing.JPanel pnTransporte;
+    public static javax.swing.JTextField txtBuscarUmProdutoPorNome;
     public static javax.swing.JTextField txtChave;
     private javax.swing.JTextField txtHora;
     private javax.swing.JTextField txtNota;
@@ -3247,10 +1897,9 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         return btnDataAtual;
     }
 
-    public   JButton getBtnExcluir() {
+    public JButton getBtnExcluir() {
         return btnExcluir;
     }
- 
 
     public JButton getBtnHoraAtual() {
         return btnHoraAtual;
@@ -3264,7 +1913,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         return dataNota;
     }
 
-    public   JTextField getTxtChave() {
+    public JTextField getTxtChave() {
         return txtChave;
     }
 
@@ -3282,6 +1931,50 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
     public JComboBox<Cliente> getCbCliente() {
         return cbCliente;
+    }
+
+    public static JTextField getTxtBuscarUmProdutoPorNomeStatic() {
+        return txtBuscarUmProdutoPorNome;
+    }
+
+    public static int getIdProduto() {
+        return idProduto;
+    }
+
+    public static void setIdProduto(int idProduto) {
+        MovimentoCadastroJIF.idProduto = idProduto;
+    }
+
+    public int getIdProdutoComun() {
+        return idProduto;
+    }
+
+    public void setIdProdutoComun(int idProduto) {
+        MovimentoCadastroJIF.idProduto = idProduto;
+    }
+
+    public JTextField getTxtBuscarUmProdutoPorNomeComun() {
+        return txtBuscarUmProdutoPorNome;
+    }
+
+    public JButton getBtnInserirProduto() {
+        return btnInserirProduto;
+    }
+
+    public JButton getBtnLimparCampoBuscaProduto() {
+        return btnLimparCampoBuscaProduto;
+    }
+
+    public JButton getBtnRemoverUmProduto() {
+        return btnRemoverUmProduto;
+    }
+
+    public static List<Beans_Movimento> getMovimentos() {
+        return movimentos;
+    }
+
+    public static void setMovimentos(List<Beans_Movimento> movimentos) {
+        MovimentoCadastroJIF.movimentos = movimentos;
     }
 
 }
