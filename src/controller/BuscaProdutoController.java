@@ -63,9 +63,9 @@ public class BuscaProdutoController {
             if (evt.getClickCount() == 2) {
                 try {
                     MovimentoCadastroController.recebeProduto(produto);
-                    System.out.println("produto:: " + produto);
+//                    System.out.println("produto:: " + produto);
                 } catch (Exception e) {
-                    System.out.println("erro " + e.getMessage());
+                    System.out.println("erro|selecionaUmProduto::: " + e.getMessage());
                 }
                 limparPesquisaProdutoLista(form);
                 form.dispose();

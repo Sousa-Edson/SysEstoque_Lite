@@ -51,7 +51,7 @@ public class MovimentoTableModel extends AbstractTableModel {
 
         switch (columnIndex) {
             case 0:
-                return movimento.getProduto().getId_prod();
+                return rowIndex+1;
             case 1:
                 return movimento.getProduto().getId_prod();
             case 2:

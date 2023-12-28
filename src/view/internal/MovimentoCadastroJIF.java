@@ -429,6 +429,11 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
                 txtBuscarUmProdutoPorNomeFocusLost(evt);
             }
         });
+        txtBuscarUmProdutoPorNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarUmProdutoPorNomeActionPerformed(evt);
+            }
+        });
         txtBuscarUmProdutoPorNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtBuscarUmProdutoPorNomeKeyPressed(evt);
@@ -1218,6 +1223,10 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         movimentoCadastroController.chamaFormularioComplementar(this);
 //        txtBuscarUmProdutoPorNome.requestFocus();
     }//GEN-LAST:event_btnInserirProdutoActionPerformed
+
+    private void txtBuscarUmProdutoPorNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarUmProdutoPorNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarUmProdutoPorNomeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
