@@ -159,7 +159,6 @@ public class MovimentoCadastroController {
 
     public void prencherTabela(MovimentoCadastroJIF form) {
 
-        System.out.println("###### movimentos " + movimentos);
         try {
             MovimentoTableModel modelo = new MovimentoTableModel();
             modelo.setMovimentos(movimentos);

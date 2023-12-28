@@ -269,7 +269,7 @@ public class JDialogComplementar extends javax.swing.JDialog {
 
     private void btnInserirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirProdutoActionPerformed
         String quantidade = txtQuantidade.getText();
-        double quantidadeDouble = Double.parseDouble(quantidade);
+        double quantidadeDouble = Double.parseDouble(quantidade.replace(",", "."));
 
         movimento.setQtd_mov(quantidadeDouble);
         movimento.setQtd_calc(quantidadeDouble);
@@ -282,9 +282,7 @@ public class JDialogComplementar extends javax.swing.JDialog {
 
         movimento.setComplemento_mov(txtComplemento.getText().toUpperCase());
 
-        System.out.println("lista em jdialog complementar:: " + movimento.toString());
         MovimentoCadastroController.movimentos.add(movimento);
-         System.out.println("exibindo:: " +  MovimentoCadastroController.movimentos);
         this.dispose();
     }//GEN-LAST:event_btnInserirProdutoActionPerformed
 
