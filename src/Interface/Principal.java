@@ -1367,8 +1367,8 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public void EscondeMenu() {
-        ManipulaProtocolo prot = new ManipulaProtocolo();
-        prot.chamaRelatorioEmBranco();
+//        ManipulaProtocolo prot = new ManipulaProtocolo();
+//        prot.chamaRelatorioEmBranco();
 //        if (jButton_Consulta.isVisible()) {
 //            jButton_Consulta.setVisible(false);
 //            jButton_Expedicao.setVisible(false);
