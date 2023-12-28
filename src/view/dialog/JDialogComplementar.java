@@ -5,18 +5,15 @@
  */
 package view.dialog;
 
-import ModeloBeans.Beans_Movimento;
 import controller.MovimentoCadastroController;
-import controller.MovimentoListaController;
+import javax.swing.JOptionPane;
 import model.Movimento;
 import model.Produto;
-import repository.MovimentoRepository;
 import utils.ControleCores;
 import utils.DataHoraAtual;
 import utils.FormatarDinheiro;
 import utils.ManipulaValor;
 import utils.UsuarioLogado;
-import view.internal.MovimentoCadastroJIF;
 
 /**
  *
@@ -62,11 +59,11 @@ public class JDialogComplementar extends javax.swing.JDialog {
 
         movimento.setProduto(produto);
 
-        System.out.println("recebe::" + produto);
     }
 
     public void adicionarItem() {
-        String quantidade = txtQuantidade.getText();
+        try {
+             String quantidade = txtQuantidade.getText();
         double quantidadeDouble = Double.parseDouble(quantidade.replace(",", "."));
 
         movimento.setQtd_mov(quantidadeDouble);
@@ -83,6 +80,12 @@ public class JDialogComplementar extends javax.swing.JDialog {
         MovimentoCadastroController.movimentos.add(movimento);
 //        System.out.println("###\n\n MovimentoCadastroController.movimentos.size() ::: " + MovimentoCadastroController.movimentos.size());
         this.dispose();
+        } catch (Exception e) {
+            System.out.println("erro|adicionarItem::: "+e.getMessage());
+            JOptionPane.showMessageDialog(txtComplemento, "Quantidade incorreta");
+            txtQuantidade.requestFocus();
+        }
+       
     }
 
     /**

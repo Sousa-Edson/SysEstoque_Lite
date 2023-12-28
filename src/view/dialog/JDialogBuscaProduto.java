@@ -6,23 +6,13 @@
 package view.dialog;
 
 import Interface.Principal;
-import ModeloBeans.ModeloTabela;
 import ConectaBanco.ConexaoBD;
 import controller.BuscaProdutoController;
-import view.internal.MovimentoCadastroJIF;
-import java.awt.event.MouseEvent;
-import java.math.BigDecimal;
-
-import java.sql.SQLException;
-import java.text.NumberFormat;
-import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import tableModel.BuscaProdutoTableModel;
 
 /**
  *
@@ -45,7 +35,7 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
     }
 
     public void recebeBusca(String busca) {
-        System.out.println("BUSCA:::" + busca);
+//        System.out.println("BUSCA:::" + busca);
         txtBusca.setText(busca);
     }
 
