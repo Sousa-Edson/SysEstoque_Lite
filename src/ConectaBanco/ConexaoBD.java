@@ -1,3 +1,4 @@
+ 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -22,23 +23,19 @@ public class ConexaoBD {
     public Statement stm;
     public ResultSet rs;
     public Connection con;
-     
-    ///// 192.168.0.1
-    private final String caminho = "jdbc:postgresql://localhost:5432/SysEstoqueVersao51";//SysEstoqueVersao51;
-//     private final String caminho = "jdbc:postgresql://192.168.0.3:5432/SysEstoqueX";
-//    private final String caminho = "jdbc:postgresql://000.000.0.0:5432/SysEstoque";  /// aqui funciona em rede esmo mudando o ipconfig
+
+    private final String caminho = "jdbc:postgresql://localhost:5432/SysEstoqueVersao51";
     private final String driver = "org.postgresql.Driver";
-    private final String usuario = "admin";//postgres
-    private final String senha = "123456"; //positivo@75329867"; ESTA É A SENHA ;;;;;;    1
+    private final String usuario = "postgres";
+    private final String senha = "1";
 
     public void conexao() {
         System.setProperty("jdbc.Drivers", driver);
         try {
-
             con = DriverManager.getConnection(caminho, usuario, senha);
-//            JOptionPane.showMessageDialog(null, "Conectado!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao se conectar com BD\n" + ex.getMessage());
+            System.out.println("Erro: " + ex);
         }
     }
 
@@ -46,9 +43,8 @@ public class ConexaoBD {
         try {
             stm = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = stm.executeQuery(sql);
-
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao executar SQL\n( Favor verificar):\nConexaoBD\n " + ex.getMessage()+"\n caminho "+ caminho);
+            JOptionPane.showMessageDialog(null, "Erro ao executar SQL\n( Favor verificar):\nConexaoBD\n " + ex.getMessage() + "\n caminho " + caminho);
         }
     }
 
@@ -58,20 +54,21 @@ public class ConexaoBD {
             rs = stm.executeQuery(sql);
 
         } catch (SQLException ex) {
-            ///   JOptionPane.showMessageDialog(null, "Erro ao executar SQL\n( Favor verificar):\n Verifique a conexao BD\n" + ex.getMessage());
+            System.out.println("Erro: executaSql2 ==  " + ex);
         }
     }
 
     public void desconecta() {
         System.setProperty("jdbc.Driver", driver);
         try {
-
             con.close();
-
         } catch (SQLException ex) {
-               JOptionPane.showMessageDialog(null, "Erro ao fechar conexão com BD:\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao fechar conexão com BD:\n" + ex.getMessage());
         }
-       
     }
 
+    public PreparedStatement preparaSql(String sql) throws SQLException {
+        return con.prepareStatement(sql);
+    }
 }
+ 
