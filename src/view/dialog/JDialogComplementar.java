@@ -59,10 +59,30 @@ public class JDialogComplementar extends javax.swing.JDialog {
 
         movimento.setDestino_mov("setDestino_mov");
         movimento.setVolume("volume");
-        
+
         movimento.setProduto(produto);
-        
-        System.out.println("recebe::"+produto);
+
+        System.out.println("recebe::" + produto);
+    }
+
+    public void adicionarItem() {
+        String quantidade = txtQuantidade.getText();
+        double quantidadeDouble = Double.parseDouble(quantidade.replace(",", "."));
+
+        movimento.setQtd_mov(quantidadeDouble);
+        movimento.setQtd_calc(quantidadeDouble);
+        movimento.setQtd_calc_ex(quantidade);
+        movimento.setQtd_mov(quantidadeDouble);
+        movimento.setQtd_prod(quantidadeDouble);
+        movimento.setQtd_prod_ex(quantidade);
+
+        movimento.setTotal_mov(FormatarDinheiro.formatarDinheiro(movimento.getValor_real() * movimento.getQtd_prod()));
+
+        movimento.setComplemento_mov(txtComplemento.getText().toUpperCase());
+
+        MovimentoCadastroController.movimentos.add(movimento);
+//        System.out.println("###\n\n MovimentoCadastroController.movimentos.size() ::: " + MovimentoCadastroController.movimentos.size());
+        this.dispose();
     }
 
     /**
@@ -269,23 +289,7 @@ public class JDialogComplementar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInserirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirProdutoActionPerformed
-        String quantidade = txtQuantidade.getText();
-        double quantidadeDouble = Double.parseDouble(quantidade.replace(",", "."));
-
-        movimento.setQtd_mov(quantidadeDouble);
-        movimento.setQtd_calc(quantidadeDouble);
-        movimento.setQtd_calc_ex(quantidade);
-        movimento.setQtd_mov(quantidadeDouble);
-        movimento.setQtd_prod(quantidadeDouble);
-        movimento.setQtd_prod_ex(quantidade);
-
-        movimento.setTotal_mov(FormatarDinheiro.formatarDinheiro(movimento.getValor_real() * movimento.getQtd_prod()));
-
-        movimento.setComplemento_mov(txtComplemento.getText().toUpperCase());
-
-        MovimentoCadastroController.movimentos.add(movimento);
-        System.out.println("###\n\n MovimentoCadastroController.movimentos.size() ::: "+ MovimentoCadastroController.movimentos.size());
-        this.dispose();
+        adicionarItem();
     }//GEN-LAST:event_btnInserirProdutoActionPerformed
 
     private void txtQuantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyPressed
@@ -305,10 +309,10 @@ public class JDialogComplementar extends javax.swing.JDialog {
     }//GEN-LAST:event_txtComplementoKeyPressed
 
     private void btnInserirProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnInserirProdutoKeyPressed
-        if (evt.getKeyCode() == evt.VK_ENTER) {
-            btnInserirProduto.doClick();
-            this.dispose();
-        }
+//        if (evt.getKeyCode() == evt.VK_ENTER) {
+////            adicionarItem();
+//          
+//        }
     }//GEN-LAST:event_btnInserirProdutoKeyPressed
 
     /**

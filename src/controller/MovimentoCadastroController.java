@@ -115,8 +115,8 @@ public class MovimentoCadastroController {
         } else {
             System.err.println("id produto vazio!");
         }
-        limparBuscarUmProdutoPorNome(form);
         prencherTabela(form);
+        limparBuscarUmProdutoPorNome(form);
     }
 
     public void chamaFormularioBuscaProduto(MovimentoCadastroJIF form) {
@@ -130,6 +130,9 @@ public class MovimentoCadastroController {
         form.getTxtBuscarUmProdutoPorNomeComun().requestFocus();
         form.setIdProdutoComun(0);
 
+    }
+
+    public void limparTabela(MovimentoCadastroJIF form) {
         MovimentoTableModel modelo = new MovimentoTableModel();
         modelo.setMovimentos(new ArrayList<>());
         form.getTabela().setModel(modelo);
@@ -171,7 +174,7 @@ public class MovimentoCadastroController {
         } catch (Exception e) {
             System.err.println("\n\nerro prencherTabela:: " + e.getMessage());
         }
-        System.out.println("\n\n##### OK prencherTabela:: " + movimentos.size());
+//        System.out.println("\n\n##### aqui--- prencherTabela:: " + movimentos.size());
     }
 
     public static void recebeProduto(Produto produto) {

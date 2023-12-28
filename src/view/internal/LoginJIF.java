@@ -232,12 +232,12 @@ public class LoginJIF extends javax.swing.JInternalFrame {
 //            menu.Painel_principal.remove(this);
 //            menu.Painel_principal.setEnabled(true);
 //            menu.PapelParede.requestFocus();
-            MenuPrincipal.jLabelTipoUsuario.setText("Manutenção");
-            MenuPrincipal.jLabelNomeUsuario.setText("Sistema");
+//            MenuPrincipal.jLabelTipoUsuario.setText("Manutenção");
+//            MenuPrincipal.jLabelNomeUsuario.setText("Sistema");
 //            preenche_Empresa_Id();
 
 //            this.dispose();
-            MenuPrincipal.jMenuItem_EscondeMenu.doClick();
+//            MenuPrincipal.jMenuItem_EscondeMenu.doClick();
             jTextField1.setText(null);
             jPasswordField1.setText(null);
             this.setVisible(false);

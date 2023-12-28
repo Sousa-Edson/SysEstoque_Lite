@@ -1105,6 +1105,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         movimentoCadastroController.limparBuscarUmProdutoPorNome(this);
+        movimentoCadastroController.limparTabela(this);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -1208,13 +1209,14 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnLimparCampoBuscaProdutoActionPerformed
 
     private void btnInserirProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnInserirProdutoKeyPressed
-        if (evt.getKeyCode() == evt.VK_ENTER) {
-            movimentoCadastroController.chamaFormularioComplementar(this);
-        }
+//        if (evt.getKeyCode() == evt.VK_ENTER) {
+//            movimentoCadastroController.chamaFormularioComplementar(this);
+//        }
     }//GEN-LAST:event_btnInserirProdutoKeyPressed
 
     private void btnInserirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirProdutoActionPerformed
         movimentoCadastroController.chamaFormularioComplementar(this);
+//        txtBuscarUmProdutoPorNome.requestFocus();
     }//GEN-LAST:event_btnInserirProdutoActionPerformed
 
 

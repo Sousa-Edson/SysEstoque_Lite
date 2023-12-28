@@ -8,8 +8,6 @@ import extras.TelaInternaController;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import model.NotaFiscal;
 import service.NotaFiscalService;
 import tableModel.NotaFiscalTableModel;
