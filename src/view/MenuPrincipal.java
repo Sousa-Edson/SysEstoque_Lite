@@ -6,7 +6,6 @@
 //// aqui serve pra buscar jlabel   jLabel_Data2 jLabel_Hora
 package view;
 
-import view.internal.LoginJIF;
 import Interface.*;
 import BackupRestore.Novo.PostgresBackup_X64NOV;
 import BackupRestore.Novo.PostgresBackup_X86NOV;
@@ -44,7 +43,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public final class MenuPrincipal extends javax.swing.JFrame {
 
-    MenuPrincipalController menuPrincipalController = new MenuPrincipalController();
+    MenuPrincipalController menuPrincipalController;
 
     String MenuMinhaData, MenuMinhaDataSistema, MenuMinhaHora;
 
@@ -52,7 +51,9 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     String MinhaReferencia;
 
     public MenuPrincipal() {
+        menuPrincipalController = new MenuPrincipalController();
         initComponents();
+
         MudaTitulo();
         HoraAtual();
         EscondeMenu();
@@ -64,7 +65,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         pnMenuInferior.setBackground(ControleCores.pegarCorPadrao());
         desktopPrincipal.setBackground(ControleCores.pegarCorPadrao());
         pnMenuPrincipal.setBackground(ControleCores.pegarCorPadrao());
-        
+
         TelaInternaController.chamaNota();
     }
 
@@ -1239,7 +1240,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_ProdutoActionPerformed
 
     private void jButton_NotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NotaActionPerformed
-           TelaInternaController.chamaListaNota();
+        TelaInternaController.chamaListaNota();
     }//GEN-LAST:event_jButton_NotaActionPerformed
 
     private void jButton_ConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ConsultaActionPerformed
@@ -1342,8 +1343,8 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }
 
     public void EscondeMenu() {
-        ManipulaProtocolo prot = new ManipulaProtocolo();
-        prot.chamaRelatorioEmBranco();
+//        ManipulaProtocolo prot = new ManipulaProtocolo();
+//        prot.chamaRelatorioEmBranco();
 
         if (jMenuBar1.isVisible()) {
             jMenuBar1.setVisible(false);
