@@ -31,8 +31,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
     private static int idProduto = 0;
     MovimentoCadastroController movimentoCadastroController;
-    
-    
 
     /**
      * Creates new form MovimentoJIF
@@ -40,7 +38,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     public MovimentoCadastroJIF() {
         movimentoCadastroController = new MovimentoCadastroController(this);
         initComponents();
-
+        movimentoCadastroController.mudarCorPaineis(this);
         movimentoCadastroController.carregarCliente(this);
         movimentoCadastroController.carregarNatureza(this);
 
@@ -1211,7 +1209,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
     private void btnInserirProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnInserirProdutoKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-//            BotaoAdicionarProduto();
+            movimentoCadastroController.chamaFormularioComplementar(this);
         }
     }//GEN-LAST:event_btnInserirProdutoKeyPressed
 
@@ -1389,13 +1387,8 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         return btnRemoverUmProduto;
     }
 
-    
-
     public JTable getTabela() {
         return tabela;
     }
-
-    
-    
 
 }

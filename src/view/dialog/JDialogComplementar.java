@@ -7,6 +7,7 @@ package view.dialog;
 
 import ModeloBeans.Beans_Movimento;
 import controller.MovimentoCadastroController;
+import controller.MovimentoListaController;
 import model.Movimento;
 import model.Produto;
 import repository.MovimentoRepository;
@@ -283,6 +284,7 @@ public class JDialogComplementar extends javax.swing.JDialog {
         movimento.setComplemento_mov(txtComplemento.getText().toUpperCase());
 
         MovimentoCadastroController.movimentos.add(movimento);
+        System.out.println("###\n\n MovimentoCadastroController.movimentos.size() ::: "+ MovimentoCadastroController.movimentos.size());
         this.dispose();
     }//GEN-LAST:event_btnInserirProdutoActionPerformed
 
@@ -304,6 +306,7 @@ public class JDialogComplementar extends javax.swing.JDialog {
 
     private void btnInserirProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnInserirProdutoKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
+            btnInserirProduto.doClick();
             this.dispose();
         }
     }//GEN-LAST:event_btnInserirProdutoKeyPressed
