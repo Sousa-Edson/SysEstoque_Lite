@@ -609,43 +609,43 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel23" linkSize="13" pref="120" max="32767" attributes="0"/>
-                                              <Component id="vol_quantidade" linkSize="13" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="txtVolQuantidade" linkSize="13" alignment="1" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="jLabel27" linkSize="13" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="vol_especie" linkSize="13" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                              <Component id="txtVolEspecie" linkSize="13" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Component id="jLabel25" linkSize="13" min="-2" pref="120" max="-2" attributes="0"/>
-                                              <Component id="vol_numeracao" linkSize="13" min="-2" pref="120" max="-2" attributes="0"/>
+                                              <Component id="txtVolNumeracao" linkSize="13" min="-2" pref="120" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="vol_peso_bruto" linkSize="13" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtPesoBruto" linkSize="13" alignment="0" max="32767" attributes="0"/>
                                               <Component id="jLabel26" linkSize="13" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="jLabel30" linkSize="13" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="vol_peso_liquido" linkSize="13" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                              <Component id="txtPesoLiquido" linkSize="13" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="vol_motorista" alignment="0" min="-2" pref="334" max="-2" attributes="0"/>
+                                              <Component id="txtMotorista" alignment="0" min="-2" pref="334" max="-2" attributes="0"/>
                                               <Component id="jLabel28" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="jLabel19" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="vol_placa" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
+                                              <Component id="txtPlaca" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="jLabel21" alignment="0" min="-2" pref="49" max="-2" attributes="0"/>
-                                              <Component id="vol_uf" alignment="0" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <Component id="txtUf" alignment="0" min="-2" pref="63" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="102" attributes="0">
@@ -691,9 +691,9 @@
                                   <Component id="jLabel28" linkSize="10" min="-2" pref="20" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="vol_motorista" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="vol_placa" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="vol_uf" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtMotorista" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtUf" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -709,11 +709,11 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="vol_peso_bruto" alignment="3" max="32767" attributes="0"/>
-                                      <Component id="vol_peso_liquido" alignment="3" max="32767" attributes="0"/>
-                                      <Component id="vol_especie" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="vol_quantidade" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="vol_numeracao" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtPesoBruto" alignment="3" max="32767" attributes="0"/>
+                                      <Component id="txtPesoLiquido" alignment="3" max="32767" attributes="0"/>
+                                      <Component id="txtVolEspecie" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtVolQuantidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtVolNumeracao" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -792,10 +792,10 @@
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JTextField" name="vol_motorista">
+                <Component class="javax.swing.JTextField" name="txtMotorista">
                   <Events>
-                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="vol_motoristaFocusGained"/>
-                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="vol_motoristaFocusLost"/>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtMotoristaFocusGained"/>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtMotoristaFocusLost"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel28">
@@ -816,15 +816,16 @@
                     <Property name="text" type="java.lang.String" value="Placa Veiculo"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="vol_uf">
+                <Component class="javax.swing.JTextField" name="txtUf">
                   <Events>
-                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="vol_ufFocusLost"/>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtUfFocusLost"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="vol_placa">
+                <Component class="javax.swing.JTextField" name="txtPlaca">
                   <Events>
-                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="vol_placaFocusLost"/>
-                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="vol_placaKeyReleased"/>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPlacaFocusLost"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPlacaActionPerformed"/>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPlacaKeyReleased"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel_Titulo2">
@@ -847,7 +848,10 @@
                     <Property name="text" type="java.lang.String" value="Quantidade"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="vol_quantidade">
+                <Component class="javax.swing.JTextField" name="txtVolQuantidade">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtVolQuantidadeActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel27">
                   <Properties>
@@ -855,9 +859,9 @@
                     <Property name="text" type="java.lang.String" value="Esp&#xe9;cie"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="vol_especie">
+                <Component class="javax.swing.JTextField" name="txtVolEspecie">
                   <Events>
-                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="vol_especieFocusLost"/>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtVolEspecieFocusLost"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel25">
@@ -878,13 +882,16 @@
                     <Property name="text" type="java.lang.String" value="Peso Liquido"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="vol_peso_liquido">
-                </Component>
-                <Component class="javax.swing.JTextField" name="vol_peso_bruto">
-                </Component>
-                <Component class="javax.swing.JTextField" name="vol_numeracao">
+                <Component class="javax.swing.JTextField" name="txtPesoLiquido">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vol_numeracaoActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPesoLiquidoActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JTextField" name="txtPesoBruto">
+                </Component>
+                <Component class="javax.swing.JTextField" name="txtVolNumeracao">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtVolNumeracaoActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -956,9 +963,10 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTextArea" name="jTextArea_Observacao">
+                    <Component class="javax.swing.JTextArea" name="txtAreaObservacao">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
+                        <Property name="lineWrap" type="boolean" value="true"/>
                         <Property name="rows" type="int" value="5"/>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">

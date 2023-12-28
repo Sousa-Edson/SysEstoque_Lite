@@ -24,6 +24,7 @@ import utils.ControleCores;
 import utils.DataHoraAtual;
 import utils.FormatarDinheiro;
 import utils.FormatarNumero;
+import utils.LimiteCaracteres;
 import view.internal.MovimentoCadastroJIF;
 
 /**
@@ -180,5 +181,21 @@ public class MovimentoCadastroController {
     public static void recebeProduto(Produto produto) {
         MovimentoCadastroJIF.getTxtBuscarUmProdutoPorNomeStatic().setText(produto.getTipo_prod() + " " + produto.getNome_prod() + " " + produto.getEdicao_prod() + "");
         MovimentoCadastroJIF.setIdProduto(produto.getId_prod());
+    }
+
+    public void salvarNota(MovimentoCadastroJIF form) {
+        String obs = LimiteCaracteres.limitarString(form.getTxtAreaObservacao().getText().toUpperCase(), 300);
+        String notaNumero = LimiteCaracteres.limitarString(form.getTxtNota().getText().toUpperCase(), 30);
+        String notaChave = LimiteCaracteres.limitarString(form.getTxtChave().getText().toUpperCase(), 60);
+        String motorista = LimiteCaracteres.limitarString(form.getTxtMotorista().getText().toUpperCase(), 160);
+        String placa = LimiteCaracteres.limitarString(form.getTxtPlaca().getText().toUpperCase(), 10);
+        String uf = LimiteCaracteres.limitarString(form.getTxtUf().getText().toUpperCase(), 10);
+
+        String quantidadeVolume = LimiteCaracteres.limitarString(form.getTxtVolQuantidade().getText().toUpperCase(), 100);
+        String pesoBruto = LimiteCaracteres.limitarString(form.getTxtPesoBruto().getText().toUpperCase(), 100);
+        String pesoLiquido = LimiteCaracteres.limitarString(form.getTxtPesoLiquido().getText().toUpperCase(), 100);
+        String especieVolume = LimiteCaracteres.limitarString(form.getTxtVolEspecie().getText().toUpperCase(), 100);
+        String numeracaoVolume = LimiteCaracteres.limitarString(form.getTxtVolNumeracao().getText().toUpperCase(), 100);
+
     }
 }

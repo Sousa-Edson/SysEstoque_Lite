@@ -16,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import model.Cliente;
 import model.Natureza;
@@ -86,27 +87,27 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jComboBox_modalidade = new javax.swing.JComboBox<>();
         jComboBox_transportadora = new javax.swing.JComboBox<>();
-        vol_motorista = new javax.swing.JTextField();
+        txtMotorista = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        vol_uf = new javax.swing.JTextField();
-        vol_placa = new javax.swing.JTextField();
+        txtUf = new javax.swing.JTextField();
+        txtPlaca = new javax.swing.JTextField();
         jLabel_Titulo2 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        vol_quantidade = new javax.swing.JTextField();
+        txtVolQuantidade = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
-        vol_especie = new javax.swing.JTextField();
+        txtVolEspecie = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        vol_peso_liquido = new javax.swing.JTextField();
-        vol_peso_bruto = new javax.swing.JTextField();
-        vol_numeracao = new javax.swing.JTextField();
+        txtPesoLiquido = new javax.swing.JTextField();
+        txtPesoBruto = new javax.swing.JTextField();
+        txtVolNumeracao = new javax.swing.JTextField();
         pnInformacao = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTextArea_Observacao = new javax.swing.JTextArea();
+        txtAreaObservacao = new javax.swing.JTextArea();
         btnExcluir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
@@ -546,12 +547,12 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        vol_motorista.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtMotorista.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                vol_motoristaFocusGained(evt);
+                txtMotoristaFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                vol_motoristaFocusLost(evt);
+                txtMotoristaFocusLost(evt);
             }
         });
 
@@ -564,20 +565,25 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel19.setText("Placa Veiculo");
 
-        vol_uf.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtUf.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                vol_ufFocusLost(evt);
+                txtUfFocusLost(evt);
             }
         });
 
-        vol_placa.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtPlaca.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                vol_placaFocusLost(evt);
+                txtPlacaFocusLost(evt);
             }
         });
-        vol_placa.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtPlaca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPlacaActionPerformed(evt);
+            }
+        });
+        txtPlaca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                vol_placaKeyReleased(evt);
+                txtPlacaKeyReleased(evt);
             }
         });
 
@@ -589,12 +595,18 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setText("Quantidade");
 
+        txtVolQuantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtVolQuantidadeActionPerformed(evt);
+            }
+        });
+
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel27.setText("Espécie");
 
-        vol_especie.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtVolEspecie.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                vol_especieFocusLost(evt);
+                txtVolEspecieFocusLost(evt);
             }
         });
 
@@ -607,9 +619,15 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel30.setText("Peso Liquido");
 
-        vol_numeracao.addActionListener(new java.awt.event.ActionListener() {
+        txtPesoLiquido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                vol_numeracaoActionPerformed(evt);
+                txtPesoLiquidoActionPerformed(evt);
+            }
+        });
+
+        txtVolNumeracao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtVolNumeracaoActionPerformed(evt);
             }
         });
 
@@ -627,35 +645,35 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
                             .addGroup(pnTransporteLayout.createSequentialGroup()
                                 .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                                    .addComponent(vol_quantidade, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(txtVolQuantidade, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(vol_especie, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtVolEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(vol_numeracao, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtVolNumeracao, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(vol_peso_bruto)
+                                    .addComponent(txtPesoBruto)
                                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(vol_peso_liquido, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtPesoLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(pnTransporteLayout.createSequentialGroup()
                                 .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(vol_motorista, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(vol_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(vol_uf, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtUf, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(pnTransporteLayout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -668,7 +686,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        pnTransporteLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel23, jLabel25, jLabel26, jLabel27, jLabel30, vol_especie, vol_numeracao, vol_peso_bruto, vol_peso_liquido, vol_quantidade});
+        pnTransporteLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel23, jLabel25, jLabel26, jLabel27, jLabel30, txtPesoBruto, txtPesoLiquido, txtVolEspecie, txtVolNumeracao, txtVolQuantidade});
 
         pnTransporteLayout.setVerticalGroup(
             pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -692,9 +710,9 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
                         .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(vol_motorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(vol_placa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(vol_uf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_Titulo2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -706,11 +724,11 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
                             .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(7, 7, 7)
                         .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(vol_peso_bruto)
-                            .addComponent(vol_peso_liquido)
-                            .addComponent(vol_especie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(vol_quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(vol_numeracao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtPesoBruto)
+                            .addComponent(txtPesoLiquido)
+                            .addComponent(txtVolEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtVolQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtVolNumeracao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnTransporteLayout.createSequentialGroup()
                         .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -732,10 +750,11 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         jLabel16.setText("Observações");
         jLabel16.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTextArea_Observacao.setColumns(20);
-        jTextArea_Observacao.setRows(5);
-        jTextArea_Observacao.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jScrollPane7.setViewportView(jTextArea_Observacao);
+        txtAreaObservacao.setColumns(20);
+        txtAreaObservacao.setLineWrap(true);
+        txtAreaObservacao.setRows(5);
+        txtAreaObservacao.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jScrollPane7.setViewportView(txtAreaObservacao);
 
         javax.swing.GroupLayout pnInformacaoLayout = new javax.swing.GroupLayout(pnInformacao);
         pnInformacao.setLayout(pnInformacaoLayout);
@@ -1114,40 +1133,40 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        //    produtoController.salvar(this);
+        movimentoCadastroController.salvarNota(this);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void vol_especieFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vol_especieFocusLost
-        vol_especie.setText(vol_especie.getText().toUpperCase());
-    }//GEN-LAST:event_vol_especieFocusLost
+    private void txtVolEspecieFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtVolEspecieFocusLost
+        txtVolEspecie.setText(txtVolEspecie.getText().toUpperCase());
+    }//GEN-LAST:event_txtVolEspecieFocusLost
 
-    private void vol_numeracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vol_numeracaoActionPerformed
+    private void txtVolNumeracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVolNumeracaoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_vol_numeracaoActionPerformed
+    }//GEN-LAST:event_txtVolNumeracaoActionPerformed
 
-    private void vol_placaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vol_placaKeyReleased
+    private void txtPlacaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlacaKeyReleased
 //        AjustaMinhaPlaca();
-    }//GEN-LAST:event_vol_placaKeyReleased
+    }//GEN-LAST:event_txtPlacaKeyReleased
 
-    private void vol_placaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vol_placaFocusLost
+    private void txtPlacaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlacaFocusLost
         //aqui
         //  AjustaMinhaPlaca();
-        vol_placa.setText(vol_placa.getText().toUpperCase());
-    }//GEN-LAST:event_vol_placaFocusLost
+        txtPlaca.setText(txtPlaca.getText().toUpperCase());
+    }//GEN-LAST:event_txtPlacaFocusLost
 
-    private void vol_ufFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vol_ufFocusLost
+    private void txtUfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUfFocusLost
 //        AjustaMinhaUf();
-        vol_uf.setText(vol_uf.getText().toUpperCase());
-    }//GEN-LAST:event_vol_ufFocusLost
+        txtUf.setText(txtUf.getText().toUpperCase());
+    }//GEN-LAST:event_txtUfFocusLost
 
-    private void vol_motoristaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vol_motoristaFocusLost
-        vol_motorista.setText(vol_motorista.getText().toUpperCase());
-        vol_motorista.setBackground(Color.WHITE);
-    }//GEN-LAST:event_vol_motoristaFocusLost
+    private void txtMotoristaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMotoristaFocusLost
+        txtMotorista.setText(txtMotorista.getText().toUpperCase());
+        txtMotorista.setBackground(Color.WHITE);
+    }//GEN-LAST:event_txtMotoristaFocusLost
 
-    private void vol_motoristaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vol_motoristaFocusGained
+    private void txtMotoristaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMotoristaFocusGained
         //        vol_motorista.setBackground(Color.cyan);
-    }//GEN-LAST:event_vol_motoristaFocusGained
+    }//GEN-LAST:event_txtMotoristaFocusGained
 
     private void jComboBox_transportadoraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox_transportadoraKeyPressed
         if (evt.getKeyCode() == evt.VK_F5) {
@@ -1228,6 +1247,18 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarUmProdutoPorNomeActionPerformed
 
+    private void txtPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlacaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPlacaActionPerformed
+
+    private void txtPesoLiquidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesoLiquidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesoLiquidoActionPerformed
+
+    private void txtVolQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVolQuantidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtVolQuantidadeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -1276,7 +1307,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea_Observacao;
     private javax.swing.JLabel lblInformacoes;
     private javax.swing.JPanel pnDados;
     private javax.swing.JPanel pnInformacao;
@@ -1284,18 +1314,19 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnTopo;
     private javax.swing.JPanel pnTransporte;
     private javax.swing.JTable tabela;
+    private javax.swing.JTextArea txtAreaObservacao;
     public static javax.swing.JTextField txtBuscarUmProdutoPorNome;
     public static javax.swing.JTextField txtChave;
     private javax.swing.JTextField txtHora;
+    private javax.swing.JTextField txtMotorista;
     private javax.swing.JTextField txtNota;
-    private javax.swing.JTextField vol_especie;
-    private javax.swing.JTextField vol_motorista;
-    private javax.swing.JTextField vol_numeracao;
-    private javax.swing.JTextField vol_peso_bruto;
-    private javax.swing.JTextField vol_peso_liquido;
-    private javax.swing.JTextField vol_placa;
-    private javax.swing.JTextField vol_quantidade;
-    private javax.swing.JTextField vol_uf;
+    private javax.swing.JTextField txtPesoBruto;
+    private javax.swing.JTextField txtPesoLiquido;
+    private javax.swing.JTextField txtPlaca;
+    private javax.swing.JTextField txtUf;
+    private javax.swing.JTextField txtVolEspecie;
+    private javax.swing.JTextField txtVolNumeracao;
+    private javax.swing.JTextField txtVolQuantidade;
     // End of variables declaration//GEN-END:variables
 
     public JPanel getPnDados() {
@@ -1400,6 +1431,46 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
     public JTable getTabela() {
         return tabela;
+    }
+
+    public JTextArea getTxtAreaObservacao() {
+        return txtAreaObservacao;
+    }
+
+    public void setTxtAreaObservacao(JTextArea txtAreaObservacao) {
+        this.txtAreaObservacao = txtAreaObservacao;
+    }
+
+    public JTextField getTxtMotorista() {
+        return txtMotorista;
+    }
+
+    public JTextField getTxtPesoBruto() {
+        return txtPesoBruto;
+    }
+
+    public JTextField getTxtPesoLiquido() {
+        return txtPesoLiquido;
+    }
+
+    public JTextField getTxtPlaca() {
+        return txtPlaca;
+    }
+
+    public JTextField getTxtUf() {
+        return txtUf;
+    }
+
+    public JTextField getTxtVolEspecie() {
+        return txtVolEspecie;
+    }
+
+    public JTextField getTxtVolNumeracao() {
+        return txtVolNumeracao;
+    }
+
+    public JTextField getTxtVolQuantidade() {
+        return txtVolQuantidade;
     }
 
 }
