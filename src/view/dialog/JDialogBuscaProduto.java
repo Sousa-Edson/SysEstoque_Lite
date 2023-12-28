@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Consulta;
+package view.dialog;
 
 import Interface.Principal;
 import ModeloBeans.ModeloTabela;
 import ConectaBanco.ConexaoBD;
+import controller.BuscaProdutoController;
 import view.internal.MovimentoCadastroJIF;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
@@ -16,9 +17,12 @@ import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import tableModel.BuscaProdutoTableModel;
 
 /**
  *
@@ -32,10 +36,12 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
     int selecao;
     String selecao_nome;
     String selecao_id;
+    private final BuscaProdutoController buscaProdutoController;
 
     public JDialogBuscaProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        buscaProdutoController = new BuscaProdutoController();
     }
 
     public void recebeBusca(String busca) {
@@ -60,8 +66,8 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
         btnLimpar = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea_MeuTexto = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
+        txtMeuTexto = new javax.swing.JTextArea();
+        lblInformacao = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busca");
@@ -126,12 +132,12 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
             }
         });
 
-        jTextArea_MeuTexto.setEditable(false);
-        jTextArea_MeuTexto.setColumns(20);
-        jTextArea_MeuTexto.setRows(5);
-        jScrollPane2.setViewportView(jTextArea_MeuTexto);
+        txtMeuTexto.setEditable(false);
+        txtMeuTexto.setColumns(20);
+        txtMeuTexto.setRows(5);
+        jScrollPane2.setViewportView(txtMeuTexto);
 
-        jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblInformacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -142,15 +148,14 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBusca, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCadastrar)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCadastrar))
+                    .addComponent(lblInformacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -168,7 +173,7 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblInformacao, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -195,78 +200,25 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
-        if (evt.getButton() == MouseEvent.BUTTON3) {
-        } else {
-            String MeuTexto = (String) tabela.getValueAt(tabela.getSelectedRow(), 5);
-            jTextArea_MeuTexto.setText(MeuTexto);
-//            jLabel1.setText("<html>"+MeuTexto+"  </html>");
-            selecao_nome = (String) tabela.getValueAt(tabela.getSelectedRow(), 1);
-            txtBusca.setText(selecao_nome);
-            selecao_id = "" + tabela.getValueAt(tabela.getSelectedRow(), 7);
-            selecao = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
-            System.out.println("selecao_id " + selecao_id);
-            PreencheDadosProduto();
-            String SelecaaoSaldo = (String) tabela.getValueAt(tabela.getSelectedRow(), 2);
-            String SelecaaoUnid = (String) tabela.getValueAt(tabela.getSelectedRow(), 3);
-//        jLabel1.setText(selecao_id);
-            if (evt.getClickCount() == 2) {
-                try {
-                    selecao = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
-                    String Frag = "" + tabela.getValueAt(tabela.getSelectedRow(), 8);
-//                    MovimentoCadastroJIF.jTextField_Fragmento_Variavel.setText(Frag);
-//                    MovimentoCadastroJIF.jLabelMeuSaldoProduto.setText(SelecaaoSaldo + " / " + SelecaaoUnid);
-//                    MovimentoCadastroJIF.jLabel_IdProduto.setText("" + selecao);
-
-//                    MovimentoCadastroJIF.txtBuscarUmProdutoPorNome.setText(selecao_nome);
-                    MovimentoCadastroJIF.getTxtBuscarUmProdutoPorNomeStatic().setText(selecao_nome);
-                    MovimentoCadastroJIF.setIdProduto(Integer.parseInt(selecao_id));
-                    System.out.println("certo ");
-                } catch (Exception e) {
-                    System.out.println("erro " + e);
-                }
-                btnLimpar.doClick();
-                this.dispose();
-            }
-        }
-
-
+       buscaProdutoController.selecionaUmProduto(this,evt);
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        txtBusca.setText(txtBusca.getText().toUpperCase());
-        if (numBusca == 3) {
-            numBusca = 2;
-        } else {
-            numBusca = 3;
-        }
-        preencherTabela();
-        txtBusca.requestFocus();
+        buscaProdutoController.prencherTabela(this);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        txtBusca.setText("");
-        txtBusca.requestFocus();
-        jTextArea_MeuTexto.setText("");
-        jLabel1.setText("");
+        buscaProdutoController.limparPesquisaProdutoLista(this);
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        numBusca = 3;
-        preencherTabela();
-        txtBusca.requestFocus();
+        buscaProdutoController.prencherTabela(this);
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void txtBuscaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            txtBusca.setText(txtBusca.getText().toUpperCase());
-            if (numBusca == 3) {
-                numBusca = 3;
-            } else {
-                numBusca = 2;
-            }
-            preencherTabela();
-            txtBusca.requestFocus();
+            buscaProdutoController.prencherTabela(this);
         }
 
         if (evt.getKeyCode() == evt.VK_ESCAPE) {
@@ -291,137 +243,6 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
 //        JDialogCadastroProduto CadProd = new JDialogCadastroProduto(menu, rootPaneCheckingEnabled);
 //        CadProd.setVisible(true);
 
-    }
-
-    public void preencherTabela() {
-        String MinhaBusca = txtBusca.getText();
-        MinhaBusca = MinhaBusca.replace("Nº ", "");
-        MinhaBusca = MinhaBusca.replace("N° ", "");
-        MinhaBusca = MinhaBusca.replace("Nº", "");//  N°
-        MinhaBusca = MinhaBusca.replace("N°", "");
-        System.out.println("MinhaBusca " + MinhaBusca);
-        ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{"Id", "Produto", "Saldo", "Unid", "Valor", "Obs", "Registro", "", ""};
-        conex.conexao();
-        if (numBusca == 2) {
-            conex.executaSql2("select * from produto "
-                    + "inner join unidade on  idunid=id_referenciaunidade "
-                    + "where (coalesce((id_prod)) ||' '||coalesce((sis_prod))||' '||coalesce(UPPER(tipo_prod)) ||' '|| "
-                    + "coalesce(UPPER(nome_prod))||' '||coalesce(UPPER(edicao_prod)) ||' '||"
-                    + " coalesce(UPPER(obs_prod))||' '|| coalesce(UPPER(usu_prod)) ||' '|| coalesce((data_reg)) ) "
-                    + "ilike '%" + MinhaBusca + "%'  and stprod=1 and stunid=1"
-                    + "order by sis_prod   asc");
-            numBusca = 1;
-        } else if (numBusca == 3) {
-            conex.executaSql2("select * from produto "
-                    + "inner join unidade on  idunid=id_referenciaunidade "
-                    + "where (coalesce((id_prod)) ||' '||coalesce((sis_prod))||' '||coalesce(UPPER(tipo_prod)) ||' '|| "
-                    + "coalesce(UPPER(nome_prod))||' '||coalesce(UPPER(edicao_prod)) ||' '||"
-                    + " coalesce(UPPER(obs_prod))||' '|| coalesce(UPPER(usu_prod)) ||' '|| coalesce((data_reg)) ) "
-                    + "ilike '%" + MinhaBusca + "%' and stprod=1 and stunid=1 "
-                    + "order by sis_prod   desc");
-            numBusca = 3;
-        } else {
-            conex.executaSql2("select * from produto inner join unidade on  idunid=id_unidade order by sis_prod asc");
-        }
-        try {
-            conex.rs.first();
-            do {
-                String descricao;
-                String edicao;
-                edicao = conex.rs.getString("edicao_prod");
-
-                if (edicao.equals(null) | edicao.equals("") | edicao.equals(" ")) {
-                    edicao = "";
-                } else {
-                    edicao = " N° " + edicao;
-                }
-
-                descricao = " " + conex.rs.getString("tipo_prod") + " " + conex.rs.getString("nome_prod") + edicao;
-                descricao = descricao.toUpperCase();
-
-                Double num4 = (conex.rs.getDouble("saldo_prod"));
-                BigDecimal df = new BigDecimal(num4);
-                NumberFormat nf = NumberFormat.getInstance();
-//                 nf.setMinimumFractionDigits(4);
-                nf.setMaximumFractionDigits(4);
-                String FormatoReal = nf.format(df);////conex.rs.getString("saldo_prod")
-
-                dados.add(new Object[]{conex.rs.getInt("sis_prod"), descricao, FormatoReal, conex.rs.getString("sigla_unidade"),
-                    conex.rs.getString("valor_prod_ex"), conex.rs.getString("obs_prod"), conex.rs.getString("data_reg"), conex.rs.getInt("id_prod"),
-                    conex.rs.getInt("fragmento_unidade")
-                });
-            } while (conex.rs.next());
-            System.out.println("preencherTabela erro ");
-        } catch (SQLException ex) {
-            System.out.println("preencherTabela erro " + ex);
-//            JOptionPane.showMessageDialog(rootPane, "" + ex);
-        }
-
-        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-
-        tabela.setModel(modelo);
-        tabela.getColumnModel().getColumn(0).setPreferredWidth(40);
-        tabela.getColumnModel().getColumn(0).setResizable(false);
-        tabela.getColumnModel().getColumn(1).setPreferredWidth(330);
-        tabela.getColumnModel().getColumn(1).setResizable(true);
-        tabela.getColumnModel().getColumn(2).setPreferredWidth(80);
-        tabela.getColumnModel().getColumn(2).setResizable(true);
-        tabela.getColumnModel().getColumn(3).setPreferredWidth(80);
-        tabela.getColumnModel().getColumn(3).setResizable(true);
-        tabela.getColumnModel().getColumn(4).setPreferredWidth(80);
-        tabela.getColumnModel().getColumn(4).setResizable(true);
-        tabela.getColumnModel().getColumn(5).setPreferredWidth(280);
-        tabela.getColumnModel().getColumn(5).setResizable(true);
-
-        tabela.getColumnModel().getColumn(6).setPreferredWidth(80);
-        tabela.getColumnModel().getColumn(6).setResizable(true);
-        tabela.getColumnModel().getColumn(7).setPreferredWidth(80);
-        tabela.getColumnModel().getColumn(7).setResizable(true);
-        tabela.getColumnModel().getColumn(8).setPreferredWidth(80);
-        tabela.getColumnModel().getColumn(8).setResizable(true);
-
-        tabela.getTableHeader().setReorderingAllowed(false);
-        tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        conex.desconecta();
-
-    }
-
-    public void PreencheDadosProduto() {
-        String ncm, cfop, usu_prod, registro, fornecedor;
-
-        conex.conexao();
-        conex.executaSql2("select * from produto inner join unidade on  idunid=id_referenciaunidade where id_prod ='" + selecao_id + "' order by sis_prod asc");
-        try {
-            conex.rs.first();
-            ncm = " " + conex.rs.getString("ncm_prod");
-            cfop = " " + conex.rs.getString("cfop_prod");
-            usu_prod = " " + conex.rs.getString("usu_prod");
-            registro = " " + conex.rs.getString("data_reg") + " " + conex.rs.getString("hora_reg");
-            conex.executaSql2("select * from nota "
-                    + "inner join movprodutobase on nota_mov=id_referenciaNota\n"
-                    + " inner join produto on sis_prod=id_prod_ent\n"
-                    + " inner join unidade on id_referenciaunidade=idunid\n"
-                    + " inner join ecft on fornecedorint=ecft_id "
-                    + " where sis_prod='" + selecao + "' order by sis_prod asc");
-            try {
-                conex.rs.first();
-                fornecedor = " " + conex.rs.getString("ecft_nome");
-                fornecedor = " Fornecedor/Cliente " + fornecedor;
-                System.out.println("selecao--- ok ");
-            } catch (SQLException e) {
-                System.out.println("selecao--- erro " + e.getMessage());
-                fornecedor = "";
-            }
-            jLabel1.setText("<html>&nbsp; &nbsp;Registrado : " + registro + "" + fornecedor + "<br>&nbsp; &nbsp;Ncm : " + ncm + "  Cfop : " + cfop + "<br>&nbsp; &nbsp; Usuario : " + usu_prod + "  </html>");
-        } catch (SQLException ex) {
-            System.out.println(" PreencheDadosProduto erro " + ex);
-            jLabel1.setText("");
-        }
-
-        conex.desconecta();
     }
 
     public void recebe_nome(String nome) {
@@ -612,13 +433,13 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnLimpar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea_MeuTexto;
+    private javax.swing.JLabel lblInformacao;
     private javax.swing.JTable tabela;
     public static javax.swing.JTextField txtBusca;
+    private javax.swing.JTextArea txtMeuTexto;
     // End of variables declaration//GEN-END:variables
 
     public JButton getBtnBuscar() {
@@ -639,6 +460,22 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
 
     public JTextField getTxtBusca() {
         return txtBusca;
+    }
+
+    public JTextArea getTxtMeuTexto() {
+        return txtMeuTexto;
+    }
+
+    public void setTxtMeuTexto(JTextArea txtMeuTexto) {
+        this.txtMeuTexto = txtMeuTexto;
+    }
+
+    public JLabel getLblInformacao() {
+        return lblInformacao;
+    }
+
+    public void setLblInformacao(JLabel lblInformacao) {
+        this.lblInformacao = lblInformacao;
     }
 
 }

@@ -6,31 +6,19 @@
 ///  jComboBox_Natureza formulario jLabel_Calculado
 package view.internal;
 
-import Interface.Principal;
-import ModeloBeans.Beans_Nota;
-import ModeloBeans.ModeloTabela;
-import ConectaBanco.ConexaoBD;
 import Consulta.JDialogAuxilioChave;
 import ModeloBeans.Beans_Movimento;
-import ModeloDao.Dao_Nota;
-import ModeloDao.Dao_Transporte;
-import ModeloBeans.Beans_Transporte;
 import com.toedter.calendar.JDateChooser;
 import controller.MovimentoCadastroController;
 
 import java.awt.Color;
-import java.math.BigDecimal;
-import java.sql.SQLException;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import model.Cliente;
 import model.Natureza;
@@ -42,37 +30,7 @@ import model.Natureza;
 /// pree
 public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
-    ConexaoBD conex_MeuTotal = new ConexaoBD();
-    ConexaoBD conex_Transporte = new ConexaoBD();
-
-    ConexaoBD conex = new ConexaoBD();
-
-    ConexaoBD conexApaga = new ConexaoBD();
-    ConexaoBD conexInsere = new ConexaoBD();
-
-    ConexaoBD conexSaldo = new ConexaoBD();
-
-    Dao_Nota dao = new Dao_Nota();
-    Beans_Nota beans = new Beans_Nota();
-
-    Beans_Transporte beanst = new Beans_Transporte();
-    Dao_Transporte daot = new Dao_Transporte();
-
-    Principal menu;
-
-//DialogCalculado CC = new JDialogCalculado(menu, rootPaneCheckingEnabled);
-    int id_referencia;
-    int id_nota;
-    String MinhaNatureza;
-    String MinhaIdNota;
-    String SelecaoReferencia_Movimento;
-
-    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-    Date data = null;
-
-    String MeuTotal;
     int ComboFocu = 0;
-    int ComboFocuNatureza = 0;
 
     private static int idProduto = 0;
     MovimentoCadastroController movimentoCadastroController;
@@ -82,14 +40,12 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
      * Creates new form MovimentoJIF
      */
     public MovimentoCadastroJIF() {
-        movimentoCadastroController = new MovimentoCadastroController();
+        movimentoCadastroController = new MovimentoCadastroController(this);
         initComponents();
 
-        movimentoCadastroController.mudarCorPaineis(this);
-        movimentoCadastroController.carregarNatureza(this);
-        movimentoCadastroController.carregarCliente(this);
-
         movimentos = new ArrayList<>();
+        movimentoCadastroController.carregarCliente(this);
+        movimentoCadastroController.carregarNatureza(this);
 
     }
 
@@ -128,7 +84,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         btnRemoverUmProduto = new javax.swing.JButton();
         txtBuscarUmProdutoPorNome = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTableListaProduto_Nota = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         pnTransporte = new javax.swing.JPanel();
         jLabel_Titulo1 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -484,7 +440,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        jTableListaProduto_Nota.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -495,15 +451,15 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
             }
         ));
-        jTableListaProduto_Nota.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableListaProduto_NotaMouseClicked(evt);
+                tabelaMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jTableListaProduto_NotaMouseEntered(evt);
+                tabelaMouseEntered(evt);
             }
         });
-        jScrollPane4.setViewportView(jTableListaProduto_Nota);
+        jScrollPane4.setViewportView(tabela);
 
         javax.swing.GroupLayout pnDadosLayout = new javax.swing.GroupLayout(pnDados);
         pnDados.setLayout(pnDadosLayout);
@@ -1033,7 +989,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
         }
         if (evt.getKeyCode() == evt.VK_F12) {
-            JDialogAuxilioChave conf = new JDialogAuxilioChave(menu, rootPaneCheckingEnabled);
+            JDialogAuxilioChave conf = new JDialogAuxilioChave(null, rootPaneCheckingEnabled);
             conf.RecebeFornecedor("" + cbCliente.getSelectedItem());
             if (conf == null) {
                 // TelaSalProd = new ModSaldoProd();
@@ -1123,7 +1079,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
     private void cbNaturezaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbNaturezaFocusGained
 //        SelecionarNaturezaInt = 1;
-        ComboFocuNatureza = 1;
+//        ComboFocuNatureza = 1;
     }//GEN-LAST:event_cbNaturezaFocusGained
 
     private void txtHoraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHoraKeyReleased
@@ -1153,7 +1109,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        movimentoCadastroController.carregaProdutos();
+        movimentoCadastroController.limparBuscarUmProdutoPorNome(this);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -1226,17 +1182,16 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         //        manipula_transporte();
     }//GEN-LAST:event_jComboBox_modalidadeItemStateChanged
 
-    private void jTableListaProduto_NotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaProduto_NotaMouseEntered
+    private void tabelaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTableListaProduto_NotaMouseEntered
+    }//GEN-LAST:event_tabelaMouseEntered
 
-    private void jTableListaProduto_NotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaProduto_NotaMouseClicked
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
 
 
-    }//GEN-LAST:event_jTableListaProduto_NotaMouseClicked
+    }//GEN-LAST:event_tabelaMouseClicked
 
     private void txtBuscarUmProdutoPorNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarUmProdutoPorNomeKeyPressed
-
         movimentoCadastroController.validarNomeProduto(this, evt);
     }//GEN-LAST:event_txtBuscarUmProdutoPorNomeKeyPressed
 
@@ -1315,7 +1270,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTableListaProduto_Nota;
     private javax.swing.JTextArea jTextArea_Observacao;
     private javax.swing.JLabel lblInformacoes;
     private javax.swing.JPanel pnDados;
@@ -1323,6 +1277,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnPrincipal;
     private javax.swing.JPanel pnTopo;
     private javax.swing.JPanel pnTransporte;
+    private javax.swing.JTable tabela;
     public static javax.swing.JTextField txtBuscarUmProdutoPorNome;
     public static javax.swing.JTextField txtChave;
     private javax.swing.JTextField txtHora;
@@ -1443,6 +1398,10 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
     public static void setMovimentos(List<Beans_Movimento> movimentos) {
         MovimentoCadastroJIF.movimentos = movimentos;
+    }
+
+    public JTable getTabela() {
+        return tabela;
     }
 
 }

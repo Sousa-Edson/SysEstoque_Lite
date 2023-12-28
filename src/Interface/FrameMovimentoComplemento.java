@@ -6,7 +6,7 @@
 package Interface;
 
 import ConectaBanco.ConexaoBD;
-import Consulta.JDialogBuscaProduto;
+import view.dialog.JDialogBuscaProduto;
 import Consulta.JDialogBuscaProduto2;
 import view.dialog.JDialogComplementar;
 import Consulta.JDialogComplementar2; 

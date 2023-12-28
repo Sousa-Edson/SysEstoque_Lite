@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ModeloBeans;
+package model;
+
+ 
 
 /**
  *
  * @author edson
  */
-public class Beans_Movimento {
+public class Movimento {
 
     int id_mov, id_prod_ent, nota_mov, modo_mov,status_mov,stsaldo,intmodotbl;
  Double qtd_mov, qtd_prod, qtd_calc, valor_real;
@@ -208,16 +210,10 @@ public class Beans_Movimento {
 
     @Override
     public String toString() {
-        return "Beans_Movimento{" + "id_mov=" + id_mov + ", id_prod_ent=" + id_prod_ent
-                + ", nota_mov=" + nota_mov + ", modo_mov=" + modo_mov + ", status_mov=" 
-                + status_mov + ", stsaldo=" + stsaldo + ", intmodotbl=" + intmodotbl 
-                + ", qtd_mov=" + qtd_mov + ", qtd_prod=" + qtd_prod + ", qtd_calc=" 
-                + qtd_calc + ", valor_real=" + valor_real + ", sistema_mov=" + sistema_mov 
-                + ", data_mov=" + data_mov + ", qtd_prod_ex=" + qtd_prod_ex + ", qtd_calc_ex="
-                + qtd_calc_ex + ", valor_moeda=" + valor_moeda + ", destino_mov=" + destino_mov 
-                + ", complemento_mov=" + complemento_mov + ", registro_mov=" + registro_mov 
-                + ", volume=" + volume + ", usuario_mov=" + usuario_mov + ", total_mov=" + total_mov + ", produto=" + produto + '}';
+        return "Movimento{" + "id_mov=" + id_mov + ", id_prod_ent=" + id_prod_ent + ", nota_mov=" + nota_mov + ", modo_mov=" + modo_mov + ", status_mov=" + status_mov + ", stsaldo=" + stsaldo + ", intmodotbl=" + intmodotbl + ", qtd_mov=" + qtd_mov + ", qtd_prod=" + qtd_prod + ", qtd_calc=" + qtd_calc + ", valor_real=" + valor_real + ", sistema_mov=" + sistema_mov + ", data_mov=" + data_mov + ", qtd_prod_ex=" + qtd_prod_ex + ", qtd_calc_ex=" + qtd_calc_ex + ", valor_moeda=" + valor_moeda + ", destino_mov=" + destino_mov + ", complemento_mov=" + complemento_mov + ", registro_mov=" + registro_mov + ", volume=" + volume + ", usuario_mov=" + usuario_mov + ", total_mov=" + total_mov + ", produto=" + produto + '}';
     }
+
+    
 
     
 

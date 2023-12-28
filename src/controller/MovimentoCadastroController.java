@@ -4,7 +4,7 @@
  */
 package controller;
 
-import Consulta.JDialogBuscaProduto;
+import view.dialog.JDialogBuscaProduto;
 import ModeloBeans.Beans_Movimento;
 import view.dialog.JDialogComplementar;
 import java.awt.Color;
@@ -12,12 +12,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ListSelectionModel;
 import model.Cliente;
+import model.Movimento;
 import model.Natureza;
 import model.Produto;
 import service.ClienteService;
 import service.NaturezaService;
 import service.ProdutoService;
+import tableModel.BuscaProdutoTableModel;
+import tableModel.MovimentoTableModel;
 import utils.ControleCores;
 import utils.DataHoraAtual;
 import view.internal.MovimentoCadastroJIF;
@@ -34,21 +38,22 @@ public class MovimentoCadastroController {
 
     JDialogComplementar jDialogComplementar;
     JDialogBuscaProduto jDialogBuscaProduto;
-
-    Produto produto;
+ 
     ProdutoService produtoService;
 
-    public static List<Beans_Movimento> movimentos;
+    public static List<Movimento> movimentos;
 
-    public MovimentoCadastroController() {
+    Produto produto;
+
+    public MovimentoCadastroController(MovimentoCadastroJIF form) {
         corPadrao = ControleCores.pegarCorPadrao();
         formato = new SimpleDateFormat("dd/MM/yyyy");
 
         jDialogBuscaProduto = new JDialogBuscaProduto(null, true);
 
         produtoService = new ProdutoService();
-        
-        movimentos= new ArrayList<>();
+
+        movimentos = new ArrayList<>();
 
     }
 
@@ -112,6 +117,7 @@ public class MovimentoCadastroController {
             System.err.println("id produto vazio!");
         }
         limparBuscarUmProdutoPorNome(form);
+        prencherTabela(form);
     }
 
     public void chamaFormularioBuscaProduto(MovimentoCadastroJIF form) {
@@ -149,9 +155,20 @@ public class MovimentoCadastroController {
         }
     }
 
-    public void carregaProdutos() {
-        for (Beans_Movimento movimento : movimentos) {
-            System.out.println("p::" + movimento);
-        }
+    public void prencherTabela(MovimentoCadastroJIF form) {
+        System.out.println("movimentos" + movimentos);
+        MovimentoTableModel modelo = new MovimentoTableModel(); 
+        modelo.setMovimentos(movimentos);
+        form.getTabela().setModel(modelo);
+        form.getTabela().getColumnModel().getColumn(0).setPreferredWidth(60);
+        form.getTabela().getColumnModel().getColumn(0).setResizable(true);
+        form.getTabela().getTableHeader().setReorderingAllowed(false);
+//        form.getTabela().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+    }
+
+    public static void recebeProduto(Produto produto) {
+        MovimentoCadastroJIF.getTxtBuscarUmProdutoPorNomeStatic().setText(produto.getTipo_prod() + " " + produto.getNome_prod() + " " + produto.getEdicao_prod() + "");
+        MovimentoCadastroJIF.setIdProduto(produto.getId_prod());
     }
 }
