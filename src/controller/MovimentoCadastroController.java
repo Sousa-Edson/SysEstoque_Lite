@@ -53,6 +53,7 @@ public class MovimentoCadastroController {
         produtoService = new ProdutoService();
 
         movimentos = new ArrayList<>();
+
     }
 
     public void mudarCorPaineis(MovimentoCadastroJIF form) {
@@ -170,7 +171,7 @@ public class MovimentoCadastroController {
         } catch (Exception e) {
             System.err.println("\n\nerro prencherTabela:: " + e.getMessage());
         }
-
+        System.out.println("\n\n##### OK prencherTabela:: " + movimentos.size());
     }
 
     public static void recebeProduto(Produto produto) {

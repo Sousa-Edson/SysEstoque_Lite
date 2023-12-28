@@ -25,8 +25,8 @@ public class ConexaoBD {
 
     private final String caminho = "jdbc:postgresql://localhost:5432/SysEstoqueVersao51";
     private final String driver = "org.postgresql.Driver";
-    private final String usuario = "admin";
-    private final String senha = "123456";
+    private final String usuario = "postgres";
+    private final String senha = "1";
 
     public void conexao() {
         System.setProperty("jdbc.Drivers", driver);
