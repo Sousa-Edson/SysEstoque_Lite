@@ -5,25 +5,25 @@
 package controller;
 
 import view.dialog.JDialogBuscaProduto;
-import ModeloBeans.Beans_Movimento;
 import view.dialog.JDialogComplementar;
 import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ListSelectionModel;
 import model.Cliente;
 import model.Movimento;
 import model.Natureza;
 import model.Produto;
+import repository.MovimentoRepository;
 import service.ClienteService;
 import service.NaturezaService;
 import service.ProdutoService;
-import tableModel.BuscaProdutoTableModel;
 import tableModel.MovimentoTableModel;
 import utils.ControleCores;
 import utils.DataHoraAtual;
+import utils.FormatarDinheiro;
+import utils.FormatarNumero;
 import view.internal.MovimentoCadastroJIF;
 
 /**
@@ -38,11 +38,10 @@ public class MovimentoCadastroController {
 
     JDialogComplementar jDialogComplementar;
     JDialogBuscaProduto jDialogBuscaProduto;
- 
+
     ProdutoService produtoService;
 
     public static List<Movimento> movimentos;
-
     Produto produto;
 
     public MovimentoCadastroController(MovimentoCadastroJIF form) {
@@ -54,7 +53,6 @@ public class MovimentoCadastroController {
         produtoService = new ProdutoService();
 
         movimentos = new ArrayList<>();
-
     }
 
     public void mudarCorPaineis(MovimentoCadastroJIF form) {
@@ -130,6 +128,10 @@ public class MovimentoCadastroController {
         form.getTxtBuscarUmProdutoPorNomeComun().setText("");
         form.getTxtBuscarUmProdutoPorNomeComun().requestFocus();
         form.setIdProdutoComun(0);
+
+        MovimentoTableModel modelo = new MovimentoTableModel();
+        modelo.setMovimentos(new ArrayList<>());
+        form.getTabela().setModel(modelo);
     }
 
     public void validarNomeProduto(MovimentoCadastroJIF form, java.awt.event.KeyEvent evt) {
@@ -156,14 +158,19 @@ public class MovimentoCadastroController {
     }
 
     public void prencherTabela(MovimentoCadastroJIF form) {
-        System.out.println("movimentos" + movimentos);
-        MovimentoTableModel modelo = new MovimentoTableModel(); 
-        modelo.setMovimentos(movimentos);
-        form.getTabela().setModel(modelo);
-        form.getTabela().getColumnModel().getColumn(0).setPreferredWidth(60);
-        form.getTabela().getColumnModel().getColumn(0).setResizable(true);
-        form.getTabela().getTableHeader().setReorderingAllowed(false);
+
+        System.out.println("###### movimentos " + movimentos);
+        try {
+            MovimentoTableModel modelo = new MovimentoTableModel();
+            modelo.setMovimentos(movimentos);
+            form.getTabela().setModel(modelo);
+            form.getTabela().getColumnModel().getColumn(0).setPreferredWidth(60);
+            form.getTabela().getColumnModel().getColumn(0).setResizable(true);
+            form.getTabela().getTableHeader().setReorderingAllowed(false);
 //        form.getTabela().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        } catch (Exception e) {
+            System.err.println("\n\nerro prencherTabela:: " + e.getMessage());
+        }
 
     }
 

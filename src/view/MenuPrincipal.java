@@ -15,7 +15,7 @@ import BackupRestore.Novo.PostgresRestore_X86NOV;
 import Sistema.ManipulaProtocolo;
 import utils.ControleCores;
 import utils.UsuarioLogado;
-import controller.TelaInternaController;
+import extras.TelaInternaController;
 import controller.MenuPrincipalController;
 import java.awt.Color;
 import static java.awt.Component.CENTER_ALIGNMENT;

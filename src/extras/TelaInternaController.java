@@ -3,10 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package extras;
 
-import extras.FramePositionUtil;
-import extras.InternalFrameUtil;
 import model.Produto;
 import view.internal.ProdutoListaJIF;
 import view.MenuPrincipal;

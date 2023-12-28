@@ -9,11 +9,13 @@ import ModeloBeans.Beans_Movimento;
 import controller.MovimentoCadastroController;
 import model.Movimento;
 import model.Produto;
+import repository.MovimentoRepository;
 import utils.ControleCores;
 import utils.DataHoraAtual;
 import utils.FormatarDinheiro;
 import utils.ManipulaValor;
 import utils.UsuarioLogado;
+import view.internal.MovimentoCadastroJIF;
 
 /**
  *
@@ -56,6 +58,10 @@ public class JDialogComplementar extends javax.swing.JDialog {
 
         movimento.setDestino_mov("setDestino_mov");
         movimento.setVolume("volume");
+        
+        movimento.setProduto(produto);
+        
+        System.out.println("recebe::"+produto);
     }
 
     /**
@@ -276,8 +282,9 @@ public class JDialogComplementar extends javax.swing.JDialog {
 
         movimento.setComplemento_mov(txtComplemento.getText().toUpperCase());
 
-        System.out.println("" + movimento.toString());
+        System.out.println("lista em jdialog complementar:: " + movimento.toString());
         MovimentoCadastroController.movimentos.add(movimento);
+         System.out.println("exibindo:: " +  MovimentoCadastroController.movimentos);
         this.dispose();
     }//GEN-LAST:event_btnInserirProdutoActionPerformed
 

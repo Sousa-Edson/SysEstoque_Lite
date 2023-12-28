@@ -7,13 +7,10 @@
 package view.internal;
 
 import Consulta.JDialogAuxilioChave;
-import ModeloBeans.Beans_Movimento;
 import com.toedter.calendar.JDateChooser;
 import controller.MovimentoCadastroController;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -34,7 +31,8 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
 
     private static int idProduto = 0;
     MovimentoCadastroController movimentoCadastroController;
-    public static List<Beans_Movimento> movimentos;
+    
+    
 
     /**
      * Creates new form MovimentoJIF
@@ -43,7 +41,6 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         movimentoCadastroController = new MovimentoCadastroController(this);
         initComponents();
 
-        movimentos = new ArrayList<>();
         movimentoCadastroController.carregarCliente(this);
         movimentoCadastroController.carregarNatureza(this);
 
@@ -1392,16 +1389,13 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
         return btnRemoverUmProduto;
     }
 
-    public static List<Beans_Movimento> getMovimentos() {
-        return movimentos;
-    }
-
-    public static void setMovimentos(List<Beans_Movimento> movimentos) {
-        MovimentoCadastroJIF.movimentos = movimentos;
-    }
+    
 
     public JTable getTabela() {
         return tabela;
     }
+
+    
+    
 
 }

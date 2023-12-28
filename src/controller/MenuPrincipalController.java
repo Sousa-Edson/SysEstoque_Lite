@@ -4,6 +4,7 @@
  */
 package controller;
 
+import extras.TelaInternaController;
 import view.MenuPrincipal;
 
 /**

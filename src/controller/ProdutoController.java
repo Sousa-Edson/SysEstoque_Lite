@@ -4,6 +4,7 @@
  */
 package controller;
 
+import extras.TelaInternaController;
 import utils.DataHoraAtual;
 import java.awt.Color;
 import java.util.List;
