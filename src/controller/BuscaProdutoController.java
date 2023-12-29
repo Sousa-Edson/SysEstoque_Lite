@@ -19,18 +19,18 @@ import view.dialog.JDialogBuscaProduto;
  * @author edson
  */
 public class BuscaProdutoController {
-
+    
     private final ProdutoService produtoService;
-
+    
     Produto produto;
-
+    
     public BuscaProdutoController() {
         produtoService = new ProdutoService();
         produto = new Produto();
     }
-
+    
     public void prencherTabela(JDialogBuscaProduto form) {
-
+        
         BuscaProdutoTableModel modelo = new BuscaProdutoTableModel();
         List<Produto> produtos = produtoService.listarProdutosPorBusca(form.getTxtBusca().getText().toUpperCase());
         modelo.setProdutos(produtos);
@@ -40,26 +40,31 @@ public class BuscaProdutoController {
         form.getTabela().getTableHeader().setReorderingAllowed(false);
 //        jTable_Lista.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         form.getTabela().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+        
         form.getTxtBusca().requestFocus();
     }
-
+    
     public void limparPesquisaProdutoLista(JDialogBuscaProduto form) {
         BuscaProdutoTableModel modelo = new BuscaProdutoTableModel();
         modelo.setProdutos(new ArrayList<>());
         form.getTabela().setModel(modelo);
-
+        
         form.getTxtBusca().setText("");
         form.getTxtBusca().requestFocus();
-
+        
         form.getTxtMeuTexto().setText("");
         form.getLblInformacao().setText("");
     }
-
+    
     public void selecionaUmProduto(JDialogBuscaProduto form, java.awt.event.MouseEvent evt) {
-
+        
         if (evt.getButton() == MouseEvent.BUTTON1) {
             produto = produtoService.obterProdutoPorId((int) form.getTabela().getValueAt(form.getTabela().getSelectedRow(), 0));
+            form.getTxtMeuTexto().setText(produto.getObs_prod());
+            form.getLblInformacao().setText("<html> "
+                    + "&nbsp;&nbsp;<label>Cadastrado em:</label>" + produto.getData_reg() + " "
+                    + "&nbsp;&nbsp;<label>Cadastrado por:</label>" + produto.getUsu_prod() + " "
+                    + "</html>");
             if (evt.getClickCount() == 2) {
                 try {
                     MovimentoCadastroController.recebeProduto(produto);

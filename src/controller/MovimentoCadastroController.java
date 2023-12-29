@@ -156,7 +156,17 @@ public class MovimentoCadastroController {
             if (form.getIdProdutoComun() != 0) {
                 form.getBtnInserirProduto().requestFocus();
             } else {
-                chamaFormularioBuscaProduto(form);
+                try {
+                    form.setIdProdutoComun(Integer.parseInt(form.getTxtBuscarUmProdutoPorNomeComun().getText()));
+                    produto = produtoService.obterProdutoPorId(form.getIdProdutoComun());
+                    form.getTxtBuscarUmProdutoPorNomeComun().setText(produto.getTipo_prod() + " " + produto.getNome_prod() + " " + produto.getEdicao_prod());
+                    form.getBtnInserirProduto().requestFocus();
+
+                } catch (Exception e) {
+                    System.out.println("Não é numero:: " + e.getMessage());
+                    chamaFormularioBuscaProduto(form);
+                }
+
             }
         }
     }

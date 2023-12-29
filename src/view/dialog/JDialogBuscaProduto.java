@@ -219,9 +219,7 @@ public class JDialogBuscaProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_txtBuscaKeyPressed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        Principal.jLabelCodigoTela2.setText("novo");
-        Principal.jLabelCodigoTela.setText("CadastroProduto");
-        Principal.jButton1.doClick();
+      
         this.dispose();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
