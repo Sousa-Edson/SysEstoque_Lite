@@ -128,9 +128,8 @@ public class MovimentoCadastroController {
 
     public void limparBuscarUmProdutoPorNome(MovimentoCadastroJIF form) {
         form.getTxtBuscarUmProdutoPorNomeComun().setText("");
-        form.getTxtBuscarUmProdutoPorNomeComun().requestFocus();
         form.setIdProdutoComun(0);
-
+        form.getTxtBuscarUmProdutoPorNomeComun().requestFocus();
     }
 
     public void limparTabela(MovimentoCadastroJIF form) {

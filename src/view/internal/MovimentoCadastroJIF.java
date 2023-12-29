@@ -1239,8 +1239,8 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnInserirProdutoKeyPressed
 
     private void btnInserirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirProdutoActionPerformed
-        movimentoCadastroController.chamaFormularioComplementar(this);
-//        txtBuscarUmProdutoPorNome.requestFocus();
+        movimentoCadastroController.chamaFormularioComplementar(this); 
+        txtBuscarUmProdutoPorNome.requestFocus();
     }//GEN-LAST:event_btnInserirProdutoActionPerformed
 
     private void txtBuscarUmProdutoPorNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarUmProdutoPorNomeActionPerformed
