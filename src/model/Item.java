@@ -11,7 +11,7 @@ package model;
  *
  * @author edson
  */
-public class Movimento {
+public class Item {
 
     int id_mov, id_prod_ent, nota_mov, modo_mov,status_mov,stsaldo,intmodotbl;
  Double qtd_mov, qtd_prod, qtd_calc, valor_real;

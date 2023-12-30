@@ -5,7 +5,7 @@
  */
 package view.internal;
 
-import controller.MovimentoListaController;
+import controller.ItemListaController;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -16,16 +16,16 @@ import utils.ControleCores;
  *
  * @author edson
  */
-public final class MovimentoListaJIF extends javax.swing.JInternalFrame {
+public final class NotaListaJIF extends javax.swing.JInternalFrame {
 
-    MovimentoListaController movimentoListaController;
+    ItemListaController movimentoListaController;
 
     /**
      * Creates new form ListaProdutoJIF
      */
-    public MovimentoListaJIF() {
+    public NotaListaJIF() {
 
-        movimentoListaController = new MovimentoListaController();
+        movimentoListaController = new ItemListaController();
 
         initComponents();
         

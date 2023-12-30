@@ -11,21 +11,21 @@ import javax.swing.ListSelectionModel;
 import model.NotaFiscal;
 import service.NotaFiscalService;
 import tableModel.NotaFiscalTableModel;
-import view.internal.MovimentoListaJIF;
+import view.internal.NotaListaJIF;
 
 /**
  *
  * @author edson
  */
-public class MovimentoListaController {
+public class ItemListaController {
 
     private final NotaFiscalService notaService;
 
-    public MovimentoListaController() {
+    public ItemListaController() {
         notaService = new NotaFiscalService();
     }
 
-    public void limparPesquisaProdutoLista(MovimentoListaJIF form) {
+    public void limparPesquisaProdutoLista(NotaListaJIF form) {
         NotaFiscalTableModel modelo = new NotaFiscalTableModel();
         modelo.setNotas(new ArrayList<>());
         form.getTabela().setModel(modelo);
@@ -35,7 +35,7 @@ public class MovimentoListaController {
         form.getTxtBuscar().requestFocus();
     }
 
-    public void preencheTabela(MovimentoListaJIF form) {
+    public void preencheTabela(NotaListaJIF form) {
         NotaFiscalTableModel modelo = new NotaFiscalTableModel();
         List<NotaFiscal> produtos = notaService.listarNotasPorBusca(form.getTxtBuscar().getText().toUpperCase());
         modelo.setNotas(produtos);
@@ -49,7 +49,7 @@ public class MovimentoListaController {
         form.getTxtBuscar().requestFocus();
     }
 
-    public void chamaCadastro(MovimentoListaJIF aThis) {
+    public void chamaCadastro(NotaListaJIF aThis) {
         TelaInternaController.chamaNota();
     }
 

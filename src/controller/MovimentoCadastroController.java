@@ -12,20 +12,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import model.Cliente;
-import model.Movimento;
+import model.Item;
 import model.Natureza;
 import model.Produto;
 import repository.MovimentoRepository;
 import service.ClienteService;
 import service.NaturezaService;
 import service.ProdutoService;
-import tableModel.MovimentoTableModel;
+import tableModel.ItemTableModel;
 import utils.ControleCores;
 import utils.DataHoraAtual;
 import utils.FormatarDinheiro;
 import utils.FormatarNumero;
 import utils.LimiteCaracteres;
-import view.internal.MovimentoCadastroJIF;
+import view.internal.NotaCadastroJIF;
 
 /**
  *
@@ -42,10 +42,10 @@ public class MovimentoCadastroController {
 
     ProdutoService produtoService;
 
-    public static List<Movimento> movimentos;
+    public static List<Item> movimentos;
     Produto produto;
 
-    public MovimentoCadastroController(MovimentoCadastroJIF form) {
+    public MovimentoCadastroController(NotaCadastroJIF form) {
         corPadrao = ControleCores.pegarCorPadrao();
         formato = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -57,7 +57,7 @@ public class MovimentoCadastroController {
 
     }
 
-    public void mudarCorPaineis(MovimentoCadastroJIF form) {
+    public void mudarCorPaineis(NotaCadastroJIF form) {
         form.getPnPrincipal().setBackground(corPadrao);
         form.getPnDados().setBackground(corPadrao);
         form.getPnTransporte().setBackground(corPadrao);
@@ -65,10 +65,10 @@ public class MovimentoCadastroController {
         form.getPnInformacao().setBackground(corPadrao);
 
 //        form.getBtnExcluir().setVisible(false);
-//        MovimentoCadastroJIF.getBtnExcluir().setVisible(false);
+//        NotaCadastroJIF.getBtnExcluir().setVisible(false);
     }
 
-    public void carregarNatureza(MovimentoCadastroJIF form) {
+    public void carregarNatureza(NotaCadastroJIF form) {
         NaturezaService naturezaService = new NaturezaService();
         List<Natureza> listaNaturezas = naturezaService.listarNaturezas();
         form.getCbNatureza().removeAllItems();
@@ -77,7 +77,7 @@ public class MovimentoCadastroController {
         }
     }
 
-    public void carregarCliente(MovimentoCadastroJIF form) {
+    public void carregarCliente(NotaCadastroJIF form) {
         ClienteService clienteService = new ClienteService();
         List<Cliente> listaClientes = clienteService.listarClientes(false);
         form.getCbCliente().removeAllItems();
@@ -86,7 +86,7 @@ public class MovimentoCadastroController {
         }
     }
 
-    public void dataAtual(MovimentoCadastroJIF form) {
+    public void dataAtual(NotaCadastroJIF form) {
         if (form.getDataNota().getDate() == (null)) {
             try {
                 form.getDataNota().setDate(formato.parse(DataHoraAtual.obterDataFormatada()));
@@ -98,7 +98,7 @@ public class MovimentoCadastroController {
         }
     }
 
-    public void horaAtual(MovimentoCadastroJIF form) {
+    public void horaAtual(NotaCadastroJIF form) {
         if (form.getTxtHora().getText().trim().isEmpty()) {
             form.getTxtHora().setText(DataHoraAtual.obterHoraFormatada());
         } else {
@@ -106,7 +106,7 @@ public class MovimentoCadastroController {
         }
     }
 
-    public void chamaFormularioComplementar(MovimentoCadastroJIF form) {
+    public void chamaFormularioComplementar(NotaCadastroJIF form) {
         if (form.getIdProdutoComun() != 0) {
             jDialogComplementar = new JDialogComplementar(null, true);
             produto = new Produto();
@@ -120,25 +120,25 @@ public class MovimentoCadastroController {
         limparBuscarUmProdutoPorNome(form);
     }
 
-    public void chamaFormularioBuscaProduto(MovimentoCadastroJIF form) {
-        jDialogBuscaProduto.getTxtBusca().setText(MovimentoCadastroJIF.getTxtBuscarUmProdutoPorNomeStatic().getText().toUpperCase());
+    public void chamaFormularioBuscaProduto(NotaCadastroJIF form) {
+        jDialogBuscaProduto.getTxtBusca().setText(NotaCadastroJIF.getTxtBuscarUmProdutoPorNomeStatic().getText().toUpperCase());
         jDialogBuscaProduto.getBtnBuscar().doClick();
         jDialogBuscaProduto.setVisible(true);
     }
 
-    public void limparBuscarUmProdutoPorNome(MovimentoCadastroJIF form) {
+    public void limparBuscarUmProdutoPorNome(NotaCadastroJIF form) {
         form.getTxtBuscarUmProdutoPorNomeComun().setText("");
         form.setIdProdutoComun(0);
         form.getTxtBuscarUmProdutoPorNomeComun().requestFocus();
     }
 
-    public void limparTabela(MovimentoCadastroJIF form) {
-        MovimentoTableModel modelo = new MovimentoTableModel();
+    public void limparTabela(NotaCadastroJIF form) {
+        ItemTableModel modelo = new ItemTableModel();
         modelo.setMovimentos(new ArrayList<>());
         form.getTabela().setModel(modelo);
     }
 
-    public void validarNomeProduto(MovimentoCadastroJIF form, java.awt.event.KeyEvent evt) {
+    public void validarNomeProduto(NotaCadastroJIF form, java.awt.event.KeyEvent evt) {
         if (evt.getKeyCode() == evt.VK_F12) {
 //            Complementar.PreencherSetor();
 
@@ -171,10 +171,10 @@ public class MovimentoCadastroController {
         }
     }
 
-    public void prencherTabela(MovimentoCadastroJIF form) {
+    public void prencherTabela(NotaCadastroJIF form) {
 
         try {
-            MovimentoTableModel modelo = new MovimentoTableModel();
+            ItemTableModel modelo = new ItemTableModel();
             modelo.setMovimentos(movimentos);
             form.getTabela().setModel(modelo);
             form.getTabela().getColumnModel().getColumn(0).setPreferredWidth(60);
@@ -188,11 +188,11 @@ public class MovimentoCadastroController {
     }
 
     public static void recebeProduto(Produto produto) {
-        MovimentoCadastroJIF.getTxtBuscarUmProdutoPorNomeStatic().setText(produto.getTipo_prod() + " " + produto.getNome_prod() + " " + produto.getEdicao_prod() + "");
-        MovimentoCadastroJIF.setIdProduto(produto.getId_prod());
+        NotaCadastroJIF.getTxtBuscarUmProdutoPorNomeStatic().setText(produto.getTipo_prod() + " " + produto.getNome_prod() + " " + produto.getEdicao_prod() + "");
+        NotaCadastroJIF.setIdProduto(produto.getId_prod());
     }
 
-    public void salvarNota(MovimentoCadastroJIF form) {
+    public void salvarNota(NotaCadastroJIF form) {
         String obs = LimiteCaracteres.limitarString(form.getTxtAreaObservacao().getText().toUpperCase(), 300);
         String notaNumero = LimiteCaracteres.limitarString(form.getTxtNota().getText().toUpperCase(), 30);
         String notaChave = LimiteCaracteres.limitarString(form.getTxtChave().getText().toUpperCase(), 60);

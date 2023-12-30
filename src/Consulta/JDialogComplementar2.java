@@ -7,7 +7,7 @@ package Consulta;
 
 import ConectaBanco.ConexaoBD;
 import Interface.FrameMovimentoComplemento;
-import view.internal.MovimentoCadastroJIF;
+import view.internal.NotaCadastroJIF;
 import Interface.SetorCadastroJIF;
 import java.sql.SQLException;
 import java.util.logging.Level;

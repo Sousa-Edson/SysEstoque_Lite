@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.List;
+
 /**
  *
  * @author edson
@@ -19,6 +21,9 @@ public class NotaFiscal {
 
     Natureza natureza;
     Cliente cliente;
+    
+    
+    List<Item>itens;
     
     public NotaFiscal() {
     }

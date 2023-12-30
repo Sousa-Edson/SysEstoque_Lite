@@ -9,8 +9,8 @@ import model.Produto;
 import view.internal.ProdutoListaJIF;
 import view.MenuPrincipal;
 import view.internal.LoginJIF;
-import view.internal.MovimentoCadastroJIF;
-import view.internal.MovimentoListaJIF;
+import view.internal.NotaCadastroJIF;
+import view.internal.NotaListaJIF;
 import view.internal.ProdutoCadastroJIF;
 import view.internal.UnidadeCadastroJIF;
 
@@ -24,8 +24,8 @@ public class TelaInternaController {
     private static UnidadeCadastroJIF unidadeCadastroJIF;
     private static ProdutoListaJIF produtoListaJIF;
     private static ProdutoCadastroJIF produtoCadastroJIF;
-    private static MovimentoListaJIF movimentoListaJIF;
-    private static MovimentoCadastroJIF movimentoCadastroJIF;
+    private static NotaListaJIF movimentoListaJIF;
+    private static NotaCadastroJIF movimentoCadastroJIF;
 
     public static void chamaLogin(MenuPrincipal form) {
         if (loginJIF == null || !loginJIF.isVisible()) {
@@ -74,7 +74,7 @@ public class TelaInternaController {
 
     public static void chamaListaNota() {
         if (movimentoListaJIF == null || !movimentoListaJIF.isVisible()) {
-            movimentoListaJIF = new MovimentoListaJIF();
+            movimentoListaJIF = new NotaListaJIF();
             MenuPrincipal.desktopPrincipal.add(movimentoListaJIF);
             InternalFrameUtil.removerIcone(movimentoListaJIF);
             movimentoListaJIF.setVisible(true);
@@ -85,7 +85,7 @@ public class TelaInternaController {
 
    public static  void chamaNota() {
         if (movimentoCadastroJIF == null || !movimentoCadastroJIF.isVisible()) {
-            movimentoCadastroJIF = new MovimentoCadastroJIF();
+            movimentoCadastroJIF = new NotaCadastroJIF();
             MenuPrincipal.desktopPrincipal.add(movimentoCadastroJIF);
             InternalFrameUtil.removerIcone(movimentoCadastroJIF);
             movimentoCadastroJIF.setVisible(true);

@@ -11,21 +11,21 @@ package tableModel;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
-import model.Movimento;
+import model.Item;
 import utils.FormatarDinheiro;
 import utils.FormatarNumero;
 
-public class MovimentoTableModel extends AbstractTableModel {
+public class ItemTableModel extends AbstractTableModel {
 
-    private List<Movimento> movimentos;
+    private List<Item> movimentos;
     private final String[] colunas = {"#", "Id", "Produto", "Unid", "Quantidade", "Complemento", "Valor", "Total"};
 
-    public MovimentoTableModel() {
+    public ItemTableModel() {
         this.movimentos = new ArrayList<>();
         // Adicione dados de exemplo se necessário
     }
 
-    public void setMovimentos(List<Movimento> movimentos) {
+    public void setMovimentos(List<Item> movimentos) {
         this.movimentos = movimentos;
         fireTableDataChanged();
     }
@@ -47,7 +47,7 @@ public class MovimentoTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Movimento movimento = movimentos.get(rowIndex);
+        Item movimento = movimentos.get(rowIndex);
 
         switch (columnIndex) {
             case 0:

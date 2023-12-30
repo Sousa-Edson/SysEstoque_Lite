@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ListSelectionModel;
-import model.Movimento;
+import model.Item;
 import model.Produto;
 import service.ProdutoService;
 import tableModel.BuscaProdutoTableModel;

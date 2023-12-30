@@ -6,7 +6,7 @@ package repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.Movimento;
+import model.Item;
 
 /**
  *

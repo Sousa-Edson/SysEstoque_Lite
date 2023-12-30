@@ -26,7 +26,7 @@ import model.Natureza;
  * @author edson
  */
 /// pree
-public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
+public class NotaCadastroJIF extends javax.swing.JInternalFrame {
 
     int ComboFocu = 0;
 
@@ -36,7 +36,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     /**
      * Creates new form MovimentoJIF
      */
-    public MovimentoCadastroJIF() {
+    public NotaCadastroJIF() {
         movimentoCadastroController = new MovimentoCadastroController(this);
         initComponents();
         movimentoCadastroController.mudarCorPaineis(this);
@@ -1377,7 +1377,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     }
 
     public static void setIdProduto(int idProduto) {
-        MovimentoCadastroJIF.idProduto = idProduto;
+        NotaCadastroJIF.idProduto = idProduto;
     }
 
     public int getIdProdutoComun() {
@@ -1385,7 +1385,7 @@ public class MovimentoCadastroJIF extends javax.swing.JInternalFrame {
     }
 
     public void setIdProdutoComun(int idProduto) {
-        MovimentoCadastroJIF.idProduto = idProduto;
+        NotaCadastroJIF.idProduto = idProduto;
     }
 
     public JTextField getTxtBuscarUmProdutoPorNomeComun() {
