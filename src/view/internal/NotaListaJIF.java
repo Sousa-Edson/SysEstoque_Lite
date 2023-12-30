@@ -30,6 +30,7 @@ public final class NotaListaJIF extends javax.swing.JInternalFrame {
         initComponents();
         
         jPanel1.setBackground(ControleCores.pegarCorPadrao());
+        
          
     }
  

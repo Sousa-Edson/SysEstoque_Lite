@@ -80,6 +80,7 @@ public class TelaInternaController {
             movimentoListaJIF.setVisible(true);
         }
         movimentoListaJIF.toFront();
+        movimentoListaJIF.getTxtBuscar().requestFocus();
         FramePositionUtil.setCenteredPosition(movimentoListaJIF);
     }
 
