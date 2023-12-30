@@ -12,124 +12,22 @@ import java.util.List;
  */
 public class NotaFiscal {
 
-    int id_nota, id_referencia, nota_status, motoristaint, empresaint;
-    String nota_operacao, nota_documento,
-            nota_data, nota_nota, nota_hora, nota_observacao, nota_situacao,
+    private int id_nota, id_referencia, nota_status, empresaint;
+    private String nota_documento, nota_data, nota_nota, nota_hora, nota_observacao,
             nota_chave, nota_total, nota_registro, nota_usuario;
 
-    String modalidade, transportadora, motorista, placa, uf, quantidade, especie, numeracao, pesobruto, pesoliquido, datavariavel;
+    private String nota_operacao, nota_situacao;
 
-    Natureza natureza;
-    Cliente cliente;
-    
-    
-    List<Item>itens;
-    
+    private String datavariavel;
+
+    private Natureza natureza;
+    private Cliente cliente;
+
+    private TransporteModel transporteModel;
+
+    private List<Item> itens;
+
     public NotaFiscal() {
-    }
-
-    public String getDatavariavel() {
-        return datavariavel;
-    }
-
-    public void setDatavariavel(String datavariavel) {
-        this.datavariavel = datavariavel;
-    }
-
-    public int getMotoristaint() {
-        return motoristaint;
-    }
-
-    public void setMotoristaint(int motoristaint) {
-        this.motoristaint = motoristaint;
-    }
-
-    public int getEmpresaint() {
-        return empresaint;
-    }
-
-    public void setEmpresaint(int empresaint) {
-        this.empresaint = empresaint;
-    }
-
-    public String getModalidade() {
-        return modalidade;
-    }
-
-    public void setModalidade(String modalidade) {
-        this.modalidade = modalidade;
-    }
-
-    public String getTransportadora() {
-        return transportadora;
-    }
-
-    public void setTransportadora(String transportadora) {
-        this.transportadora = transportadora;
-    }
-
-    public String getMotorista() {
-        return motorista;
-    }
-
-    public void setMotorista(String motorista) {
-        this.motorista = motorista;
-    }
-
-    public String getPlaca() {
-        return placa;
-    }
-
-    public void setPlaca(String placa) {
-        this.placa = placa;
-    }
-
-    public String getUf() {
-        return uf;
-    }
-
-    public void setUf(String uf) {
-        this.uf = uf;
-    }
-
-    public String getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(String quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public String getEspecie() {
-        return especie;
-    }
-
-    public void setEspecie(String especie) {
-        this.especie = especie;
-    }
-
-    public String getNumeracao() {
-        return numeracao;
-    }
-
-    public void setNumeracao(String numeracao) {
-        this.numeracao = numeracao;
-    }
-
-    public String getPesobruto() {
-        return pesobruto;
-    }
-
-    public void setPesobruto(String pesobruto) {
-        this.pesobruto = pesobruto;
-    }
-
-    public String getPesoliquido() {
-        return pesoliquido;
-    }
-
-    public void setPesoliquido(String pesoliquido) {
-        this.pesoliquido = pesoliquido;
     }
 
     public int getId_nota() {
@@ -148,13 +46,20 @@ public class NotaFiscal {
         this.id_referencia = id_referencia;
     }
 
-     
-    public String getNota_operacao() {
-        return nota_operacao;
+    public int getNota_status() {
+        return nota_status;
     }
 
-    public void setNota_operacao(String nota_operacao) {
-        this.nota_operacao = nota_operacao;
+    public void setNota_status(int nota_status) {
+        this.nota_status = nota_status;
+    }
+
+    public int getEmpresaint() {
+        return empresaint;
+    }
+
+    public void setEmpresaint(int empresaint) {
+        this.empresaint = empresaint;
     }
 
     public String getNota_documento() {
@@ -197,14 +102,6 @@ public class NotaFiscal {
         this.nota_observacao = nota_observacao;
     }
 
-    public String getNota_situacao() {
-        return nota_situacao;
-    }
-
-    public void setNota_situacao(String nota_situacao) {
-        this.nota_situacao = nota_situacao;
-    }
-
     public String getNota_chave() {
         return nota_chave;
     }
@@ -237,12 +134,28 @@ public class NotaFiscal {
         this.nota_usuario = nota_usuario;
     }
 
-    public int getNota_status() {
-        return nota_status;
+    public String getNota_operacao() {
+        return nota_operacao;
     }
 
-    public void setNota_status(int nota_status) {
-        this.nota_status = nota_status;
+    public void setNota_operacao(String nota_operacao) {
+        this.nota_operacao = nota_operacao;
+    }
+
+    public String getNota_situacao() {
+        return nota_situacao;
+    }
+
+    public void setNota_situacao(String nota_situacao) {
+        this.nota_situacao = nota_situacao;
+    }
+
+    public String getDatavariavel() {
+        return datavariavel;
+    }
+
+    public void setDatavariavel(String datavariavel) {
+        this.datavariavel = datavariavel;
     }
 
     public Natureza getNatureza() {
@@ -260,7 +173,27 @@ public class NotaFiscal {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    public TransporteModel getTransporteModel() {
+        return transporteModel;
+    }
+
+    public void setTransporteModel(TransporteModel transporteModel) {
+        this.transporteModel = transporteModel;
+    }
+
+    public List<Item> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<Item> itens) {
+        this.itens = itens;
+    }
+
+    @Override
+    public String toString() {
+        return "NotaFiscal{" + "id_nota=" + id_nota + ", id_referencia=" + id_referencia + ", nota_status=" + nota_status + ", empresaint=" + empresaint + ", nota_documento=" + nota_documento + ", nota_data=" + nota_data + ", nota_nota=" + nota_nota + ", nota_hora=" + nota_hora + ", nota_observacao=" + nota_observacao + ", nota_chave=" + nota_chave + ", nota_total=" + nota_total + ", nota_registro=" + nota_registro + ", nota_usuario=" + nota_usuario + ", nota_operacao=" + nota_operacao + ", nota_situacao=" + nota_situacao + ", datavariavel=" + datavariavel + ", natureza=" + natureza + ", cliente=" + cliente + ", transporteModel=" + transporteModel + ", itens=" + itens + '}';
+    }
     
-    
-    
+
 }
