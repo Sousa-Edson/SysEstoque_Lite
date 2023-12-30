@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.Cliente;
 import model.Item;
 import model.Natureza;
@@ -21,6 +22,7 @@ import model.TransporteModel;
 import repository.MovimentoRepository;
 import service.ClienteService;
 import service.NaturezaService;
+import service.NotaFiscalService;
 import service.ProdutoService;
 import tableModel.ItemTableModel;
 import utils.ControleCores;
@@ -47,9 +49,12 @@ public class MovimentoCadastroController {
     JDialogBuscaProduto jDialogBuscaProduto;
 
     ProdutoService produtoService;
+    NotaFiscalService notaFiscalService;
 
-    public static List<Item> movimentos;
+    NotaFiscal notaFiscal;
     Produto produto;
+
+    public static List<Item> itens;
 
     public MovimentoCadastroController(NotaCadastroJIF form) {
         corPadrao = ControleCores.pegarCorPadrao();
@@ -58,8 +63,11 @@ public class MovimentoCadastroController {
         jDialogBuscaProduto = new JDialogBuscaProduto(null, true);
 
         produtoService = new ProdutoService();
+        notaFiscalService = new NotaFiscalService();
 
-        movimentos = new ArrayList<>();
+        notaFiscal = new NotaFiscal();
+
+        itens = new ArrayList<>();
 
     }
 
@@ -181,7 +189,7 @@ public class MovimentoCadastroController {
 
         try {
             ItemTableModel modelo = new ItemTableModel();
-            modelo.setMovimentos(movimentos);
+            modelo.setMovimentos(itens);
             form.getTabela().setModel(modelo);
             form.getTabela().getColumnModel().getColumn(0).setPreferredWidth(60);
             form.getTabela().getColumnModel().getColumn(0).setResizable(true);
@@ -190,7 +198,7 @@ public class MovimentoCadastroController {
         } catch (Exception e) {
             System.err.println("\n\nerro prencherTabela:: " + e.getMessage());
         }
-//        System.out.println("\n\n##### aqui--- prencherTabela:: " + movimentos.size());
+//        System.out.println("\n\n##### aqui--- prencherTabela:: " + itens.size());
     }
 
     public static void recebeProduto(Produto produto) {
@@ -199,46 +207,72 @@ public class MovimentoCadastroController {
     }
 
     public void salvarNota(NotaCadastroJIF form) {
-        NotaFiscal notaFiscal = new NotaFiscal();
-        notaFiscal.setNota_observacao(LimiteCaracteres.limitarString(form.getTxtAreaObservacao().getText().toUpperCase(), 300));
-        notaFiscal.setNota_nota(LimiteCaracteres.limitarString(form.getTxtNota().getText().toUpperCase(), 30));
-        notaFiscal.setNota_chave(LimiteCaracteres.limitarString(form.getTxtChave().getText().toUpperCase(), 60));
+        if (form.getTxtNota().getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campo nota não pode estar vazio!");
+        } else if (form.getDataNota().getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Campo data não pode estar vazio!");
+        } else if (itens.size() <= 0) {
+            JOptionPane.showMessageDialog(null, "Não exitem itens a serem salvos!");
+        } else {
 
-        notaFiscal.setCliente((Cliente) form.getCbCliente().getSelectedItem());
-        notaFiscal.setNatureza((Natureza) form.getCbNatureza().getSelectedItem());
+            notaFiscal.setNota_observacao(LimiteCaracteres.limitarString(form.getTxtAreaObservacao().getText().toUpperCase(), 300));
+            notaFiscal.setNota_nota(LimiteCaracteres.limitarString(form.getTxtNota().getText().toUpperCase(), 30));
+            notaFiscal.setNota_chave(LimiteCaracteres.limitarString(form.getTxtChave().getText().toUpperCase(), 60));
 
-        notaFiscal.setNota_hora(ValidarHora.validarHoraRetorno(form.getTxtHora().getText()));
-        notaFiscal.setNota_data(FormatarData.formatarData(form.getDataNota().getDate()));
-        notaFiscal.setDatavariavel(FormatarData.formatarData(form.getDataNota().getDate()));
+            notaFiscal.setCliente((Cliente) form.getCbCliente().getSelectedItem());
+            notaFiscal.setNatureza((Natureza) form.getCbNatureza().getSelectedItem());
 
-        notaFiscal.setNota_situacao("em preparação");// criar um enum para isso       
-        notaFiscal.setNota_status(1);// 1 para ativo
-        notaFiscal.setNota_operacao(""+(TipoMovimentacao) form.getCbTipoMovimentacao().getSelectedItem());// criar um enum para isso
-        notaFiscal.setNota_documento("nota");
-        System.out.println("OP:: "+notaFiscal.getNota_operacao());
-        notaFiscal.setNota_registro(DataHoraAtual.obterDataHoraFormatada());
-        notaFiscal.setNota_usuario(UsuarioLogado.getNome());
+            notaFiscal.setNota_hora(ValidarHora.validarHoraRetorno(form.getTxtHora().getText()));
+            notaFiscal.setNota_data(FormatarData.formatarData(form.getDataNota().getDate()));
+            notaFiscal.setDatavariavel(FormatarData.formatarData(form.getDataNota().getDate()));
 
-        TransporteModel transporteModel = new TransporteModel();
-        transporteModel.setMotorista(LimiteCaracteres.limitarString(form.getTxtMotorista().getText().toUpperCase(), 160));
-        transporteModel.setPlaca(LimiteCaracteres.limitarString(form.getTxtPlaca().getText().toUpperCase(), 10));
-        transporteModel.setUf(LimiteCaracteres.limitarString(form.getTxtUf().getText().toUpperCase(), 10));
-        transporteModel.setQuantidade(LimiteCaracteres.limitarString(form.getTxtVolQuantidade().getText().toUpperCase(), 100));
-        transporteModel.setPesobruto(LimiteCaracteres.limitarString(form.getTxtPesoBruto().getText().toUpperCase(), 100));
-        transporteModel.setPesoliquido(LimiteCaracteres.limitarString(form.getTxtPesoLiquido().getText().toUpperCase(), 100));
-        transporteModel.setNumeracao(LimiteCaracteres.limitarString(form.getTxtVolNumeracao().getText().toUpperCase(), 100));
-        transporteModel.setEspecie(LimiteCaracteres.limitarString(form.getTxtVolEspecie().getText().toUpperCase(), 100));
-        transporteModel.setTransportadora("transportadora");
+            notaFiscal.setNota_situacao("em preparação");// criar um enum para isso       
+            notaFiscal.setNota_operacao("" + (TipoMovimentacao) form.getCbTipoMovimentacao().getSelectedItem());// criar um enum para isso
+            System.out.println("OP:: " + notaFiscal.getNota_operacao());
 
-        notaFiscal.setTransporteModel(transporteModel);
+            TransporteModel transporteModel = new TransporteModel();
+            transporteModel.setMotorista(LimiteCaracteres.limitarString(form.getTxtMotorista().getText().toUpperCase(), 160));
+            transporteModel.setPlaca(LimiteCaracteres.limitarString(form.getTxtPlaca().getText().toUpperCase(), 10));
+            transporteModel.setUf(LimiteCaracteres.limitarString(form.getTxtUf().getText().toUpperCase(), 10));
+            transporteModel.setQuantidade(LimiteCaracteres.limitarString(form.getTxtVolQuantidade().getText().toUpperCase(), 100));
+            transporteModel.setPesobruto(LimiteCaracteres.limitarString(form.getTxtPesoBruto().getText().toUpperCase(), 100));
+            transporteModel.setPesoliquido(LimiteCaracteres.limitarString(form.getTxtPesoLiquido().getText().toUpperCase(), 100));
+            transporteModel.setNumeracao(LimiteCaracteres.limitarString(form.getTxtVolNumeracao().getText().toUpperCase(), 100));
+            transporteModel.setEspecie(LimiteCaracteres.limitarString(form.getTxtVolEspecie().getText().toUpperCase(), 100));
 
-        System.out.println("###\n\n" + notaFiscal);
+            notaFiscal.setTransporteModel(transporteModel);
+
+            notaFiscal.setItens(itens);
+            System.out.println("###\n\n" + notaFiscal);
+
+            notaFiscalService.adicionarNotaFiscal(notaFiscal);
+        }
 
     }
 
     public void carregarTipoMovimentacao(NotaCadastroJIF form) {
         form.getCbTipoMovimentacao().addItem(TipoMovimentacao.ENTRADA);
         form.getCbTipoMovimentacao().addItem(TipoMovimentacao.SAIDA);
+
+    }
+
+    public void limparCampos(NotaCadastroJIF form) {
+        form.getTxtNota().setText("");
+        form.getTxtChave().setText("");
+        form.getTxtHora().setText("");
+        form.getTxtNota().setText("");
+        form.getDataNota().setDate(null);
+        form.getTxtAreaObservacao().setText("");
+
+        form.getTxtMotorista().setText("");
+        form.getTxtPlaca().setText("");
+        form.getTxtUf().setText("");
+
+        form.getTxtVolEspecie().setText("");
+        form.getTxtVolNumeracao().setText("");
+        form.getTxtVolQuantidade().setText("");
+        form.getTxtPesoBruto().setText("");
+        form.getTxtPesoLiquido().setText("");
 
     }
 }

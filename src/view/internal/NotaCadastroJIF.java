@@ -82,6 +82,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         txtBuscarUmProdutoPorNome = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
+        jLabel_Titulo3 = new javax.swing.JLabel();
         pnTransporte = new javax.swing.JPanel();
         jLabel_Titulo1 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -188,6 +189,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Hora :");
 
+        txtNota.setText("123");
         txtNota.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNotaFocusLost(evt);
@@ -210,6 +212,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Nota:");
 
+        txtChave.setText("123123");
         txtChave.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtChaveFocusLost(evt);
@@ -452,22 +455,32 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         });
         jScrollPane4.setViewportView(tabela);
 
+        jLabel_Titulo3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel_Titulo3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_Titulo3.setText("Itens");
+        jLabel_Titulo3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
         javax.swing.GroupLayout pnDadosLayout = new javax.swing.GroupLayout(pnDados);
         pnDados.setLayout(pnDadosLayout);
         pnDadosLayout.setHorizontalGroup(
             pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnDadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel_Texto_Produto1)
-                .addGap(8, 8, 8)
-                .addComponent(txtBuscarUmProdutoPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnInserirProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLimparCampoBuscaProduto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRemoverUmProduto)
-                .addContainerGap())
+                .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnDadosLayout.createSequentialGroup()
+                        .addComponent(jLabel_Texto_Produto1)
+                        .addGap(8, 8, 8)
+                        .addComponent(txtBuscarUmProdutoPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnInserirProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLimparCampoBuscaProduto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRemoverUmProduto)
+                        .addContainerGap())
+                    .addGroup(pnDadosLayout.createSequentialGroup()
+                        .addComponent(jLabel_Titulo3, javax.swing.GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
+                        .addGap(23, 23, 23))))
             .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnDadosLayout.createSequentialGroup()
                     .addContainerGap()
@@ -481,17 +494,19 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
             pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnDadosLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel_Titulo3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscarUmProdutoPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_Texto_Produto1)
                     .addComponent(btnInserirProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimparCampoBuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRemoverUmProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addContainerGap(173, Short.MAX_VALUE))
             .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnDadosLayout.createSequentialGroup()
-                    .addGap(37, 37, 37)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDadosLayout.createSequentialGroup()
+                    .addGap(58, 58, 58)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -537,6 +552,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
+        txtMotorista.setText("david");
         txtMotorista.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtMotoristaFocusGained(evt);
@@ -555,12 +571,14 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel19.setText("Placa Veiculo");
 
+        txtUf.setText("df");
         txtUf.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtUfFocusLost(evt);
             }
         });
 
+        txtPlaca.setText("wsq-0909");
         txtPlaca.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtPlacaFocusLost(evt);
@@ -585,6 +603,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setText("Quantidade");
 
+        txtVolQuantidade.setText("12");
         txtVolQuantidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtVolQuantidadeActionPerformed(evt);
@@ -594,6 +613,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel27.setText("Espécie");
 
+        txtVolEspecie.setText("paletes");
         txtVolEspecie.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtVolEspecieFocusLost(evt);
@@ -609,12 +629,16 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel30.setText("Peso Liquido");
 
+        txtPesoLiquido.setText("10kg");
         txtPesoLiquido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPesoLiquidoActionPerformed(evt);
             }
         });
 
+        txtPesoBruto.setText("12kg");
+
+        txtVolNumeracao.setText("0-9");
         txtVolNumeracao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtVolNumeracaoActionPerformed(evt);
@@ -743,6 +767,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         txtAreaObservacao.setColumns(20);
         txtAreaObservacao.setLineWrap(true);
         txtAreaObservacao.setRows(5);
+        txtAreaObservacao.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.");
         txtAreaObservacao.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jScrollPane7.setViewportView(txtAreaObservacao);
 
@@ -1130,6 +1155,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         movimentoCadastroController.limparBuscarUmProdutoPorNome(this);
         movimentoCadastroController.limparTabela(this);
+        movimentoCadastroController.limparCampos(this);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -1285,6 +1311,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
     public static javax.swing.JLabel jLabel_Texto_Produto1;
     private javax.swing.JLabel jLabel_Titulo1;
     private javax.swing.JLabel jLabel_Titulo2;
+    private javax.swing.JLabel jLabel_Titulo3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

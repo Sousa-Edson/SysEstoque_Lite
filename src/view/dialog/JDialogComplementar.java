@@ -52,7 +52,7 @@ public class JDialogComplementar extends javax.swing.JDialog {
         movimento.setStsaldo(1);
         movimento.setStatus_mov(1);
 
-        movimento.setData_mov("" + DataHoraAtual.obterDataHoraFormatada());
+        movimento.setData_mov("" + DataHoraAtual.obterDataFormatada());
 
         movimento.setDestino_mov("setDestino_mov");
         movimento.setVolume("volume");
@@ -77,8 +77,8 @@ public class JDialogComplementar extends javax.swing.JDialog {
 
         movimento.setComplemento_mov(txtComplemento.getText().toUpperCase());
 
-        MovimentoCadastroController.movimentos.add(movimento);
-//        System.out.println("###\n\n MovimentoCadastroController.movimentos.size() ::: " + MovimentoCadastroController.movimentos.size());
+        MovimentoCadastroController.itens.add(movimento);
+//        System.out.println("###\n\n MovimentoCadastroController.itens.size() ::: " + MovimentoCadastroController.itens.size());
         this.dispose();
         } catch (Exception e) {
             System.out.println("erro|adicionarItem::: "+e.getMessage());

@@ -16,8 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Cliente;
+import model.Item;
 import model.Natureza;
 import model.NotaFiscal;
+import service.ItemService;
 
 public class NotaFiscalDAO {
 
@@ -47,7 +49,6 @@ public class NotaFiscalDAO {
 
             while (rs.next()) {
 
-                // Aqui você deve criar uma classe NotaFiscal e preenchê-la com os dados do resultado
                 NotaFiscal nota = new NotaFiscal();
                 nota.setId_nota(rs.getInt("id_nota"));
 
@@ -86,7 +87,8 @@ public class NotaFiscalDAO {
         conex.executaSql2("SELECT  *  FROM nota  where id_referencianota is not null and id_referencianota !=0 ORDER BY  id_referencianota DESC  LIMIT 1;");
         try {
             conex.rs.first();
-            return  conex.rs.getInt("id_referencianota");
+            System.out.println("id_referencianota:: " + conex.rs.getInt("id_referencianota"));
+            return conex.rs.getInt("id_referencianota");
         } catch (SQLException ex) {
             System.err.println("erro::" + ex.getMessage());
             return 0;
@@ -94,4 +96,77 @@ public class NotaFiscalDAO {
             conex.desconecta();
         }
     }
+
+    public void adicionarNotaFiscal(NotaFiscal notaFiscal) {
+        conex.conexao();
+        String sql = "INSERT INTO nota ( id_referencianota, stnota, empresaint, nota_documento, nota_data, "
+                + "nota_nota, nota_hora, nota_observacao, nota_chave, nota_total, nota_registro, nota_usu, nota_operacao, "
+                + "nota_situacao, datavariavel, naturezaint, fornecedorint, motoristaint,"
+                + "motorista, placa, uf, quantidade, especie, numeracao, pesobruto, pesoliquido,"
+                + "modalidade, transportadora) "
+                + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,"
+                + "?, ?, ?, ?, ?, ?, ?, ?,"
+                + "?, ?)";
+
+        try (PreparedStatement preparedStatement = conex.con.prepareStatement(sql)) {
+
+            int id = carregaUltimaIdReferenciaNota() + 1;
+            System.out.println("id:: " + id);
+
+            notaFiscal.setId_referencia(id);
+            System.out.println("notaFiscal.getId_referencia():: " + notaFiscal.getId_referencia());
+
+            notaDados(preparedStatement, notaFiscal);
+
+            preparedStatement.executeUpdate();
+
+            // Salvar os itens associados à nota fiscal
+            ItemService itemService = new ItemService();
+            List<Item> itens = notaFiscal.getItens();
+            for (Item item : itens) {
+                itemService.salvarItem(item, notaFiscal.getId_referencia());
+            }
+            System.out.println("deu certo :: " + notaFiscal.getId_nota());
+        } catch (SQLException e) {
+            System.out.println("erro " + e.getMessage());
+            e.printStackTrace(); // Trate a exceção apropriadamente no seu código real
+        }
+    }
+
+    public PreparedStatement notaDados(PreparedStatement preparedStatement, NotaFiscal notaFiscal) throws SQLException {
+        preparedStatement.setInt(1, notaFiscal.getId_referencia());
+        preparedStatement.setInt(2, notaFiscal.getNota_status());
+        preparedStatement.setInt(3, notaFiscal.getEmpresaint());
+        preparedStatement.setString(4, notaFiscal.getNota_documento());
+        preparedStatement.setString(5, notaFiscal.getNota_data());
+        preparedStatement.setString(6, notaFiscal.getNota_nota());
+        preparedStatement.setString(7, notaFiscal.getNota_hora());
+        preparedStatement.setString(8, notaFiscal.getNota_observacao());
+        preparedStatement.setString(9, notaFiscal.getNota_chave());
+        preparedStatement.setString(10, notaFiscal.getNota_total());
+        preparedStatement.setString(11, notaFiscal.getNota_registro());
+        preparedStatement.setString(12, notaFiscal.getNota_usuario());
+        preparedStatement.setString(13, notaFiscal.getNota_operacao());
+        preparedStatement.setString(14, notaFiscal.getNota_situacao());
+        preparedStatement.setString(15, notaFiscal.getDatavariavel());
+        
+        preparedStatement.setInt(16, notaFiscal.getNatureza().getId_referencia());
+        preparedStatement.setInt(17, notaFiscal.getCliente().getSis_cliente());
+        
+        preparedStatement.setInt(18, notaFiscal.getTransporteModel().getMotoristaint());
+
+        preparedStatement.setString(19, notaFiscal.getTransporteModel().getMotorista());
+        preparedStatement.setString(20, notaFiscal.getTransporteModel().getPlaca());
+        preparedStatement.setString(21, notaFiscal.getTransporteModel().getUf());
+        preparedStatement.setString(22, notaFiscal.getTransporteModel().getQuantidade());
+        preparedStatement.setString(23, notaFiscal.getTransporteModel().getEspecie());
+        preparedStatement.setString(24, notaFiscal.getTransporteModel().getNumeracao());
+        preparedStatement.setString(25, notaFiscal.getTransporteModel().getPesobruto());
+        preparedStatement.setString(26, notaFiscal.getTransporteModel().getPesoliquido());
+
+        preparedStatement.setString(27, notaFiscal.getTransporteModel().getModalidade());
+        preparedStatement.setString(28, notaFiscal.getTransporteModel().getTransportadora());
+        return preparedStatement;
+    }
+
 }
