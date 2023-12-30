@@ -9,6 +9,7 @@ package view.internal;
 import Consulta.JDialogAuxilioChave;
 import com.toedter.calendar.JDateChooser;
 import controller.MovimentoCadastroController;
+import enums.TipoMovimentacao;
 
 import java.awt.Color;
 import javax.swing.JButton;
@@ -42,7 +43,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         movimentoCadastroController.mudarCorPaineis(this);
         movimentoCadastroController.carregarCliente(this);
         movimentoCadastroController.carregarNatureza(this);
-
+        movimentoCadastroController.carregarTipoMovimentacao(this);
     }
 
     /**
@@ -112,6 +113,8 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         btnCancelar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         jRadioButton_ativa_Vizualizar = new javax.swing.JRadioButton();
+        cbTipoMovimentacao = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -803,6 +806,8 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setText("Tipo de movimentação:");
+
         javax.swing.GroupLayout pnPrincipalLayout = new javax.swing.GroupLayout(pnPrincipal);
         pnPrincipal.setLayout(pnPrincipalLayout);
         pnPrincipalLayout.setHorizontalGroup(
@@ -818,6 +823,10 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
                         .addComponent(btnCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbTipoMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jRadioButton_ativa_Vizualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -833,13 +842,17 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar)
                     .addComponent(btnExcluir)
-                    .addComponent(jRadioButton_ativa_Vizualizar))
+                    .addComponent(jRadioButton_ativa_Vizualizar)
+                    .addComponent(cbTipoMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnTopo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
+
+        pnPrincipalLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnExcluir, cbTipoMovimentacao, jLabel1});
 
         jMenu1.setText("File");
 
@@ -1231,7 +1244,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtVolQuantidadeActionPerformed
 
     private void txtBuscarUmProdutoPorNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarUmProdutoPorNomeKeyPressed
-  movimentoCadastroController.validarNomeProduto(this, evt);
+        movimentoCadastroController.validarNomeProduto(this, evt);
     }//GEN-LAST:event_txtBuscarUmProdutoPorNomeKeyPressed
 
 
@@ -1246,9 +1259,11 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<Cliente> cbCliente;
     public static javax.swing.JComboBox<Natureza> cbNatureza;
+    private javax.swing.JComboBox<TipoMovimentacao> cbTipoMovimentacao;
     private com.toedter.calendar.JDateChooser dataNota;
     private javax.swing.JComboBox<String> jComboBox_modalidade;
     private javax.swing.JComboBox<String> jComboBox_transportadora;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1447,5 +1462,15 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
     public JTextField getTxtVolQuantidade() {
         return txtVolQuantidade;
     }
+
+    public JComboBox<TipoMovimentacao> getCbTipoMovimentacao() {
+        return cbTipoMovimentacao;
+    }
+
+    public void setCbTipoMovimentacao(JComboBox<TipoMovimentacao> cbTipoMovimentacao) {
+        this.cbTipoMovimentacao = cbTipoMovimentacao;
+    }
+    
+    
 
 }
