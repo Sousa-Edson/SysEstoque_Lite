@@ -9,7 +9,6 @@ package service;
  * @author edson
  */
 import dao.ItemDAO;
-import java.util.List;
 import model.Item;
 import utils.CodigoGeradoSistema;
 
@@ -21,9 +20,9 @@ public class ItemService {
         this.itemDAO = new ItemDAO();
     }
 
-    public void salvarItem(Item item,int getId_referencia) {
+    public void salvarItem(Item item,int getIdNota) {
         
-        item.setNota_mov(getId_referencia);
+        item.setNota_mov(getIdNota);
         item.setSistema_mov(CodigoGeradoSistema.obterCodigoGerado());
         itemDAO.salvarItem(item);
     }

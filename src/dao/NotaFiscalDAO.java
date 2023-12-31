@@ -124,7 +124,7 @@ public class NotaFiscalDAO {
             ItemService itemService = new ItemService();
             List<Item> itens = notaFiscal.getItens();
             for (Item item : itens) {
-                itemService.salvarItem(item, notaFiscal.getId_referencia());
+                itemService.salvarItem(item, notaFiscal.getId_nota());
             }
             System.out.println("deu certo :: " + notaFiscal.getId_nota());
         } catch (SQLException e) {

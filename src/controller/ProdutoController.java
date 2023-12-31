@@ -154,7 +154,7 @@ public class ProdutoController {
 
             Unidade unidade = (Unidade) form.getCbUnidade().getSelectedItem();
             System.out.println("unidade::"+unidade);
-            produtoSalvar.setUn_prod(unidade.getId_referencia());
+            produtoSalvar.setUn_prod(unidade.getId_unidade());
 
             produtoSalvar.setSaldo_prod(0.0);
             produtoSalvar.setEstoque_prod(Double.valueOf(form.getSpEstoqueMinimo().getValue().toString()));

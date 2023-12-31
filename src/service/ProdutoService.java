@@ -40,9 +40,7 @@ public class ProdutoService {
         return produtoDao.excluirProduto(produto);
     }
 
-    public List<Produto> listarProdutos() {
-        return produtoDao.listarProdutos();
-    }
+    
 
     public List<Produto> listarProdutosPorBusca(String busca) {
         return produtoDao.listarProdutosPorBusca(busca);

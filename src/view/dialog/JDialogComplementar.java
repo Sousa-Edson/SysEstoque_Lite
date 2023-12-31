@@ -48,6 +48,7 @@ public class JDialogComplementar extends javax.swing.JDialog {
         movimento.setValor_real(produto.getValor());
         movimento.setUsuario_mov(UsuarioLogado.getNome());
         movimento.setRegistro_mov(DataHoraAtual.obterDataHoraFormatada());
+        
         movimento.setModo_mov(1);
         movimento.setStsaldo(1);
         movimento.setStatus_mov(1);
