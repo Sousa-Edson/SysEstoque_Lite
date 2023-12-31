@@ -26,6 +26,10 @@ public class NotaFiscalService {
         return notaFiscalDAO.listarNotasPorBusca(busca);
     }
 
+    public NotaFiscal obterNotaPorId(int busca) {
+        return notaFiscalDAO.obterNotaPorId(busca);
+    }
+
     public void adicionarNotaFiscal(NotaFiscal notaFiscal) {
         notaFiscal.setNota_status(1);// 1 para ativo            
         notaFiscal.setNota_documento("nota");

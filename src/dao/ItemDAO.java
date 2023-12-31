@@ -6,6 +6,7 @@ package dao;
 
 import ConectaBanco.ConexaoBD;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.Item;
 
@@ -28,9 +29,6 @@ public class ItemDAO {
                 + "qtd_prod, qtd_calc, valor_real, sistema_mov, data_mov, qtd_prod_ex, qtd_calc_ex, valor_moeda, destino_mov, "
                 + "complemento_mov, registro_mov, volume, usuario_mov, total_mov) "
                 + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        /*SELECT  ,  ,  ,  ,  ,  ,  ,  ,  ,
-             ,  ,  ,  ,  ,  ,  , modo_mov,  ,  ,  ,  
-FROM public.movprodutobase;*/
         try (PreparedStatement preparedStatement = conex.con.prepareStatement(sql)) {
             preparedStatement.setInt(1, item.getId_prod_ent());
             preparedStatement.setInt(2, item.getNota_mov());
@@ -58,6 +56,57 @@ FROM public.movprodutobase;*/
         } catch (SQLException e) {
             e.printStackTrace(); // Trate a exceção apropriadamente no seu código real
         }
+    }
+
+    public Item obterItenPorId(int id) {
+
+        conex.conexao();
+        String query = "SELECT * FROM  "
+                + "INNER JOIN ecft ON fornecedorint = ecft_id "
+                + "INNER JOIN natureza ON naturezaint = id_natureza "
+                + "WHERE id_nota = ? "
+                + "ORDER BY id_nota DESC";
+        
+        /// corrigir sql
+
+        try (PreparedStatement pst = conex.con.prepareStatement(query)) {
+            pst.setInt(1, id);
+
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    Item item = new Item();
+                    item.setId_prod_ent(rs.getInt("id_prod_ent"));
+                    item.setNota_mov(rs.getInt("nota_mov"));
+                    item.setModo_mov(rs.getInt("modo_mov"));
+                    item.setStatus_mov(rs.getInt("stmovimento"));
+                    item.setStsaldo(rs.getInt("stsaldo"));
+                    item.setQtd_mov(rs.getDouble("qtd_mov"));
+                    item.setQtd_prod(rs.getDouble("qtd_prod"));
+                    item.setQtd_calc(rs.getDouble("qtd_calc"));
+                    item.setValor_real(rs.getDouble("valor_real"));
+                    item.setSistema_mov(rs.getString("sistema_mov"));
+                    item.setData_mov(rs.getString("data_mov"));
+                    item.setQtd_prod_ex(rs.getString("qtd_prod_ex"));
+                    item.setQtd_calc(rs.getDouble("qtd_calc_ex"));
+                    item.setValor_moeda(rs.getString("valor_moeda"));
+                    item.setDestino_mov(rs.getString("destino_mov"));
+                    item.setComplemento_mov(rs.getString("complemento_mov"));
+                    item.setRegistro_mov(rs.getString("registro_mov"));
+                    item.setVolume(rs.getString("volume"));
+                    item.setUsuario_mov(rs.getString("usuario_mov"));
+                    item.setTotal_mov(rs.getString("total_mov"));
+                    return item;
+                } else {
+                    // Não foi encontrada nenhuma nota com o ID fornecido
+                    return null;
+                }
+            }
+        } catch (SQLException ex) {
+            // Lidar com a exceção
+            ex.printStackTrace(); // Considere usar um mecanismo de log apropriado
+            return null;
+        }
+
     }
 
 }

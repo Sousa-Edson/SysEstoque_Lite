@@ -19,6 +19,7 @@ import model.Cliente;
 import model.Item;
 import model.Natureza;
 import model.NotaFiscal;
+import model.TransporteModel;
 import service.ItemService;
 
 public class NotaFiscalDAO {
@@ -33,8 +34,8 @@ public class NotaFiscalDAO {
         List<NotaFiscal> notas = new ArrayList<>();
         conex.conexao();
         String query = "SELECT * FROM nota "
-                + "inner join ecft on fornecedorint = sis_ecft "
-                + "inner join natureza on naturezaint = id_referencianatureza "
+                + "inner join ecft on fornecedorint = ecft_id "
+                + "inner join natureza on naturezaint = id_natureza "
                 + "WHERE (COALESCE(CAST(id_nota AS TEXT), '') || ' ' || "
                 + "COALESCE(CAST(ecft_nome AS TEXT), '') || ' ' || "
                 + "COALESCE(UPPER(nota_operacao), '') || ' ' || "
@@ -74,12 +75,75 @@ public class NotaFiscalDAO {
             }
         } catch (SQLException ex) {
             System.err.println("Erro " + ex.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro ao listar notas.\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao listar  notas.\n" + ex.getMessage());
         } finally {
             conex.desconecta();
         }
 
         return notas;
+    }
+
+    public NotaFiscal obterNotaPorId(int idNota) {
+        conex.conexao();
+        String query = "SELECT * FROM nota "
+                + "INNER JOIN ecft ON fornecedorint = ecft_id "
+                + "INNER JOIN natureza ON naturezaint = id_natureza "
+                + "WHERE id_nota = ? "
+                + "ORDER BY id_nota DESC";
+
+        try (PreparedStatement pst = conex.con.prepareStatement(query)) {
+            pst.setInt(1, idNota);
+
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    NotaFiscal nota = new NotaFiscal();
+                    nota.setId_nota(rs.getInt("id_nota"));
+
+                    nota.setNota_documento(rs.getString("nota_documento"));
+                    nota.setNota_nota(rs.getString("nota_nota"));
+                    nota.setNota_data(rs.getString("nota_data"));
+                    nota.setNota_hora(rs.getString("nota_hora"));
+                    nota.setNota_operacao(rs.getString("nota_operacao"));
+                    nota.setNota_chave(rs.getString("nota_chave"));
+
+                    nota.setNota_observacao(rs.getString("nota_observacao"));
+                    nota.setNota_registro(rs.getString("nota_registro"));
+                    nota.setId_referencia(rs.getInt("id_referenciaNota"));
+							
+                    TransporteModel transporteModel = new TransporteModel();
+                    transporteModel.setMotorista(rs.getString("motorista"));
+                    transporteModel.setPlaca(rs.getString("placa"));
+                    transporteModel.setUf(rs.getString("uf"));
+                    transporteModel.setQuantidade(rs.getString("quantidade"));
+                    transporteModel.setNumeracao(rs.getString("numeracao"));
+                    transporteModel.setPesobruto(rs.getString("pesobruto"));
+                    transporteModel.setPesoliquido(rs.getString("pesoliquido"));
+                    transporteModel.setEspecie(rs.getString("especie"));
+
+                    nota.setTransporteModel(transporteModel);
+
+                    Natureza natureza = new Natureza();
+                    natureza.setId_natureza(rs.getInt("id_natureza"));
+                    natureza.setId_referencia(rs.getInt("id_referencianatureza"));
+                    natureza.setDesc_natureza(rs.getString("desc_natureza"));
+                    natureza.setTipo_natureza(rs.getString("tipo_natureza"));
+                    nota.setNatureza(natureza);
+
+                    Cliente cliente = new Cliente();
+                    cliente.setCliente_nome(rs.getString("ecft_nome"));
+                    nota.setCliente(cliente);
+
+                    return nota;
+                } else {
+                    // Não foi encontrada nenhuma nota com o ID fornecido
+                    return null;
+                }
+            }
+        } catch (SQLException ex) {
+            // Lidar com a exceção
+            ex.printStackTrace(); // Considere usar um mecanismo de log apropriado
+            return null;
+        }
     }
 
     public int carregaUltimaIdReferenciaNota() {
@@ -149,10 +213,10 @@ public class NotaFiscalDAO {
         preparedStatement.setString(13, notaFiscal.getNota_operacao());
         preparedStatement.setString(14, notaFiscal.getNota_situacao());
         preparedStatement.setString(15, notaFiscal.getDatavariavel());
-        
+
         preparedStatement.setInt(16, notaFiscal.getNatureza().getId_natureza()); // id de natureza
         preparedStatement.setInt(17, notaFiscal.getCliente().getCliente_id());// id de  cliente
-        
+
         preparedStatement.setInt(18, notaFiscal.getTransporteModel().getMotoristaint());
 
         preparedStatement.setString(19, notaFiscal.getTransporteModel().getMotorista());

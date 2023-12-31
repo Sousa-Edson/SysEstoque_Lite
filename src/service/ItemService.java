@@ -20,16 +20,15 @@ public class ItemService {
         this.itemDAO = new ItemDAO();
     }
 
-    public void salvarItem(Item item,int getIdNota) {
-        
+    public void salvarItem(Item item, int getIdNota) {
+
         item.setNota_mov(getIdNota);
         item.setSistema_mov(CodigoGeradoSistema.obterCodigoGerado());
         itemDAO.salvarItem(item);
     }
 
-//    public List<Item> obterItens() {
-//        // Adicione lógica de negócios, se necessário, antes de chamar o DAO
-//        return itemDAO.obterItens();
-//    }
+    public Item obterItenPorId(int id) {
+        return itemDAO.obterItenPorId(id);
+    }
     // Outros métodos do serviço conforme necessário
 }
