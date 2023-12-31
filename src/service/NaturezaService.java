@@ -17,11 +17,15 @@ public class NaturezaService {
     private final NaturezaDAO naturezaDAO;
 
     public NaturezaService() {
-       naturezaDAO = new NaturezaDAO();
+        naturezaDAO = new NaturezaDAO();
     }
 
     public List<Natureza> listarNaturezas() {
         return naturezaDAO.listarNaturezas();
+    }
+
+    public List<Natureza> listarNaturezasAtivas() {
+        return naturezaDAO.listarNaturezasAtivas();
     }
 
 }

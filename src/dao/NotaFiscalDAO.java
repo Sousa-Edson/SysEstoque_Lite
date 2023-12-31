@@ -150,8 +150,8 @@ public class NotaFiscalDAO {
         preparedStatement.setString(14, notaFiscal.getNota_situacao());
         preparedStatement.setString(15, notaFiscal.getDatavariavel());
         
-        preparedStatement.setInt(16, notaFiscal.getNatureza().getId_referencia());
-        preparedStatement.setInt(17, notaFiscal.getCliente().getSis_cliente());
+        preparedStatement.setInt(16, notaFiscal.getNatureza().getId_natureza()); // id de natureza
+        preparedStatement.setInt(17, notaFiscal.getCliente().getCliente_id());// id de  cliente
         
         preparedStatement.setInt(18, notaFiscal.getTransporteModel().getMotoristaint());
 

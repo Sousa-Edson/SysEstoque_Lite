@@ -55,4 +55,34 @@ public class NaturezaDAO {
 
         return naturezas;
     }
+    public List<Natureza> listarNaturezasAtivas() {
+        conex.conexao();
+        List<Natureza> naturezas = new ArrayList<>();
+
+        String sql = "SELECT id_natureza,id_referencianatureza, tipo_natureza, desc_natureza, registro_natureza, "
+                + "usuario_natureza, stnat FROM natureza WHERE stnat=1 ";
+
+        try (PreparedStatement stmt = conex.preparaSql(sql)) {
+            ResultSet resultado = stmt.executeQuery();
+
+            while (resultado.next()) {
+                Natureza natureza = new Natureza();
+                natureza.setId_natureza(resultado.getInt("id_natureza"));
+                natureza.setId_referencia(resultado.getInt("id_referencianatureza"));
+                natureza.setTipo_natureza(resultado.getString("tipo_natureza"));
+                natureza.setDesc_natureza(resultado.getString("desc_natureza"));
+                natureza.setRegistro_natureza(resultado.getString("registro_natureza"));
+                natureza.setUsuario_natureza(resultado.getString("usuario_natureza"));
+                natureza.setStatus_natureza(resultado.getInt("stnat"));
+
+                naturezas.add(natureza);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            conex.desconecta();
+        }
+
+        return naturezas;
+    }
 }

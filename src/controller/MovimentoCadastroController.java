@@ -84,7 +84,7 @@ public class MovimentoCadastroController {
 
     public void carregarNatureza(NotaCadastroJIF form) {
         NaturezaService naturezaService = new NaturezaService();
-        List<Natureza> listaNaturezas = naturezaService.listarNaturezas();
+        List<Natureza> listaNaturezas = naturezaService.listarNaturezasAtivas();
         form.getCbNatureza().removeAllItems();
         for (Natureza natureza : listaNaturezas) {
             form.getCbNatureza().addItem(natureza);
