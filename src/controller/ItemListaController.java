@@ -20,9 +20,11 @@ import view.internal.NotaListaJIF;
 public class ItemListaController {
 
     private final NotaFiscalService notaService;
+    NotaFiscal notaFiscal;
 
     public ItemListaController() {
         notaService = new NotaFiscalService();
+        notaFiscal = new NotaFiscal();
     }
 
     public void limparPesquisaProdutoLista(NotaListaJIF form) {
@@ -50,7 +52,24 @@ public class ItemListaController {
     }
 
     public void chamaCadastro(NotaListaJIF aThis) {
-        TelaInternaController.chamaNota();
+        notaFiscal = null;
+        TelaInternaController.chamaNota(notaFiscal);
+    }
+
+    public void cliqueTabela(NotaListaJIF form, java.awt.event.MouseEvent evt) {
+        if (evt.getButton() == evt.BUTTON1) {
+            if (evt.getClickCount() == 2) {
+                int SelecionaNotaId = (Integer) form.getTabela().getValueAt(form.getTabela().getSelectedRow(), 0);
+//                form.getBtnEditar().setEnabled(true);
+                System.out.println("SelecionaNotaId::" + SelecionaNotaId);
+                notaFiscal = notaService.obterNotaPorId(SelecionaNotaId);
+                TelaInternaController.chamaNota(notaFiscal);
+                if (notaFiscal == null) {
+                    preencheTabela(form);
+                    form.getBtnEditar().setEnabled(false);
+                }
+            }
+        }
     }
 
 }

@@ -21,6 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import model.Cliente;
 import model.Natureza;
+import model.NotaFiscal;
 
 /**
  *
@@ -33,17 +34,21 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
 
     private static int idProduto = 0;
     MovimentoCadastroController movimentoCadastroController;
+    
+    NotaFiscal notaFiscal;
 
     /**
      * Creates new form MovimentoJIF
      */
-    public NotaCadastroJIF() {
+    public NotaCadastroJIF(NotaFiscal notaFiscal) {
         movimentoCadastroController = new MovimentoCadastroController(this);
         initComponents();
         movimentoCadastroController.mudarCorPaineis(this);
         movimentoCadastroController.carregarCliente(this);
         movimentoCadastroController.carregarNatureza(this);
         movimentoCadastroController.carregarTipoMovimentacao(this);
+        this.notaFiscal=notaFiscal;
+        movimentoCadastroController.carregarNotaFiscal(this,notaFiscal);
     }
 
     /**
@@ -189,7 +194,6 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Hora :");
 
-        txtNota.setText("123");
         txtNota.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNotaFocusLost(evt);
@@ -212,7 +216,6 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Nota:");
 
-        txtChave.setText("123123");
         txtChave.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtChaveFocusLost(evt);
@@ -552,7 +555,6 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        txtMotorista.setText("david");
         txtMotorista.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtMotoristaFocusGained(evt);
@@ -571,14 +573,12 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel19.setText("Placa Veiculo");
 
-        txtUf.setText("df");
         txtUf.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtUfFocusLost(evt);
             }
         });
 
-        txtPlaca.setText("wsq-0909");
         txtPlaca.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtPlacaFocusLost(evt);
@@ -603,7 +603,6 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setText("Quantidade");
 
-        txtVolQuantidade.setText("12");
         txtVolQuantidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtVolQuantidadeActionPerformed(evt);
@@ -613,7 +612,6 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel27.setText("Espécie");
 
-        txtVolEspecie.setText("paletes");
         txtVolEspecie.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtVolEspecieFocusLost(evt);
@@ -629,16 +627,12 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel30.setText("Peso Liquido");
 
-        txtPesoLiquido.setText("10kg");
         txtPesoLiquido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPesoLiquidoActionPerformed(evt);
             }
         });
 
-        txtPesoBruto.setText("12kg");
-
-        txtVolNumeracao.setText("0-9");
         txtVolNumeracao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtVolNumeracaoActionPerformed(evt);
@@ -767,7 +761,6 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         txtAreaObservacao.setColumns(20);
         txtAreaObservacao.setLineWrap(true);
         txtAreaObservacao.setRows(5);
-        txtAreaObservacao.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.");
         txtAreaObservacao.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jScrollPane7.setViewportView(txtAreaObservacao);
 
@@ -1496,6 +1489,14 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
 
     public void setCbTipoMovimentacao(JComboBox<TipoMovimentacao> cbTipoMovimentacao) {
         this.cbTipoMovimentacao = cbTipoMovimentacao;
+    }
+
+    public NotaFiscal getNotaFiscal() {
+        return notaFiscal;
+    }
+
+    public void setNotaFiscal(NotaFiscal notaFiscal) {
+        this.notaFiscal = notaFiscal;
     }
     
     

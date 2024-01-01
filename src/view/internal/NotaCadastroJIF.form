@@ -319,9 +319,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtNota">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="123"/>
-              </Properties>
               <Events>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNotaFocusLost"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNotaActionPerformed"/>
@@ -336,9 +333,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtChave">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="123123"/>
-              </Properties>
               <Events>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtChaveFocusLost"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtChaveActionPerformed"/>
@@ -826,9 +820,6 @@
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtMotorista">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="david"/>
-                  </Properties>
                   <Events>
                     <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtMotoristaFocusGained"/>
                     <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtMotoristaFocusLost"/>
@@ -853,17 +844,11 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtUf">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="df"/>
-                  </Properties>
                   <Events>
                     <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtUfFocusLost"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtPlaca">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="wsq-0909"/>
-                  </Properties>
                   <Events>
                     <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPlacaFocusLost"/>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPlacaActionPerformed"/>
@@ -891,9 +876,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtVolQuantidade">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="12"/>
-                  </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtVolQuantidadeActionPerformed"/>
                   </Events>
@@ -905,9 +887,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtVolEspecie">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="paletes"/>
-                  </Properties>
                   <Events>
                     <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtVolEspecieFocusLost"/>
                   </Events>
@@ -931,22 +910,13 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtPesoLiquido">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="10kg"/>
-                  </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPesoLiquidoActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtPesoBruto">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="12kg"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtVolNumeracao">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="0-9"/>
-                  </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtVolNumeracaoActionPerformed"/>
                   </Events>
@@ -1025,7 +995,6 @@
                         <Property name="columns" type="int" value="20"/>
                         <Property name="lineWrap" type="boolean" value="true"/>
                         <Property name="rows" type="int" value="5"/>
-                        <Property name="text" type="java.lang.String" value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."/>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                             <EtchetBorder/>

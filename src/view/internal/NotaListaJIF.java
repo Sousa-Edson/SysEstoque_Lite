@@ -28,12 +28,10 @@ public final class NotaListaJIF extends javax.swing.JInternalFrame {
         movimentoListaController = new ItemListaController();
 
         initComponents();
-        
+
         jPanel1.setBackground(ControleCores.pegarCorPadrao());
-        
-         
+
     }
- 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -290,7 +288,7 @@ public final class NotaListaJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formFocusGained
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
-
+                movimentoListaController.cliqueTabela(this,evt);
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void tabelaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tabelaFocusGained

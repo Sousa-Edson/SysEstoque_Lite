@@ -5,6 +5,7 @@
  */
 package extras;
 
+import model.NotaFiscal;
 import model.Produto;
 import view.internal.ProdutoListaJIF;
 import view.MenuPrincipal;
@@ -84,9 +85,9 @@ public class TelaInternaController {
         FramePositionUtil.setCenteredPosition(movimentoListaJIF);
     }
 
-   public static  void chamaNota() {
+   public static  void chamaNota(NotaFiscal notaFiscal) {
         if (movimentoCadastroJIF == null || !movimentoCadastroJIF.isVisible()) {
-            movimentoCadastroJIF = new NotaCadastroJIF();
+            movimentoCadastroJIF = new NotaCadastroJIF(notaFiscal);
             MenuPrincipal.desktopPrincipal.add(movimentoCadastroJIF);
             InternalFrameUtil.removerIcone(movimentoCadastroJIF);
             movimentoCadastroJIF.setVisible(true);

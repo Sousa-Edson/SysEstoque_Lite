@@ -31,6 +31,7 @@ import utils.FormatarData;
 import utils.FormatarDinheiro;
 import utils.FormatarNumero;
 import utils.LimiteCaracteres;
+import utils.StringToDate;
 import utils.UsuarioLogado;
 import utils.ValidarHora;
 import view.internal.NotaCadastroJIF;
@@ -275,4 +276,37 @@ public class MovimentoCadastroController {
         form.getTxtPesoLiquido().setText("");
 
     }
+
+    public void carregarNotaFiscal(NotaCadastroJIF form, NotaFiscal notaFiscal) {
+        form.getTxtNota().setText(notaFiscal.getNota_nota());
+        form.getTxtChave().setText(notaFiscal.getNota_chave());
+        form.getTxtHora().setText(notaFiscal.getNota_hora());
+        form.getDataNota().setDate(StringToDate.deStringParaData(notaFiscal.getNota_data()));
+        form.getTxtAreaObservacao().setText(notaFiscal.getNota_observacao());
+
+        form.getTxtMotorista().setText(notaFiscal.getTransporteModel().getMotorista());
+        form.getTxtPlaca().setText(notaFiscal.getTransporteModel().getPlaca());
+        form.getTxtUf().setText(notaFiscal.getTransporteModel().getUf());
+
+        form.getTxtVolEspecie().setText(notaFiscal.getTransporteModel().getEspecie());
+        form.getTxtVolNumeracao().setText(notaFiscal.getTransporteModel().getNumeracao());
+        form.getTxtVolQuantidade().setText(notaFiscal.getTransporteModel().getQuantidade());
+        form.getTxtPesoBruto().setText(notaFiscal.getTransporteModel().getPesobruto());
+        form.getTxtPesoLiquido().setText(notaFiscal.getTransporteModel().getPesoliquido());
+
+//        form.getCbCliente().setSelectedItem(form.getCbCliente().equals(notaFiscal.getCliente().toString()));
+
+        // Itera sobre os itens do ComboBox para encontrar o cliente correspondente
+        ClienteService clienteService = new ClienteService();
+        List<Cliente> listaClientes = clienteService.listarClientes(false);
+        for (int i = 0; i < listaClientes.size(); i++) {
+            Cliente clienteNoComboBox = listaClientes.get(i);
+            if (clienteNoComboBox.equals(notaFiscal.getCliente())) {
+                form.getCbCliente().setSelectedItem(clienteNoComboBox);
+                System.out.println("clienteNoComboBox:: "+clienteNoComboBox);
+                break;
+            }
+        }
+    }
+
 }
