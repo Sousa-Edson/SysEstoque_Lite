@@ -311,9 +311,12 @@ public class MovimentoCadastroController {
                     break;
                 }
             }
+            System.out.println("notaFiscal.getNota_operacao()::"+notaFiscal.getNota_operacao());
+            form.getCbTipoMovimentacao().setSelectedItem(TipoMovimentacao.valueOf(notaFiscal.getNota_operacao()));
 
             ItemService itemService = new ItemService();
             itens = itemService.obterItennPorIdNota(notaFiscal.getId_nota());
+            System.out.println("tamanho de itens::: "+itens.size());
             prencherTabela(form);
         }
 
