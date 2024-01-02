@@ -23,7 +23,6 @@ public class StringToDate {
 
         try {
             Date data = formato.parse(d);
-            System.out.println("Data convertida: " + data);
             return data;
         } catch (ParseException e) {
             e.printStackTrace();

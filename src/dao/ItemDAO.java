@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Item;
+import model.Produto;
+import service.ProdutoService;
 
 /**
  *
@@ -87,7 +89,7 @@ public class ItemDAO {
                     item.setSistema_mov(rs.getString("sistema_mov"));
                     item.setData_mov(rs.getString("data_mov"));
                     item.setQtd_prod_ex(rs.getString("qtd_prod_ex"));
-                    item.setQtd_calc(rs.getDouble("qtd_calc_ex"));
+                    item.setQtd_calc_ex(rs.getString("qtd_calc_ex"));
                     item.setValor_moeda(rs.getString("valor_moeda"));
                     item.setDestino_mov(rs.getString("destino_mov"));
                     item.setComplemento_mov(rs.getString("complemento_mov"));
@@ -96,6 +98,12 @@ public class ItemDAO {
                     item.setUsuario_mov(rs.getString("usuario_mov"));
                     item.setTotal_mov(rs.getString("total_mov"));
                     item.setId_mov(rs.getInt("id_mov"));
+
+                    ProdutoService produtoService = new ProdutoService();
+                    Produto produto = new Produto();
+                    produto = produtoService.obterProdutoPorId(item.getId_prod_ent());
+
+                    item.setProduto(produto);
                     itens.add(item);
                 }
 
