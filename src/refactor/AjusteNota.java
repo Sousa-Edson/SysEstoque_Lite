@@ -31,6 +31,24 @@ public class AjusteNota {
             conex.desconecta();
         }
     }
+    
+        public static void ajusteNotaClienteNull() {
+        ConexaoBD conex = new ConexaoBD();
+        conex.conexao();
+        try {
+            PreparedStatement pstmt = conex.con.prepareStatement(
+                    "UPDATE nota as n SET fornecedorint  = 37 where fornecedorint is null;");
+
+            pstmt.execute();
+            System.out.println("ajusteNotaClienteNull OK");
+
+        } catch (SQLException ex) {
+            System.out.println("ajusteNotaClienteNull Erro::: " + ex.getMessage());
+
+        } finally {
+            conex.desconecta();
+        }
+    }
 
     public static void ajusteNotaNatureza() {
         ConexaoBD conex = new ConexaoBD();
@@ -51,6 +69,8 @@ public class AjusteNota {
     }
 
     public static void main(String[] args) {
-        ajusteNotaCliente();
+//        ajusteNotaCliente();
+//        ajusteNotaNatureza();
+        ajusteNotaClienteNull();
     }
 }

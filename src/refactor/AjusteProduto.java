@@ -51,6 +51,8 @@ public class AjusteProduto {
     }
 
     public static void main(String[] args) {
-        ajusteUnidadeProduto();
+//        ajusteUnidadeProduto();
+        
+        ajusteUnidadeProdutoRolo();
     }
 }
