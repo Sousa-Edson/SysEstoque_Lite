@@ -28,6 +28,7 @@ import tableModel.ItemTableModel;
 import utils.ControleCores;
 import utils.DataHoraAtual;
 import utils.FormatarData;
+import utils.GeradorCodigoAleatorio;
 import utils.LimiteCaracteres;
 import utils.StringToDate;
 import utils.ValidarHora;
@@ -244,15 +245,35 @@ public class MovimentoCadastroController {
             System.out.println("###\n\n" + notaFiscal);
 
             if (notaFiscal.getId_nota() != 0) {
-                JOptionPane.showMessageDialog(jDialogComplementar, "copua");
-                notaFiscal.setId_nota(0);
-                form.getBtnExcluir().setEnabled(false);
-                form.getBtnSalvar().setText("Salvar");
+
+                Object[] options = {"Confirmar", "Cancelar"};
+                if (JOptionPane.showOptionDialog(null, "Deseja realmente gerar uma cópia de  #" + notaFiscal.getId_nota(),
+                        "Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                        null, options, options[1]) == 0) {
+                    // Gerar um código aleatório
+                    String codigoDeConfirmacaoAleatorio = GeradorCodigoAleatorio.gerarCodigoAleatorio(4);
+                    // Exibir um JOptionPane para obter o código
+                    String codigoDeConfirmacao = JOptionPane.showInputDialog(null,
+                            "Insira o código de 4 caracteres: " + codigoDeConfirmacaoAleatorio + "  ",
+                            "Confirmação", JOptionPane.WARNING_MESSAGE);
+                    // Comparar os códigos
+                    if (codigoDeConfirmacao != null && codigoDeConfirmacao.length() == 4
+                            && codigoDeConfirmacao.equals(codigoDeConfirmacaoAleatorio)) {
+                        notaFiscal.setId_nota(0);
+                        form.getBtnExcluir().setEnabled(false);
+                        form.getBtnSalvar().setText("Salvar");
+                        JOptionPane.showMessageDialog(null, "Cópia gerada com sucesso.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Código incorreto ou invalido.");
+                    }
+
+                }
+
             } else {
-                System.out.println("itens.size():: "+itens.size());
+                System.out.println("itens.size():: " + itens.size());
                 notaFiscalService.adicionarNotaFiscal(notaFiscal);
                 form.dispose();
-                
+
             }
 
         }
