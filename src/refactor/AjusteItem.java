@@ -51,7 +51,7 @@ public class AjusteItem {
     }
 
     public static void main(String[] args) {
-        ajusteNotaItem();
-//        ajusteProdutoItem();
+//        ajusteNotaItem();
+        ajusteProdutoItem();
     }
 }

@@ -70,7 +70,7 @@ public class AjusteNota {
 
     public static void main(String[] args) {
 //        ajusteNotaCliente();
-//        ajusteNotaNatureza();
-        ajusteNotaClienteNull();
+        ajusteNotaNatureza();
+//        ajusteNotaClienteNull();
     }
 }

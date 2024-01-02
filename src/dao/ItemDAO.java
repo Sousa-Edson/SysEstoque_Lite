@@ -8,6 +8,8 @@ import ConectaBanco.ConexaoBD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.Item;
 
 /**
@@ -58,22 +60,20 @@ public class ItemDAO {
         }
     }
 
-    public Item obterItenPorId(int id) {
+    public List<Item> obterItensPorIdNota(int id) {
+        List<Item> itens = new ArrayList<>();
 
         conex.conexao();
-        String query = "SELECT * FROM  "
-                + "INNER JOIN ecft ON fornecedorint = ecft_id "
-                + "INNER JOIN natureza ON naturezaint = id_natureza "
-                + "WHERE id_nota = ? "
-                + "ORDER BY id_nota DESC";
-        
-        /// corrigir sql
+        String query = "SELECT * FROM  movprodutobase"
+                + "WHERE nota_mov = ? "
+                + "ORDER BY id_mov asc";
 
+        /// corrigir sql
         try (PreparedStatement pst = conex.con.prepareStatement(query)) {
             pst.setInt(1, id);
 
             try (ResultSet rs = pst.executeQuery()) {
-                if (rs.next()) {
+                while (rs.next()) {
                     Item item = new Item();
                     item.setId_prod_ent(rs.getInt("id_prod_ent"));
                     item.setNota_mov(rs.getInt("nota_mov"));
@@ -95,18 +95,17 @@ public class ItemDAO {
                     item.setVolume(rs.getString("volume"));
                     item.setUsuario_mov(rs.getString("usuario_mov"));
                     item.setTotal_mov(rs.getString("total_mov"));
-                    return item;
-                } else {
-                    // Não foi encontrada nenhuma nota com o ID fornecido
-                    return null;
+                    item.setId_mov(rs.getInt("id_mov"));
+                    itens.add(item);
                 }
+
             }
         } catch (SQLException ex) {
             // Lidar com a exceção
             ex.printStackTrace(); // Considere usar um mecanismo de log apropriado
-            return null;
+
         }
+        return itens;
 
     }
-
 }

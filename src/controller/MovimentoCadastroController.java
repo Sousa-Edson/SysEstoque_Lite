@@ -20,6 +20,7 @@ import model.NotaFiscal;
 import model.Produto;
 import model.TransporteModel;
 import service.ClienteService;
+import service.ItemService;
 import service.NaturezaService;
 import service.NotaFiscalService;
 import service.ProdutoService;
@@ -289,10 +290,7 @@ public class MovimentoCadastroController {
         form.getTxtVolQuantidade().setText(notaFiscal.getTransporteModel().getQuantidade());
         form.getTxtPesoBruto().setText(notaFiscal.getTransporteModel().getPesobruto());
         form.getTxtPesoLiquido().setText(notaFiscal.getTransporteModel().getPesoliquido());
-
-//        form.getCbCliente().setSelectedItem(form.getCbCliente().equals(notaFiscal.getCliente().toString()));
-//        form.getCbCliente().setSelectedIndex(10);
-        // Itera sobre os itens do ComboBox para encontrar o cliente correspondente
+ 
         ClienteService clienteService = new ClienteService();
         List<Cliente> listaClientes = clienteService.listarClientes(false);
         for (int i = 0; i < listaClientes.size(); i++) {
@@ -301,18 +299,9 @@ public class MovimentoCadastroController {
                 form.getCbCliente().setSelectedItem(clienteNoComboBox);
                 break;
             }
-        }
-//        ClienteService clienteService = new ClienteService();
-//        List<Cliente> listaClientes = clienteService.listarClientes(false);
-//        for (Cliente cliente : listaClientes) {
-//            if (cliente.equals(notaFiscal.getCliente())) {
-//                System.out.println("cliente:: "+cliente);
-//                form.getCbCliente().setSelectedItem(cliente.toString());
-//                break;
-//            } else {
-//            }
-//        }
-        
+        } 
+        ItemService itemService = new ItemService();
+        itens=itemService.obterItennPorIdNota(notaFiscal.getId_nota());
     }
 
 

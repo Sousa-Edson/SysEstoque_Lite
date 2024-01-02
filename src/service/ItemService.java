@@ -9,6 +9,7 @@ package service;
  * @author edson
  */
 import dao.ItemDAO;
+import java.util.List;
 import model.Item;
 import utils.CodigoGeradoSistema;
 
@@ -27,8 +28,12 @@ public class ItemService {
         itemDAO.salvarItem(item);
     }
 
-    public Item obterItenPorId(int id) {
-        return itemDAO.obterItenPorId(id);
+//    public Item obterItenPorId(int id) {
+//        return itemDAO.obterItensPorIdNota(id);
+//    }
+    
+    public List<Item> obterItennPorIdNota(int id) {
+        return itemDAO.obterItensPorIdNota(id);
     }
     // Outros métodos do serviço conforme necessário
 }
