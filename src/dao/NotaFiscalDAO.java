@@ -170,7 +170,7 @@ public class NotaFiscalDAO {
                 + "modalidade, transportadora) "
                 + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,"
                 + "?, ?, ?, ?, ?, ?, ?, ?,"
-                + "?, ?)";
+                + "?, ?)RETURNING id_nota";
 
         try (PreparedStatement preparedStatement = conex.con.prepareStatement(sql)) {
 
@@ -182,15 +182,33 @@ public class NotaFiscalDAO {
 
             notaDados(preparedStatement, notaFiscal);
 
-            preparedStatement.executeUpdate();
+//            preparedStatement.executeUpdate();
+//
+//            // Salvar os itens associados à nota fiscal
+//            ItemService itemService = new ItemService();
+//            List<Item> itens = notaFiscal.getItens();
+//            for (Item item : itens) {
+//                itemService.salvarItem(item, notaFiscal.getId_nota());
+//            }
+//            System.out.println("deu certo :: " + notaFiscal.getId_nota());
+
+  ResultSet rs = preparedStatement.executeQuery();
+        
+        if (rs.next()) {
+            int idGerado = rs.getInt("id_nota");
+            System.out.println("ID da nota gerado: " + idGerado);
 
             // Salvar os itens associados à nota fiscal
             ItemService itemService = new ItemService();
             List<Item> itens = notaFiscal.getItens();
             for (Item item : itens) {
-                itemService.salvarItem(item, notaFiscal.getId_nota());
+                itemService.salvarItem(item, idGerado); // Usar o ID gerado ao salvar os itens
             }
-            System.out.println("deu certo :: " + notaFiscal.getId_nota());
+ 
+        } else {
+            System.out.println("Falha ao obter o ID gerado."); 
+        }
+
         } catch (SQLException e) {
             System.out.println("erro " + e.getMessage());
             e.printStackTrace(); // Trate a exceção apropriadamente no seu código real

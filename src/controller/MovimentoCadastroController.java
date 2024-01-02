@@ -243,7 +243,18 @@ public class MovimentoCadastroController {
             notaFiscal.setItens(itens);
             System.out.println("###\n\n" + notaFiscal);
 
-            notaFiscalService.adicionarNotaFiscal(notaFiscal);
+            if (notaFiscal.getId_nota() != 0) {
+                JOptionPane.showMessageDialog(jDialogComplementar, "copua");
+                notaFiscal.setId_nota(0);
+                form.getBtnExcluir().setEnabled(false);
+                form.getBtnSalvar().setText("Salvar");
+            } else {
+                System.out.println("itens.size():: "+itens.size());
+                notaFiscalService.adicionarNotaFiscal(notaFiscal);
+                form.dispose();
+                
+            }
+
         }
 
     }
@@ -272,10 +283,17 @@ public class MovimentoCadastroController {
         form.getTxtPesoBruto().setText("");
         form.getTxtPesoLiquido().setText("");
 
+        form.getBtnExcluir().setEnabled(false);
+        form.getBtnSalvar().setText("Salvar");
+        notaFiscal = null;
+
     }
 
     public void carregarNotaFiscal(NotaCadastroJIF form, NotaFiscal notaFiscal) {
         if (notaFiscal != null) {
+            this.notaFiscal = notaFiscal;
+            itens = notaFiscal.getItens();
+            System.out.println("notaFiscal.getId_nota():: " + notaFiscal.getId_nota());
             form.getTxtNota().setText(notaFiscal.getNota_nota());
             form.getTxtChave().setText(notaFiscal.getNota_chave());
             form.getTxtHora().setText(notaFiscal.getNota_hora());
@@ -316,6 +334,9 @@ public class MovimentoCadastroController {
             ItemService itemService = new ItemService();
             itens = itemService.obterItennPorIdNota(notaFiscal.getId_nota());
             prencherTabela(form);
+            form.getBtnExcluir().setEnabled(true);
+            form.getBtnSalvar().setText("Gerar cópia");
+
         }
 
     }
