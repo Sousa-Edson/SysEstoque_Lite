@@ -42,4 +42,8 @@ public class NotaFiscalService {
         notaFiscalDAO.adicionarNotaFiscal(notaFiscal);
     }
 
+    public boolean excluirNota(int id_nota) {
+        return notaFiscalDAO.atualizarStatusNotaEItens(id_nota);
+    }
+
 }

@@ -1142,7 +1142,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-//        produtoController.excluirProduto(this);
+        movimentoCadastroController.excluirNota(this);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

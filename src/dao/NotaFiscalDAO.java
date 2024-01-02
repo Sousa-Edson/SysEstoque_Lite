@@ -109,7 +109,7 @@ public class NotaFiscalDAO {
                     nota.setNota_observacao(rs.getString("nota_observacao"));
                     nota.setNota_registro(rs.getString("nota_registro"));
                     nota.setId_referencia(rs.getInt("id_referenciaNota"));
-							
+
                     TransporteModel transporteModel = new TransporteModel();
                     transporteModel.setMotorista(rs.getString("motorista"));
                     transporteModel.setPlaca(rs.getString("placa"));
@@ -182,32 +182,22 @@ public class NotaFiscalDAO {
 
             notaDados(preparedStatement, notaFiscal);
 
-//            preparedStatement.executeUpdate();
-//
-//            // Salvar os itens associados à nota fiscal
-//            ItemService itemService = new ItemService();
-//            List<Item> itens = notaFiscal.getItens();
-//            for (Item item : itens) {
-//                itemService.salvarItem(item, notaFiscal.getId_nota());
-//            }
-//            System.out.println("deu certo :: " + notaFiscal.getId_nota());
+            ResultSet rs = preparedStatement.executeQuery();
 
-  ResultSet rs = preparedStatement.executeQuery();
-        
-        if (rs.next()) {
-            int idGerado = rs.getInt("id_nota");
-            System.out.println("ID da nota gerado: " + idGerado);
+            if (rs.next()) {
+                int idGerado = rs.getInt("id_nota");
+                System.out.println("ID da nota gerado: " + idGerado);
 
-            // Salvar os itens associados à nota fiscal
-            ItemService itemService = new ItemService();
-            List<Item> itens = notaFiscal.getItens();
-            for (Item item : itens) {
-                itemService.salvarItem(item, idGerado); // Usar o ID gerado ao salvar os itens
+                // Salvar os itens associados à nota fiscal
+                ItemService itemService = new ItemService();
+                List<Item> itens = notaFiscal.getItens();
+                for (Item item : itens) {
+                    itemService.salvarItem(item, idGerado); // Usar o ID gerado ao salvar os itens
+                }
+
+            } else {
+                System.out.println("Falha ao obter o ID gerado.");
             }
- 
-        } else {
-            System.out.println("Falha ao obter o ID gerado."); 
-        }
 
         } catch (SQLException e) {
             System.out.println("erro " + e.getMessage());
@@ -249,6 +239,52 @@ public class NotaFiscalDAO {
         preparedStatement.setString(27, notaFiscal.getTransporteModel().getModalidade());
         preparedStatement.setString(28, notaFiscal.getTransporteModel().getTransportadora());
         return preparedStatement;
+    }
+
+    public boolean atualizarStatusNotaEItens(int id_nota) {
+        conex.conexao();
+
+        // Atualizar stnota na nota fiscal
+        String sqlNota = "UPDATE nota SET stnota = 3 WHERE id_nota = ?";
+
+        // Atualizar stmovimento nos itens relacionados
+        String sqlItens = "UPDATE movprodutobase SET stmovimento = 3 WHERE nota_mov = ?";
+
+        try {
+            conex.con.setAutoCommit(false); // Desativar o modo de autocommit
+
+            // Atualizar stnota na nota fiscal
+            try (PreparedStatement pstNota = conex.con.prepareStatement(sqlNota)) {
+                pstNota.setInt(1, id_nota);
+                pstNota.executeUpdate();
+            }
+
+            // Atualizar stmovimento nos itens relacionados
+            try (PreparedStatement pstItens = conex.con.prepareStatement(sqlItens)) {
+                pstItens.setInt(1, id_nota);
+                pstItens.executeUpdate();
+            }
+
+            conex.con.commit(); // Confirmar as alterações
+            System.out.println("Atualização concluída com sucesso.");
+            return true;
+
+        } catch (SQLException e) {
+            try {
+                conex.con.rollback(); // Reverter as alterações em caso de falha
+            } catch (SQLException rollbackException) {
+                rollbackException.printStackTrace(); // Trate a exceção apropriadamente
+            }
+            e.printStackTrace(); // Trate a exceção apropriadamente
+        } finally {
+            try {
+                conex.con.setAutoCommit(true); // Restaurar o modo de autocommit
+            } catch (SQLException e) {
+                e.printStackTrace(); // Trate a exceção apropriadamente
+            }
+            conex.desconecta();
+        }
+        return false;
     }
 
 }

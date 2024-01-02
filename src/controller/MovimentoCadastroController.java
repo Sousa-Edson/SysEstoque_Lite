@@ -361,4 +361,32 @@ public class MovimentoCadastroController {
         }
 
     }
+
+    public void excluirNota(NotaCadastroJIF form) {
+        Object[] options = {"Confirmar", "Cancelar"};
+        if (JOptionPane.showOptionDialog(null, "Deseja realmente deletar #" + notaFiscal.getId_nota(),
+                "Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                null, options, options[1]) == 0) {
+            // Gerar um código aleatório
+            String codigoDeConfirmacaoAleatorio = GeradorCodigoAleatorio.gerarCodigoAleatorio(4);
+            // Exibir um JOptionPane para obter o código
+            String codigoDeConfirmacao = JOptionPane.showInputDialog(null,
+                    "Insira o código de 4 caracteres: " + codigoDeConfirmacaoAleatorio + "  ",
+                    "Confirmação", JOptionPane.WARNING_MESSAGE);
+            // Comparar os códigos
+            if (codigoDeConfirmacao != null && codigoDeConfirmacao.length() == 4
+                    && codigoDeConfirmacao.equals(codigoDeConfirmacaoAleatorio)) {
+                notaFiscal.setId_nota(0);
+                form.getBtnExcluir().setEnabled(false);
+                form.getBtnSalvar().setText("Salvar");
+                if (notaFiscalService.excluirNota(notaFiscal.getId_nota())) {
+                    form.dispose();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Código incorreto ou invalido.");
+            }
+
+        }
+
+    }
 }
