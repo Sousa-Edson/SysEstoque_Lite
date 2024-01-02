@@ -64,7 +64,7 @@ public class ItemDAO {
         List<Item> itens = new ArrayList<>();
 
         conex.conexao();
-        String query = "SELECT * FROM  movprodutobase"
+        String query = "SELECT * FROM  movprodutobase "
                 + "WHERE nota_mov = ? "
                 + "ORDER BY id_mov asc";
 
