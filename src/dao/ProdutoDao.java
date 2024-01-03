@@ -322,4 +322,40 @@ public class ProdutoDao {
         conex.desconecta();
 
     }
+     
+      public void atualizarSaldoProduto(int idProduto) {
+        conex.conexao();
+
+        // Consulta para obter a soma total de qtd_mov para o produto
+        String sqlConsulta = "SELECT SUM(qtd_mov) AS total_qtd_mov FROM movprodutobase WHERE id_prod_ent = ?";
+
+        // Atualização do campo saldo_prod na tabela de produtos
+        String sqlAtualizacao = "UPDATE produto SET saldo_prod = ? WHERE id_prod = ?";
+
+        try (PreparedStatement pstConsulta = conex.con.prepareStatement(sqlConsulta);
+             PreparedStatement pstAtualizacao = conex.con.prepareStatement(sqlAtualizacao)) {
+
+            // Consulta para obter a soma total de qtd_mov para o produto
+            pstConsulta.setInt(1, idProduto);
+            ResultSet rs = pstConsulta.executeQuery();
+
+            int totalQtdMov = 0;
+
+            if (rs.next()) {
+                totalQtdMov = rs.getInt("total_qtd_mov");
+            }
+
+            // Atualização do campo saldo_prod na tabela de produtos
+            pstAtualizacao.setInt(1, totalQtdMov);
+            pstAtualizacao.setInt(2, idProduto);
+            pstAtualizacao.executeUpdate();
+
+            System.out.println("Atualização de saldo_prod concluída com sucesso.");
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Trate a exceção apropriadamente
+        } finally {
+            conex.desconecta();
+        }
+    }
 }

@@ -15,21 +15,21 @@ import utils.UsuarioLogado;
  * @author edson
  */
 public class NotaFiscalService {
-
+    
     NotaFiscalDAO notaFiscalDAO;
-
+    
     public NotaFiscalService() {
         notaFiscalDAO = new NotaFiscalDAO();
     }
-
+    
     public List<NotaFiscal> listarNotasPorBusca(String busca) {
         return notaFiscalDAO.listarNotasPorBusca(busca);
     }
-
+    
     public NotaFiscal obterNotaPorId(int busca) {
         return notaFiscalDAO.obterNotaPorId(busca);
     }
-
+    
     public void adicionarNotaFiscal(NotaFiscal notaFiscal) {
         notaFiscal.setNota_status(1);// 1 para ativo            
         notaFiscal.setNota_documento("nota");
@@ -38,12 +38,12 @@ public class NotaFiscalService {
         notaFiscal.getTransporteModel().setModalidade("0-NÃO DEFINIDO");
         notaFiscal.getTransporteModel().setModalidade("NÃO DEFINIDO");
         notaFiscal.getTransporteModel().setTransportadora("NÃO DEFINIDO");
-
+       
         notaFiscalDAO.adicionarNotaFiscal(notaFiscal);
     }
-
+    
     public boolean excluirNota(int id_nota) {
         return notaFiscalDAO.atualizarStatusNotaEItens(id_nota);
     }
-
+    
 }
