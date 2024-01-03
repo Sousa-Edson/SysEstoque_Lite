@@ -14,6 +14,7 @@ import enums.TipoMovimentacao;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -78,10 +79,9 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         btnHoraAtual = new javax.swing.JButton();
         txtHora = new javax.swing.JTextField();
         lblInformacoes = new javax.swing.JLabel();
-        jLabel_Status_Visualizar = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         pnDados = new javax.swing.JPanel();
-        jLabel_Texto_Produto1 = new javax.swing.JLabel();
+        lblProduto = new javax.swing.JLabel();
         btnInserirProduto = new javax.swing.JButton();
         btnLimparCampoBuscaProduto = new javax.swing.JButton();
         btnRemoverUmProduto = new javax.swing.JButton();
@@ -91,10 +91,6 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         jLabel_Titulo3 = new javax.swing.JLabel();
         pnTransporte = new javax.swing.JPanel();
         jLabel_Titulo1 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jComboBox_modalidade = new javax.swing.JComboBox<>();
-        jComboBox_transportadora = new javax.swing.JComboBox<>();
         txtMotorista = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
@@ -119,7 +115,6 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         btnExcluir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
-        jRadioButton_ativa_Vizualizar = new javax.swing.JRadioButton();
         cbTipoMovimentacao = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -390,14 +385,11 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
 
         pnTopoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDataAtual, btnHoraAtual, cbCliente, cbNatureza, dataNota, jLabel13, jLabel14, jLabel3, jLabel4, txtHora});
 
-        jLabel_Status_Visualizar.setText("Status :");
-        jLabel_Status_Visualizar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
         jTabbedPane1.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
 
         pnDados.setBackground(new java.awt.Color(0, 255, 204));
 
-        jLabel_Texto_Produto1.setText("Produto :");
+        lblProduto.setText("Produto :");
 
         btnInserirProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-inserir-20.png"))); // NOI18N
         btnInserirProduto.setText("Inserir");
@@ -473,7 +465,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDadosLayout.createSequentialGroup()
-                        .addComponent(jLabel_Texto_Produto1)
+                        .addComponent(lblProduto)
                         .addGap(8, 8, 8)
                         .addComponent(txtBuscarUmProdutoPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -503,7 +495,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscarUmProdutoPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_Texto_Produto1)
+                    .addComponent(lblProduto)
                     .addComponent(btnInserirProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimparCampoBuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRemoverUmProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -515,7 +507,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
                     .addContainerGap()))
         );
 
-        pnDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnInserirProduto, btnLimparCampoBuscaProduto, btnRemoverUmProduto, jLabel_Texto_Produto1, txtBuscarUmProdutoPorNome});
+        pnDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnInserirProduto, btnLimparCampoBuscaProduto, btnRemoverUmProduto, lblProduto, txtBuscarUmProdutoPorNome});
 
         jTabbedPane1.addTab("Dados", pnDados);
 
@@ -525,37 +517,6 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         jLabel_Titulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_Titulo1.setText("Transportadora");
         jLabel_Titulo1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel24.setText("Transportadora :");
-
-        jLabel10.setText("Modalidade do Frete :");
-
-        jComboBox_modalidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0-NÃO DEFINIDO", "1-DESTINATARIO", "2-REMETENTE", "3-TRANSPORTADORA", "4-DEVOLUÇÃO", "5-OUTRO" }));
-        jComboBox_modalidade.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox_modalidadeItemStateChanged(evt);
-            }
-        });
-
-        jComboBox_transportadora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NÃO DEFINIDO" }));
-        jComboBox_transportadora.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox_transportadoraItemStateChanged(evt);
-            }
-        });
-        jComboBox_transportadora.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jComboBox_transportadoraFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jComboBox_transportadoraFocusLost(evt);
-            }
-        });
-        jComboBox_transportadora.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jComboBox_transportadoraKeyPressed(evt);
-            }
-        });
 
         txtMotorista.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -683,16 +644,8 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtUf, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(pnTransporteLayout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox_modalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel24)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox_transportadora, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 275, Short.MAX_VALUE)))
+                                    .addComponent(txtUf, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 466, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -704,13 +657,6 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel_Titulo1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel24)
-                            .addComponent(jComboBox_transportadora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jComboBox_modalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnTransporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel19)
@@ -746,8 +692,6 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(45, 45, 45))
         );
-
-        pnTransporteLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBox_modalidade, jComboBox_transportadora, jLabel10, jLabel24});
 
         pnTransporteLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel19, jLabel21, jLabel28});
 
@@ -819,13 +763,6 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        jRadioButton_ativa_Vizualizar.setText("Ativa vizualizar");
-        jRadioButton_ativa_Vizualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton_ativa_VizualizarActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Tipo de movimentação:");
 
         javax.swing.GroupLayout pnPrincipalLayout = new javax.swing.GroupLayout(pnPrincipal);
@@ -847,10 +784,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbTipoMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jRadioButton_ativa_Vizualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel_Status_Visualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnPrincipalLayout.setVerticalGroup(
@@ -858,11 +792,9 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
             .addGroup(pnPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel_Status_Visualizar)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar)
                     .addComponent(btnExcluir)
-                    .addComponent(jRadioButton_ativa_Vizualizar)
                     .addComponent(cbTipoMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1102,10 +1034,6 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
 //        CarregaSistemaRepeteUltimo();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jRadioButton_ativa_VizualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_ativa_VizualizarActionPerformed
-//        SalvaReferenciado();
-    }//GEN-LAST:event_jRadioButton_ativa_VizualizarActionPerformed
-
     private void cbClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbClienteItemStateChanged
 
 
@@ -1189,40 +1117,6 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         //        vol_motorista.setBackground(Color.cyan);
     }//GEN-LAST:event_txtMotoristaFocusGained
 
-    private void jComboBox_transportadoraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox_transportadoraKeyPressed
-        if (evt.getKeyCode() == evt.VK_F5) {
-//            PreencherTransporte();
-        }
-    }//GEN-LAST:event_jComboBox_transportadoraKeyPressed
-
-    private void jComboBox_transportadoraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBox_transportadoraFocusLost
-
-    }//GEN-LAST:event_jComboBox_transportadoraFocusLost
-
-    private void jComboBox_transportadoraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBox_transportadoraFocusGained
-        ComboFocu = 1;
-
-    }//GEN-LAST:event_jComboBox_transportadoraFocusGained
-
-    private void jComboBox_transportadoraItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_transportadoraItemStateChanged
-
-        String selecao = (String) jComboBox_transportadora.getSelectedItem();
-
-        if (selecao == null) {
-//            jLabel_exibe_transporte.setText(null);
-//            vol_transportadora.setText("1");
-            //             jComboBox_transportadoraInt.setSelectedIndex(1);
-        } else {
-            if (ComboFocu == 0) {
-            } else {
-            }
-        }
-    }//GEN-LAST:event_jComboBox_transportadoraItemStateChanged
-
-    private void jComboBox_modalidadeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_modalidadeItemStateChanged
-        //        manipula_transporte();
-    }//GEN-LAST:event_jComboBox_modalidadeItemStateChanged
-
     private void tabelaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_tabelaMouseEntered
@@ -1281,17 +1175,13 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
     public static javax.swing.JComboBox<Natureza> cbNatureza;
     private javax.swing.JComboBox<TipoMovimentacao> cbTipoMovimentacao;
     private com.toedter.calendar.JDateChooser dataNota;
-    private javax.swing.JComboBox<String> jComboBox_modalidade;
-    private javax.swing.JComboBox<String> jComboBox_transportadora;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -1301,8 +1191,6 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel_Status_Visualizar;
-    public static javax.swing.JLabel jLabel_Texto_Produto1;
     private javax.swing.JLabel jLabel_Titulo1;
     private javax.swing.JLabel jLabel_Titulo2;
     private javax.swing.JLabel jLabel_Titulo3;
@@ -1314,11 +1202,11 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JRadioButton jRadioButton_ativa_Vizualizar;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblInformacoes;
+    public static javax.swing.JLabel lblProduto;
     private javax.swing.JPanel pnDados;
     private javax.swing.JPanel pnInformacao;
     private javax.swing.JPanel pnPrincipal;
@@ -1499,5 +1387,10 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
     public void setNotaFiscal(NotaFiscal notaFiscal) {
         this.notaFiscal = notaFiscal;
     }
+
+    public static JLabel getLblProduto() {
+        return lblProduto;
+    }
+    
 
 }

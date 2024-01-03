@@ -129,10 +129,7 @@
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="cbTipoMovimentacao" min="-2" pref="167" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jRadioButton_ativa_Vizualizar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel_Status_Visualizar" min="-2" pref="143" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -144,11 +141,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel_Status_Visualizar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnExcluir" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButton_ativa_Vizualizar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cbTipoMovimentacao" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" linkSize="14" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -419,16 +414,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabel_Status_Visualizar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Status :"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                <EtchetBorder/>
-              </Border>
-            </Property>
-          </Properties>
-        </Component>
         <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -459,7 +444,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel_Texto_Produto1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblProduto" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                                   <Component id="txtBuscarUmProdutoPorNome" min="-2" pref="516" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -493,7 +478,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txtBuscarUmProdutoPorNome" linkSize="8" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel_Texto_Produto1" linkSize="8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblProduto" linkSize="8" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnInserirProduto" linkSize="8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                               <Component id="btnLimparCampoBuscaProduto" linkSize="8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                               <Component id="btnRemoverUmProduto" linkSize="8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
@@ -511,7 +496,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel_Texto_Produto1">
+                <Component class="javax.swing.JLabel" name="lblProduto">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Produto :"/>
                   </Properties>
@@ -676,17 +661,8 @@
                                               <Component id="txtUf" alignment="0" min="-2" pref="63" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jComboBox_modalidade" min="-2" pref="228" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jComboBox_transportadora" min="-2" pref="329" max="-2" attributes="0"/>
-                                      </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="275" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="466" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -698,17 +674,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel_Titulo1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel10" linkSize="9" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel24" linkSize="9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBox_transportadora" linkSize="9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jComboBox_modalidade" linkSize="9" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="jLabel19" linkSize="10" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -771,54 +737,6 @@
                       </Border>
                     </Property>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel24">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Transportadora :"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel10">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Modalidade do Frete :"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox_modalidade">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="6">
-                        <StringItem index="0" value="0-N&#xc3;O DEFINIDO"/>
-                        <StringItem index="1" value="1-DESTINATARIO"/>
-                        <StringItem index="2" value="2-REMETENTE"/>
-                        <StringItem index="3" value="3-TRANSPORTADORA"/>
-                        <StringItem index="4" value="4-DEVOLU&#xc7;&#xc3;O"/>
-                        <StringItem index="5" value="5-OUTRO"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBox_modalidadeItemStateChanged"/>
-                  </Events>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox_transportadora">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="1">
-                        <StringItem index="0" value="N&#xc3;O DEFINIDO"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBox_transportadoraItemStateChanged"/>
-                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jComboBox_transportadoraFocusGained"/>
-                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jComboBox_transportadoraFocusLost"/>
-                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jComboBox_transportadoraKeyPressed"/>
-                  </Events>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtMotorista">
                   <Events>
@@ -1047,14 +965,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButton_ativa_Vizualizar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Ativa vizualizar"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton_ativa_VizualizarActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbTipoMovimentacao">
