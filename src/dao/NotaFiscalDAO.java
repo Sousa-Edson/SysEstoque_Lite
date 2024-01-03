@@ -242,49 +242,46 @@ public class NotaFiscalDAO {
     }
 
     public boolean atualizarStatusNotaEItens(int id_nota) {
+        boolean deuCerto = false;
         conex.conexao();
 
-        // Atualizar stnota na nota fiscal
         String sqlNota = "UPDATE nota SET stnota = 3 WHERE id_nota = ?";
 
-        // Atualizar stmovimento nos itens relacionados
         String sqlItens = "UPDATE movprodutobase SET stmovimento = 3 WHERE nota_mov = ?";
 
         try {
-            conex.con.setAutoCommit(false); // Desativar o modo de autocommit
+            conex.con.setAutoCommit(false);
 
-            // Atualizar stnota na nota fiscal
             try (PreparedStatement pstNota = conex.con.prepareStatement(sqlNota)) {
                 pstNota.setInt(1, id_nota);
                 pstNota.executeUpdate();
             }
 
-            // Atualizar stmovimento nos itens relacionados
             try (PreparedStatement pstItens = conex.con.prepareStatement(sqlItens)) {
                 pstItens.setInt(1, id_nota);
                 pstItens.executeUpdate();
             }
 
-            conex.con.commit(); // Confirmar as alterações
+            conex.con.commit();
             System.out.println("Atualização concluída com sucesso.");
-            return true;
+            deuCerto = true;
 
         } catch (SQLException e) {
             try {
-                conex.con.rollback(); // Reverter as alterações em caso de falha
+                conex.con.rollback();
             } catch (SQLException rollbackException) {
-                rollbackException.printStackTrace(); // Trate a exceção apropriadamente
+                rollbackException.printStackTrace();
             }
-            e.printStackTrace(); // Trate a exceção apropriadamente
+            e.printStackTrace();
         } finally {
             try {
-                conex.con.setAutoCommit(true); // Restaurar o modo de autocommit
+                conex.con.setAutoCommit(true);
             } catch (SQLException e) {
-                e.printStackTrace(); // Trate a exceção apropriadamente
+                e.printStackTrace();  
             }
             conex.desconecta();
         }
-        return false;
+        return deuCerto;
     }
 
 }
