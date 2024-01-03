@@ -34,7 +34,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
 
     private static int idProduto = 0;
     MovimentoCadastroController movimentoCadastroController;
-    
+
     NotaFiscal notaFiscal;
 
     /**
@@ -47,8 +47,9 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         movimentoCadastroController.carregarCliente(this);
         movimentoCadastroController.carregarNatureza(this);
         movimentoCadastroController.carregarTipoMovimentacao(this);
-        this.notaFiscal=notaFiscal;
-        movimentoCadastroController.carregarNotaFiscal(this,notaFiscal);
+        this.notaFiscal = notaFiscal;
+        movimentoCadastroController.carregarNotaFiscal(this, notaFiscal);
+         jMenuBar1.setVisible(false);
     }
 
     /**
@@ -134,6 +135,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
+        setTitle("Adicionar uma movimentação");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -1226,13 +1228,12 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tabelaMouseEntered
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
-
+        movimentoCadastroController.selecionarUmItem(this, evt);
 
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void btnRemoverUmProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverUmProdutoActionPerformed
-
-        btnRemoverUmProduto.setEnabled(false);
+        movimentoCadastroController.removerUmItem(this);
     }//GEN-LAST:event_btnRemoverUmProdutoActionPerformed
 
     private void btnLimparCampoBuscaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCampoBuscaProdutoActionPerformed
@@ -1498,7 +1499,5 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
     public void setNotaFiscal(NotaFiscal notaFiscal) {
         this.notaFiscal = notaFiscal;
     }
-    
-    
 
 }

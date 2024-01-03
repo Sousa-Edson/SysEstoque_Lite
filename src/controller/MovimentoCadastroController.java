@@ -367,13 +367,13 @@ public class MovimentoCadastroController {
         if (JOptionPane.showOptionDialog(null, "Deseja realmente deletar #" + notaFiscal.getId_nota(),
                 "Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
                 null, options, options[1]) == 0) {
-            
+
             String codigoDeConfirmacaoAleatorio = GeradorCodigoAleatorio.gerarCodigoAleatorio(4);
-           
+
             String codigoDeConfirmacao = JOptionPane.showInputDialog(null,
                     "Insira o código de 4 caracteres: " + codigoDeConfirmacaoAleatorio + "  ",
                     "Confirmação", JOptionPane.WARNING_MESSAGE);
-            
+
             if (codigoDeConfirmacao != null && codigoDeConfirmacao.length() == 4
                     && codigoDeConfirmacao.equals(codigoDeConfirmacaoAleatorio)) {
 
@@ -389,5 +389,23 @@ public class MovimentoCadastroController {
 
         }
 
+    }
+    
+    
+    
+    int selecionaIndex = 0;
+
+    public void removerUmItem(NotaCadastroJIF form) {
+        itens.remove(selecionaIndex);
+        selecionaIndex = 0;
+        prencherTabela(form);
+         form.getBtnRemoverUmProduto().setEnabled(!true);
+    }
+
+    public void selecionarUmItem(NotaCadastroJIF form, java.awt.event.MouseEvent evt) {
+        if (evt.getButton() == evt.BUTTON1) {
+            selecionaIndex = (Integer) form.getTabela().getSelectedRow();
+            form.getBtnRemoverUmProduto().setEnabled(true);
+        }
     }
 }

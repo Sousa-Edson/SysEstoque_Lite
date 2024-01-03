@@ -30,6 +30,7 @@ public final class NotaListaJIF extends javax.swing.JInternalFrame {
         initComponents();
 
         jPanel1.setBackground(ControleCores.pegarCorPadrao());
+        jMenuBar1.setVisible(false);
 
     }
 
@@ -288,7 +289,7 @@ public final class NotaListaJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formFocusGained
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
-                movimentoListaController.cliqueTabela(this,evt);
+        movimentoListaController.cliqueTabela(this, evt);
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void tabelaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tabelaFocusGained

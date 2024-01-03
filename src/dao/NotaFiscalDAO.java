@@ -60,6 +60,8 @@ public class NotaFiscalDAO {
                 nota.setNota_observacao(rs.getString("nota_observacao"));
                 nota.setNota_registro(rs.getString("nota_registro"));
                 nota.setId_referencia(rs.getInt("id_referenciaNota"));
+                
+                nota.setNota_operacao(rs.getString("nota_operacao"));
 
                 Natureza natureza = new Natureza();
                 natureza.setId_natureza(rs.getInt("id_natureza"));
