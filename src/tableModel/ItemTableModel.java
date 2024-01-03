@@ -59,7 +59,7 @@ public class ItemTableModel extends AbstractTableModel {
             case 3:
                 return movimento.getProduto().getUnidade().getSigla_unidade();
             case 4:
-                return FormatarNumero.formatarNumero(movimento.getQtd_mov());
+                return FormatarNumero.formatarNumero(movimento.getQtd_prod());
             case 5:
                 return movimento.getComplemento_mov();
             case 6:
