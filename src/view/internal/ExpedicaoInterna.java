@@ -22,22 +22,18 @@ import java.awt.Dimension;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
-import net.sf.jasperreports.engine.JRResultSetDataSource;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 //import static Interface.Principal.MenuPrincipal.Painel_principal;
 import Sistema.ManipulaProtocolo;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import view.MenuPrincipal;
+import view.dialog.JDialogExpedicao;
 
 /**
  *
@@ -47,16 +43,12 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
 
     ConexaoBD conex = new ConexaoBD();
     Principal menu;
-    JDialogExpedicaoSaida TelaNotaExSai;
-    ManipulaProtocolo prot = new ManipulaProtocolo();
-//    JDialog_Movimentacao_Produto telaMovimentacao;
-//    JIF_MovimentoA obj_Movimento = new JIF_MovimentoA();
-//    JIF_Movimento_Peq2 obj_Movimento1 = new JIF_Movimento_Peq2();
+    JDialogExpedicao TelaNotaExSai;
+    ManipulaProtocolo prot = new ManipulaProtocolo(); 
 
     String CLASS = "";
     int selecao;
     String selecao_id;
-    int atual = 1;
     String MinhaIdNota;
 
     public ExpedicaoInterna() {
@@ -321,31 +313,7 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
         System.out.println("selecaod " + MinhaIdNota);
         MenuPrincipal.jLabelCodigoTela2.setText(String.valueOf(MinhaIdNota));
         MenuPrincipal.jLabelCodigoTela.setText("MovimentoCadastroEditar");
-        MenuPrincipal.jButton1.doClick();
-
-//        conex.conexao();
-//        conex.executaSql("select id_nota from nota WHERE id_referencia ='" + selecao_id + "'");
-//        try {
-//            conex.rs.last();
-//            String texto = ((conex.rs.getString("id_nota")));
-////            Principal.jLabeljl.setText(texto);
-////            MenuPrincipal.jLabel_Codigo_2.setText(MenuPrincipal.jLabel_Movendo.getText());
-////                        MenuPrincipal.jLabel_Codigo_3.setText(Status_Prod);
-////            MenuPrincipal.jButton_Meu_Foco.setText("fcm1a");
-////            MenuPrincipal.jButton_Meu_Foco.requestFocus();
-//        } catch (SQLException ex) {
-//            System.out.println("SQLException ex " + ex);
-//
-//        }
-//        conex.desconecta();
-//        String texto = (selecao_id);
-//        MenuPrincipal.jLabel_Codigo_1.setText(texto);
-//        MenuPrincipal.jLabel_Codigo_2.setText(MenuPrincipal.jLabel_Movendo.getText());
-//         MenuPrincipal.jLabel_Codigo_3.setText("ENTRADA");
-////                        MenuPrincipal.jLabel_Codigo_3.setText(Status_Prod);
-//        MenuPrincipal.jButton_Meu_Foco.setText("fcm1");
-//        MenuPrincipal.jButton_Meu_Foco.requestFocus();
-//        JOptionPane.showMessageDialog(rootPane, selecao_id);
+        MenuPrincipal.jButton1.doClick(); 
     }
 
     public void CorNaLinhaSelecionada() {
@@ -386,7 +354,6 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
         CorNaLinhaSelecionada();
         selecao = (int) jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 0);
         selecao_id = String.valueOf(selecao);
-        atual = 2;
         MinhaIdNota = "" + jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 9);
         System.err.println("selecao = (int)     " + selecao + "         " + selecao_id);
         if (evt.getClickCount() == 2) {
@@ -402,70 +369,14 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
             } else if (jLabel_Expedicao.getText().equals("Ver Relatorio")) {
                 MinhaIdNota = String.valueOf(selecao_id);
                 prot.RecebeMInhaOs(MinhaIdNota, "", "", "");
-                prot.chamaRelatorio();
-//                prot.RecebeMInhaOs(MinhaIdNota, menu.jLabel_IdEmpresa.getText(), menu.jLabel_Usuario.getText(), "");
-//                prot.VerificaProtocolo();
-//                prot.chamaRelatorio3();
+                prot.chamaRelatorio(); 
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Erro");
-                atual = 1;
             }
 
-        }
-//        atualizarTabela();
+        } 
     }//GEN-LAST:event_jTableListaProdutoMouseClicked
-
-//    public void chamaRelatorio() {
-//        conex.conexao();
-//        String numero = selecao_id;
-////        String numero = JOptionPane.showInputDialog("digite numero");
-//        try {
-////            conex.executaSql("select * from cadproduto where id_prod=" + numero + "");
-/////  + "inner join empresa on em_id = "+menu.jLabel_IdEmpresa.getText()+"\n"
-//////    + "where id_mov="+numero+"\n"
-//            conex.executaSql("SELECT  row_number() OVER (PARTITION by 0) as contador,id_nota,mov_modo,id_mov,nota_situacao,em_descricao,em_telefone, em_endereco, em_no, em_cep, em_complemento, em_bairro, em_cidade,natureza,\n"
-//                    + "nota_documento,nota_nota,desc_prod,nota_mov,qtd_prod , qtd_mov ,calc_mov,op_mov,exi_qtd_prod,\n"
-//                    + "calc_mov,  complemento,nota_total,nota_fornecedor,nota_data,un_prod_ex,nota_chave,em_inscricao,em_cnpj,nota_registro,nota_hora,\n"
-//                    + " fc_cnpj, fc_descricao, fc_telefone, fc_endereco, fc_no, fc_cep, fc_complemento, fc_bairro, fc_cidade, fc_inscricao,nota_total,\n"
-//                    + " vol_motorista, vol_placa, vol_uf, vol_quantidade, vol_especie, vol_numeracao, vol_peso_bruto, vol_peso_liquido, \n"
-//                    + "  vol_os, vol_transportadora, vol_modalidade,valor_prod_ex,valor_moeda,nota_observacao,tr_nome, tr_cnpj, tr_descricao, tr_telefone, tr_tipo,\n"
-//                    + "  tr_endereco, tr_no, tr_cep, tr_complemento, tr_bairro, tr_cidade, tr_inscricao,nota_usu\n"
-//                    + " from movproduto \n"
-//                    + "  Inner Join  cadproduto  on id_prod_ent = id_prod \n"
-//                    + "  Inner Join  nota  on id_nota = nota_mov \n"
-//                    + "  inner join forecli on fc_nome=nota_fornecedor\n"
-//                    + "  inner join volume on vol_os= id_nota\n"
-//                    + " inner join transporte on tr_id = vol_transportadora\n"
-//                    //                    + "inner join empresa on em_id = " + menu.jLabel_NomeEmpresa1.getText() + "\n"
-//                    //                    + "  where id_nota=" + numero + "\n"
-//                    + "    GROUP BY\n"
-//                    + "     cadproduto.desc_prod,movproduto.nota_mov,movproduto.complemento,movproduto.calc_mov,movproduto.op_mov,movproduto.exi_qtd_prod,\n"
-//                    + "     nota.nota_total,nota.nota_fornecedor,nota.nota_data,cadproduto.un_prod_ex,nota.natureza,nota.nota_documento,nota.nota_nota,\n"
-//                    + "     movproduto.qtd_prod,movproduto.qtd_mov,nota.id_nota,empresa.em_descricao,empresa.em_telefone,empresa.em_endereco,empresa.em_no,\n"
-//                    + "     empresa.em_cep,empresa.em_complemento,empresa.em_bairro,empresa.em_cidade,empresa.em_inscricao,empresa.em_cnpj,forecli.fc_cnpj,\n"
-//                    + "     forecli.fc_descricao,forecli.fc_telefone,forecli.fc_endereco,forecli.fc_no,forecli.fc_cep,forecli.fc_complemento,forecli.fc_bairro,\n"
-//                    + "     forecli.fc_cidade,forecli.fc_inscricao,volume.vol_motorista,volume.vol_placa,volume.vol_uf,volume.vol_quantidade,volume.vol_especie,\n"
-//                    + "     volume.vol_numeracao,volume.vol_peso_bruto,volume.vol_peso_liquido,volume.vol_os,volume.vol_transportadora,volume.vol_modalidade,\n"
-//                    + "     cadproduto.valor_prod_ex,movproduto.valor_moeda,transporte.tr_nome,transporte.tr_cnpj,transporte.tr_descricao,transporte.tr_telefone,\n"
-//                    + "     transporte.tr_tipo,transporte.tr_endereco,transporte.tr_no,transporte.tr_cep,transporte.tr_complemento,transporte.tr_bairro,\n"
-//                    + "     transporte.tr_cidade,transporte.tr_inscricao,movproduto.id_mov\n"
-//                    + "       ORDER BY contador,mov_modo   ,  id_mov asc");
-///// + "where id_mov=" + numero + "\n"
-//            JRResultSetDataSource relatResult = new JRResultSetDataSource(conex.rs);
-//
-//            JasperPrint jpPrint = JasperFillManager.fillReport("C:/BKPBANCO/SysEstoque/MyReports/Visualizar_c-transporte_A4.jasper", new HashMap(), relatResult);
-//            JasperViewer jv = new JasperViewer(jpPrint, false);
-//            jv.toFront();
-//            jv.setVisible(true);
-//            jv.toFront();
-//
-////            this.dispose();
-//        } catch (Exception ex) {
-//            JOptionPane.showMessageDialog(rootPane, ex);
-//        }
-//        conex.desconecta();
-//
-//    }
+ 
     public void abre_Protocolo() {
         if (selecao_id == "Id mov") {
             JOptionPane.showMessageDialog(rootPane, "SELECIONE UM ITEM NA LISTA.");
@@ -534,60 +445,7 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
                 + "   inner join natureza on id_referencianatureza=naturezaint\n"
                 + "                  where stnota=1 and stmovimento=1 and stprod =1 and cl.stecft =1  and stunid =1 and stnat =1 and \n"
                 + "                tipo_natureza='SAIDA'   order by datavariavel asc , id_referencianota asc");
-//        preencherTabela(""
-//                + "SELECT \n"
-//                + "\n"
-//                + "id_nota, nota_documento, nota_nota, nota_data, nota_hora, nota_observacao, \n"
-//                + "       nota_registro, nota_situacao, nota_chave, nota_total, nota_operacao, \n"
-//                + "       nota_usu, id_referencianota, stnota, naturezaint, fornecedorint, \n"
-//                + "       modalidade, transportadora, motorista, placa, uf, quantidade, \n"
-//                + "       especie, numeracao, pesobruto, pesoliquido,\n"
-//                + "\n"
-//                + "       id_mov, id_prod_ent, data_mov, nota_mov, qtd_mov, qtd_prod, qtd_prod_ex, \n"
-//                + "       qtd_calc, qtd_calc_ex, valor_real, valor_moeda, destino_mov, \n"
-//                + "       complemento_mov, registro_mov, volume, usuario_mov, modo_mov, \n"
-//                + "       total_mov, sistema_mov, stmovimento, stsaldo,\n"
-//                + "\n"
-//                + "       id_prod, sis_prod, ncm_prod, tipo_prod, nome_prod, edicao_prod, \n"
-//                + "       cfop_prod, saldo_prod, valor_prod, estoque_prod, obs_prod, usu_prod, \n"
-//                + "       data_reg, hora_reg, valor_prod_ex, stprod, idunid,\n"
-//                + "\n"
-//                + "        cl.ecft_id, cl.sis_ecft, cl.ecft_tipo, cl.ecft_nome, cl.ecft_cnpj, cl.ecft_inscricao, \n"
-//                + "       cl.ecft_descricao, cl.ecft_telefone, cl.ecft_endereco, cl.ecft_no, cl.ecft_cep, \n"
-//                + "       cl.ecft_complemento, cl.ecft_bairro, cl.ecft_cidade, cl.ecft_observacao, \n"
-//                + "       cl.ecft_usuario, cl.ecft_registro, cl.stecft,\n"
-//                + "\n"
-//                + "        em.ecft_id, em.sis_ecft, em.ecft_tipo, em.ecft_nome,em.ecft_cnpj as cnpj_empresa, em.ecft_inscricao as incricao_empresa, \n"
-//                + "       em.ecft_descricao as descricao_empresa, em.ecft_telefone as telefone_empresa, em.ecft_endereco as endereco_empresa, em.ecft_no as no_empresa, em.ecft_cep as cep_empresa, \n"
-//                + "       em.ecft_complemento as complemento_empresa , em.ecft_bairro as bairro_empresa, em.ecft_cidade as cidade_empresa, em.ecft_observacao, \n"
-//                + "       em.ecft_usuario, em.ecft_registro, em.stecft,\n"
-//                + "\n"
-//                + "        tr.ecft_id, tr.sis_ecft, tr.ecft_tipo, tr.ecft_nome, tr.ecft_cnpj as cnpj_transporte, tr.ecft_inscricao as inscricao_transporte, \n"
-//                + "       tr.ecft_descricao as descricao_transporte, tr.ecft_telefone as telefone_transporte, tr.ecft_endereco as endereco_transporte, tr.ecft_no as no_transporte, tr.ecft_cep as cep_transporte, \n"
-//                + "       tr.ecft_complemento as complemento_transporte, tr.ecft_bairro as bairro_transporte, tr.ecft_cidade as cidade_transporte, tr.ecft_observacao, \n"
-//                + "       tr.ecft_usuario, tr.ecft_registro, tr.stecft,\n"
-//                + "\n"
-//                + "       id_unidade, id_referenciaunidade, sigla_unidade, desc_unidade, registro_unidade, usuario_unidade, stunid,\n"
-//                + "\n"
-//                + "       id_natureza, desc_natureza, tipo_natureza, usuario_natureza, registro_natureza, id_referencianatureza, stnat\n"
-//                + "       \n"
-//                + "       \n"
-//                + "  FROM nota     \n"
-//                + "inner join movprodutobase on nota_mov = id_referencianota\n"
-//                + " \n"
-//                + "  inner join produto on id_prod_ent = sis_prod\n"
-//                + "  inner join ecft as cl on sis_ecft=fornecedorint\n"
-//                + "   inner join ecft  as em on em.sis_ecft=empresaint\n"
-//                + "    inner join ecft as tr on tr.sis_ecft= motoristaint and tr.ecft_tipo='TRANSPORTE'\n"
-//                + "  inner join unidade on id_referenciaunidade=idunid\n"
-//                + "  inner join natureza on id_referencianatureza=naturezaint\n"
-//                + "  \n"
-//                + "\n"
-//                + "  where stnota=1 and stmovimento=1 and stprod =1 and cl.stecft =1 and em.stecft =1 and stunid =1 and stnat =1 and "
-//                + "tipo_natureza='SAIDA'   order by datavariavel asc , id_referencianota asc "
-//                + ""); 
-
-// CAST(nota_data as date )desc,  CAST(nota_data as date )asc,
+ 
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         atualizarTabela();
@@ -727,34 +585,9 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         atualizarTabela();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-//    public void abre_Produtos() {
-//        if (obj_Movimento1.isVisible()) {
-//            JOptionPane.showMessageDialog(null, "A tela ja esta aberta ! ");
-//            obj_Movimento1.requestFocus();
-//            obj_Movimento1.setPosicao();
-//            obj_Movimento1.toFront();
-//        } else {
-//            Painel_principal.remove(obj_Movimento1);
-////            fecha_tela();
-//            Painel_principal.add(obj_Movimento1);
-//            obj_Movimento1.setVisible(true);
-//            obj_Movimento1.setResizable(false);
-//            obj_Movimento1.setPosicao();
-//            obj_Movimento1.jLabel_OS.setText(selecao_id);
-//            obj_Movimento1.requestFocus();
-//
-//            try {
-//                obj_Movimento1.setMaximum(true);
-//            } catch (PropertyVetoException ex) {
-//                Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            obj_Movimento1.requestFocus();
-//
-//        }
-//    }
+ 
     public void abre_Expedicao() {
-        TelaNotaExSai = new JDialogExpedicaoSaida(menu, rootPaneCheckingEnabled);
+        TelaNotaExSai = new JDialogExpedicao(menu, rootPaneCheckingEnabled);
         if (TelaNotaExSai == null) {
             TelaNotaExSai.RIdSai(selecao_id);
             TelaNotaExSai.setVisible(true);
@@ -788,57 +621,6 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
                 + "                  where stnota=1 and stmovimento=1 and stprod =1 and cl.stecft =1  and stunid =1 and stnat =1 and \n"
                 + "                tipo_natureza='SAIDA'and tipo_natureza='SAIDA'  and  nota_situacao!='4-ENVIADO'and nota_situacao!='5-DEVOLVIDO'  order by datavariavel asc , id_referencianota asc");
 
-//        preencherTabela("SELECT \n"
-//                + "\n"
-//                + "id_nota, nota_documento, nota_nota, nota_data, nota_hora, nota_observacao, \n"
-//                + "       nota_registro, nota_situacao, nota_chave, nota_total, nota_operacao, \n"
-//                + "       nota_usu, id_referencianota, stnota, naturezaint, fornecedorint, \n"
-//                + "       modalidade, transportadora, motorista, placa, uf, quantidade, \n"
-//                + "       especie, numeracao, pesobruto, pesoliquido,\n"
-//                + "\n"
-//                + "       id_mov, id_prod_ent, data_mov, nota_mov, qtd_mov, qtd_prod, qtd_prod_ex, \n"
-//                + "       qtd_calc, qtd_calc_ex, valor_real, valor_moeda, destino_mov, \n"
-//                + "       complemento_mov, registro_mov, volume, usuario_mov, modo_mov, \n"
-//                + "       total_mov, sistema_mov, stmovimento, stsaldo,\n"
-//                + "\n"
-//                + "       id_prod, sis_prod, ncm_prod, tipo_prod, nome_prod, edicao_prod, \n"
-//                + "       cfop_prod, saldo_prod, valor_prod, estoque_prod, obs_prod, usu_prod, \n"
-//                + "       data_reg, hora_reg, valor_prod_ex, stprod, idunid,\n"
-//                + "\n"
-//                + "        cl.ecft_id, cl.sis_ecft, cl.ecft_tipo, cl.ecft_nome, cl.ecft_cnpj, cl.ecft_inscricao, \n"
-//                + "       cl.ecft_descricao, cl.ecft_telefone, cl.ecft_endereco, cl.ecft_no, cl.ecft_cep, \n"
-//                + "       cl.ecft_complemento, cl.ecft_bairro, cl.ecft_cidade, cl.ecft_observacao, \n"
-//                + "       cl.ecft_usuario, cl.ecft_registro, cl.stecft,\n"
-//                + "\n"
-//                + "        em.ecft_id, em.sis_ecft, em.ecft_tipo, em.ecft_nome,em.ecft_cnpj as cnpj_empresa, em.ecft_inscricao as incricao_empresa, \n"
-//                + "       em.ecft_descricao as descricao_empresa, em.ecft_telefone as telefone_empresa, em.ecft_endereco as endereco_empresa, em.ecft_no as no_empresa, em.ecft_cep as cep_empresa, \n"
-//                + "       em.ecft_complemento as complemento_empresa , em.ecft_bairro as bairro_empresa, em.ecft_cidade as cidade_empresa, em.ecft_observacao, \n"
-//                + "       em.ecft_usuario, em.ecft_registro, em.stecft,\n"
-//                + "\n"
-//                + "        tr.ecft_id, tr.sis_ecft, tr.ecft_tipo, tr.ecft_nome, tr.ecft_cnpj as cnpj_transporte, tr.ecft_inscricao as inscricao_transporte, \n"
-//                + "       tr.ecft_descricao as descricao_transporte, tr.ecft_telefone as telefone_transporte, tr.ecft_endereco as endereco_transporte, tr.ecft_no as no_transporte, tr.ecft_cep as cep_transporte, \n"
-//                + "       tr.ecft_complemento as complemento_transporte, tr.ecft_bairro as bairro_transporte, tr.ecft_cidade as cidade_transporte, tr.ecft_observacao, \n"
-//                + "       tr.ecft_usuario, tr.ecft_registro, tr.stecft,\n"
-//                + "\n"
-//                + "       id_unidade, id_referenciaunidade, sigla_unidade, desc_unidade, registro_unidade, usuario_unidade, stunid,\n"
-//                + "\n"
-//                + "       id_natureza, desc_natureza, tipo_natureza, usuario_natureza, registro_natureza, id_referencianatureza, stnat\n"
-//                + "       \n"
-//                + "       \n"
-//                + "  FROM nota     \n"
-//                + "inner join movprodutobase on nota_mov = id_referencianota\n"
-//                + " \n"
-//                + "  inner join produto on id_prod_ent = sis_prod\n"
-//                + "  inner join ecft as cl on sis_ecft=fornecedorint\n"
-//                + "   inner join ecft  as em on em.sis_ecft=empresaint\n"
-//                + "    inner join ecft as tr on tr.sis_ecft= motoristaint and tr.ecft_tipo='TRANSPORTE'\n"
-//                + "  inner join unidade on id_referenciaunidade=idunid\n"
-//                + "  inner join natureza on id_referencianatureza=naturezaint\n"
-//                + "  \n"
-//                + "\n"
-//                + "  where stnota=1 and stmovimento=1 and stprod =1 and cl.stecft =1 and em.stecft =1 and stunid =1 and stnat =1 and "
-//                + "tipo_natureza='SAIDA'  and  nota_situacao!='4-ENVIADO'and nota_situacao!='5-DEVOLVIDO' order by datavariavel asc , id_referencianota asc ");
-        atual = 1;
     }/// sis_ecft
 
     public void CorNaLinha() {
