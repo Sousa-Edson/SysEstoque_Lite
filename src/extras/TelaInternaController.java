@@ -10,6 +10,7 @@ import model.Produto;
 import view.internal.ProdutoListaJIF;
 import view.MenuPrincipal;
 import view.internal.ConsultaInterna;
+import view.internal.ExpedicaoInterna;
 import view.internal.LoginJIF;
 import view.internal.NotaCadastroJIF;
 import view.internal.NotaListaJIF;
@@ -29,6 +30,18 @@ public class TelaInternaController {
     private static NotaListaJIF movimentoListaJIF;
     private static NotaCadastroJIF movimentoCadastroJIF;
     private static ConsultaInterna consultaInterna;
+    private static ExpedicaoInterna expedicaoInterna;
+
+    public static void chamaExpedicaoInterna(MenuPrincipal form) {
+        if (expedicaoInterna == null || !expedicaoInterna.isVisible()) {
+            expedicaoInterna = new ExpedicaoInterna();
+            MenuPrincipal.desktopPrincipal.add(expedicaoInterna);
+            InternalFrameUtil.removerIcone(expedicaoInterna);
+            expedicaoInterna.setVisible(true);
+        }
+        expedicaoInterna.toFront();
+        FramePositionUtil.setCenteredPosition(expedicaoInterna);
+    }
 
     public static void chamaConsultaInterna(MenuPrincipal form) {
         if (consultaInterna == null || !consultaInterna.isVisible()) {

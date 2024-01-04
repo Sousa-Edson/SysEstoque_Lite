@@ -1247,8 +1247,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_ConsultaActionPerformed
 
     private void jButton_ExpedicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExpedicaoActionPerformed
-        MenuPrincipal.jLabelCodigoTela.setText("Expedicao");
-        MenuPrincipal.jButton1.doClick();
+               TelaInternaController.chamaExpedicaoInterna(this);
     }//GEN-LAST:event_jButton_ExpedicaoActionPerformed
     public void GeradorDeCodigo() {
         SequenciadorA = SequenciadorA + 1;
