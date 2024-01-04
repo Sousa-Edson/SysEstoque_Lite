@@ -9,6 +9,7 @@ import model.NotaFiscal;
 import model.Produto;
 import view.internal.ProdutoListaJIF;
 import view.MenuPrincipal;
+import view.internal.ConsultaInterna;
 import view.internal.LoginJIF;
 import view.internal.NotaCadastroJIF;
 import view.internal.NotaListaJIF;
@@ -27,6 +28,18 @@ public class TelaInternaController {
     private static ProdutoCadastroJIF produtoCadastroJIF;
     private static NotaListaJIF movimentoListaJIF;
     private static NotaCadastroJIF movimentoCadastroJIF;
+    private static ConsultaInterna consultaInterna;
+
+    public static void chamaConsultaInterna(MenuPrincipal form) {
+        if (consultaInterna == null || !consultaInterna.isVisible()) {
+            consultaInterna = new ConsultaInterna();
+            MenuPrincipal.desktopPrincipal.add(consultaInterna);
+            InternalFrameUtil.removerIcone(consultaInterna);
+            consultaInterna.setVisible(true);
+        }
+        consultaInterna.toFront();
+        FramePositionUtil.setCenteredPosition(consultaInterna);
+    }
 
     public static void chamaLogin(MenuPrincipal form) {
         if (loginJIF == null || !loginJIF.isVisible()) {
@@ -85,7 +98,7 @@ public class TelaInternaController {
         FramePositionUtil.setCenteredPosition(movimentoListaJIF);
     }
 
-   public static  void chamaNota(NotaFiscal notaFiscal) {
+    public static void chamaNota(NotaFiscal notaFiscal) {
         if (movimentoCadastroJIF == null || !movimentoCadastroJIF.isVisible()) {
             movimentoCadastroJIF = new NotaCadastroJIF(notaFiscal);
             MenuPrincipal.desktopPrincipal.add(movimentoCadastroJIF);

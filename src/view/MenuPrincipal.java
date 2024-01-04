@@ -1243,9 +1243,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_NotaActionPerformed
 
     private void jButton_ConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ConsultaActionPerformed
-        jLabelCodigoTela.setText("ConsultaInterna");
-        jButton1.doClick();
-        //        ConsultaInterna3.jButton1.doClick();
+        TelaInternaController.chamaConsultaInterna(this);
     }//GEN-LAST:event_jButton_ConsultaActionPerformed
 
     private void jButton_ExpedicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExpedicaoActionPerformed
