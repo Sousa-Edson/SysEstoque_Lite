@@ -5,21 +5,19 @@
  */
 package model;
 
- 
-
 /**
  *
  * @author edson
  */
 public class Item {
 
-    int id_mov, id_prod_ent, nota_mov, modo_mov,status_mov,stsaldo,intmodotbl;
- Double qtd_mov, qtd_prod, qtd_calc, valor_real;
+    int id_mov, id_prod_ent, nota_mov, modo_mov, status_mov, stsaldo, intmodotbl;
+    Double qtd_mov, qtd_prod, qtd_calc, valor_real;
     String sistema_mov;
     String data_mov, qtd_prod_ex, qtd_calc_ex, valor_moeda, destino_mov,
-            complemento_mov, registro_mov,  volume, usuario_mov, total_mov;
-    
-    model.Produto produto;
+            complemento_mov, registro_mov, volume, usuario_mov, total_mov;
+
+  Produto produto;
 
     public int getIntmodotbl() {
         return intmodotbl;
@@ -28,8 +26,7 @@ public class Item {
     public void setIntmodotbl(int intmodotbl) {
         this.intmodotbl = intmodotbl;
     }
-    
-    
+
     public int getStsaldo() {
         return stsaldo;
     }
@@ -37,7 +34,6 @@ public class Item {
     public void setStsaldo(int stsaldo) {
         this.stsaldo = stsaldo;
     }
-   
 
     public String getSistema_mov() {
         return sistema_mov;
@@ -151,7 +147,6 @@ public class Item {
         this.registro_mov = registro_mov;
     }
 
-   
     public String getVolume() {
         return volume;
     }
@@ -212,9 +207,5 @@ public class Item {
     public String toString() {
         return "Movimento{" + "id_mov=" + id_mov + ", id_prod_ent=" + id_prod_ent + ", nota_mov=" + nota_mov + ", modo_mov=" + modo_mov + ", status_mov=" + status_mov + ", stsaldo=" + stsaldo + ", intmodotbl=" + intmodotbl + ", qtd_mov=" + qtd_mov + ", qtd_prod=" + qtd_prod + ", qtd_calc=" + qtd_calc + ", valor_real=" + valor_real + ", sistema_mov=" + sistema_mov + ", data_mov=" + data_mov + ", qtd_prod_ex=" + qtd_prod_ex + ", qtd_calc_ex=" + qtd_calc_ex + ", valor_moeda=" + valor_moeda + ", destino_mov=" + destino_mov + ", complemento_mov=" + complemento_mov + ", registro_mov=" + registro_mov + ", volume=" + volume + ", usuario_mov=" + usuario_mov + ", total_mov=" + total_mov + ", produto=" + produto + '}';
     }
-
-    
-
-    
 
 }

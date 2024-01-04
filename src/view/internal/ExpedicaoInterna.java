@@ -53,7 +53,6 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
 
     public ExpedicaoInterna() {
         initComponents();
-        remover_Ico();
         jButton1.setVisible(false);
         jButton2.setVisible(false);
         jButton_Fechar.setVisible(false);
@@ -267,7 +266,7 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1093, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(452, 452, 452)
                         .addComponent(jLabel_Expedicao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -428,7 +427,7 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
     public void ExibeTudo() {
         if (jCheckBoxMenuItem_cor.isSelected()) {
             System.err.println("- ExibeTudo- cor na linha sim selecionado");
-            CorNaLinha();
+          
         } else {
             System.err.println("- ExibeTudo- cor na linha não selecionado");
         }
@@ -603,7 +602,7 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
       public void atualizarTabela() {
         if (jCheckBoxMenuItem_cor.isSelected()) {
             System.err.println("- ExibeTudo- cor na linha sim selecionado");
-            CorNaLinha();
+             
         } else {
             System.err.println("- ExibeTudo- cor na linha não selecionado");
         }
@@ -623,60 +622,7 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
 
     }/// sis_ecft
 
-    public void CorNaLinha() {
-        CLASS = "6-OUTRO";
-        jTableListaProduto.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value,
-                    boolean isSelected, boolean hasFocus, int row, int column) {
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value,
-                        isSelected, hasFocus, row, column);
-                //******************************************************************************
-
-                Color c = Color.BLACK;
-                Object texto = table.getValueAt(row, 2);
-                Object texto2 = table.getValueAt(row, 2);
-                Object texto3 = table.getValueAt(row, 2);
-                Object texto4 = table.getValueAt(row, 2);
-                Object texto5 = table.getValueAt(row, 2);
-                if (texto != null && CLASS.equals(texto.toString())) {
-                    c = Color.RED;
-                    label.setBackground(c);
-                    jTableListaProduto.setSelectionBackground(BLACK);
-                } else if (texto2 != null && "1-CALCULADO".equals(texto.toString())) {
-                    c = Color.YELLOW;
-                    label.setBackground(c);
-                    jTableListaProduto.setSelectionBackground(BLACK);
-                } else if (texto3 != null && "2-PRONTO".equals(texto.toString())) {
-                    c = Color.CYAN;
-                    label.setBackground(c);
-                    jTableListaProduto.setSelectionBackground(BLACK);
-                } else if (texto4 != null && "3-AGUARDANDO".equals(texto.toString())) {
-                    c = Color.GREEN;
-                    label.setBackground(c);
-                    jTableListaProduto.setSelectionBackground(WHITE);
-                } else if (texto5 != null && "4-ENVIADO".equals(texto.toString())) {
-                    c = Color.LIGHT_GRAY;
-                    label.setBackground(c);
-                    jTableListaProduto.setSelectionBackground(BLACK);
-//                    jTableListaProduto.
-                } else if (texto5 != null && "5-DEVOLVIDO".equals(texto.toString())) {
-                    c = Color.MAGENTA;
-                    label.setBackground(c);
-                    jTableListaProduto.setSelectionBackground(BLACK);
-                } else {
-                    label.setBackground(c);
-                    label.setBackground(java.awt.Color.WHITE);
-                    jTableListaProduto.setSelectionBackground(BLACK);
-                }
-
-                //******************************************************************************
-                return label;
-            }
-
-        });
-    }
-
+    
     public void preencherTabela(String Sql) {
         ArrayList dados = new ArrayList();
         String[] colunas = new String[]{"OS", "Data", "Situação", "Cliente", "Descrição", "Quantidade",
@@ -803,21 +749,7 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
 
     }
 
-    public void setPosicao() {
-        Dimension d = this.getDesktopPane().getSize();
-        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
-    }
-
-    public void remover_Ico() {
-        this.setFrameIcon(null);
-
-        // hack to remove system menu in Windows
-        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
-        Container north = (Container) ui.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
-    }
+     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton jButton1;
