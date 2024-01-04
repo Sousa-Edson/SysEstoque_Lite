@@ -5,21 +5,14 @@
  */
 package view.internal;
 
-import ConectaBanco.ConexaoBD;
-import Interface.Principal;
-import ModeloBeans.ModeloTabela;
-import Sistema.ManipulaProtocolo;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.event.MouseEvent;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
+import com.toedter.calendar.JDateChooser;
+import controller.ConsultaInternaController;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -27,25 +20,11 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  */
 public class ConsultaInterna extends javax.swing.JInternalFrame {
 
-    ConexaoBD conex = new ConexaoBD();
-    ManipulaProtocolo prot = new ManipulaProtocolo();
-    String selecaoc = "0", selecaod = "0";
-    String ObsProtocolo = null;
-    String DataProtocolo = null;
-    String NotaProtocolo = null;
-    String Chama_Sistema;
-
-     
-    String chama_Os = "Novo";
-    
- 
-    int Clique = 0;
+    ConsultaInternaController consultaInternaController;
 
     public ConsultaInterna() {
         initComponents();
-        remover_Ico();
-
-        // setPosicao();
+        consultaInternaController = new ConsultaInternaController();
     }
 
     /**
@@ -59,12 +38,12 @@ public class ConsultaInterna extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableListaProduto = new javax.swing.JTable();
-        jTextFieldBusca = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jRadioButtonEntrada = new javax.swing.JRadioButton();
-        jRadioButtonSaida = new javax.swing.JRadioButton();
+        tabela = new javax.swing.JTable();
+        txtBuscar = new javax.swing.JTextField();
+        btnPesquisar = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
+        rbEntrada = new javax.swing.JRadioButton();
+        rbSaida = new javax.swing.JRadioButton();
         DataInicial = new com.toedter.calendar.JDateChooser();
         DataFinal = new com.toedter.calendar.JDateChooser();
 
@@ -72,6 +51,7 @@ public class ConsultaInterna extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
+        setTitle("Consulta interna");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -92,7 +72,7 @@ public class ConsultaInterna extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
-        jTableListaProduto.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -103,43 +83,43 @@ public class ConsultaInterna extends javax.swing.JInternalFrame {
 
             }
         ));
-        jTableListaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableListaProdutoMouseClicked(evt);
+                tabelaMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableListaProduto);
+        jScrollPane1.setViewportView(tabela);
 
-        jTextFieldBusca.addActionListener(new java.awt.event.ActionListener() {
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldBuscaActionPerformed(evt);
+                txtBuscarActionPerformed(evt);
             }
         });
-        jTextFieldBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextFieldBuscaKeyReleased(evt);
+                txtBuscarKeyReleased(evt);
             }
         });
 
-        jButton1.setText("Pesquisar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnPesquisarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Limpar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnLimparActionPerformed(evt);
             }
         });
 
-        jRadioButtonEntrada.setBackground(new java.awt.Color(204, 204, 255));
-        jRadioButtonEntrada.setText("ENTRADA");
+        rbEntrada.setBackground(new java.awt.Color(204, 204, 255));
+        rbEntrada.setText("ENTRADA");
 
-        jRadioButtonSaida.setBackground(new java.awt.Color(204, 204, 255));
-        jRadioButtonSaida.setText("SAIDA");
+        rbSaida.setBackground(new java.awt.Color(204, 204, 255));
+        rbSaida.setText("SAIDA");
 
         DataInicial.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -162,15 +142,15 @@ public class ConsultaInterna extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextFieldBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(btnPesquisar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btnLimpar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButtonEntrada)
+                        .addComponent(rbEntrada)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButtonSaida)
+                        .addComponent(rbSaida)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -179,7 +159,7 @@ public class ConsultaInterna extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnLimpar, btnPesquisar});
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {DataFinal, DataInicial});
 
@@ -189,11 +169,11 @@ public class ConsultaInterna extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton2)
-                        .addComponent(jRadioButtonEntrada)
-                        .addComponent(jRadioButtonSaida))
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPesquisar)
+                        .addComponent(btnLimpar)
+                        .addComponent(rbEntrada)
+                        .addComponent(rbSaida))
                     .addComponent(DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -215,355 +195,132 @@ public class ConsultaInterna extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBuscaActionPerformed
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldBuscaActionPerformed
+    }//GEN-LAST:event_txtBuscarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        EventoBuscar();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        consultaInternaController.preencherTabela(this);
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        EventoLimpar();
-        if (jTextFieldBusca.getText().isEmpty()) {
-            EventoData();
-        } else {
-        }
-        EventoLimparTexto();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        consultaInternaController.limparTabela(this);
+    }//GEN-LAST:event_btnLimparActionPerformed
 
-    private void jTextFieldBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBuscaKeyReleased
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            EventoBuscar();
+            consultaInternaController.preencherTabela(this);
         }
-    }//GEN-LAST:event_jTextFieldBuscaKeyReleased
+    }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
-        this.setVisible(false);
+
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void DataInicialPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_DataInicialPropertyChange
-        //JOptionPane.showMessageDialog(rootPane, "propriedade");
 
     }//GEN-LAST:event_DataInicialPropertyChange
 
     private void DataFinalPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_DataFinalPropertyChange
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_DataFinalPropertyChange
 
-    private void jTableListaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaProdutoMouseClicked
-        String ver;
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
 
-        if (evt.getButton() == MouseEvent.BUTTON1) {
-            Clique = 1;
-        }
-        if (Clique == 1) {
-            DataProtocolo = "" + jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 7);
-            NotaProtocolo = "" + jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 8);
-            ObsProtocolo = "" + jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 9);
-            ver = "" + jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 10);
-            chama_Os = "" + jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 0);
-            selecaoc = ver;
-            Principal.jLabelCodigoTela2.setText(String.valueOf(selecaoc));
-            if (evt.getButton() == MouseEvent.BUTTON3) {
-//                 JOptionPane.showMessageDialog(rootPane, "botao direito " + selecaoc);
-                int resposta = 0;
-                Object[] options = {"Relatório", "Protocolo", "Movimento"};
-                resposta = JOptionPane.showOptionDialog(null, "O que deseja vizualizar ?", "Informação", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-                if (resposta == 0) {
-                    System.out.println("0");
-//                    JOptionPane.showMessageDialog(rootPane, "Relatorio      " + selecao_id);
-                    chamaRelatorio();
-                } else if (resposta == 1) {
-                    System.out.println("1");
-                    chamaProtocolo();
-                } else if (resposta == 2) {
+    }//GEN-LAST:event_tabelaMouseClicked
 
-                    Principal.jLabelCodigoTela2.setText(String.valueOf(selecaoc));
-                    Principal.jLabelCodigoTela.setText("MovimentoCadastroEditar");
-                    Principal.jButton1.doClick();
-                } else {
-                    System.out.println("erro");
-                }
-                Clique = 0;
-            } else {
-                String TipoUsuario = Principal.jLabelTipoUsuario.getText();
-                if (TipoUsuario == "Manutenção") {
-                    selecaoc = "" + jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 8);
-                    System.out.println("selecaoc " + selecaoc);
-                    if (evt.getClickCount() == 2) {
-                        selecaod = "" + jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 8);
-                        System.out.println("selecaod " + selecaod);
-                        Principal.jLabelCodigoTela2.setText(String.valueOf(selecaod));
-                        Principal.jLabelCodigoTela.setText("MovimentoCadastroEditar");
-                        Principal.jButton1.doClick();
-                    }
-                } else {
-//                    ver = "" + jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 10);
-                    ver = "" + jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 0);
-                    selecaoc = ver;
-                    System.out.println("ver " + ver);
-
-                    System.out.println("selecaoc normal " + selecaoc);
-                    if (evt.getClickCount() == 2) {
-                        selecaod = ver;
-                        System.out.println("selecaod normal " + selecaod);
-                        Principal.jLabelCodigoTela2.setText(String.valueOf(selecaod));
-                        Principal.jLabelCodigoTela.setText("FrameExibir"); // Exibir
-                        Principal.jButton1.doClick();
-                    }
-                }
-            }
-
-        }
-
-    }//GEN-LAST:event_jTableListaProdutoMouseClicked
-
-    public void EventoData() {
-        Date data = null;
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        if (DataInicial.getDate() == (null) | DataFinal.getDate() == (null)) {
-            try {
-                data = formato.parse(Principal.jLabel_Data.getText());
-                DataInicial.setDate(data);
-                DataFinal.setDate(data);
-            } catch (ParseException ex) {
-            }
-        } else {
-            DataInicial.setDate(null);
-            DataFinal.setDate(null);
-        }
-    }
-
-    public void EventoLimparTexto() {
-        jTextFieldBusca.setText("");
-    }
-
-    public void EventoLimpar() {
-//        jTextFieldBusca.setText("");
-        jTextFieldBusca.requestFocus();
-        ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{};
-        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-        jTableListaProduto.setModel(modelo);
-    }
-
-    public void EventoBuscar() {
-        String MinhaBusca = jTextFieldBusca.getText(), situacao = "", operacao = "";
-        MinhaBusca = MinhaBusca.replace("N° ", "").replace("N° ", "").replace("N°", "");
-        String INI2 = "", FIM2 = "";
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
-        System.out.println(" MinhaBusca  - " + MinhaBusca);
-        if (jRadioButtonEntrada.isSelected()) {
-            if (jRadioButtonSaida.isSelected()) {
-                operacao = "";
-            } else {
-                operacao = "ENTRADA";
-            }
-        } else if (jRadioButtonSaida.isSelected()) {
-            operacao = "SAIDA";
-        } else {
-
-        }
-        Date INI = DataInicial.getDate();
-        Date FIM = DataFinal.getDate();
-        if (INI == null & FIM == null) {
-            EventoLimpar();
-            preencherTabela(""
-                    + "select id_nota,sis_prod,tipo_prod,nome_prod,edicao_prod,nota_nota,nota_documento,nota_observacao,SUM(qtd_mov) AS qtd_mov,\n"
-                    + "id_referencianota,ecft_nome,sistema_mov,\n"
-                    + "nota_situacao,nota_data ,sigla_unidade,qtd_prod_ex,qtd_calc_ex,destino_mov,nota_operacao,complemento_mov,destino_mov\n"
-                    + "From movprodutobase  \n"
-                    + "Inner Join produto on id_prod_ent = sis_prod\n"
-                    + "   inner join nota on id_referencianota = nota_mov \n"
-                    + "   inner join ecft on sis_ecft=fornecedorint\n"
-                    + "   inner join unidade on id_referenciaunidade = idunid\n"
-                    + "where nota_data!= '' and  (coalesce((id_referencianota))||' '|| coalesce((sis_prod))||' '||coalesce((qtd_prod_ex))||' '||"
-                    + " coalesce(UPPER(tipo_prod))||' '|| coalesce(UPPER(nome_prod))||' '|| coalesce(UPPER(edicao_prod))||' '|| coalesce(UPPER(complemento_mov))||' '|| coalesce(UPPER(destino_mov))\n"
-                    + " ||' '|| coalesce(UPPER(nota_situacao))  ||' '|| coalesce(UPPER(ecft_nome))||' '||coalesce(UPPER(nota_nota))||' '||\n"
-                    + "  coalesce(UPPER(nota_operacao))||' '||coalesce(UPPER(nota_observacao))||' '|| coalesce(UPPER(sigla_unidade))||' '|| coalesce(UPPER(obs_prod))) \n"
-                    + "  ilike '%" + MinhaBusca + "%'  and nota_operacao ilike '%" + operacao + "%'\n"
-                    + "  and stmovimento=1 and stnota=1 and stunid=1 and stecft =1 and stprod=1\n" // and nota_situacao ilike '%" + situacao + "%'
-                    + "  and nota_data  !=''\n"
-                    + "  and nota_data  !='' \n"
-                    + "  GROUP BY  produto.id_prod,nota.nota_nota,nota.nota_documento,nota.nota_observacao,nota.id_nota,ecft.ecft_nome,unidade.sigla_unidade,\n"
-                    + "   movprodutobase.qtd_prod_ex,movprodutobase.qtd_calc_ex ,movprodutobase.destino_mov,movprodutobase.nota_mov \n"
-                    + "    ,movprodutobase.complemento_mov,movprodutobase.destino_mov,movprodutobase.sistema_mov  order by nota_mov desc"
-                    + ""
-            );
-        } else if (INI == null) {
-            EventoLimpar();
-        } else if (FIM == null) {
-            EventoLimpar();
-        } else {
-            INI2 = (formato.format(INI));
-            FIM2 = (formato.format(FIM));
-            System.out.println("INI2 " + INI2 + " FIM2 " + FIM2);
-            preencherTabela(""
-                    + "select id_nota,datavariavel,nota_operacao,\n"
-                    + "id_nota,sis_prod,tipo_prod,nome_prod,edicao_prod,nota_nota,nota_documento,nota_observacao,qtd_mov,\n"
-                    + "id_referencianota,ecft_nome,sistema_mov,\n"
-                    + "nota_situacao,nota_data ,sigla_unidade,qtd_prod_ex,qtd_calc_ex,destino_mov,complemento_mov,destino_mov\n"
-                    + "From movprodutobase \n"
-                    + "Inner Join produto on id_prod_ent = sis_prod\n"
-                    + "inner join nota on id_referencianota = nota_mov\n"
-                    + "inner join ecft on sis_ecft=fornecedorint\n"
-                    + "inner join unidade on id_referenciaunidade = idunid\n"
-                    + "where nota_data!= '' and nota_operacao ilike  '%" + operacao + "%'\n"
-                    + "  and stmovimento=1 and stnota=1  and stunid=1 and stecft =1 and stprod=1 \n"
-                    + " and ( datavariavel  >'" + INI2 + "'  and datavariavel  <'" + FIM2 + "'    "
-                    + " or datavariavel  ='" + INI2 + "' or datavariavel  ='" + FIM2 + "' )\n"
-                    + "  order by datavariavel desc"
-                    + ""
-            );
-            jTextFieldBusca.requestFocus();
-        }
-    }
-
-    public void setPosicao() {
-        Dimension d = this.getDesktopPane().getSize();
-        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
-    }
-
-    public void remover_Ico() {
-        this.setFrameIcon(null);
-
-        // hack to remove system menu in Windows
-        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
-        Container north = (Container) ui.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
-    }
-
-    public void preencherTabela(String Sql) {
-        String descricao;
-        String edicao;
-        ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{"OS", "Situação", "Cliente", "Descrição", "Quantidade", "Calculado", "Unidade", "Data", "Documento", "Observação", "Sistema"};
-        conex.conexao();
-        conex.executaSql(Sql);
-        try {
-            conex.rs.first();
-            do {
-                edicao = conex.rs.getString("edicao_prod");
-
-                String complemento = conex.rs.getString("complemento_mov"); // complemento_mov,destino_mov
-                String destino = conex.rs.getString("destino_mov");
-                System.err.println("VER AQUI DESTINO" + destino);
-                if (edicao.equals(null) | edicao.equals("") | edicao.equals(" ")) {
-                    edicao = "";
-                } else {
-                    edicao = " N° " + edicao;
-                }
-
-                if (complemento.equals(null) | complemento.equals("") | complemento.equals(" ")) {
-                    complemento = "";
-                } else {
-                    complemento = " " + complemento;
-                }
-
-                if (destino.equals(null) | destino.equals("") | destino.equals(" ")) {
-                    destino = "";
-                } else {
-                    destino = " " + destino;
-                }
-                String VerificaOperacao = conex.rs.getString("nota_operacao");
-                String Operacao = conex.rs.getString("nota_operacao") + " " + conex.rs.getString("nota_situacao");
-                if (VerificaOperacao.equals("ENTRADA")) {
-                    Operacao = "        ENTRADA";
-                } else {
-                    Operacao = Operacao.replace("-", " - ").replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("5", "");
-                }
-                String StrgDocumento = conex.rs.getString("nota_documento");
-                if (StrgDocumento.equals("Não definido")) {
-                    StrgDocumento = StrgDocumento;
-                } else {
-                    StrgDocumento = StrgDocumento + " " + conex.rs.getString("nota_nota");
-                }
-                System.out.println("VERIFICANDO A DATA " + conex.rs.getString("nota_data"));
-                descricao = " " + conex.rs.getString("tipo_prod") + " " + conex.rs.getString("nome_prod") + edicao + complemento + destino;
-                descricao = descricao.toUpperCase();
-                dados.add(new Object[]{conex.rs.getInt("id_referencianota"), Operacao, conex.rs.getString("ecft_nome"),
-                    descricao, conex.rs.getString("qtd_prod_ex"), conex.rs.getString("qtd_calc_ex"),
-                    conex.rs.getString("sigla_unidade"), /// aqui ver unidade
-                    conex.rs.getString("nota_data"),
-                    StrgDocumento, conex.rs.getString("nota_observacao"),
-                    conex.rs.getString("id_nota")
-
-                });
-                //alterardo por edson//
-                System.out.println("preencherTabela          CERTO ");
-
-            } while (conex.rs.next());
-            this.setTitle("##     Consulta Interna     ##");
-        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(rootPane, "Busque novamente");
-            this.setTitle("Consulta Interna Busque novamente");
-            System.out.println("preencherTabela          ERRO " + ex);
-        }
-        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-        jTableListaProduto.setModel(modelo);
-
-        jTableListaProduto.getColumnModel().getColumn(0).setPreferredWidth(60);
-        jTableListaProduto.getColumnModel().getColumn(0).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(1).setPreferredWidth(150);
-        jTableListaProduto.getColumnModel().getColumn(1).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(2).setPreferredWidth(120);
-        jTableListaProduto.getColumnModel().getColumn(2).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(3).setPreferredWidth(420);
-        jTableListaProduto.getColumnModel().getColumn(3).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(4).setPreferredWidth(100);
-//        jTableListaProduto.getColumnModel().getColumn(4).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(4).setPreferredWidth(80);
-        jTableListaProduto.getColumnModel().getColumn(4).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(5).setPreferredWidth(80);
-        jTableListaProduto.getColumnModel().getColumn(5).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(6).setPreferredWidth(60);
-        jTableListaProduto.getColumnModel().getColumn(6).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(7).setPreferredWidth(80);
-        jTableListaProduto.getColumnModel().getColumn(7).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(8).setPreferredWidth(120);
-        jTableListaProduto.getColumnModel().getColumn(8).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(9).setPreferredWidth(250);
-        jTableListaProduto.getColumnModel().getColumn(9).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(10).setPreferredWidth(00);
-
-        jTableListaProduto.getTableHeader().setReorderingAllowed(false);
-        jTableListaProduto.setAutoResizeMode(jTableListaProduto.AUTO_RESIZE_OFF);
-        jTableListaProduto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        conex.desconecta();
-
-    }
-
-    public void chamaRelatorio() {
-        prot.RecebeMInhaOs(chama_Os, "", "", "");
-        prot.chamaRelatorio();
-
-    }
-
-    public void chamaProtocolo() {
-        chama_Os = chama_Os;
-        System.out.println("1");
-        String MinhaIdNota;
-        MinhaIdNota = chama_Os;
-        prot.RecebeMInhaOs(MinhaIdNota, "", "", "");
-        System.out.println("selecao_id " + chama_Os);
-        prot.chamaProtocoloPreto();
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser DataFinal;
     private com.toedter.calendar.JDateChooser DataInicial;
-    public static javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnLimpar;
+    public static javax.swing.JButton btnPesquisar;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButtonEntrada;
-    private javax.swing.JRadioButton jRadioButtonSaida;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableListaProduto;
-    private javax.swing.JTextField jTextFieldBusca;
+    private javax.swing.JRadioButton rbEntrada;
+    private javax.swing.JRadioButton rbSaida;
+    private javax.swing.JTable tabela;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
+
+    public JDateChooser getDataFinal() {
+        return DataFinal;
+    }
+
+    public void setDataFinal(JDateChooser DataFinal) {
+        this.DataFinal = DataFinal;
+    }
+
+    public JDateChooser getDataInicial() {
+        return DataInicial;
+    }
+
+    public void setDataInicial(JDateChooser DataInicial) {
+        this.DataInicial = DataInicial;
+    }
+
+    public JButton getBtnLimpar() {
+        return btnLimpar;
+    }
+
+    public void setBtnLimpar(JButton btnLimpar) {
+        this.btnLimpar = btnLimpar;
+    }
+
+    public JButton getBtnPesquisar() {
+        return btnPesquisar;
+    }
+
+    public void setBtnPesquisar(JButton btnPesquisar) {
+        ConsultaInterna.btnPesquisar = btnPesquisar;
+    }
+
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public void setjPanel1(JPanel jPanel1) {
+        this.jPanel1 = jPanel1;
+    }
+
+    public JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public void setjScrollPane1(JScrollPane jScrollPane1) {
+        this.jScrollPane1 = jScrollPane1;
+    }
+
+    public JRadioButton getRbEntrada() {
+        return rbEntrada;
+    }
+
+    public void setRbEntrada(JRadioButton rbEntrada) {
+        this.rbEntrada = rbEntrada;
+    }
+
+    public JRadioButton getRbSaida() {
+        return rbSaida;
+    }
+
+    public void setRbSaida(JRadioButton rbSaida) {
+        this.rbSaida = rbSaida;
+    }
+
+    public JTable getTabela() {
+        return tabela;
+    }
+
+    public void setTabela(JTable tabela) {
+        this.tabela = tabela;
+    }
+
+    public JTextField getTxtBuscar() {
+        return txtBuscar;
+    }
+
+    public void setTxtBuscar(JTextField txtBuscar) {
+        this.txtBuscar = txtBuscar;
+    }
+
 }
