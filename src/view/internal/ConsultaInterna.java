@@ -121,12 +121,14 @@ public class ConsultaInterna extends javax.swing.JInternalFrame {
         rbSaida.setBackground(new java.awt.Color(204, 204, 255));
         rbSaida.setText("SAIDA");
 
+        DataInicial.setDateFormatString("dd'/'MM'/'yyyy");
         DataInicial.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 DataInicialPropertyChange(evt);
             }
         });
 
+        DataFinal.setDateFormatString("dd'/'MM'/'yyyy");
         DataFinal.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 DataFinalPropertyChange(evt);

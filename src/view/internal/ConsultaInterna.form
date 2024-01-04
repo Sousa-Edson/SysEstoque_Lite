@@ -158,11 +158,17 @@
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="DataInicial">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="dd&apos;/&apos;MM&apos;/&apos;yyyy"/>
+          </Properties>
           <Events>
             <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="DataInicialPropertyChange"/>
           </Events>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="DataFinal">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="dd&apos;/&apos;MM&apos;/&apos;yyyy"/>
+          </Properties>
           <Events>
             <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="DataFinalPropertyChange"/>
           </Events>
