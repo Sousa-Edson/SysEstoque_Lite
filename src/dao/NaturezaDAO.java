@@ -173,13 +173,13 @@ public class NaturezaDAO {
             pst.setInt(6, natureza.getId_referencia());
             pst.setInt(7, natureza.getId_natureza());
             System.out.println("atualizar:: "+natureza);
-//            int rowsUpdated = pst.executeUpdate();
-//
-//            if (rowsUpdated > 0) {
-//                JOptionPane.showMessageDialog(null, "Registro atualizado com sucesso.");
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Nenhum registro foi atualizado.");
-//            }
+            int rowsUpdated = pst.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Registro atualizado com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum registro foi atualizado.");
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar o registro. \n\n" + ex);
         } finally {
@@ -195,13 +195,13 @@ public class NaturezaDAO {
             pst.setInt(1, natureza.getStatus_natureza()); 
             pst.setInt(2, natureza.getId_natureza());
             System.out.println("marcarComoDeletado:: "+natureza);
-//            int rowsUpdated = pst.executeUpdate();
-//
-//            if (rowsUpdated > 0) {
-//                JOptionPane.showMessageDialog(null, "Registro marcarComoDeletado com sucesso.");
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Nenhum registro foi marcarComoDeletado.");
-//            }
+            int rowsUpdated = pst.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Registro marcarComoDeletado com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum registro foi marcarComoDeletado.");
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao marcarComoDeletado o registro. \n\n" + ex);
         } finally {
