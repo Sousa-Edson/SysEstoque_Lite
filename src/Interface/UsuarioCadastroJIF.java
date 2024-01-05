@@ -5,9 +5,6 @@
  */
 package Interface;
 
-import Interface.Principal;
-import ModeloBeans.Beans_Setor;
-import ModeloBeans.Beans_Usuario;
 import ModeloBeans.ModeloTabela;
 import ConectaBanco.ConexaoBD;
 import ModeloDao.Dao_Usuario;
@@ -16,8 +13,6 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -29,7 +24,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  */
 public class UsuarioCadastroJIF extends javax.swing.JInternalFrame {
 
-    Beans_Usuario BEANS = new Beans_Usuario();
+//    Beans_Usuario BEANS = new Beans_Usuario();
     Dao_Usuario DAO = new Dao_Usuario();
     ConexaoBD conex = new ConexaoBD();
 
@@ -82,12 +77,12 @@ public class UsuarioCadastroJIF extends javax.swing.JInternalFrame {
     }
 
     public void PreencheTabela() {
-        String TipoUsuario = Principal.jLabelTipoUsuario.getText();
-        if (TipoUsuario == "Manutenção") {
-            PreencheTabela3();
-        } else {
-            PreencheTabela2();
-        }
+//        String TipoUsuario = Principal.jLabelTipoUsuario.getText();
+//        if (TipoUsuario == "Manutenção") {
+//            PreencheTabela3();
+//        } else {
+//            PreencheTabela2();
+//        }
     }
 
     public void PreencheTabela3() {
@@ -532,22 +527,22 @@ public class UsuarioCadastroJIF extends javax.swing.JInternalFrame {
         jTextFieldNome.setEnabled(false);
         jPasswordConfirmacao.setEnabled(false);
         jPasswordSenha.setEnabled(false);
-        BEANS.setSigla_usuario((String) jComboBoxTipo.getSelectedItem());
-        BEANS.setDesc_usuario(jTextFieldNome.getText());
-        BEANS.setSenha_usuario(jPasswordSenha.getText());
+//        BEANS.setSigla_usuario((String) jComboBoxTipo.getSelectedItem());
+//        BEANS.setDesc_usuario(jTextFieldNome.getText());
+//        BEANS.setSenha_usuario(jPasswordSenha.getText());
 
         if (flag == 2) {
-            BEANS.setId_usuario(id);
-            BEANS.setStatus_usuario(2);
-            DAO.Alterar(BEANS);
+//            BEANS.setId_usuario(id);
+//            BEANS.setStatus_usuario(2);
+//            DAO.Alterar(BEANS);
         } else {
         }
-        BEANS.setStatus_usuario(1);
-        BEANS.setRegistro_usuario(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
-        BEANS.setUsuario_usuario(Principal.jLabelNomeUsuario.getText());
+//        BEANS.setStatus_usuario(1);
+//        BEANS.setRegistro_usuario(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
+//        BEANS.setUsuario_usuario(Principal.jLabelNomeUsuario.getText());
 
-        BEANS.setId_referencia(id_referencia);
-        DAO.Salvar(BEANS);
+//        BEANS.setId_referencia(id_referencia);
+//        DAO.Salvar(BEANS);
         PreencheTabela();
         jTextFieldNome.setText(null);
         jPasswordSenha.setText(null);
@@ -610,7 +605,8 @@ public class UsuarioCadastroJIF extends javax.swing.JInternalFrame {
             jButton_Novo.setEnabled(false);
             jPasswordConfirmacao.setEnabled(true);
             jPasswordSenha.setEnabled(true);
-            String TipoUsuario = Principal.jLabelTipoUsuario.getText();
+            String TipoUsuario = "";
+//                    Principal.jLabelTipoUsuario.getText();
             if (TipoUsuario == "Manutenção") {
                 id = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 7);
                 id_referencia = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 0);
@@ -655,11 +651,12 @@ public class UsuarioCadastroJIF extends javax.swing.JInternalFrame {
             jPasswordSenha.setText(null);
             jPasswordConfirmacao.setText(null);
 
-            BEANS.setUsuario_usuario(Principal.jLabelNomeUsuario.getText());
-            BEANS.setId_usuario(id);
-            BEANS.setRegistro_usuario(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
-            BEANS.setStatus_usuario(3);
-            DAO.Excluir(BEANS);
+//            BEANS.setUsuario_usuario("");
+//                    Principal.jLabelNomeUsuario.getText());
+//            BEANS.setId_usuario(id);
+//            BEANS.setRegistro_usuario(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
+//            BEANS.setStatus_usuario(3);
+//            DAO.Excluir(BEANS);
         }
         PreencheTabela();
     }//GEN-LAST:event_jButton_ExcluirActionPerformed

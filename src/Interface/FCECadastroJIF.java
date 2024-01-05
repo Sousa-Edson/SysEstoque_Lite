@@ -6,7 +6,6 @@
 //// recebe
 package Interface;
 
-import Interface.Principal;
 import ModeloBeans.Beans_ECFT;
 import ModeloBeans.ModeloTabela;
 import ConectaBanco.ConexaoBD;
@@ -26,7 +25,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  */
 public class FCECadastroJIF extends javax.swing.JInternalFrame {
 
-    Principal menu;
+    //   Principal menu;
 //    JIF_Cliente_Lista Produto_Lista;
     ConexaoBD conex = new ConexaoBD();
     Beans_ECFT BEANS = new Beans_ECFT();
@@ -720,7 +719,7 @@ public class FCECadastroJIF extends javax.swing.JInternalFrame {
     public void iniciaFormulario() {
 //        jLabel_Data_menu.setText(menu.jLabelData.getText());
         if (jLabel_Id.getText() == "novo") {
-            jLabel_Data_ent.setText(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
+//            jLabel_Data_ent.setText(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
             jTextFieldNome.setText("");
             jTextFieldDescricao.setText("");
             jFormattedTextFieldCnpj.setText("");
@@ -937,10 +936,10 @@ public class FCECadastroJIF extends javax.swing.JInternalFrame {
         BEANS.setEcft_inscricao(jTextFieldInscricao.getText());
         BEANS.setEcft_observacao(jTextArea_Observacao.getText());
         BEANS.setSis_EFCT(id_referencia);// aqui puxa referencia
-        BEANS.setEcft_usuario(Principal.jLabelNomeUsuario.getText());
+//        BEANS.setEcft_usuario(Principal.jLabelNomeUsuario.getText());
 //        BEANS.setEcft_status(jLabel_status.getText());
         BEANS.setStecft(1);
-        BEANS.setEcft_registro(Principal.jLabel_Data.getText()+" "+Principal.jLabel_Hora.getText());
+//        BEANS.setEcft_registro(Principal.jLabel_Data.getText()+" "+Principal.jLabel_Hora.getText());
     }
 
 
@@ -962,7 +961,7 @@ public class FCECadastroJIF extends javax.swing.JInternalFrame {
         jButton_Novo.setEnabled(false);
         jButton_Salvar.setEnabled(true);
         jComboBoxFC.requestFocus();
-        jLabel_Data_ent.setText(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
+//        jLabel_Data_ent.setText(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
 
         this.setTitle("Cadastro Geral [Cliente/Fornecedore/Empresa/Transportadora]    Id: " + id_referencia);
     }
@@ -1037,9 +1036,9 @@ public class FCECadastroJIF extends javax.swing.JInternalFrame {
         LimpaCampos();
 //        Principal.jLabelCodigoTela.setText("FCEListaAtualizar");
 //        Principal.jButton1.doClick();
-        Principal.jLabelCodigoTela.setText("AtualizaTudo");
-      Principal.jButton1.doClick();
-      FCEListaJIF.jButtonPesquisar.doClick();
+//        Principal.jLabelCodigoTela.setText("AtualizaTudo");
+//      Principal.jButton1.doClick();
+        FCEListaJIF.jButtonPesquisar.doClick();
 
     }//GEN-LAST:event_jButton_SalvarActionPerformed
 
@@ -1087,17 +1086,17 @@ public class FCECadastroJIF extends javax.swing.JInternalFrame {
         resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir/ativar ? ");
         if (resposta == JOptionPane.YES_OPTION) {
             BEANS.setStecft(3);
-            BEANS.setEcft_usuario(Principal.jLabelNomeUsuario.getText());
-            BEANS.setEcft_registro(Principal.jLabel_Data.getText());
+//            BEANS.setEcft_usuario(Principal.jLabelNomeUsuario.getText());
+//            BEANS.setEcft_registro(Principal.jLabel_Data.getText());
             BEANS.setEcft_id(Integer.parseInt(jLabel_Id.getText()));
             DAO.Excluir(BEANS);
             jButton_Novo.setEnabled(true);
             jButton_Salvar.setEnabled(false);
             jButton_Excluir.setEnabled(false);
-            Principal.jLabelCodigoTela.setText("FCEListaAtualizar");
-            Principal.jButton1.doClick();
-            Principal.jLabelCodigoTela.setText("FechaFCECadastroEditar");
-            Principal.jButton1.doClick();
+//            Principal.jLabelCodigoTela.setText("FCEListaAtualizar");
+//            Principal.jButton1.doClick();
+//            Principal.jLabelCodigoTela.setText("FechaFCECadastroEditar");
+//            Principal.jButton1.doClick();
         }
 
 //        iniciaFormulario();
@@ -1645,7 +1644,8 @@ public class FCECadastroJIF extends javax.swing.JInternalFrame {
 
     public void AjustaMeuTelefone() {
         String s = jFormattedTextFieldTelefone.getText().replace("-", "").replace("(", "").replace(")", "").replace(".", "");
-        if (s.isEmpty()) { jFormattedTextFieldTelefone.setBackground(Color.white);
+        if (s.isEmpty()) {
+            jFormattedTextFieldTelefone.setBackground(Color.white);
         } else if (s.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
             System.out.println("Ajuste deu ................................ERRRROOOOOOOO");
             jFormattedTextFieldTelefone.setBackground(Color.red);

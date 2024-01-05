@@ -5,15 +5,12 @@
  */
 package Sistema;
 
-import Interface.Principal;
-import view.internal.ProdutoCadastroJIF;
-
 /**
  *
  * @author edson
  */
 public class ClassChamaCadastroProduto {
-     Principal menu;
+   
   
     
   

@@ -5,16 +5,14 @@
  */
 package Interface;
 
-import Interface.Principal;
 import ModeloBeans.Beans_Natureza;
-import ModeloBeans.Beans_Unidade;
 import ModeloBeans.ModeloTabela;
 import ConectaBanco.ConexaoBD;
 import ModeloDao.Dao_Natureza;
-import ModeloDao.Dao_Unidade;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -83,7 +81,7 @@ public class NaturezaCadastroJIF extends javax.swing.JInternalFrame {
     }
 
     public void PreencheTabela() {
-        String TipoUsuario = Principal.jLabelTipoUsuario.getText();
+        String TipoUsuario = "";  //.jLabelTipoUsuario.getText();
         if (TipoUsuario == "Manutenção") {
             PreencheTabela2();
         } else {
@@ -439,7 +437,7 @@ public class NaturezaCadastroJIF extends javax.swing.JInternalFrame {
         jTextField_Descricao.setEnabled(false);
         beans.setTipo_natureza((String) JCTipo.getSelectedItem());
         beans.setDesc_natureza(jTextField_Descricao.getText());
-        beans.setUsuario_natureza(Principal.jLabelNomeUsuario.getText());
+        beans.setUsuario_natureza("");  //.jLabelNomeUsuario.getText());
         if (flag == 2) {
             beans.setId_natureza(id_unidade);
             beans.setStatus_natureza(2);
@@ -447,7 +445,7 @@ public class NaturezaCadastroJIF extends javax.swing.JInternalFrame {
         } else {
         }
         beans.setStatus_natureza(1);
-        beans.setRegistro_natureza(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
+        beans.setRegistro_natureza("");  //.jLabel_Data.getText() + " " + "");  //.jLabel_Hora.getText());
 
         beans.setId_referencia(id_referencia);
         dao.Salvar(beans);
@@ -494,7 +492,8 @@ public class NaturezaCadastroJIF extends javax.swing.JInternalFrame {
             jButton_Salvar.setEnabled(true);
             jButton_Excluir.setEnabled(true);
             jButton_Novo.setEnabled(false);
-            String TipoUsuario = Principal.jLabelTipoUsuario.getText();
+            String TipoUsuario = "";
+//            Principal.jLabelTipoUsuario.getText();
             if (TipoUsuario == "Manutenção") {
                 id_unidade = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 6);
                 id_referencia = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 0);
@@ -521,8 +520,8 @@ public class NaturezaCadastroJIF extends javax.swing.JInternalFrame {
 
         JCTipo.setSelectedItem("ENTRADA");
         beans.setStatus_natureza(3);
-        beans.setUsuario_natureza(Principal.jLabelNomeUsuario.getText());
-        beans.setRegistro_natureza(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
+//        beans.setUsuario_natureza(Principal.jLabelNomeUsuario.getText());
+//        beans.setRegistro_natureza(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
         beans.setId_natureza(id_unidade);
         dao.Excluir(beans);
         PreencheTabela();

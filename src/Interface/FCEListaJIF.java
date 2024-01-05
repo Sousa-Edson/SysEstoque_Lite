@@ -6,20 +6,13 @@
 package Interface;
 
 import ConectaBanco.ConexaoBD;
-import static Interface.Principal.jButton1;
 import ModeloBeans.ModeloTabela;
 import Sistema.ClassChamaCadastroProduto;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
-import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -32,7 +25,7 @@ public class FCEListaJIF extends javax.swing.JInternalFrame {
 
     ConexaoBD conex = new ConexaoBD();
     ClassChamaCadastroProduto tela = new ClassChamaCadastroProduto();
-    Principal menu;
+//    Principal menu;
     String UnProd;
     String SelecionaProduto;
 
@@ -241,16 +234,17 @@ public class FCEListaJIF extends javax.swing.JInternalFrame {
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
 //        BuscaUltimaId();
-        Principal.jLabelCodigoTela2.setText("novo");
-        Principal.jLabelCodigoTela.setText("FCECadastro");
-        Principal.jButton1.doClick();
+//        Principal.jLabelCodigoTela2.setText("novo");
+//        Principal.jLabelCodigoTela.setText("FCECadastro");
+//        Principal.jButton1.doClick();
         jButtonEditar.setEnabled(false);
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
     private void jTable_ProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ProdutoMouseClicked
         if (evt.getButton() == MouseEvent.BUTTON3) {
         } else {
-            String TipoUsuario = Principal.jLabelTipoUsuario.getText();
+            String TipoUsuario ="";
+//                    Principal.jLabelTipoUsuario.getText();
             int Clique = 1;
 
             jButtonEditar.setEnabled(true);
@@ -258,17 +252,17 @@ public class FCEListaJIF extends javax.swing.JInternalFrame {
                 SelecionaProduto = "" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 8);
                 System.out.println("seleciona produto " + SelecionaProduto);
                 if (evt.getClickCount() == 2) {
-                    Principal.jLabelCodigoTela2.setText(SelecionaProduto);
-                    Principal.jLabelCodigoTela.setText("Exibir");
-                    Principal.jButton1.doClick();
+//                    Principal.jLabelCodigoTela2.setText(SelecionaProduto);
+//                    Principal.jLabelCodigoTela.setText("Exibir");
+//                    Principal.jButton1.doClick();
                 }
             } else {
                 SelecionaProduto = "" + jTable_Produto.getValueAt(jTable_Produto.getSelectedRow(), 7);
                 System.out.println("seleciona produto " + SelecionaProduto);
                 if (evt.getClickCount() == 2) {
-                    Principal.jLabelCodigoTela2.setText(SelecionaProduto);
-                    Principal.jLabelCodigoTela.setText("Exibir");
-                    Principal.jButton1.doClick();
+//                    Principal.jLabelCodigoTela2.setText(SelecionaProduto);
+//                    Principal.jLabelCodigoTela.setText("Exibir");
+//                    Principal.jButton1.doClick();
                 }
             }
         }
@@ -276,9 +270,9 @@ public class FCEListaJIF extends javax.swing.JInternalFrame {
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
 
-        Principal.jLabelCodigoTela2.setText(SelecionaProduto);
-        Principal.jLabelCodigoTela.setText("FCECadastroEditar");
-        Principal.jButton1.doClick();
+//        Principal.jLabelCodigoTela2.setText(SelecionaProduto);
+//        Principal.jLabelCodigoTela.setText("FCECadastroEditar");
+//        Principal.jButton1.doClick();
         jButtonEditar.setEnabled(false);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
@@ -294,7 +288,7 @@ public class FCEListaJIF extends javax.swing.JInternalFrame {
     }
 
     public void EventoBuscar() {
-        String TipoUsuario = Principal.jLabelTipoUsuario.getText();
+        String TipoUsuario = ""; //Principal.jLabelTipoUsuario.getText();
         if (TipoUsuario == "Manutenção") {
             preencherTabela();
         } else {
