@@ -23,31 +23,31 @@ public class ConsultaInternaDao {
 //        conex = new ConexaoBD();
     }
 
-    public List<Object[]> getMovimentos(String operacao, String INI2, String FIM2,String busca) {
+    public List<Object[]> getMovimentos(String operacao, String INI2, String FIM2, String busca) {
         String variaveis = "  ";
 
         if (operacao.length() > 1) {
-            variaveis = variaveis + " AND nota_operacao = '" + operacao+"'";
+            variaveis = variaveis + " AND nota_operacao = '" + operacao + "'";
         }
-        
-        if(INI2.length() >1){
-          variaveis = variaveis + " AND datavariavel >= '" + INI2+"'";
+
+        if (INI2.length() > 1) {
+            variaveis = variaveis + " AND datavariavel >= '" + INI2 + "'";
         }
-        if(FIM2.length() >1){
-          variaveis = variaveis + " AND datavariavel <= '" + FIM2+"'";
+        if (FIM2.length() > 1) {
+            variaveis = variaveis + " AND datavariavel <= '" + FIM2 + "'";
         }
-        if(busca.length() > 1){
-        variaveis = variaveis+ " AND (\n" +
-"    COALESCE(CONCAT(id_prod, ' ', tipo_prod, ' ', nome_prod, ' ', edicao_prod), '') ||\n" +
-"    ' ' ||\n" +
-"    COALESCE(ecft_nome, '') ||\n" +
-"    ' ' ||\n" +
-"    COALESCE(sigla_unidade, '') ||\n" +
-"    ' ' ||\n" +
-"    COALESCE(nota_observacao, '')\n" +
-") ILIKE '%"+busca+"%' ";
+        if (busca.length() > 1) {
+            variaveis = variaveis + " AND (\n"
+                    + "    COALESCE(CONCAT(id_prod, ' ', tipo_prod, ' ', nome_prod, ' ', edicao_prod), '') ||\n"
+                    + "    ' ' ||\n"
+                    + "    COALESCE(ecft_nome, '') ||\n"
+                    + "    ' ' ||\n"
+                    + "    COALESCE(sigla_unidade, '') ||\n"
+                    + "    ' ' ||\n"
+                    + "    COALESCE(nota_observacao, '')\n"
+                    + ") ILIKE '%" + busca + "%' ";
         }
-        
+
         System.out.println(variaveis);
         ConexaoBD conex = new ConexaoBD();
         conex.conexao();

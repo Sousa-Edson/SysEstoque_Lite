@@ -5,6 +5,7 @@
 package controller;
 
 import dao.ProdutoDao;
+import enums.SituacaoEnum;
 import enums.TipoMovimentacao;
 import view.dialog.JDialogBuscaProduto;
 import view.dialog.JDialogComplementar;
@@ -208,77 +209,79 @@ public class MovimentoCadastroController {
     }
 
     public void salvarNota(NotaCadastroJIF form) {
-        if (form.getTxtNota().getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Campo nota não pode estar vazio!");
-        } else if (form.getDataNota().getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Campo data não pode estar vazio!");
-        } else if (itens.size() <= 0) {
-            JOptionPane.showMessageDialog(null, "Não exitem itens a serem salvos!");
+
+        if (notaFiscal.getId_nota() != 0) {
+
+            Object[] options = {"Confirmar", "Cancelar"};
+            if (JOptionPane.showOptionDialog(null, "Deseja realmente gerar uma cópia de  #" + notaFiscal.getId_nota(),
+                    "Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                    null, options, options[1]) == 0) {
+                // Gerar um código aleatório
+                String codigoDeConfirmacaoAleatorio = GeradorCodigoAleatorio.gerarCodigoAleatorio(4);
+                // Exibir um JOptionPane para obter o código
+                String codigoDeConfirmacao = JOptionPane.showInputDialog(null,
+                        "Insira o código de 4 caracteres: " + codigoDeConfirmacaoAleatorio + "  ",
+                        "Confirmação", JOptionPane.WARNING_MESSAGE);
+                // Comparar os códigos
+                if (codigoDeConfirmacao != null && codigoDeConfirmacao.length() == 4
+                        && codigoDeConfirmacao.equals(codigoDeConfirmacaoAleatorio)) {
+                    notaFiscal.setId_nota(0);
+                    form.getBtnExcluir().setEnabled(false);
+                    form.getBtnSalvar().setText("Salvar");
+                    JOptionPane.showMessageDialog(null, "Cópia gerada com sucesso.");
+                    iniciandoFormulario(form, true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Código incorreto ou invalido.");
+                }
+            }
         } else {
 
-            notaFiscal.setNota_observacao(LimiteCaracteres.limitarString(form.getTxtAreaObservacao().getText().toUpperCase(), 300));
-            notaFiscal.setNota_nota(LimiteCaracteres.limitarString(form.getTxtNota().getText().toUpperCase(), 30));
-            notaFiscal.setNota_chave(LimiteCaracteres.limitarString(form.getTxtChave().getText().toUpperCase(), 60));
-
-            notaFiscal.setCliente((Cliente) form.getCbCliente().getSelectedItem());
-            notaFiscal.setNatureza((Natureza) form.getCbNatureza().getSelectedItem());
-
-            notaFiscal.setNota_hora(ValidarHora.validarHoraRetorno(form.getTxtHora().getText()));
-            notaFiscal.setNota_data(FormatarData.formatarData(form.getDataNota().getDate()));
-            notaFiscal.setDatavariavel(FormatarData.formatarData(form.getDataNota().getDate()));
-
-            notaFiscal.setNota_situacao("em preparação");// criar um enum para isso       
-            notaFiscal.setNota_operacao("" + (TipoMovimentacao) form.getCbTipoMovimentacao().getSelectedItem());// criar um enum para isso
-            System.out.println("OP:: " + notaFiscal.getNota_operacao());
-
-            TransporteModel transporteModel = new TransporteModel();
-            transporteModel.setMotorista(LimiteCaracteres.limitarString(form.getTxtMotorista().getText().toUpperCase(), 160));
-            transporteModel.setPlaca(LimiteCaracteres.limitarString(form.getTxtPlaca().getText().toUpperCase(), 10));
-            transporteModel.setUf(LimiteCaracteres.limitarString(form.getTxtUf().getText().toUpperCase(), 10));
-            transporteModel.setQuantidade(LimiteCaracteres.limitarString(form.getTxtVolQuantidade().getText().toUpperCase(), 100));
-            transporteModel.setPesobruto(LimiteCaracteres.limitarString(form.getTxtPesoBruto().getText().toUpperCase(), 100));
-            transporteModel.setPesoliquido(LimiteCaracteres.limitarString(form.getTxtPesoLiquido().getText().toUpperCase(), 100));
-            transporteModel.setNumeracao(LimiteCaracteres.limitarString(form.getTxtVolNumeracao().getText().toUpperCase(), 100));
-            transporteModel.setEspecie(LimiteCaracteres.limitarString(form.getTxtVolEspecie().getText().toUpperCase(), 100));
-
-            notaFiscal.setTransporteModel(transporteModel);
-
-            double totalDaNota = 0.0;
-            for (Item iten : itens) {
-                double totalDoItem = iten.getQtd_prod() * iten.getValor_real();
-                totalDaNota = totalDaNota + totalDoItem;
-
-            }
-            notaFiscal.setNota_total(FormatarDinheiro.formatarDinheiro(totalDaNota));
-
-            notaFiscal.setItens(itens);
-            System.out.println("###\n\n" + notaFiscal);
-
-            if (notaFiscal.getId_nota() != 0) {
-
-                Object[] options = {"Confirmar", "Cancelar"};
-                if (JOptionPane.showOptionDialog(null, "Deseja realmente gerar uma cópia de  #" + notaFiscal.getId_nota(),
-                        "Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                        null, options, options[1]) == 0) {
-                    // Gerar um código aleatório
-                    String codigoDeConfirmacaoAleatorio = GeradorCodigoAleatorio.gerarCodigoAleatorio(4);
-                    // Exibir um JOptionPane para obter o código
-                    String codigoDeConfirmacao = JOptionPane.showInputDialog(null,
-                            "Insira o código de 4 caracteres: " + codigoDeConfirmacaoAleatorio + "  ",
-                            "Confirmação", JOptionPane.WARNING_MESSAGE);
-                    // Comparar os códigos
-                    if (codigoDeConfirmacao != null && codigoDeConfirmacao.length() == 4
-                            && codigoDeConfirmacao.equals(codigoDeConfirmacaoAleatorio)) {
-                        notaFiscal.setId_nota(0);
-                        form.getBtnExcluir().setEnabled(false);
-                        form.getBtnSalvar().setText("Salvar");
-                        JOptionPane.showMessageDialog(null, "Cópia gerada com sucesso.");
-                        iniciandoFormulario(form, true);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Código incorreto ou invalido.");
-                    }
-                }
+            if (form.getTxtNota().getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Campo nota não pode estar vazio!");
+            } else if (form.getDataNota().getDate() == null) {
+                JOptionPane.showMessageDialog(null, "Campo data não pode estar vazio!");
+            } else if (itens.size() <= 0) {
+                JOptionPane.showMessageDialog(null, "Não exitem itens a serem salvos!");
             } else {
+
+                notaFiscal.setNota_observacao(LimiteCaracteres.limitarString(form.getTxtAreaObservacao().getText().toUpperCase(), 300));
+                notaFiscal.setNota_nota(LimiteCaracteres.limitarString(form.getTxtNota().getText().toUpperCase(), 30));
+                notaFiscal.setNota_chave(LimiteCaracteres.limitarString(form.getTxtChave().getText().toUpperCase(), 60));
+
+                notaFiscal.setCliente((Cliente) form.getCbCliente().getSelectedItem());
+                notaFiscal.setNatureza((Natureza) form.getCbNatureza().getSelectedItem());
+
+                notaFiscal.setNota_hora(ValidarHora.validarHoraRetorno(form.getTxtHora().getText()));
+                notaFiscal.setNota_data(FormatarData.formatarData(form.getDataNota().getDate()));
+                notaFiscal.setDatavariavel(FormatarData.formatarData(form.getDataNota().getDate()));
+
+                notaFiscal.setNota_situacao(SituacaoEnum.CALCULADO.getNome());// criar um enum para isso       
+                notaFiscal.setNota_operacao("" + (TipoMovimentacao) form.getCbTipoMovimentacao().getSelectedItem());// criar um enum para isso
+                System.out.println("OP:: " + notaFiscal.getNota_operacao());
+
+                TransporteModel transporteModel = new TransporteModel();
+                transporteModel.setMotorista(LimiteCaracteres.limitarString(form.getTxtMotorista().getText().toUpperCase(), 160));
+                transporteModel.setPlaca(LimiteCaracteres.limitarString(form.getTxtPlaca().getText().toUpperCase(), 10));
+                transporteModel.setUf(LimiteCaracteres.limitarString(form.getTxtUf().getText().toUpperCase(), 10));
+                transporteModel.setQuantidade(LimiteCaracteres.limitarString(form.getTxtVolQuantidade().getText().toUpperCase(), 100));
+                transporteModel.setPesobruto(LimiteCaracteres.limitarString(form.getTxtPesoBruto().getText().toUpperCase(), 100));
+                transporteModel.setPesoliquido(LimiteCaracteres.limitarString(form.getTxtPesoLiquido().getText().toUpperCase(), 100));
+                transporteModel.setNumeracao(LimiteCaracteres.limitarString(form.getTxtVolNumeracao().getText().toUpperCase(), 100));
+                transporteModel.setEspecie(LimiteCaracteres.limitarString(form.getTxtVolEspecie().getText().toUpperCase(), 100));
+
+                notaFiscal.setTransporteModel(transporteModel);
+
+                double totalDaNota = 0.0;
+                for (Item iten : itens) {
+                    double totalDoItem = iten.getQtd_prod() * iten.getValor_real();
+                    totalDaNota = totalDaNota + totalDoItem;
+
+                }
+                notaFiscal.setNota_total(FormatarDinheiro.formatarDinheiro(totalDaNota));
+
+                notaFiscal.setItens(itens);
+                System.out.println("###\n\n" + notaFiscal);
+
                 System.out.println("itens.size():: " + itens.size());
                 notaFiscalService.adicionarNotaFiscal(notaFiscal);
                 form.dispose();

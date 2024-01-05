@@ -21,11 +21,10 @@ public class ExpedicaoTableModel extends AbstractTableModel {
 
     public ExpedicaoTableModel() {
         this.lista = new ArrayList<>();
-        // Adicione dados de exemplo se necessário
     }
 
-    public void setMovimentos(List<ExpedicaoModel> movimentos) {
-        this.lista = movimentos;
+    public void setMovimentos(List<ExpedicaoModel> listaExpedicao) {
+        this.lista = listaExpedicao;
         fireTableDataChanged();
     }
 
@@ -62,7 +61,7 @@ public class ExpedicaoTableModel extends AbstractTableModel {
             case 5:
                 return expedicaoModel.getProduto().getTipo_prod() + " " + expedicaoModel.getProduto().getNome_prod() + " " + expedicaoModel.getProduto().getEdicao_prod() + "";
             case 6:
-                return FormatarNumero.formatarNumero(expedicaoModel.getQtd_mov());
+                return FormatarNumero.formatarNumero(expedicaoModel.getQtd_prod());
             case 7:
                 return expedicaoModel.getProduto().getUnidade().getSigla_unidade();
             case 8:

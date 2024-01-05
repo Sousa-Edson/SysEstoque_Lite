@@ -12,8 +12,9 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 public class ConsultaTableModel extends AbstractTableModel {
-private List<Object[]> data;
-    private List<String> columnNames;
+
+    private final List<Object[]> data;
+    private final List<String> columnNames;
 
     public ConsultaTableModel(List<Object[]> data, List<String> columnNames) {
         this.data = data;
@@ -39,7 +40,6 @@ private List<Object[]> data;
     public String getColumnName(int column) {
         return columnNames.get(column);
     }
-  //{"OS", "Situação", "Cliente","Documento", "Descrição", "Quantidade",  "Unidade","Complemento", "Data",  "Observação"};
-        
-    
+    //{"#", "DATA","OPERAÇÃO","Situação", "Cliente","Documento","ID PRODUTO",  "Descrição", "Quantidade",  "Unidade","Complemento",  "Observação"};
+
 }

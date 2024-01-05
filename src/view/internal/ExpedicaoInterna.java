@@ -30,6 +30,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 //import static Interface.Principal.MenuPrincipal.Painel_principal;
 import Sistema.ManipulaProtocolo;
+import controller.ExpedicaoInternaController;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import view.MenuPrincipal;
@@ -44,12 +45,13 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
     ConexaoBD conex = new ConexaoBD();
     Principal menu;
     JDialogExpedicao TelaNotaExSai;
-    ManipulaProtocolo prot = new ManipulaProtocolo(); 
+    ManipulaProtocolo prot = new ManipulaProtocolo();
 
     String CLASS = "";
     int selecao;
     String selecao_id;
     String MinhaIdNota;
+    ExpedicaoInternaController expedicaoInternaController = new ExpedicaoInternaController();
 
     public ExpedicaoInterna() {
         initComponents();
@@ -57,6 +59,8 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
         jButton2.setVisible(false);
         jButton_Fechar.setVisible(false);
         jLabel_Expedicao.setVisible(false);
+
+        expedicaoInternaController.preencheTabela(this);
     }
 
     /**
@@ -69,7 +73,7 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableListaProduto = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton_Fechar = new javax.swing.JButton();
@@ -117,7 +121,7 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
             }
         });
 
-        jTableListaProduto.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -128,22 +132,22 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
 
             }
         ));
-        jTableListaProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+        tabela.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableListaProdutoFocusGained(evt);
+                tabelaFocusGained(evt);
             }
         });
-        jTableListaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableListaProdutoMouseClicked(evt);
+                tabelaMouseClicked(evt);
             }
         });
-        jTableListaProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+        tabela.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTableListaProdutoKeyPressed(evt);
+                tabelaKeyPressed(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableListaProduto);
+        jScrollPane1.setViewportView(tabela);
 
         jButton2.setText("Exibir tudo");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -299,155 +303,32 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTableListaProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableListaProdutoFocusGained
+    private void tabelaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tabelaFocusGained
 //        atual = 1;
 //        if (atual == 2) {
 //            atualizarTabela();
 //        } else {
 //        }
 
-    }//GEN-LAST:event_jTableListaProdutoFocusGained
-    public void AbreNota() {
-//        selecaod = (int) jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 7);
-        System.out.println("selecaod " + MinhaIdNota);
-        MenuPrincipal.jLabelCodigoTela2.setText(String.valueOf(MinhaIdNota));
-        MenuPrincipal.jLabelCodigoTela.setText("MovimentoCadastroEditar");
-        MenuPrincipal.jButton1.doClick(); 
-    }
-
-    public void CorNaLinhaSelecionada() {
-        CLASS = "" + jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 0);
-        jTableListaProduto
-                .setDefaultRenderer(Object.class,
-                        new DefaultTableCellRenderer() {
-                    @Override
-                    public Component getTableCellRendererComponent(JTable table, Object value,
-                            boolean isSelected, boolean hasFocus, int row, int column) {
-                        JLabel label = (JLabel) super.getTableCellRendererComponent(table, value,
-                                isSelected, hasFocus, row, column);
-                        //******************************************************************************
-
-                        Color c = Color.BLACK;
-                        Object texto = table.getValueAt(row, 0);
-
-                        if (texto != null && CLASS.equals(texto.toString())) {
-                            c = Color.blue;
-                            label.setBackground(c);
-//                            jTableListaProduto.setSelectionForeground(Color.red);
-                            jTableListaProduto.setSelectionForeground(BLACK);
-                        } else {
-                            label.setBackground(c);
-                            label.setBackground(java.awt.Color.WHITE);
-                            jTableListaProduto.setSelectionForeground(BLACK);
-                        }
-
-                        //******************************************************************************
-                        return label;
-                    }
-
-                });
-    }
+    }//GEN-LAST:event_tabelaFocusGained
 
 
-    private void jTableListaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaProdutoMouseClicked
-        CorNaLinhaSelecionada();
-        selecao = (int) jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 0);
-        selecao_id = String.valueOf(selecao);
-        MinhaIdNota = "" + jTableListaProduto.getValueAt(jTableListaProduto.getSelectedRow(), 9);
-        System.err.println("selecao = (int)     " + selecao + "         " + selecao_id);
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+
         if (evt.getClickCount() == 2) {
-
-            if (jLabel_Expedicao.getText().equals("Ver Nota")) {
-                AbreNota();
-            } else if (jLabel_Expedicao.getText().equals("Ver Expedição")) {
-//            JOptionPane.showMessageDialog(rootPane, "Ver Expedição");
-                abre_Expedicao();
-            } else if (jLabel_Expedicao.getText().equals("Protocolo")) {
-//            JOptionPane.showMessageDialog(rootPane, "Protocolo");
-                abre_Protocolo();
-            } else if (jLabel_Expedicao.getText().equals("Ver Relatorio")) {
-                MinhaIdNota = String.valueOf(selecao_id);
-                prot.RecebeMInhaOs(MinhaIdNota, "", "", "");
-                prot.chamaRelatorio(); 
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Erro");
-            }
-
-        } 
-    }//GEN-LAST:event_jTableListaProdutoMouseClicked
- 
-    public void abre_Protocolo() {
-        if (selecao_id == "Id mov") {
-            JOptionPane.showMessageDialog(rootPane, "SELECIONE UM ITEM NA LISTA.");
-        } else {
-            if (jCheckBoxMenuItem_Protocolo_Preto.isSelected()) {
-                MinhaIdNota = String.valueOf(selecao_id);
-                prot.RecebeMInhaOs(MinhaIdNota, "", "", "");
-                prot.chamaProtocoloPreto();
-            } else if (jCheckBoxMenuItem_Protocolo_Branco.isSelected()) {
-                MinhaIdNota = String.valueOf(selecao_id);
-                prot.RecebeMInhaOs(MinhaIdNota, "", "", "");
-                prot.chamaProtocoloBranco();
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Escolha um para abrir");
-            }
-
-//            if (jComboBox_tipo.getSelectedItem() == "PRETO") {
-//                chama_Protocolo_Preto();
-//            } else if (jComboBox_tipo.getSelectedItem() == "BRANCO") {
-//                chama_Protocolo_Branco();
-//            } else {
-//                JOptionPane.showMessageDialog(rootPane, "Escolha um para abrir");
-//            }
+            selecao = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
+            selecao_id = String.valueOf(selecao);
+            abre_Expedicao();
         }
-        selecao_id = ("Id mov");
-    }
-
-    public void chama_Protocolo_Branco() {
-//        MinhaIdNota = String.valueOf(selecao_id);
-//        prot.RecebeMInhaOs(MinhaIdNota, menu.jLabel_IdEmpresa.getText(), menu.jLabel_Usuario.getText(), "");
-//        prot.VerificaProtocolo();
-//        prot.chamaRelatorio2();
-    }
-
-    public void chama_Protocolo_Preto() {
-//        MinhaIdNota = String.valueOf(selecao_id);
-////        jButton_Imprimir.setEnabled(!true);
-//
-//        prot.RecebeMInhaOs(MinhaIdNota, menu.jLabel_IdEmpresa.getText(), menu.jLabel_Usuario.getText(), "");
-//        prot.VerificaProtocolo();
-//        prot.chamaRelatorio();
-
-    }
+    }//GEN-LAST:event_tabelaMouseClicked
 
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ExibeTudo();
+
     }//GEN-LAST:event_jButton2ActionPerformed
-    public void ExibeTudo() {
-        if (jCheckBoxMenuItem_cor.isSelected()) {
-            System.err.println("- ExibeTudo- cor na linha sim selecionado");
-          
-        } else {
-            System.err.println("- ExibeTudo- cor na linha não selecionado");
-        }
-//        CorNaLinha();
-//        String texto = "SAIDA";
-        preencherTabela("SELECT id_nota, nota_documento, nota_nota, nota_data,nota_situacao,ecft_nome,tipo_prod, nome_prod, edicao_prod,\n"
-                + " sigla_unidade,nota_observacao,id_referencianota,qtd_mov, qtd_prod, qtd_prod_ex, \n" +
-"                qtd_calc, qtd_calc_ex,nota_hora ,complemento_mov,destino_mov,desc_unidade\n"
-                + "  FROM movprodutobase\n"
-                + "  inner join nota on nota_mov = id_referencianota\n"
-                + "  inner join produto on id_prod_ent = sis_prod\n"
-                + "  inner join ecft as cl on sis_ecft=fornecedorint\n"
-                + "   inner join unidade on id_referenciaunidade=idunid\n"
-                + "   inner join natureza on id_referencianatureza=naturezaint\n"
-                + "                  where stnota=1 and stmovimento=1 and stprod =1 and cl.stecft =1  and stunid =1 and stnat =1 and \n"
-                + "                tipo_natureza='SAIDA'   order by datavariavel asc , id_referencianota asc");
- 
-    }
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        atualizarTabela();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
@@ -487,15 +368,15 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
-        atualizarTabela();
+
     }//GEN-LAST:event_jButton1FocusGained
 
-    private void jTableListaProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableListaProdutoKeyPressed
+    private void tabelaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaKeyPressed
         if (evt.getKeyCode() == evt.VK_ESCAPE) {
             fecha_form();
             this.dispose();
         }
-    }//GEN-LAST:event_jTableListaProdutoKeyPressed
+    }//GEN-LAST:event_tabelaKeyPressed
 
     private void jCheckBoxMenuItem_ExpedicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem_ExpedicaoActionPerformed
         if (jCheckBoxMenuItem_Expedicao.isSelected()) {
@@ -578,13 +459,13 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        ExibeTudo();
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        atualizarTabela();
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
- 
+
     public void abre_Expedicao() {
         TelaNotaExSai = new JDialogExpedicao(menu, rootPaneCheckingEnabled);
         if (TelaNotaExSai == null) {
@@ -599,157 +480,6 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
 
     }
 
-      public void atualizarTabela() {
-        if (jCheckBoxMenuItem_cor.isSelected()) {
-            System.err.println("- ExibeTudo- cor na linha sim selecionado");
-             
-        } else {
-            System.err.println("- ExibeTudo- cor na linha não selecionado");
-        }
-        //  
-
-        preencherTabela("SELECT id_nota, nota_documento, nota_nota, nota_data,nota_situacao,ecft_nome,tipo_prod, nome_prod, edicao_prod,\n"
-                + "sigla_unidade,nota_observacao,id_referencianota,qtd_mov, qtd_prod, qtd_prod_ex, \n" +
-"                qtd_calc, qtd_calc_ex,nota_hora ,complemento_mov,destino_mov,desc_unidade\n"
-                + "  FROM movprodutobase\n"
-                + "  inner join nota on nota_mov = id_referencianota\n"
-                + "  inner join produto on id_prod_ent = sis_prod\n"
-                + "  inner join ecft as cl on sis_ecft=fornecedorint\n"
-                + "   inner join unidade on id_referenciaunidade=idunid\n"
-                + "   inner join natureza on id_referencianatureza=naturezaint\n"
-                + "                  where stnota=1 and stmovimento=1 and stprod =1 and cl.stecft =1  and stunid =1 and stnat =1 and \n"
-                + "                tipo_natureza='SAIDA'and tipo_natureza='SAIDA'  and  nota_situacao!='4-ENVIADO'and nota_situacao!='5-DEVOLVIDO'  order by datavariavel asc , id_referencianota asc");
-
-    }/// sis_ecft
-
-    
-    public void preencherTabela(String Sql) {
-        ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{"OS", "Data", "Situação", "Cliente", "Descrição", "Quantidade",
-            "Unidade", "Documento", "Observação", "IdNota"};
-        Double qtd;
-        String qtd_u;
-        conex.conexao();
-        conex.executaSql(Sql);
-
-        try {
-            conex.rs.first();
-            do {
-                ////conex.rs.getString("qtd_mov")
-                qtd = (conex.rs.getDouble("qtd_prod"));
-//                qtd_u = String.valueOf(qtd).replace(".", ",").replace(",0", "");
-                qtd_u = String.valueOf(qtd).trim();
-
-                String texto = (String.valueOf(conex.rs.getDouble("qtd_prod")));
-                double comDecimal = (Double.parseDouble(texto));
-                double semDecimal = (Double.parseDouble(texto));
-                DecimalFormat df = new DecimalFormat("##.###");
-                System.out.println(df.format(comDecimal));
-                System.out.println(df.format(semDecimal));
-//                String saida = (df.format(semDecimal));
-                String saida;
-                String descricao;// 
-                String edicao = conex.rs.getString("edicao_prod");
-//                String guia = conex.rs.getString("guia");
-                String datahora = conex.rs.getString("nota_data") + " " + conex.rs.getString("nota_hora");
-                String complemento = conex.rs.getString("complemento_mov"); // complemento_mov,destino_mov
-                String destino = conex.rs.getString("destino_mov");
-
-//                 MeuTotal = (conex_MeuTotal.rs.getString("qtd_prod"));
-//            MeuValor = (conex_MeuTotal.rs.getString("valor_real"));
-//            System.err.println("PreencherMeuTotal()                  INICIO " + MeuValor);
-                Double num4 = Double.parseDouble(String.valueOf(qtd));
-                BigDecimal dfa = new BigDecimal(num4);
-                NumberFormat nfa = NumberFormat.getInstance();
-                nfa.setMinimumFractionDigits(3);
-                String FormatoReala = nfa.format(dfa);
-
-                FormatoReala = FormatoReala.replace(",000", "");
-                saida = FormatoReala;
-
-                if (edicao.equals(null) | edicao.equals("") | edicao.equals(" ")) {
-                    edicao = "";
-                } else {
-                    edicao = " N° " + edicao;
-                }
-//                if (guia.equals(null) | guia.equals("") | guia.equals(" ")) {
-//                    guia = "";
-//                } else {
-//                    guia = " [ Guia N° " + guia + " ]";
-//                }
-                if (complemento.equals(null) | complemento.equals("") | complemento.equals(" ")) {
-                    complemento = "";
-                } else {
-                    complemento = " " + complemento;
-                }
-                if (destino.equals(null) | destino.equals("") | destino.equals(" ")) {
-                    destino = "";
-                } else {
-                    destino = " " + destino;
-                }
-                descricao = " " + conex.rs.getString("tipo_prod") + " " + conex.rs.getString("nome_prod") + edicao + complemento + destino;
-                descricao = descricao.toUpperCase();
-                String DocumentoNumero = conex.rs.getString("nota_documento") + " " + conex.rs.getString("nota_nota");
-                String TesteDefinido = conex.rs.getString("nota_documento");
-                if (TesteDefinido.equals("Não definido")) {
-                    DocumentoNumero = "Não definido";
-                    System.out.println("Não definido         " + descricao);
-                } else {
-                    DocumentoNumero = DocumentoNumero;
-                    System.out.println("Definido            " + descricao);
-                }
-                dados.add(new Object[]{conex.rs.getInt("id_referencianota"), conex.rs.getString("nota_data"),
-                    conex.rs.getString("nota_situacao"), conex.rs.getString("ecft_nome"),
-                    descricao, saida, conex.rs.getString("desc_unidade"),
-                    DocumentoNumero, conex.rs.getString("nota_observacao"), conex.rs.getString("id_nota")
-                });
-                //alterardo por edson//
-
-            } while (conex.rs.next());
-        } catch (SQLException ex) {
-            System.out.println("SQLException ex " + ex);
-
-        }
-        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-//        modelo.setNumRows(0);
-//        TableCellRenderer tcr = new Colorir();
-//        TableColumn column = jTableListaProduto.getColumnModel().getColumn(1);
-//        column.setCellRenderer(tcr);
-
-        jTableListaProduto.setModel(modelo);
-
-        jTableListaProduto.getColumnModel().getColumn(0).setPreferredWidth(60);
-        jTableListaProduto.getColumnModel().getColumn(0).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(0).setCellRenderer(tcr);
-        jTableListaProduto.getColumnModel().getColumn(1).setPreferredWidth(100);
-        jTableListaProduto.getColumnModel().getColumn(1).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(2).setPreferredWidth(100);
-        jTableListaProduto.getColumnModel().getColumn(2).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(3).setPreferredWidth(120);
-        jTableListaProduto.getColumnModel().getColumn(3).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(4).setPreferredWidth(420);
-        jTableListaProduto.getColumnModel().getColumn(4).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(5).setPreferredWidth(80);
-        jTableListaProduto.getColumnModel().getColumn(5).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(6).setPreferredWidth(80);
-        jTableListaProduto.getColumnModel().getColumn(6).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(7).setPreferredWidth(120);
-        jTableListaProduto.getColumnModel().getColumn(7).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(8).setPreferredWidth(180);
-        jTableListaProduto.getColumnModel().getColumn(8).setResizable(true);
-        jTableListaProduto.getColumnModel().getColumn(9).setPreferredWidth(80);
-        jTableListaProduto.getColumnModel().getColumn(9).setResizable(true);
-//        jTableListaProduto.getColumnModel().getColumn(10).setPreferredWidth(290);
-//        jTableListaProduto.getColumnModel().getColumn(10).setResizable(true);
-        jTableListaProduto.getTableHeader().setReorderingAllowed(false);
-        jTableListaProduto.setAutoResizeMode(jTableListaProduto.AUTO_RESIZE_OFF);
-        jTableListaProduto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        conex.desconecta();
-
-    }
-
-     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton jButton1;
@@ -770,6 +500,15 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable jTableListaProduto;
+    public static javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
+
+    public static JTable getTabela() {
+        return tabela;
+    }
+
+    public static void setTabela(JTable tabela) {
+        ExpedicaoInterna.tabela = tabela;
+    }
+
 }
