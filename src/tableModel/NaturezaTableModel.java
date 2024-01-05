@@ -53,7 +53,7 @@ public class NaturezaTableModel extends AbstractTableModel {
                 return natureza.getUsuario_natureza();
 
             default:
-                return null; // Você pode lançar uma exceção se quiser tratar algo diferente
+                return null;
         }
     }
 

@@ -149,13 +149,42 @@ public class NaturezaDAO {
             pst.setString(4, natureza.getRegistro_natureza());
             pst.setString(5, natureza.getUsuario_natureza());
             pst.setInt(6, natureza.getStatus_natureza());
-
-            pst.execute();
+ System.out.println("salvar:: "+natureza);
+//            pst.execute();
 //            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso. ");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar . \n\n" + ex);
         }
         conex.desconecta();
+    }
+
+    public void atualizar(Natureza natureza) {
+        conex.conexao();
+        try {
+            java.sql.PreparedStatement pst = conex.con.prepareStatement(
+                    "UPDATE natureza SET tipo_natureza=?, desc_natureza=?, registro_natureza=?, "
+                    + "usuario_natureza=?, stnat=? , id_referencianatureza=? WHERE id_natureza=?");
+
+            pst.setString(1, natureza.getTipo_natureza());
+            pst.setString(2, natureza.getDesc_natureza());
+            pst.setString(3, natureza.getRegistro_natureza());
+            pst.setString(4, natureza.getUsuario_natureza());
+            pst.setInt(5, natureza.getStatus_natureza());
+            pst.setInt(6, natureza.getId_referencia());
+            pst.setInt(7, natureza.getId_natureza());
+            System.out.println("atualizar:: "+natureza);
+//            int rowsUpdated = pst.executeUpdate();
+//
+//            if (rowsUpdated > 0) {
+//                JOptionPane.showMessageDialog(null, "Registro atualizado com sucesso.");
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Nenhum registro foi atualizado.");
+//            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar o registro. \n\n" + ex);
+        } finally {
+            conex.desconecta();
+        }
     }
 
 //    public void Alterar(Beans_Natureza beans) {

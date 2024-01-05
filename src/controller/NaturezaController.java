@@ -40,7 +40,7 @@ public class NaturezaController {
     }
 
     public void eventoSalvar(NaturezaCadastroInternal form) {
-        Natureza natureza = new Natureza();
+        
         natureza.setTipo_natureza((String) form.getCbTipoNatureza().getSelectedItem());
         natureza.setDesc_natureza(form.getTxtDescricao().getText().toUpperCase());
 
@@ -63,12 +63,11 @@ public class NaturezaController {
         form.getTxtDescricao().setText(null);
         form.getCbTipoNatureza().setSelectedItem("ENTRADA");
     }
- 
 
     public void selecionarUmItem(NaturezaCadastroInternal form, java.awt.event.MouseEvent evt) {
         if (evt.getButton() == evt.BUTTON1) {
-            
-int SelecionaId = (Integer) form.getTabela().getValueAt(form.getTabela().getSelectedRow(), 0);
+
+            int SelecionaId = (Integer) form.getTabela().getValueAt(form.getTabela().getSelectedRow(), 0);
             bloqueiaCampos(form, true);
             form.getBtnNovo().setEnabled(false);
             natureza = naturezaService.obterUmaNatureza(SelecionaId);
@@ -76,5 +75,5 @@ int SelecionaId = (Integer) form.getTabela().getValueAt(form.getTabela().getSele
             form.getCbTipoNatureza().setSelectedItem(natureza.getTipo_natureza());
         }
     }
-    
+
 }

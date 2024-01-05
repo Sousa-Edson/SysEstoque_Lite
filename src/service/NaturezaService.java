@@ -31,15 +31,20 @@ public class NaturezaService {
     }
 
     public void salvar(Natureza natureza) {
-        
+
         natureza.setStatus_natureza(1);
-        natureza.setRegistro_natureza(DataHoraAtual.obterDataHoraFormatada()); 
-         natureza.setUsuario_natureza(UsuarioLogado.getNome());   
-         naturezaDAO.salvar(natureza);
+        natureza.setRegistro_natureza(DataHoraAtual.obterDataHoraFormatada());
+        natureza.setUsuario_natureza(UsuarioLogado.getNome());
+        if (natureza.getId_natureza() == 0) {
+            naturezaDAO.salvar(natureza);
+        } else {
+            naturezaDAO.atualizar(natureza);
+        }
+
     }
 
     public Natureza obterUmaNatureza(int selecionaIndex) {
-         return naturezaDAO.obterUmaNaturezaPorId(selecionaIndex);
+        return naturezaDAO.obterUmaNaturezaPorId(selecionaIndex);
     }
 
 }
