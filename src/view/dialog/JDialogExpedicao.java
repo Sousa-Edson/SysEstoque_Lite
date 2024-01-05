@@ -598,6 +598,7 @@ public class JDialogExpedicao extends javax.swing.JDialog {
             nota.getTransporteModel().setPesobruto(vol_peso_bruto.getText());
             nota.getTransporteModel().setPesoliquido(vol_peso_liquido.getText());
             nota.getTransporteModel().setMotorista(vol_motorista.getText());
+            nota.getTransporteModel().setNumeracao(vol_numeracao.getText());
 
             NotaFiscalService notaFiscalService = new NotaFiscalService();
             notaFiscalService.expedirNotaFiscal(nota);

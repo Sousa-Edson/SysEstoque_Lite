@@ -324,7 +324,7 @@ public class NotaFiscalDAO {
             pst.setInt(18, notaFiscal.getId_nota());
 
             int linhasAfetadas = pst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "ok");
+            JOptionPane.showMessageDialog(null, "Lançado!");
 
             return linhasAfetadas > 0;
         } catch (SQLException ex) {

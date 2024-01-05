@@ -5,7 +5,6 @@
  */
 package view.dialog;
 
-import Interface.Principal;
 import ConectaBanco.ConexaoBD;
 import controller.BuscaProdutoController;
 import javax.swing.JButton;

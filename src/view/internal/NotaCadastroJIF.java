@@ -6,7 +6,7 @@
 ///  jComboBox_Natureza formulario jLabel_Calculado
 package view.internal;
 
-import Consulta.JDialogAuxilioChave;
+ 
 import com.toedter.calendar.JDateChooser;
 import controller.MovimentoCadastroController;
 import enums.TipoMovimentacao;
@@ -960,17 +960,7 @@ public class NotaCadastroJIF extends javax.swing.JInternalFrame {
 
         }
         if (evt.getKeyCode() == evt.VK_F12) {
-            JDialogAuxilioChave conf = new JDialogAuxilioChave(null, rootPaneCheckingEnabled);
-            conf.RecebeFornecedor("" + cbCliente.getSelectedItem());
-            if (conf == null) {
-                // TelaSalProd = new ModSaldoProd();
-                conf.setVisible(true);
-                conf.setResizable(false);
-
-            } else {
-                conf.setVisible(true);
-                conf.setResizable(false);
-            }
+            
         }
     }//GEN-LAST:event_txtChaveKeyPressed
 

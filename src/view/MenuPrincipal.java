@@ -1052,8 +1052,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem28ActionPerformed
 
     private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
-        FrameManipulacao01 frameManipulacao01 = new FrameManipulacao01();
-        frameManipulacao01.setVisible(true);
+      
     }//GEN-LAST:event_jMenuItem21ActionPerformed
 
     private void jMenu14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu14ActionPerformed
