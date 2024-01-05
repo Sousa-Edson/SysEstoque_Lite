@@ -40,7 +40,7 @@ public class NaturezaController {
     }
 
     public void eventoSalvar(NaturezaCadastroInternal form) {
-        
+
         natureza.setTipo_natureza((String) form.getCbTipoNatureza().getSelectedItem());
         natureza.setDesc_natureza(form.getTxtDescricao().getText().toUpperCase());
 
@@ -74,6 +74,15 @@ public class NaturezaController {
             form.getTxtDescricao().setText(natureza.getDesc_natureza());
             form.getCbTipoNatureza().setSelectedItem(natureza.getTipo_natureza());
         }
+    }
+
+    public void deletarUmItem(NaturezaCadastroInternal form) {
+        bloqueiaCampos(form, false);
+        form.getBtnNovo().setEnabled(true);
+
+        natureza.setStatus_natureza(3);
+        naturezaService.deletarUmItem(natureza);
+        preencheTabela(form);
     }
 
 }

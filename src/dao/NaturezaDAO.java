@@ -186,23 +186,26 @@ public class NaturezaDAO {
             conex.desconecta();
         }
     }
-
-//    public void Alterar(Beans_Natureza beans) {
-//        conex.conexao();
-//        try {
-//            java.sql.PreparedStatement pst = conex.con.prepareStatement(" UPDATE natureza"
-//                    + "   SET stnat=?"
-//                    + " WHERE id_natureza=?;");
+  public void marcarComoDeletado(Natureza natureza) {
+        conex.conexao();
+        try {
+            java.sql.PreparedStatement pst = conex.con.prepareStatement(
+                    "UPDATE natureza SET  stnat=?   WHERE id_natureza=?");
+ 
+            pst.setInt(1, natureza.getStatus_natureza()); 
+            pst.setInt(2, natureza.getId_natureza());
+            System.out.println("marcarComoDeletado:: "+natureza);
+//            int rowsUpdated = pst.executeUpdate();
 //
-//            pst.setInt(1, beans.getStatus_natureza());
-//
-//            pst.setInt(2, beans.getId_natureza());
-//
-//            pst.execute();
-//            JOptionPane.showMessageDialog(null, "Alterado");
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Erro ao Alterar\n" + ex);
-//        }
-//        conex.desconecta();
-//    }
+//            if (rowsUpdated > 0) {
+//                JOptionPane.showMessageDialog(null, "Registro marcarComoDeletado com sucesso.");
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Nenhum registro foi marcarComoDeletado.");
+//            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao marcarComoDeletado o registro. \n\n" + ex);
+        } finally {
+            conex.desconecta();
+        }
+    }
 }

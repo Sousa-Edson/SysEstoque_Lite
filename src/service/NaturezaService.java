@@ -47,4 +47,8 @@ public class NaturezaService {
         return naturezaDAO.obterUmaNaturezaPorId(selecionaIndex);
     }
 
+    public void deletarUmItem(Natureza natureza) {
+        naturezaDAO.marcarComoDeletado(natureza);
+    }
+
 }
