@@ -76,13 +76,5 @@ int SelecionaId = (Integer) form.getTabela().getValueAt(form.getTabela().getSele
             form.getCbTipoNatureza().setSelectedItem(natureza.getTipo_natureza());
         }
     }
-    /*  
-             
-                id_unidade = (int) tabela.getValueAt(tabela.getSelectedRow(), 5);
-                id_referencia = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
-                cbTipoNatureza.setSelectedItem((String) tabela.getValueAt(tabela.getSelectedRow(), 1));
-                txtDescricao.setText((String) tabela.getValueAt(tabela.getSelectedRow(), 2));
-            }
-
-        }*/
+    
 }
