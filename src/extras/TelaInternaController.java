@@ -12,6 +12,7 @@ import view.MenuPrincipal;
 import view.internal.ConsultaInterna;
 import view.internal.ExpedicaoInterna;
 import view.internal.LoginJIF;
+import view.internal.NaturezaCadastroInternal;
 import view.internal.NotaCadastroJIF;
 import view.internal.NotaListaJIF;
 import view.internal.ProdutoCadastroJIF;
@@ -31,6 +32,18 @@ public class TelaInternaController {
     private static NotaCadastroJIF movimentoCadastroJIF;
     private static ConsultaInterna consultaInterna;
     private static ExpedicaoInterna expedicaoInterna;
+    private static NaturezaCadastroInternal naturezaCadastroInternal;
+
+    public static void chamaNaturezaCadastroInternal(MenuPrincipal form) {
+        if (naturezaCadastroInternal == null || !naturezaCadastroInternal.isVisible()) {
+            naturezaCadastroInternal = new NaturezaCadastroInternal();
+            MenuPrincipal.desktopPrincipal.add(naturezaCadastroInternal);
+            InternalFrameUtil.removerIcone(naturezaCadastroInternal);
+            naturezaCadastroInternal.setVisible(true);
+        }
+        naturezaCadastroInternal.toFront();
+        FramePositionUtil.setCenteredPosition(naturezaCadastroInternal);
+    }
 
     public static void chamaExpedicaoInterna(MenuPrincipal form) {
         if (expedicaoInterna == null || !expedicaoInterna.isVisible()) {

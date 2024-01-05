@@ -7,6 +7,8 @@ package service;
 import dao.NaturezaDAO;
 import java.util.List;
 import model.Natureza;
+import utils.DataHoraAtual;
+import utils.UsuarioLogado;
 
 /**
  *
@@ -26,6 +28,14 @@ public class NaturezaService {
 
     public List<Natureza> listarNaturezasAtivas() {
         return naturezaDAO.listarNaturezasAtivas();
+    }
+
+    public void salvar(Natureza natureza) {
+        
+        natureza.setStatus_natureza(1);
+        natureza.setRegistro_natureza(DataHoraAtual.obterDataHoraFormatada()); 
+         natureza.setUsuario_natureza(UsuarioLogado.getNome());   
+         naturezaDAO.salvar(natureza);
     }
 
 }

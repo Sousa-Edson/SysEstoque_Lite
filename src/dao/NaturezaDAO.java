@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.Natureza;
 
 /**
@@ -85,4 +86,66 @@ public class NaturezaDAO {
 
         return naturezas;
     }
+
+    //------
+    public int carregaUltimo() {
+        int id_referencia = 0;
+        conex.conexao();
+        conex.executaSql2("SELECT  id_referencianatureza  FROM natureza where id_referencianatureza is not null and id_referencianatureza !=0 order by id_referencianatureza asc  ");
+        try {
+            conex.rs.last();
+            id_referencia = conex.rs.getInt("id_referencianatureza");
+            id_referencia = id_referencia + 1;
+        } catch (SQLException ex) {
+            id_referencia = 1;
+        }
+        conex.desconecta();
+        return id_referencia;
+    }
+
+    public void salvar(Natureza natureza) {
+        natureza.setId_referencia(carregaUltimo());
+      conex.conexao();
+        try {
+            java.sql.PreparedStatement pst = conex.con.prepareStatement(" INSERT INTO natureza("
+                    + "             id_referencianatureza, tipo_natureza, desc_natureza, registro_natureza,"
+                    + " usuario_natureza, stnat)"
+                    + "    VALUES (?, ?, ?, ?, ?, ?);");
+
+            pst.setInt(1, natureza.getId_referencia());
+            pst.setString(2, natureza.getTipo_natureza());
+            pst.setString(3, natureza.getDesc_natureza());
+            pst.setString(4, natureza.getRegistro_natureza());
+            pst.setString(5, natureza.getUsuario_natureza());
+            pst.setInt(6, natureza.getStatus_natureza());
+
+            pst.execute();
+//            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso. ");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar . \n\n" + ex);
+        }
+        conex.desconecta();
+    }
+    
+    
+
+//    public void Alterar(Beans_Natureza beans) {
+//        conex.conexao();
+//        try {
+//            java.sql.PreparedStatement pst = conex.con.prepareStatement(" UPDATE natureza"
+//                    + "   SET stnat=?"
+//                    + " WHERE id_natureza=?;");
+//
+//            pst.setInt(1, beans.getStatus_natureza());
+//
+//            pst.setInt(2, beans.getId_natureza());
+//
+//            pst.execute();
+//            JOptionPane.showMessageDialog(null, "Alterado");
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Erro ao Alterar\n" + ex);
+//        }
+//        conex.desconecta();
+//    }
+
 }
