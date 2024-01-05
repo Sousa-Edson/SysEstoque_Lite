@@ -19,14 +19,16 @@ import view.internal.NaturezaCadastroInternal;
 public class NaturezaController {
 
     private final NaturezaService naturezaService;
+    Natureza natureza;
 
     public NaturezaController() {
         naturezaService = new NaturezaService();
+        natureza = new Natureza();
     }
 
     public void preencheTabela(NaturezaCadastroInternal form) {
         NaturezaTableModel modelo = new NaturezaTableModel();
-        List<Natureza> produtos = naturezaService.listarNaturezas();
+        List<Natureza> produtos = naturezaService.listarNaturezasAtivas();
         modelo.setNaturezas(produtos);
         form.getTabela().setModel(modelo);
         form.getTabela().getColumnModel().getColumn(0).setPreferredWidth(60);
@@ -45,14 +47,15 @@ public class NaturezaController {
         naturezaService.salvar(natureza);
         bloqueiaCampos(form, false);
         limparCampos(form);
+        form.getBtnNovo().setEnabled(true);
     }
 
     public void bloqueiaCampos(NaturezaCadastroInternal form, boolean ativo) {
-        form.getBtnNovo().setEnabled(true);
-        form.getBtnSalvar().setEnabled(false);
-        form.getBtnExcluir().setEnabled(false);
-        form.getCbTipoNatureza().setEnabled(false);
-        form.getTxtDescricao().setEnabled(false);
+        form.getBtnNovo().setEnabled(ativo);
+        form.getBtnSalvar().setEnabled(ativo);
+        form.getBtnExcluir().setEnabled(ativo);
+        form.getCbTipoNatureza().setEnabled(ativo);
+        form.getTxtDescricao().setEnabled(ativo);
     }
 
     public void limparCampos(NaturezaCadastroInternal form) {
@@ -60,4 +63,26 @@ public class NaturezaController {
         form.getTxtDescricao().setText(null);
         form.getCbTipoNatureza().setSelectedItem("ENTRADA");
     }
+ 
+
+    public void selecionarUmItem(NaturezaCadastroInternal form, java.awt.event.MouseEvent evt) {
+        if (evt.getButton() == evt.BUTTON1) {
+            
+int SelecionaId = (Integer) form.getTabela().getValueAt(form.getTabela().getSelectedRow(), 0);
+            bloqueiaCampos(form, true);
+            form.getBtnNovo().setEnabled(false);
+            natureza = naturezaService.obterUmaNatureza(SelecionaId);
+            form.getTxtDescricao().setText(natureza.getDesc_natureza());
+            form.getCbTipoNatureza().setSelectedItem(natureza.getTipo_natureza());
+        }
+    }
+    /*  
+             
+                id_unidade = (int) tabela.getValueAt(tabela.getSelectedRow(), 5);
+                id_referencia = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
+                cbTipoNatureza.setSelectedItem((String) tabela.getValueAt(tabela.getSelectedRow(), 1));
+                txtDescricao.setText((String) tabela.getValueAt(tabela.getSelectedRow(), 2));
+            }
+
+        }*/
 }

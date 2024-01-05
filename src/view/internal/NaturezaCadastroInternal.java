@@ -312,30 +312,7 @@ public class NaturezaCadastroInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
-        if (evt.getButton() == MouseEvent.BUTTON3) {
-        } else {
-            flag = 2;
-            cbTipoNatureza.setEnabled(true);
-            txtDescricao.setEnabled(true);
-            cbTipoNatureza.requestFocus();
-            btnSalvar.setEnabled(true);
-            btnExcluir.setEnabled(true);
-            btnNovo.setEnabled(false);
-            String TipoUsuario = "";
-//            Principal.jLabelTipoUsuario.getText();
-            if (TipoUsuario == "Manutenção") {
-                id_unidade = (int) tabela.getValueAt(tabela.getSelectedRow(), 6);
-                id_referencia = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
-                cbTipoNatureza.setSelectedItem((String) tabela.getValueAt(tabela.getSelectedRow(), 2));
-                txtDescricao.setText((String) tabela.getValueAt(tabela.getSelectedRow(), 3));
-            } else {
-                id_unidade = (int) tabela.getValueAt(tabela.getSelectedRow(), 5);
-                id_referencia = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
-                cbTipoNatureza.setSelectedItem((String) tabela.getValueAt(tabela.getSelectedRow(), 1));
-                txtDescricao.setText((String) tabela.getValueAt(tabela.getSelectedRow(), 2));
-            }
-
-        }
+       naturezaController.selecionarUmItem(this, evt);
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed

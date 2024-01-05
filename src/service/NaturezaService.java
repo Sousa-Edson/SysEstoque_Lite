@@ -38,4 +38,8 @@ public class NaturezaService {
          naturezaDAO.salvar(natureza);
     }
 
+    public Natureza obterUmaNatureza(int selecionaIndex) {
+         return naturezaDAO.obterUmaNaturezaPorId(selecionaIndex);
+    }
+
 }

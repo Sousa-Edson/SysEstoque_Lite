@@ -25,6 +25,37 @@ public class NaturezaDAO {
         conex = new ConexaoBD();
     }
 
+    public Natureza obterUmaNaturezaPorId(int id) {
+        conex.conexao();
+        String query = "SELECT id_natureza,id_referencianatureza, tipo_natureza, desc_natureza, registro_natureza, "
+                + "usuario_natureza, stnat FROM natureza where id_natureza =? ";
+
+        try (PreparedStatement pst = conex.con.prepareStatement(query)) {
+            pst.setInt(1, id);
+
+            try (ResultSet resultado = pst.executeQuery()) {
+                if (resultado.next()) {
+                    Natureza natureza = new Natureza();
+                    natureza.setId_natureza(resultado.getInt("id_natureza"));
+                    natureza.setId_referencia(resultado.getInt("id_referencianatureza"));
+                    natureza.setTipo_natureza(resultado.getString("tipo_natureza"));
+                    natureza.setDesc_natureza(resultado.getString("desc_natureza"));
+                    natureza.setRegistro_natureza(resultado.getString("registro_natureza"));
+                    natureza.setUsuario_natureza(resultado.getString("usuario_natureza"));
+                    natureza.setStatus_natureza(resultado.getInt("stnat"));
+                    return natureza;
+                } else {
+                    // Não foi encontrada nenhuma nota com o ID fornecido
+                    return null;
+                }
+            }
+        } catch (SQLException ex) {
+            // Lidar com a exceção
+            ex.printStackTrace(); // Considere usar um mecanismo de log apropriado
+            return null;
+        }
+    }
+
     public List<Natureza> listarNaturezas() {
         conex.conexao();
         List<Natureza> naturezas = new ArrayList<>();
@@ -105,7 +136,7 @@ public class NaturezaDAO {
 
     public void salvar(Natureza natureza) {
         natureza.setId_referencia(carregaUltimo());
-      conex.conexao();
+        conex.conexao();
         try {
             java.sql.PreparedStatement pst = conex.con.prepareStatement(" INSERT INTO natureza("
                     + "             id_referencianatureza, tipo_natureza, desc_natureza, registro_natureza,"
@@ -126,8 +157,6 @@ public class NaturezaDAO {
         }
         conex.desconecta();
     }
-    
-    
 
 //    public void Alterar(Beans_Natureza beans) {
 //        conex.conexao();
@@ -147,5 +176,4 @@ public class NaturezaDAO {
 //        }
 //        conex.desconecta();
 //    }
-
 }
