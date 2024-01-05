@@ -9,7 +9,7 @@ package enums;
  * @author edson
  */
 public enum SituacaoEnum {
-    CALCULADO("1-CALCULADO"), PRONTO("2-PRONTO"), AGUARDANDO("4-DEVOLVIDO"), ENVIADO("5-ENVIADO"), OUTRO("6-OUTRO");
+    CALCULADO("1-CALCULADO"), PRONTO("2-PRONTO"), AGUARDANDO("3-AGUARDANDO"), ENVIADO("4-ENVIADO"), DEVOLVIDO("5-DEVOLVIDO"), OUTRO("6-OUTRO");
 
     private final String nome;
 
@@ -48,5 +48,4 @@ public enum SituacaoEnum {
         SituacaoEnum peloDesejo = SituacaoEnum.getByName(desejado);
         System.out.println("Nome de SituacaoEnum pelo name " + desejado + ": " + peloDesejo);
     }
-
 }
