@@ -24,9 +24,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author Edson
  */
 public class FCECadastroJIF extends javax.swing.JInternalFrame {
-
-    //   Principal menu;
-//    JIF_Cliente_Lista Produto_Lista;
+ 
     ConexaoBD conex = new ConexaoBD();
     Beans_ECFT BEANS = new Beans_ECFT();
     Dao_ECFT DAO = new Dao_ECFT();
