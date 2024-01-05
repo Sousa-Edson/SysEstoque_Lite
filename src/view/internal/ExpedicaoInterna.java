@@ -9,31 +9,10 @@ package view.internal;
 //import JDialog_Visao.Movimentacao.Outros.JDialog_Expedicao_Saida;
 //import JDialog_Visao.Movimentacao.JDialog_Movimentacao_Produto;
 //import CaixasDeDialogos.JDialogExpedicaoSaida;
-import Interface.*;
-import ModeloBeans.ModeloTabela;
-import ConectaBanco.ConexaoBD;
-//import Interface.Tela.Movimento.ExpedicaoJIF;
-import java.awt.Color;
-import static java.awt.Color.BLACK;
-import static java.awt.Color.WHITE;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.table.DefaultTableCellRenderer;
-//import static Interface.Principal.MenuPrincipal.Painel_principal;
-import Sistema.ManipulaProtocolo;
 import controller.ExpedicaoInternaController;
-import java.math.BigDecimal;
-import java.text.NumberFormat;
-import view.MenuPrincipal;
+import model.NotaFiscal;
+import service.NotaFiscalService;
 import view.dialog.JDialogExpedicao;
 
 /**
@@ -42,23 +21,12 @@ import view.dialog.JDialogExpedicao;
  */
 public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
 
-    ConexaoBD conex = new ConexaoBD();
-    Principal menu;
     JDialogExpedicao TelaNotaExSai;
-    ManipulaProtocolo prot = new ManipulaProtocolo();
 
-    String CLASS = "";
-    int selecao;
-    String selecao_id;
-    String MinhaIdNota;
     ExpedicaoInternaController expedicaoInternaController = new ExpedicaoInternaController();
 
     public ExpedicaoInterna() {
         initComponents();
-        jButton1.setVisible(false);
-        jButton2.setVisible(false);
-        jButton_Fechar.setVisible(false);
-        jLabel_Expedicao.setVisible(false);
 
         expedicaoInternaController.preencheTabela(this);
     }
@@ -74,16 +42,7 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton_Fechar = new javax.swing.JButton();
-        jLabel_Expedicao = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jCheckBoxMenuItem_cor = new javax.swing.JCheckBoxMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jCheckBoxMenuItem_Expedicao = new javax.swing.JCheckBoxMenuItem();
         jCheckBoxMenuItem_Relatorio = new javax.swing.JCheckBoxMenuItem();
@@ -149,69 +108,6 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tabela);
 
-        jButton2.setText("Exibir tudo");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Filtrar/Atualizar");
-        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jButton1FocusGained(evt);
-            }
-        });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton_Fechar.setForeground(new java.awt.Color(255, 0, 0));
-        jButton_Fechar.setText("Fechar");
-        jButton_Fechar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_FecharActionPerformed(evt);
-            }
-        });
-
-        jLabel_Expedicao.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel_Expedicao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_Expedicao.setText("Ver Expedição");
-        jLabel_Expedicao.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jMenu1.setText("Arquivo");
-
-        jMenuItem1.setText("Filtrar");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
-
-        jMenuItem2.setText("Exibe tudo");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem2);
-
-        jMenuItem3.setText("Fechar");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem3);
-
-        jCheckBoxMenuItem_cor.setText("Cor");
-        jMenu1.add(jCheckBoxMenuItem_cor);
-
-        jMenuBar1.add(jMenu1);
-
         jMenu2.setText("Visualizar");
 
         jCheckBoxMenuItem_Expedicao.setSelected(true);
@@ -269,34 +165,14 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(452, 452, 452)
-                        .addComponent(jLabel_Expedicao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_Fechar)
-                        .addGap(154, 154, 154)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1125, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton_Fechar});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton_Fechar)
-                    .addComponent(jLabel_Expedicao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -316,20 +192,11 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
 
         if (evt.getClickCount() == 2) {
-            selecao = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
-            selecao_id = String.valueOf(selecao);
-            abre_Expedicao();
+            int selecao = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
+            abre_Expedicao(selecao);
         }
     }//GEN-LAST:event_tabelaMouseClicked
 
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
 //        atualizarTabela();
@@ -346,159 +213,63 @@ public final class ExpedicaoInterna extends javax.swing.JInternalFrame {
 //        }
     }//GEN-LAST:event_formInternalFrameOpened
 
-    private void jButton_FecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_FecharActionPerformed
-        fecha_form();
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_jButton_FecharActionPerformed
-
-    public void fecha_form() {
-        this.setVisible(false);
-
-    }
-
-    public void controla_ComboBox_tipo() {
-        if (jLabel_Expedicao.getText().equals(("Protocolo"))) {
-        } else {
-        }
-    }
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
-        fecha_form();
+
     }//GEN-LAST:event_formInternalFrameClosing
-
-    private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
-
-    }//GEN-LAST:event_jButton1FocusGained
 
     private void tabelaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaKeyPressed
         if (evt.getKeyCode() == evt.VK_ESCAPE) {
-            fecha_form();
+
             this.dispose();
         }
     }//GEN-LAST:event_tabelaKeyPressed
 
     private void jCheckBoxMenuItem_ExpedicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem_ExpedicaoActionPerformed
-        if (jCheckBoxMenuItem_Expedicao.isSelected()) {
-            jCheckBoxMenuItem_Nota.setSelected(false);
-            jCheckBoxMenuItem_Protocolo_Branco.setSelected(false);
-            jCheckBoxMenuItem_Protocolo_Preto.setSelected(false);
-            jCheckBoxMenuItem_Relatorio.setSelected(false);
-            jCheckBoxMenuItem_Expedicao.setSelected(true);
-            jLabel_Expedicao.setText("Ver Expedição");
-        } else {
-//            jRadioButton1.setSelected(true);
-//            jRadioButton3.setSelected(false);
-            jLabel_Expedicao.setText("Ver Relatorio");
-        }
+
     }//GEN-LAST:event_jCheckBoxMenuItem_ExpedicaoActionPerformed
 
     private void jCheckBoxMenuItem_RelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem_RelatorioActionPerformed
-        if (jCheckBoxMenuItem_Relatorio.isSelected()) {
-            jCheckBoxMenuItem_Nota.setSelected(false);
-            jCheckBoxMenuItem_Protocolo_Branco.setSelected(false);
-            jCheckBoxMenuItem_Protocolo_Preto.setSelected(false);
-            jCheckBoxMenuItem_Relatorio.setSelected(true);
-            jCheckBoxMenuItem_Expedicao.setSelected(false);
-            jLabel_Expedicao.setText("Ver Relatorio");
-        } else {
-//            jRadioButton2.setSelected(true);
-            jLabel_Expedicao.setText("Ver Nota");
-        }
+
     }//GEN-LAST:event_jCheckBoxMenuItem_RelatorioActionPerformed
 
     private void jCheckBoxMenuItem_NotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem_NotaActionPerformed
-        if (jCheckBoxMenuItem_Nota.isSelected()) {
-            jCheckBoxMenuItem_Nota.setSelected(true);
-            jCheckBoxMenuItem_Protocolo_Branco.setSelected(false);
-            jCheckBoxMenuItem_Protocolo_Preto.setSelected(false);
-            jCheckBoxMenuItem_Relatorio.setSelected(false);
-            jCheckBoxMenuItem_Expedicao.setSelected(false);
-            jLabel_Expedicao.setText("Ver Nota");
-        } else {
-//            jRadioButton1.setSelected(true);
-//            jRadioButton5.setSelected(false);
-        }
+
     }//GEN-LAST:event_jCheckBoxMenuItem_NotaActionPerformed
 
     private void jCheckBoxMenuItem_Protocolo_PretoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem_Protocolo_PretoActionPerformed
-        if (jCheckBoxMenuItem_Protocolo_Preto.isSelected()) {
-            jCheckBoxMenuItem_Nota.setSelected(false);
-            jCheckBoxMenuItem_Protocolo_Branco.setSelected(false);
-            jCheckBoxMenuItem_Protocolo_Preto.setSelected(true);
-            jCheckBoxMenuItem_Relatorio.setSelected(false);
-            jCheckBoxMenuItem_Expedicao.setSelected(false);
-            jLabel_Expedicao.setText("Protocolo");
-        } else {
-//                jRadioButton5.setEnabled(false);
-//                jRadioButton6.setEnabled(false);
-            jCheckBoxMenuItem_Protocolo_Branco.setSelected(true);
-            jLabel_Expedicao.setText("Ver Relatorio");
-        }
+
     }//GEN-LAST:event_jCheckBoxMenuItem_Protocolo_PretoActionPerformed
 
     private void jCheckBoxMenuItem_Protocolo_BrancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem_Protocolo_BrancoActionPerformed
-        if (jCheckBoxMenuItem_Protocolo_Branco.isSelected()) {
-            jCheckBoxMenuItem_Nota.setSelected(false);
-            jCheckBoxMenuItem_Protocolo_Branco.setSelected(true);
-            jCheckBoxMenuItem_Protocolo_Preto.setSelected(false);
-            jCheckBoxMenuItem_Relatorio.setSelected(false);
-            jCheckBoxMenuItem_Expedicao.setSelected(false);
-            jLabel_Expedicao.setText("Protocolo");
-        } else {
-//                jRadioButton5.setEnabled(false);
-//                jRadioButton6.setEnabled(false);
-            jCheckBoxMenuItem_Protocolo_Preto.setSelected(true);
-            jLabel_Expedicao.setText("Ver Relatorio");
-        }
+
     }//GEN-LAST:event_jCheckBoxMenuItem_Protocolo_BrancoActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        fecha_form();
-        this.dispose();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    public void abre_Expedicao() {
-        TelaNotaExSai = new JDialogExpedicao(menu, rootPaneCheckingEnabled);
+    public void abre_Expedicao(int id) {
+        NotaFiscalService notaFiscalService = new NotaFiscalService();
+        NotaFiscal notaFiscal = new NotaFiscal();
+        notaFiscal = notaFiscalService.obterNotaPorId(id);
+        TelaNotaExSai = new JDialogExpedicao(null, rootPaneCheckingEnabled, notaFiscal);
         if (TelaNotaExSai == null) {
-            TelaNotaExSai.RIdSai(selecao_id);
             TelaNotaExSai.setVisible(true);
         } else {
-            TelaNotaExSai.RIdSai(selecao_id);
-            TelaNotaExSai.MinhaIdNotaSai(MinhaIdNota);
             TelaNotaExSai.setVisible(true);
             TelaNotaExSai.setResizable(false);
         }
+        expedicaoInternaController.preencheTabela(this);
 
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton_Fechar;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem_Expedicao;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem_Nota;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem_Protocolo_Branco;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem_Protocolo_Preto;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem_Relatorio;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem_cor;
-    private javax.swing.JLabel jLabel_Expedicao;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables

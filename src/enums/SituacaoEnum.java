@@ -9,7 +9,7 @@ package enums;
  * @author edson
  */
 public enum SituacaoEnum {
-    CALCULADO("1-CALCULADO"), PRONTO("2-PRONTO"), AGUARDANDO("4-AGUARDANDO"), ENVIADO("5-ENVIADO"), OUTRO("6-OUTRO");
+    CALCULADO("1-CALCULADO"), PRONTO("2-PRONTO"), AGUARDANDO("4-DEVOLVIDO"), ENVIADO("5-ENVIADO"), OUTRO("6-OUTRO");
 
     private final String nome;
 
@@ -23,18 +23,22 @@ public enum SituacaoEnum {
 
     public static SituacaoEnum getByName(String nome) {
         for (SituacaoEnum situacao : values()) {
-            if (situacao.nome == nome) {
+            if (situacao.nome.equals(nome)) {
                 return situacao;
             }
         }
         throw new IllegalArgumentException("Name inválido para SituacaoEnum: " + nome);
     }
 
+    public String getValorDescricao() {
+        return nome;
+    }
+
     public static void main(String[] args) {
         // Exemplo de uso 
-        
+
         SituacaoEnum cal = SituacaoEnum.CALCULADO;
-          SituacaoEnum ag = SituacaoEnum.AGUARDANDO;
+        SituacaoEnum ag = SituacaoEnum.AGUARDANDO;
 
         System.out.println("Name de calculado: " + cal.getNome());
         System.out.println("Name de aguardando: " + ag.getNome());
@@ -44,4 +48,5 @@ public enum SituacaoEnum {
         SituacaoEnum peloDesejo = SituacaoEnum.getByName(desejado);
         System.out.println("Nome de SituacaoEnum pelo name " + desejado + ": " + peloDesejo);
     }
+
 }

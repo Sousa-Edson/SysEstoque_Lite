@@ -6,20 +6,18 @@
 // jTextFieldIdNota
 package view.dialog;
 
-import Interface.*;
-import ModeloBeans.Beans_Nota;
-import ConectaBanco.ConexaoBD;
-import ModeloDao.Dao_Nota;
-import Interface.Principal;
+import enums.SituacaoEnum;
 //import Interface.Tela.ExpedicaoJIF;
 import java.awt.Color;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+import model.NotaFiscal;
+import service.NotaFiscalService;
+import utils.DataHoraAtual;
+import utils.FormatarData;
+import utils.StringToDate;
 
 /**
  *
@@ -27,23 +25,36 @@ import javax.swing.JOptionPane;
  */
 public class JDialogExpedicao extends javax.swing.JDialog {
 
-    ConexaoBD conex = new ConexaoBD();
-    Principal principal;
+    NotaFiscal nota;
 
-    Beans_Nota cadNota = new Beans_Nota();
-    Dao_Nota daoNota = new Dao_Nota();
-
-    Dao_Nota dao = new Dao_Nota();
-    Beans_Nota beans = new Beans_Nota();
-    int id_referencia;
-    String MinhaData;
-    Date data = null;
-    String MinhaNatureza;
-    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-
-    public JDialogExpedicao(java.awt.Frame parent, boolean modal) {
+    public JDialogExpedicao(java.awt.Frame parent, boolean modal, NotaFiscal notaFiscal) {
         super(parent, modal);
         initComponents();
+        cbSituacao.setModel(new javax.swing.DefaultComboBoxModel<>(SituacaoEnum.values()));
+        cbSituacao.setRenderer(new SituacaoEnumRenderer());
+        nota = new NotaFiscal();
+        nota = notaFiscal;
+        setaValoresNosCampos(notaFiscal);
+
+    }
+
+    private JDialogExpedicao(JFrame jFrame, boolean b) {
+
+        initComponents();
+        cbSituacao.setModel(new javax.swing.DefaultComboBoxModel<>(SituacaoEnum.values()));
+        cbSituacao.setRenderer(new SituacaoEnumRenderer());
+
+    }
+
+    class SituacaoEnumRenderer extends javax.swing.DefaultListCellRenderer {
+
+        @Override
+        public java.awt.Component getListCellRendererComponent(javax.swing.JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            if (value instanceof SituacaoEnum) {
+                value = ((SituacaoEnum) value).getValorDescricao();
+            }
+            return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        }
     }
 
     /**
@@ -59,22 +70,20 @@ public class JDialogExpedicao extends javax.swing.JDialog {
         jLabel_Tipo_Fornecedor = new javax.swing.JLabel();
         jLabel_Fornecedor = new javax.swing.JLabel();
         jLabelData1 = new javax.swing.JLabel();
-        jTextFieldIdNota = new javax.swing.JTextField();
+        txtOsNOta = new javax.swing.JTextField();
         jLabelData = new javax.swing.JLabel();
-        jDateChooser_Data_Nota = new com.toedter.calendar.JDateChooser();
+        dcDataNota = new com.toedter.calendar.JDateChooser();
         jLabel11 = new javax.swing.JLabel();
-        jFormattedTextFieldHora = new javax.swing.JFormattedTextField();
-        jComboBoxSituacao = new javax.swing.JComboBox<>();
+        txtHora = new javax.swing.JFormattedTextField();
+        cbSituacao = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jComboBoxDocumento = new javax.swing.JComboBox<>();
-        jLabelData2 = new javax.swing.JLabel();
-        jTextFieldNota = new javax.swing.JTextField();
+        txtNotaNumero = new javax.swing.JTextField();
         jLabelData3 = new javax.swing.JLabel();
-        jTextFieldChaveNota = new javax.swing.JTextField();
+        txtChaveNota = new javax.swing.JTextField();
         jLabelData4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea_Observacao = new javax.swing.JTextArea();
+        txtNotaObservacao = new javax.swing.JTextArea();
         jButtonEnvAgo = new javax.swing.JButton();
         jButtonEnvHoj = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -125,44 +134,44 @@ public class JDialogExpedicao extends javax.swing.JDialog {
         jLabelData1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelData1.setText("OS");
 
-        jTextFieldIdNota.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
-        jTextFieldIdNota.setEnabled(false);
+        txtOsNOta.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
+        txtOsNOta.setEnabled(false);
 
         jLabelData.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jLabelData.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelData.setText("DATA EXPEDIÇÃO");
 
-        jDateChooser_Data_Nota.setDateFormatString("dd'/'MM'/'yyyy");
-        jDateChooser_Data_Nota.setEnabled(false);
-        jDateChooser_Data_Nota.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
-        jDateChooser_Data_Nota.addHierarchyListener(new java.awt.event.HierarchyListener() {
+        dcDataNota.setDateFormatString("dd'/'MM'/'yyyy");
+        dcDataNota.setEnabled(false);
+        dcDataNota.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
+        dcDataNota.addHierarchyListener(new java.awt.event.HierarchyListener() {
             public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
-                jDateChooser_Data_NotaHierarchyChanged(evt);
+                dcDataNotaHierarchyChanged(evt);
             }
         });
-        jDateChooser_Data_Nota.addAncestorListener(new javax.swing.event.AncestorListener() {
+        dcDataNota.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                jDateChooser_Data_NotaAncestorAdded(evt);
+                dcDataNotaAncestorAdded(evt);
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-                jDateChooser_Data_NotaAncestorMoved(evt);
+                dcDataNotaAncestorMoved(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        jDateChooser_Data_Nota.addMouseListener(new java.awt.event.MouseAdapter() {
+        dcDataNota.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jDateChooser_Data_NotaMouseClicked(evt);
+                dcDataNotaMouseClicked(evt);
             }
         });
-        jDateChooser_Data_Nota.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        dcDataNota.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jDateChooser_Data_NotaPropertyChange(evt);
+                dcDataNotaPropertyChange(evt);
             }
         });
-        jDateChooser_Data_Nota.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
+        dcDataNota.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
             public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
-                jDateChooser_Data_NotaVetoableChange(evt);
+                dcDataNotaVetoableChange(evt);
             }
         });
 
@@ -171,34 +180,33 @@ public class JDialogExpedicao extends javax.swing.JDialog {
         jLabel11.setText("HORA");
 
         try {
-            jFormattedTextFieldHora.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
+            txtHora.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextFieldHora.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jFormattedTextFieldHora.setEnabled(false);
-        jFormattedTextFieldHora.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
-        jFormattedTextFieldHora.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtHora.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtHora.setEnabled(false);
+        txtHora.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
+        txtHora.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jFormattedTextFieldHoraFocusGained(evt);
+                txtHoraFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jFormattedTextFieldHoraFocusLost(evt);
+                txtHoraFocusLost(evt);
             }
         });
-        jFormattedTextFieldHora.addActionListener(new java.awt.event.ActionListener() {
+        txtHora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextFieldHoraActionPerformed(evt);
+                txtHoraActionPerformed(evt);
             }
         });
-        jFormattedTextFieldHora.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtHora.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jFormattedTextFieldHoraKeyPressed(evt);
+                txtHoraKeyPressed(evt);
             }
         });
 
-        jComboBoxSituacao.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
-        jComboBoxSituacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1-CALCULADO", "2-PRONTO", "3-AGUARDANDO", "4-ENVIADO", "5-DEVOLVIDO", "6-OUTRO" }));
+        cbSituacao.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
 
         jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -206,26 +214,13 @@ public class JDialogExpedicao extends javax.swing.JDialog {
 
         jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("DOCUMENTO ");
+        jLabel13.setText("DOCUMENTO NOTA N°:");
 
-        jComboBoxDocumento.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
-        jComboBoxDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nota", "Protocolo", "Avulso", "Não definido" }));
-        jComboBoxDocumento.setEnabled(false);
-        jComboBoxDocumento.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxDocumentoItemStateChanged(evt);
-            }
-        });
-
-        jLabelData2.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabelData2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelData2.setText("N°:");
-
-        jTextFieldNota.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
-        jTextFieldNota.setEnabled(false);
-        jTextFieldNota.addActionListener(new java.awt.event.ActionListener() {
+        txtNotaNumero.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
+        txtNotaNumero.setEnabled(false);
+        txtNotaNumero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNotaActionPerformed(evt);
+                txtNotaNumeroActionPerformed(evt);
             }
         });
 
@@ -233,11 +228,11 @@ public class JDialogExpedicao extends javax.swing.JDialog {
         jLabelData3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelData3.setText("CHAVE  NOTA");
 
-        jTextFieldChaveNota.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
-        jTextFieldChaveNota.setEnabled(false);
-        jTextFieldChaveNota.addActionListener(new java.awt.event.ActionListener() {
+        txtChaveNota.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
+        txtChaveNota.setEnabled(false);
+        txtChaveNota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldChaveNotaActionPerformed(evt);
+                txtChaveNotaActionPerformed(evt);
             }
         });
 
@@ -245,10 +240,11 @@ public class JDialogExpedicao extends javax.swing.JDialog {
         jLabelData4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelData4.setText("OBSERVAÇÃO");
 
-        jTextArea_Observacao.setColumns(20);
-        jTextArea_Observacao.setRows(5);
-        jTextArea_Observacao.setEnabled(false);
-        jScrollPane1.setViewportView(jTextArea_Observacao);
+        txtNotaObservacao.setColumns(20);
+        txtNotaObservacao.setLineWrap(true);
+        txtNotaObservacao.setRows(5);
+        txtNotaObservacao.setEnabled(false);
+        jScrollPane1.setViewportView(txtNotaObservacao);
 
         jButtonEnvAgo.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         jButtonEnvAgo.setText("Enviado agora");
@@ -374,31 +370,26 @@ public class JDialogExpedicao extends javax.swing.JDialog {
                         .addComponent(jLabel_IdNota, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel_Fornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextFieldIdNota)
-                                .addComponent(jLabelData1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jDateChooser_Data_Nota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabelData, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jFormattedTextFieldHora, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(10, 10, 10)
-                            .addComponent(jComboBoxDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabelData2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextFieldNota)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtOsNOta)
+                            .addComponent(jLabelData1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dcDataNota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelData, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNotaNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jButtonEnvAgo)
@@ -423,7 +414,7 @@ public class JDialogExpedicao extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelData3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldChaveNota))
+                        .addComponent(txtChaveNota))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
@@ -463,29 +454,27 @@ public class JDialogExpedicao extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelData1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextFieldIdNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtOsNOta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelData)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jDateChooser_Data_Nota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(dcDataNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextFieldHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelData2)
-                    .addComponent(jTextFieldNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNotaNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelData3)
-                    .addComponent(jTextFieldChaveNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtChaveNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelData4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -494,21 +483,20 @@ public class JDialogExpedicao extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel26)
+                            .addComponent(jLabel30)
+                            .addComponent(jLabel25))
                         .addGap(7, 7, 7)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(vol_peso_bruto)
-                            .addComponent(vol_peso_liquido)
+                            .addComponent(vol_peso_bruto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(vol_peso_liquido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(vol_numeracao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(vol_especie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(vol_quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel27))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel27)))
+                .addGap(0, 6, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel19)
@@ -521,7 +509,7 @@ public class JDialogExpedicao extends javax.swing.JDialog {
                             .addComponent(vol_motorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(vol_placa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(vol_uf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonEnvAgo)
                     .addComponent(jButtonEnvHoj)
@@ -532,7 +520,17 @@ public class JDialogExpedicao extends javax.swing.JDialog {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel11, jLabel12, jLabelData, jLabelData1});
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBoxSituacao, jDateChooser_Data_Nota, jFormattedTextFieldHora, jTextFieldIdNota});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbSituacao, dcDataNota, txtHora, txtOsNOta});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel13, txtNotaNumero});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabelData3, txtChaveNota});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel19, jLabel21, jLabel28});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel23, jLabel25, jLabel26, jLabel27, jLabel30});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButtonAlterar, jButtonEnvAgo, jButtonEnvHoj, vol_especie, vol_motorista, vol_numeracao, vol_peso_bruto, vol_peso_liquido, vol_placa, vol_quantidade, vol_uf});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -555,115 +553,105 @@ public class JDialogExpedicao extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jDateChooser_Data_NotaHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_jDateChooser_Data_NotaHierarchyChanged
+    private void dcDataNotaHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_dcDataNotaHierarchyChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_jDateChooser_Data_NotaHierarchyChanged
+    }//GEN-LAST:event_dcDataNotaHierarchyChanged
 
-    private void jDateChooser_Data_NotaAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jDateChooser_Data_NotaAncestorMoved
+    private void dcDataNotaAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_dcDataNotaAncestorMoved
         // TODO add your handling code here:
-    }//GEN-LAST:event_jDateChooser_Data_NotaAncestorMoved
+    }//GEN-LAST:event_dcDataNotaAncestorMoved
 
-    private void jDateChooser_Data_NotaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jDateChooser_Data_NotaAncestorAdded
+    private void dcDataNotaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_dcDataNotaAncestorAdded
         //  jFormattedTextFieldHora.requestFocus();
-    }//GEN-LAST:event_jDateChooser_Data_NotaAncestorAdded
+    }//GEN-LAST:event_dcDataNotaAncestorAdded
 
-    private void jDateChooser_Data_NotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooser_Data_NotaMouseClicked
+    private void dcDataNotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dcDataNotaMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jDateChooser_Data_NotaMouseClicked
+    }//GEN-LAST:event_dcDataNotaMouseClicked
 
-    private void jDateChooser_Data_NotaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser_Data_NotaPropertyChange
+    private void dcDataNotaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dcDataNotaPropertyChange
         //  jFormattedTextFieldHora.requestFocus();
-    }//GEN-LAST:event_jDateChooser_Data_NotaPropertyChange
+    }//GEN-LAST:event_dcDataNotaPropertyChange
 
-    private void jDateChooser_Data_NotaVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_jDateChooser_Data_NotaVetoableChange
+    private void dcDataNotaVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_dcDataNotaVetoableChange
 
-    }//GEN-LAST:event_jDateChooser_Data_NotaVetoableChange
+    }//GEN-LAST:event_dcDataNotaVetoableChange
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        lancarNota();
-//        ExpedicaoJIF.jButton1.requestFocus();
+        try {
+            nota.setId_nota(Integer.parseInt(txtOsNOta.getText()));
+            nota.setNota_data(FormatarData.formatarData(dcDataNota.getDate()));
+            nota.setNota_hora(txtHora.getText());
+            SituacaoEnum situacaoEnum = (SituacaoEnum) cbSituacao.getSelectedItem();
+            nota.setNota_situacao(situacaoEnum.getNome());
+
+            nota.setNota_nota(txtNotaNumero.getText());
+            nota.setNota_chave(txtChaveNota.getText());
+            nota.setNota_observacao(txtNotaObservacao.getText());
+
+            nota.getTransporteModel().setMotorista(vol_motorista.getText());
+            nota.getTransporteModel().setPlaca(vol_placa.getText());
+            nota.getTransporteModel().setUf(vol_uf.getText());
+
+            nota.getTransporteModel().setQuantidade(vol_quantidade.getText());
+            nota.getTransporteModel().setEspecie(vol_especie.getText());
+            nota.getTransporteModel().setPesobruto(vol_peso_bruto.getText());
+            nota.getTransporteModel().setPesoliquido(vol_peso_liquido.getText());
+            nota.getTransporteModel().setMotorista(vol_motorista.getText());
+
+            NotaFiscalService notaFiscalService = new NotaFiscalService();
+            notaFiscalService.expedirNotaFiscal(nota);
+            this.dispose();
+        } catch (Exception e) {
+            System.out.println("erro ao executar expedição ::: " + e.getMessage());
+        }
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jFormattedTextFieldHoraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldHoraFocusGained
-//        flaghora = 1;
-    }//GEN-LAST:event_jFormattedTextFieldHoraFocusGained
+    private void txtHoraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHoraFocusGained
+    }//GEN-LAST:event_txtHoraFocusGained
 
-    private void jFormattedTextFieldHoraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldHoraFocusLost
-        // if (flaghora == 1) {
-        if (jFormattedTextFieldHora.getText().equals("  :  ")) {
-            jFormattedTextFieldHora.setBackground(Color.RED);
-        } else {
-            jFormattedTextFieldHora.setBackground(Color.WHITE);
-        }
-//        } else {
-//            jFormattedTextFieldHora.setBackground(Color.WHITE);
-//        }
-    }//GEN-LAST:event_jFormattedTextFieldHoraFocusLost
+    private void txtHoraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHoraFocusLost
+    }//GEN-LAST:event_txtHoraFocusLost
 
-    private void jFormattedTextFieldHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldHoraActionPerformed
+    private void txtHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoraActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextFieldHoraActionPerformed
+    }//GEN-LAST:event_txtHoraActionPerformed
 
-    private void jFormattedTextFieldHoraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldHoraKeyPressed
+    private void txtHoraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHoraKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
             //   jTextFieldNota.requestFocus();
         }
-    }//GEN-LAST:event_jFormattedTextFieldHoraKeyPressed
+    }//GEN-LAST:event_txtHoraKeyPressed
 
     private void jButtonEnvAgoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnvAgoActionPerformed
-
-        String hora = principal.jLabel_Hora.getText();
-        String dataPrincipal = principal.jLabel_Data.getText();
-        jComboBoxSituacao.setSelectedItem("4-ENVIADO");
-        jFormattedTextFieldHora.setText(hora);
-        //data// insere data no jDateChose a partir de uma String no banco 
-        // String insereData = (conex.rs.getString("nota_data"));
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        Date data;
-        try {
-            data = formato.parse(dataPrincipal);
-            jDateChooser_Data_Nota.setDate(data);
-        } catch (ParseException ex) {
-            Logger.getLogger(JDialogExpedicao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
+        cbSituacao.setSelectedItem(SituacaoEnum.ENVIADO);
+        txtHora.setText(DataHoraAtual.obterHoraFormatada());
+        dcDataNota.setDate(StringToDate.deStringParaData(DataHoraAtual.obterDataFormatada()));
     }//GEN-LAST:event_jButtonEnvAgoActionPerformed
 
-    private void jTextFieldNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNotaActionPerformed
+    private void txtNotaNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNotaNumeroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNotaActionPerformed
+    }//GEN-LAST:event_txtNotaNumeroActionPerformed
 
-    private void jTextFieldChaveNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldChaveNotaActionPerformed
+    private void txtChaveNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtChaveNotaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldChaveNotaActionPerformed
+    }//GEN-LAST:event_txtChaveNotaActionPerformed
 
     private void jButtonEnvHojActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnvHojActionPerformed
-        jComboBoxSituacao.setSelectedItem("4-ENVIADO");
-        String dataPrincipal = principal.jLabel_Data.getText();
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        Date data;
-        try {
-            data = formato.parse(dataPrincipal);
-            jDateChooser_Data_Nota.setDate(data);
-        } catch (ParseException ex) {
-            Logger.getLogger(JDialogExpedicao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        cbSituacao.setSelectedItem(SituacaoEnum.ENVIADO);
+
+        dcDataNota.setDate(StringToDate.deStringParaData(DataHoraAtual.obterDataFormatada()));
+
     }//GEN-LAST:event_jButtonEnvHojActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
 
-        if (jTextFieldNota.getText().isEmpty()) {
-
-            jTextFieldNota.setBackground(null);
+        if (dcDataNota.isEnabled()) {
+            liberaCampos(false);
         } else {
-            jTextFieldNota.setBackground(Color.yellow);
-        }
-        if (jDateChooser_Data_Nota.isEnabled() == true) {
-            bloqueiaCampos();
-        } else {
-            liberaCampos();
+            liberaCampos(true);
         }
 
     }//GEN-LAST:event_jButtonAlterarActionPerformed
@@ -671,66 +659,28 @@ public class JDialogExpedicao extends javax.swing.JDialog {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 //        if (jTextFieldIdNota.getText().isEmpty()) {
 //        } else {
-        iniciaFormualario();
+//        iniciaFormualario();
 //        }
 
     }//GEN-LAST:event_formWindowOpened
-
-    private void jComboBoxDocumentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDocumentoItemStateChanged
-//        jLabelDocumento.setText((String) jComboBoxDocumento.getSelectedItem());
-        String label = (String) jComboBoxDocumento.getSelectedItem();
-        jTextFieldNota.setText("");
-        jTextFieldChaveNota.setText("");
-
-        String nome = "Não definido";
-        String nomeNota = jTextFieldNota.getText();
-        if (label == "Não definido") {
-            jDateChooser_Data_Nota.requestFocus();
-            jTextFieldNota.setText(nome);
-            jTextFieldChaveNota.setText(nome);
-            jTextFieldChaveNota.setEnabled(false);
-            jTextFieldNota.setBackground(Color.WHITE);
-            jTextFieldNota.setEnabled(false);
-
-        } else if (label == "Nota") {
-            //  jLabelDocumento.setText("No " + jLabelDocumento.getText());
-            jTextFieldNota.setEnabled(true);
-            jTextFieldNota.requestFocus();
-            jTextFieldChaveNota.setEnabled(true);
-
-        } else if (label == "Protocolo") {
-
-            jTextFieldNota.setEnabled(true);
-            jTextFieldNota.requestFocus();
-            jTextFieldNota.setText(jTextFieldIdNota.getText());
-
-        } else {
-            //  jTextFieldChaveNota.setText(jLabelDocumento.getText() + " " + nomeNota);
-            jTextFieldNota.setEnabled(true);
-            jTextFieldNota.setBackground(Color.WHITE);
-            jTextFieldNota.requestFocus();
-            jTextFieldChaveNota.setEnabled(false);
-
-        }
-    }//GEN-LAST:event_jComboBoxDocumentoItemStateChanged
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
 //        ExpedicaoJIF.jButton1.doClick();
     }//GEN-LAST:event_formWindowClosing
 
     private void vol_ufFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vol_ufFocusLost
-        AjustaMinhaUf();
+//        AjustaMinhaUf();
         vol_uf.setText(vol_uf.getText().toUpperCase());
     }//GEN-LAST:event_vol_ufFocusLost
 
     private void vol_placaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vol_placaFocusLost
         //aqui
-        AjustaMinhaPlaca();
+//        AjustaMinhaPlaca();
         vol_placa.setText(vol_placa.getText().toUpperCase());
     }//GEN-LAST:event_vol_placaFocusLost
 
     private void vol_placaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vol_placaKeyReleased
-        AjustaMinhaPlaca();
+//        AjustaMinhaPlaca();
     }//GEN-LAST:event_vol_placaKeyReleased
 
     private void vol_motoristaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_vol_motoristaFocusGained
@@ -855,310 +805,89 @@ public class JDialogExpedicao extends javax.swing.JDialog {
         });
     }
 
-    public void lancarNota() {
-        String Teste;
-        Date jDate = new Date();
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        jDate = jDateChooser_Data_Nota.getDate();
-        if (jDate == null) {
-            Teste = "";
-            System.out.println(" if (jDate == null) {");
-        } else {
-            Teste = (formato.format(jDate));
-            System.out.println(" } else {Teste = (formato.format(jDate));");
-        }
-        LancaExpedicaoUpdate();
-        LancaExpedicaoInsert();
-        Principal.jLabelCodigoTela.setText("Expedicao");
-        Principal.jButton1.doClick();
-       Principal.jLabelCodigoTela.setText("AtualizaTudo");
-      Principal.jButton1.doClick();
-        this.dispose();
-    }
+    public void setaValoresNosCampos(NotaFiscal notaFiscal) {
+        txtOsNOta.setText("" + notaFiscal.getId_nota());
+        txtHora.setText(notaFiscal.getNota_hora());
+        txtNotaNumero.setText(notaFiscal.getNota_nota());
+        txtChaveNota.setText(notaFiscal.getNota_chave());
+        txtNotaObservacao.setText(notaFiscal.getNota_observacao());
+        vol_quantidade.setText(notaFiscal.getTransporteModel().getQuantidade());
+        vol_especie.setText(notaFiscal.getTransporteModel().getEspecie());
+        vol_numeracao.setText(notaFiscal.getTransporteModel().getNumeracao());
+        vol_peso_bruto.setText(notaFiscal.getTransporteModel().getPesobruto());
+        vol_peso_liquido.setText(notaFiscal.getTransporteModel().getPesoliquido());
+        vol_motorista.setText(notaFiscal.getTransporteModel().getMotorista());
+        vol_placa.setText(notaFiscal.getTransporteModel().getPlaca());
+        vol_uf.setText(notaFiscal.getTransporteModel().getUf());
 
-//    public void SalvarMovimentoBanco() {
-//        MovimentoBancoUpdateTodos();
-//        MovimentoBancoInsert();
-//    }
-    public void LancaExpedicaoInsert() {
-        String Documento = ((String) jComboBoxDocumento.getSelectedItem());
-        String Nota = jTextFieldNota.getText();
-        String Hora = (jFormattedTextFieldHora.getText());
-        String MenuMinhaData = "";
-        if (jDateChooser_Data_Nota.getDate() == (null)) {
-            MinhaData = ("");
-        } else {
-            data = jDateChooser_Data_Nota.getDate();
-            MinhaData = (formato.format(data));
-            SimpleDateFormat formato2 = new SimpleDateFormat("yyyy/MM/dd");
-            MenuMinhaData = (formato2.format(data));
-        }
-        String Data = MinhaData;
-        String Situacao = ((String) jComboBoxSituacao.getSelectedItem());
-        String Chave = (jTextFieldChaveNota.getText());
-        jTextArea_Observacao.setText(jTextArea_Observacao.getText().toUpperCase());
-        String Observacao = (jTextArea_Observacao.getText());
-        String Registro = principal.jLabel_Data.getText() + " " + principal.jLabel_Hora.getText();
-        String Usuario = (principal.jLabelNomeUsuario.getText());
-//        String busca = String.valueOf(id_referencia);
-        String busca = jLabel_IdNota.getText();
-        
-       String motorista = vol_motorista.getText();
-            String placa=vol_placa.getText();
-        String pesoliquido=(vol_peso_liquido.getText());
-       String pesobruto=(vol_peso_bruto.getText());
-        String uf=(vol_uf.getText());
-        String especie=(vol_especie.getText());
-        String numeracao=(vol_numeracao.getText());
-        String quantidade=(vol_quantidade.getText());
-        
-        conex.conexao();
+        // Formato da data correspondente ao formato da string
+        SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+
         try {
-            java.sql.PreparedStatement pst = conex.con.prepareStatement(""
-                    + "INSERT INTO nota(\n"
-                    + "             nota_documento, nota_nota, nota_data, nota_hora, nota_observacao, \n"
-                    + "            nota_registro, nota_situacao, nota_chave, nota_total, nota_operacao, \n"
-                    + "            nota_usu, id_referencianota, stnota, naturezaint, fornecedorint, \n"
-                    + "            modalidade, transportadora, motorista, placa, uf, quantidade, \n"
-                    + "            especie, numeracao, pesobruto, pesoliquido, motoristaint, empresaint, \n"
-                    + "            datavariavel)"
-                    + "SELECT  '" + Documento + "', '" + Nota + "', '" + Data + "', '" + Hora + "', '" + Observacao + "', \n"
-                    + "       '" + Registro + "', '" + Situacao + "', '" + Chave + "', nota_total, nota_operacao, \n"
-                    + "       '" + Usuario + "', id_referencianota, '1', naturezaint, fornecedorint, \n"
-                    + "       modalidade, transportadora,  '" +motorista+ "','" + placa+ "','" + uf+ "', '" +quantidade+ "', \n"
-                    + "       '" +especie+ "', '" +numeracao+ "','" + pesobruto+ "','" + pesoliquido+ "', motoristaint, empresaint, \n"
-                    + "       '" + MenuMinhaData + "'\n"
-                    + "  FROM nota where id_nota =   '" + busca + "'  "
-                    + "                   ");
-            pst.execute();
-//            JOptionPane.showMessageDialog(rootPane, " MovimentoBancoUpdateTodos "+id_referencia);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao MovimentoBancoInsert() . \\n" + ex);
+            // Convertendo a string para um objeto Date
+            Date dataNota = formatoData.parse(notaFiscal.getNota_data());
+
+            // Configurando a data no componente JDateChooser
+            dcDataNota.setDate(dataNota);
+
+        } catch (ParseException e) {
+            e.printStackTrace(); // Trate a exceção apropriadamente
         }
-        conex.desconecta();
+
+        // Loop para encontrar o enum correspondente à string
+        for (SituacaoEnum situacaoEnum : SituacaoEnum.values()) {
+            if (situacaoEnum.getNome().equals(notaFiscal.getNota_situacao())) {
+                // Configurar o item encontrado como selecionado no combobox
+                cbSituacao.setSelectedItem(situacaoEnum);
+                break; // Saia do loop após encontrar a correspondência
+            }
+        }
+
     }
 
-    public void LancaExpedicaoUpdate() {
-//        String busca = String.valueOf(id_referencia);
-        String busca = jTextFieldIdNota.getText();
-
-        conex.conexao();
-        try {
-            java.sql.PreparedStatement pst = conex.con.prepareStatement("UPDATE nota\n"
-                    + "   SET stnota='2'\n"
-                    + " WHERE stnota='1' and id_referencianota='" + busca + "'");
-            pst.execute();
-            // JOptionPane.showMessageDialog(rootPane, " MovimentoBancoUpdateTodos "+busca);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao MovimentoBancoUpdateTodos() . \\n" + ex);
-        }
-        conex.desconecta();
-    }
-
-    public void MovimentoBancoUpdate() {
-        int busca = id_referencia;
-        conex.conexao();
-        try {
-            java.sql.PreparedStatement pst = conex.con.prepareStatement(" INSERT INTO movprodutobase  (\n"
-                    + "             id_prod_ent, data_mov, nota_mov, sistema_mov, qtd_mov, \n"
-                    + "            qtd_prod, qtd_prod_ex, qtd_calc, qtd_calc_ex, valor_real, valor_moeda, \n"
-                    + "            destino_mov, complemento_mov, registro_mov, status_mov, volume, \n"
-                    + "            usuario_mov, modo_mov, total_mov)\n"
-                    + "    SELECT  id_prod_ent, data_mov, nota_mov, sistema_mov, qtd_mov, \n"
-                    + "       qtd_prod, qtd_prod_ex, qtd_calc, qtd_calc_ex, valor_real, valor_moeda, \n"
-                    + "       destino_mov, complemento_mov, registro_mov, status_mov, volume, \n"
-                    + "       usuario_mov, modo_mov, total_mov\n"
-                    + "  FROM movproduto"
-                    + " WHERE  nota_mov='" + busca + "'");//// status_mov='ATIVO' and
-
-            pst.execute();
-//            JOptionPane.showMessageDialog(null, "Excuido");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao MovimentoBancoInsert() . \\n" + ex);
-        }
-        conex.desconecta();
-    }
-
-//    public void InsereDadosNota() {
-//        if (jDateChooser_Data_Nota.getDate() == (null)) {
-//            MinhaData = ("");
-//        } else {
-//            data = jDateChooser_Data_Nota.getDate();
-//            MinhaData = (formato.format(data));
-//        }
-//        beans.setId_referencia(id_referencia);
-//        beans.setNota_operacao(MinhaNatureza);
-//        beans.setNota_registro(principal.jLabel_Data.getText() + " " + principal.jLabel_Hora.getText());
-//        beans.setNota_status("ATIVO");
-//        beans.setNota_total("1234"); // ver total
-//        beans.setNota_usuario(MenuPrincipal.jLabel_Usuario.getText());
-//        beans.setNota_data(MinhaData);
-//        beans.setNatureza(MinhaNatureza);
-//        beans.setNota_documento((String) jComboBoxDocumento.getSelectedItem());
-//        beans.setNota_fornecedor(jLabel_Fornecedor.getText());
-//        beans.setNota_situacao((String) jComboBoxSituacao.getSelectedItem());
-//        beans.setNota_chave(jTextFieldChaveNota.getText());
-//        beans.setNota_nota(jTextFieldNota.getText());
-//        beans.setNota_hora(jFormattedTextFieldHora.getText());
-//        jTextArea_Observacao
-//                .setText(jTextArea_Observacao.getText().toUpperCase());
-//        beans.setNota_observacao(jTextArea_Observacao.getText());
-//    }
-    public void liberaCampos() {
-        jDateChooser_Data_Nota.setEnabled(true);
-        jFormattedTextFieldHora.setEnabled(true);
-        jComboBoxSituacao.setEnabled(true);
-        jTextFieldNota.setEnabled(true);
-        jTextFieldChaveNota.setEnabled(true);
-        jTextArea_Observacao.setEnabled(true);
-        jComboBoxDocumento.setEnabled(true);
-         vol_quantidade.setEnabled(true);
-            vol_especie.setEnabled(true);
-            vol_numeracao.setEnabled(true);
-            vol_peso_bruto.setEnabled(true);
-            vol_peso_liquido.setEnabled(true);
-            vol_motorista.setEnabled(true);
-            vol_placa.setEnabled(true);
-            vol_uf.setEnabled(true);
+    public void liberaCampos(boolean liberado) {
+        dcDataNota.setEnabled(liberado);
+        txtHora.setEnabled(liberado);
+        cbSituacao.setEnabled(liberado);
+        txtNotaNumero.setEnabled(liberado);
+        txtChaveNota.setEnabled(liberado);
+        txtNotaObservacao.setEnabled(liberado);
+        vol_quantidade.setEnabled(liberado);
+        vol_especie.setEnabled(liberado);
+        vol_numeracao.setEnabled(liberado);
+        vol_peso_bruto.setEnabled(liberado);
+        vol_peso_liquido.setEnabled(liberado);
+        vol_motorista.setEnabled(liberado);
+        vol_placa.setEnabled(liberado);
+        vol_uf.setEnabled(liberado);
     }
 
     public void bloqueiaCampos() {
-        jDateChooser_Data_Nota.setEnabled(false);
-        jFormattedTextFieldHora.setEnabled(false);
-        jComboBoxSituacao.setEnabled(false);
-        jTextFieldNota.setEnabled(false);
-        jTextFieldChaveNota.setEnabled(false);
-        jTextArea_Observacao.setEnabled(false);
-        jComboBoxDocumento.setEnabled(false);
-                vol_quantidade.setEnabled(false);
-            vol_especie.setEnabled(false);
-            vol_numeracao.setEnabled(false);
-            vol_peso_bruto.setEnabled(false);
-            vol_peso_liquido.setEnabled(false);
-            vol_motorista.setEnabled(false);
-            vol_placa.setEnabled(false);
-            vol_uf.setEnabled(false);
+        dcDataNota.setEnabled(false);
+        txtHora.setEnabled(false);
+        cbSituacao.setEnabled(false);
+        txtNotaNumero.setEnabled(false);
+        txtChaveNota.setEnabled(false);
+        txtNotaObservacao.setEnabled(false);
+//        jComboBoxDocumento.setEnabled(false);
+        vol_quantidade.setEnabled(false);
+        vol_especie.setEnabled(false);
+        vol_numeracao.setEnabled(false);
+        vol_peso_bruto.setEnabled(false);
+        vol_peso_liquido.setEnabled(false);
+        vol_motorista.setEnabled(false);
+        vol_placa.setEnabled(false);
+        vol_uf.setEnabled(false);
     }
 
-    public void RIdSai(String id) {
-        jTextFieldIdNota.setText(id);
-        jTextFieldIdNota.requestFocus();
-    }
 
-    public void MinhaIdNotaSai(String idnota) {
-        jLabel_IdNota.setText(idnota);
-
-    }
-
-    public void iniciaFormualario() {
-        String busca = jLabel_IdNota.getText();
-        System.out.println("busca = " + busca);
-        conex.conexao();
-        conex.executaSql(""
-                + "SELECT id_nota, nota_documento, nota_nota, nota_data, nota_hora, nota_observacao, \n"
-                + "       nota_registro, nota_situacao, nota_chave, nota_total, nota_operacao, \n"
-                + "       nota_usu, id_referencianota, stnota, naturezaint, fornecedorint, \n"
-                + "       modalidade, transportadora, motorista, placa, uf, quantidade, \n"
-                + "       especie, numeracao, pesobruto, pesoliquido, motoristaint, empresaint, \n"
-                + "       datavariavel\n"
-                + "  FROM nota "
-                + "  where stnota=1  and id_nota= '" + busca + "' order by datavariavel asc"
-                + "               ");
-
-        try {
-            conex.rs.first();
-            jComboBoxSituacao.setSelectedItem(String.valueOf(conex.rs.getString("nota_situacao")));
-            jComboBoxDocumento.setSelectedItem(String.valueOf(conex.rs.getString("nota_documento")));
-            String MinhaHora = (String.valueOf(conex.rs.getString("nota_hora")));
-            if (MinhaHora.equals("") | MinhaHora.equals("  :  ") | MinhaHora == " " | MinhaHora.isEmpty()) {
-                jFormattedTextFieldHora.setText(null);
-            } else {
-                jFormattedTextFieldHora.setText(MinhaHora);
-            }
-            jTextFieldNota.setText(String.valueOf(conex.rs.getString("nota_nota")));
-            jTextFieldChaveNota.setText(String.valueOf(conex.rs.getString("nota_chave")));
-            jTextArea_Observacao.setText(String.valueOf(conex.rs.getString("nota_observacao")));
-////data// insere data no jDateChose a partir de uma String no banco 
-            String insereData = (conex.rs.getString("nota_data"));
-            vol_quantidade.setText(conex.rs.getString("quantidade"));
-            vol_especie.setText(conex.rs.getString("especie"));
-            vol_numeracao.setText(conex.rs.getString("numeracao"));
-            vol_peso_bruto.setText(conex.rs.getString("pesobruto"));
-            vol_peso_liquido.setText((conex.rs.getString("pesoliquido")));
-            vol_motorista.setText(conex.rs.getString("motorista"));
-            vol_placa.setText(conex.rs.getString("placa"));
-            vol_uf.setText(conex.rs.getString("uf"));
-            try {
-                data = formato.parse(insereData);
-            } catch (ParseException exd) {
-                System.out.println("erro data " + exd);
-            }
-            jDateChooser_Data_Nota.setDate(data);
-        } catch (SQLException ex) {
-            System.out.println("Interface.JDialogExpedicaoSaida.iniciaFormualario()   = " + ex);
-
-        }
-        conex.desconecta();
-
-    }
-
-    public void AjustaMinhaUf() {
-        String s = vol_uf.getText().replace(".", "").replace("-", "");
-        String formatadoA, formatadoC;
-        formatadoA = s.substring(0, 2);
-        System.out.println("formatadoA     " + formatadoA);
-        if (formatadoA.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
-            formatadoC = formatadoA;
-        } else {
-            System.out.println("if uf   erase ");
-            formatadoC = "";
-            vol_uf.requestFocus();
-        }
-        System.err.println("    uf   " + formatadoC);
-        vol_uf.setText(formatadoC);
-    }
-
-    public void AjustaMinhaPlaca() {
-
-        String s = vol_placa.getText().replace(".", "").replace("-", "");
-        String formatadoA, formatadoB, formatadoC;
-        int contar = s.length();
-        if (contar <= 4) {
-        } else {
-            formatadoA = s.substring(0, 3);
-            System.out.println("formatadoA     " + formatadoA);
-            formatadoB = s.substring(3, 7);
-            System.out.println("formatadoB     " + formatadoB);
-            if (formatadoA.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
-                formatadoA = formatadoA;
-            } else {
-                formatadoA = "erro A";
-            }
-            if (formatadoB.matches("^[0-9]*$")) {
-                formatadoB = formatadoB;
-            } else {
-                formatadoB = "erro B";
-            }
-            if (formatadoB == "erro B" | formatadoA == "erro A") {
-                System.out.println("if    erase ");
-                formatadoC = "";
-                vol_placa.requestFocus();
-            } else {
-                formatadoC = formatadoA + "-" + formatadoB;
-            }
-            System.err.println("    placa   " + formatadoC);
-            vol_placa.setText(formatadoC);
-        }
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<SituacaoEnum> cbSituacao;
+    private com.toedter.calendar.JDateChooser dcDataNota;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonEnvAgo;
     private javax.swing.JButton jButtonEnvHoj;
-    private javax.swing.JComboBox<String> jComboBoxDocumento;
-    private javax.swing.JComboBox<String> jComboBoxSituacao;
-    private com.toedter.calendar.JDateChooser jDateChooser_Data_Nota;
-    private javax.swing.JFormattedTextField jFormattedTextFieldHora;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1172,7 +901,6 @@ public class JDialogExpedicao extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabelData;
     private javax.swing.JLabel jLabelData1;
-    private javax.swing.JLabel jLabelData2;
     private javax.swing.JLabel jLabelData3;
     private javax.swing.JLabel jLabelData4;
     private javax.swing.JLabel jLabel_Fornecedor;
@@ -1180,10 +908,11 @@ public class JDialogExpedicao extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel_Tipo_Fornecedor;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea_Observacao;
-    private javax.swing.JTextField jTextFieldChaveNota;
-    public static javax.swing.JTextField jTextFieldIdNota;
-    private javax.swing.JTextField jTextFieldNota;
+    private javax.swing.JTextField txtChaveNota;
+    private javax.swing.JFormattedTextField txtHora;
+    private javax.swing.JTextField txtNotaNumero;
+    private javax.swing.JTextArea txtNotaObservacao;
+    public static javax.swing.JTextField txtOsNOta;
     private javax.swing.JTextField vol_especie;
     private javax.swing.JTextField vol_motorista;
     private javax.swing.JTextField vol_numeracao;

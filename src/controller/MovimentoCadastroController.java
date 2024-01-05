@@ -4,7 +4,6 @@
  */
 package controller;
 
-import dao.ProdutoDao;
 import enums.SituacaoEnum;
 import enums.TipoMovimentacao;
 import view.dialog.JDialogBuscaProduto;
