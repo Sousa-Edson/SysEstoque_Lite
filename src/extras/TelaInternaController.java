@@ -17,6 +17,7 @@ import view.internal.NotaCadastroJIF;
 import view.internal.NotaListaJIF;
 import view.internal.ProdutoCadastroJIF;
 import view.internal.UnidadeCadastroJIF;
+import view.internal.UsuarioCadastroInternal;
 
 /**
  *
@@ -33,6 +34,18 @@ public class TelaInternaController {
     private static ConsultaInterna consultaInterna;
     private static ExpedicaoInterna expedicaoInterna;
     private static NaturezaCadastroInternal naturezaCadastroInternal;
+    private static UsuarioCadastroInternal usuarioCadastroInternal;
+
+    public static void chamaUsuarioCadastroInternal(MenuPrincipal form) {
+        if (usuarioCadastroInternal == null || !usuarioCadastroInternal.isVisible()) {
+            usuarioCadastroInternal = new UsuarioCadastroInternal();
+            MenuPrincipal.desktopPrincipal.add(usuarioCadastroInternal);
+            InternalFrameUtil.removerIcone(usuarioCadastroInternal);
+            usuarioCadastroInternal.setVisible(true);
+        }
+        usuarioCadastroInternal.toFront();
+        FramePositionUtil.setCenteredPosition(usuarioCadastroInternal);
+    }
 
     public static void chamaNaturezaCadastroInternal(MenuPrincipal form) {
         if (naturezaCadastroInternal == null || !naturezaCadastroInternal.isVisible()) {
