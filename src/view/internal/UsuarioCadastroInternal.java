@@ -5,19 +5,12 @@
  */
 package view.internal;
 
-import Interface.*;
-import ModeloBeans.ModeloTabela;
-import ConectaBanco.ConexaoBD;
-import ModeloDao.Dao_Usuario;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.event.MouseEvent;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import controller.UsuarioController;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JPasswordField;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.JTextField;
 
 /**
  *
@@ -25,190 +18,15 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  */
 public class UsuarioCadastroInternal extends javax.swing.JInternalFrame {
 
-//    Beans_Usuario BEANS = new Beans_Usuario();
-    Dao_Usuario DAO = new Dao_Usuario();
-    ConexaoBD conex = new ConexaoBD();
-
-    int id_referencia;
-    int id;
-    int flag = 1;
-
-    String MostraTabela = null;
-    String ordem = "asc";
-
     /**
      * Creates new form UnidadeJIF
      */
+    UsuarioController usuarioController;
+    int idUsuario = 0;
+    
     public UsuarioCadastroInternal() {
         initComponents();
-        remover_Ico();
-    }
-
-    public void setPosicao() {
-        Dimension d = this.getDesktopPane().getSize();
-        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
-    }
-
-    public void remover_Ico() {
-        this.setFrameIcon(null);
-
-        // hack to remove system menu in Windows
-        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
-        Container north = (Container) ui.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
-    }
-
-    public void CarregaUltimo() {
-        conex.conexao();
-        conex.executaSql2("SELECT  id_referencia  FROM usuario where id_referencia is not null and id_referencia !=0 order by id_referencia asc ");
-        try {
-            conex.rs.last();
-            id_referencia = conex.rs.getInt("id_referencia");
-//            JOptionPane.showMessageDialog(rootPane, id_referencia);
-            id_referencia = id_referencia + 1;
-//            JOptionPane.showMessageDialog(rootPane, id_referencia);
-        } catch (SQLException ex) {
-//            Logger.getLogger(UnidadeJIF.class.getName()).log(Level.SEVERE, null, ex);
-            id_referencia = 1;
-        }
-//        JOptionPane.showMessageDialog(rootPane, id_referencia);
-        conex.desconecta();
-    }
-
-    public void PreencheTabela() {
-//        String TipoUsuario = Principal.jLabelTipoUsuario.getText();
-//        if (TipoUsuario == "Manutenção") {
-//            PreencheTabela3();
-//        } else {
-//            PreencheTabela2();
-//        }
-    }
-
-    public void PreencheTabela3() {
-        ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{"Codigo", "Status", "Tipo", "Descrição", "Registro", "Usuario", "Senha", "Id"};
-
-        jLabel5.setText("Confirmação");
-        this.setTitle("Usuario");
-
-        if (jMenuItem_Ordem.isSelected()) {
-            ordem = "";
-        } else {
-            ordem = "asc";
-        }
-        conex.conexao();
-
-        if (ordem.equals("asc")) {
-            conex.executaSql2("SELECT *  FROM usuario  order by id_referencia asc ");
-        } else {
-            conex.executaSql2("SELECT *  FROM usuario   order by id_referencia desc ");
-        }
-        try {
-            conex.rs.first();
-            do {
-                String senha = " " + conex.rs.getString("senha_usuario");
-                String UsuarioCadastro = null;
-                int UsuarioCadastroNum = conex.rs.getInt("stusu");
-                if (UsuarioCadastroNum == 1) {
-                    UsuarioCadastro = "ATIVO";
-                } else if (UsuarioCadastroNum == 2) {
-                    UsuarioCadastro = "ALTERADO";
-                } else if (UsuarioCadastroNum == 3) {
-                    UsuarioCadastro = "EXCLUIDO";
-                } else {
-                    UsuarioCadastro = "INDEFINIDO";
-                }
-                dados.add(new Object[]{conex.rs.getInt("id_referencia"), UsuarioCadastro,
-                    conex.rs.getString("sigla_usuario"), conex.rs.getString("desc_usuario"), conex.rs.getString("registro_usuario"),
-                    conex.rs.getString("usuario_usuario"), senha, conex.rs.getInt("id_usuario")});
-
-            } while (conex.rs.next());
-        } catch (SQLException ex) {
-//            Logger.getLogger(UsuarioJIF.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-
-        jTable_Lista.setModel(modelo);
-        jTable_Lista.getColumnModel().getColumn(0).setPreferredWidth(60);
-        jTable_Lista.getColumnModel().getColumn(0).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(1).setPreferredWidth(80);
-        jTable_Lista.getColumnModel().getColumn(1).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(2).setPreferredWidth(100);
-        jTable_Lista.getColumnModel().getColumn(2).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(3).setPreferredWidth(150);
-        jTable_Lista.getColumnModel().getColumn(3).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(4).setPreferredWidth(120);
-        jTable_Lista.getColumnModel().getColumn(4).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(5).setPreferredWidth(80);
-        jTable_Lista.getColumnModel().getColumn(5).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(6).setPreferredWidth(00);
-        jTable_Lista.getColumnModel().getColumn(6).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(7).setPreferredWidth(00);
-        jTable_Lista.getColumnModel().getColumn(7).setResizable(false);
-
-        jTable_Lista.getTableHeader().setReorderingAllowed(false);
-        jTable_Lista.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        jTable_Lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        conex.desconecta();
-
-    }
-
-    public void PreencheTabela2() {
-        ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{"Codigo", "Tipo", "Descrição", "Registro", "Usuario", "Senha", "Id"};
-
-        jLabel5.setText("Confirmação");
-        this.setTitle("Usuario");
-
-        if (jMenuItem_Ordem.isSelected()) {
-            ordem = "";
-        } else {
-            ordem = "asc";
-        }
-        conex.conexao();
-
-        if (ordem.equals("asc")) {
-            conex.executaSql2("SELECT *  FROM usuario  where stusu=1 order by id_referencia asc ");
-        } else {
-            conex.executaSql2("SELECT *  FROM usuario  where stusu=1  order by id_referencia desc ");
-        }
-        try {
-            conex.rs.first();
-            do {
-                String senha = " " + conex.rs.getString("senha_usuario");
-                dados.add(new Object[]{conex.rs.getInt("id_referencia"),
-                    conex.rs.getString("sigla_usuario"), conex.rs.getString("desc_usuario"), conex.rs.getString("registro_usuario"),
-                    conex.rs.getString("usuario_usuario"), senha, conex.rs.getInt("id_usuario")});
-
-            } while (conex.rs.next());
-        } catch (SQLException ex) {
-//            Logger.getLogger(UsuarioJIF.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ModeloTabela modelo = new ModeloTabela(dados, colunas);
-
-        jTable_Lista.setModel(modelo);
-        jTable_Lista.getColumnModel().getColumn(0).setPreferredWidth(60);
-        jTable_Lista.getColumnModel().getColumn(0).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(1).setPreferredWidth(100);
-        jTable_Lista.getColumnModel().getColumn(1).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(2).setPreferredWidth(150);
-        jTable_Lista.getColumnModel().getColumn(2).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(3).setPreferredWidth(120);
-        jTable_Lista.getColumnModel().getColumn(3).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(4).setPreferredWidth(80);
-        jTable_Lista.getColumnModel().getColumn(4).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(5).setPreferredWidth(00);
-        jTable_Lista.getColumnModel().getColumn(5).setResizable(true);
-        jTable_Lista.getColumnModel().getColumn(6).setPreferredWidth(00);
-        jTable_Lista.getColumnModel().getColumn(6).setResizable(true);
-
-        jTable_Lista.getTableHeader().setReorderingAllowed(false);
-        jTable_Lista.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        jTable_Lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        conex.desconecta();
-
+        usuarioController = new UsuarioController();
     }
 
     /**
@@ -222,24 +40,23 @@ public class UsuarioCadastroInternal extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable_Lista = new javax.swing.JTable();
-        jButton_Salvar = new javax.swing.JButton();
-        jButton_Cancelar = new javax.swing.JButton();
-        jButton_Excluir = new javax.swing.JButton();
+        tabela = new javax.swing.JTable();
+        btnSalvar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextFieldNome = new javax.swing.JTextField();
-        jComboBoxTipo = new javax.swing.JComboBox<>();
+        txtNome = new javax.swing.JTextField();
+        cbTipo = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jPasswordSenha = new javax.swing.JPasswordField();
-        jPasswordConfirmacao = new javax.swing.JPasswordField();
-        jButton_Novo = new javax.swing.JButton();
+        txtSenha = new javax.swing.JPasswordField();
+        txtConfirma = new javax.swing.JPasswordField();
+        btnNovo = new javax.swing.JButton();
+        btnAtualizar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem_Ordem = new javax.swing.JRadioButtonMenuItem();
 
         setBackground(new java.awt.Color(0, 255, 204));
         setClosable(true);
@@ -248,10 +65,11 @@ public class UsuarioCadastroInternal extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Usuario");
 
-        jPanel1.setBackground(new java.awt.Color(0, 255, 204));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setToolTipText("");
 
-        jTable_Lista.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -262,41 +80,41 @@ public class UsuarioCadastroInternal extends javax.swing.JInternalFrame {
 
             }
         ));
-        jTable_Lista.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable_ListaMouseClicked(evt);
+                tabelaMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jTable_ListaMouseEntered(evt);
+                tabelaMouseEntered(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable_Lista);
+        jScrollPane1.setViewportView(tabela);
 
-        jButton_Salvar.setText("Salvar");
-        jButton_Salvar.setEnabled(false);
-        jButton_Salvar.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setText("Salvar");
+        btnSalvar.setEnabled(false);
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_SalvarActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
-        jButton_Salvar.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnSalvar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jButton_SalvarKeyPressed(evt);
+                btnSalvarKeyPressed(evt);
             }
         });
 
-        jButton_Cancelar.setText("Cancelar");
-        jButton_Cancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_CancelarActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
-        jButton_Excluir.setText("Excluir");
-        jButton_Excluir.setEnabled(false);
-        jButton_Excluir.addActionListener(new java.awt.event.ActionListener() {
+        btnExcluir.setText("Excluir");
+        btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_ExcluirActionPerformed(evt);
+                btnExcluirActionPerformed(evt);
             }
         });
 
@@ -304,7 +122,7 @@ public class UsuarioCadastroInternal extends javax.swing.JInternalFrame {
         jLabel3.setText("Lista");
         jLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jPanel2.setBackground(new java.awt.Color(0, 255, 204));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -313,18 +131,23 @@ public class UsuarioCadastroInternal extends javax.swing.JInternalFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Nome");
 
-        jTextFieldNome.setEnabled(false);
-        jTextFieldNome.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNome.setEnabled(false);
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextFieldNomeKeyPressed(evt);
+                txtNomeKeyPressed(evt);
             }
         });
 
-        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario", "Manutenção", "Administrador", "Consulta" }));
-        jComboBoxTipo.setEnabled(false);
-        jComboBoxTipo.addKeyListener(new java.awt.event.KeyAdapter() {
+        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario", "Manutenção", "Administrador", "Consulta" }));
+        cbTipo.setEnabled(false);
+        cbTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoActionPerformed(evt);
+            }
+        });
+        cbTipo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jComboBoxTipoKeyPressed(evt);
+                cbTipoKeyPressed(evt);
             }
         });
 
@@ -334,17 +157,17 @@ public class UsuarioCadastroInternal extends javax.swing.JInternalFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Confirmação");
 
-        jPasswordSenha.setEnabled(false);
-        jPasswordSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtSenha.setEnabled(false);
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jPasswordSenhaKeyPressed(evt);
+                txtSenhaKeyPressed(evt);
             }
         });
 
-        jPasswordConfirmacao.setEnabled(false);
-        jPasswordConfirmacao.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtConfirma.setEnabled(false);
+        txtConfirma.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jPasswordConfirmacaoKeyPressed(evt);
+                txtConfirmaKeyPressed(evt);
             }
         });
 
@@ -356,19 +179,19 @@ public class UsuarioCadastroInternal extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBoxTipo, 0, 187, Short.MAX_VALUE))
+                    .addComponent(cbTipo, 0, 187, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldNome)
+                    .addComponent(txtNome)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                    .addComponent(jPasswordSenha))
+                    .addComponent(txtSenha))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                    .addComponent(jPasswordConfirmacao))
+                    .addComponent(txtConfirma))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -383,25 +206,32 @@ public class UsuarioCadastroInternal extends javax.swing.JInternalFrame {
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordConfirmacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtConfirma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(57, 57, 57))
         );
 
-        jButton_Novo.setText("Novo");
-        jButton_Novo.addActionListener(new java.awt.event.ActionListener() {
+        btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_NovoActionPerformed(evt);
+                btnNovoActionPerformed(evt);
             }
         });
-        jButton_Novo.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnNovo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jButton_NovoKeyPressed(evt);
+                btnNovoKeyPressed(evt);
+            }
+        });
+
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
             }
         });
 
@@ -412,17 +242,20 @@ public class UsuarioCadastroInternal extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton_Excluir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton_Cancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .addComponent(jButton_Salvar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton_Novo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 243, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -431,34 +264,18 @@ public class UsuarioCadastroInternal extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton_Novo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_Excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 152, Short.MAX_VALUE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        jMenu2.setText("Edit");
-
-        jMenuItem_Ordem.setText("Ordem");
-        jMenuItem_Ordem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem_OrdemActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem_Ordem);
-
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -478,301 +295,227 @@ public class UsuarioCadastroInternal extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton_SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SalvarActionPerformed
-        VerificarCamposVazios();
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        usuarioController.salvarUsuario(this);
 
-    }//GEN-LAST:event_jButton_SalvarActionPerformed
-    public void VerificarCamposVazios() {
-        String a = jPasswordSenha.getText();
-        String b = jPasswordConfirmacao.getText();
-        if (a.equals(b)) {
-            VerificarCamposCheios();
-            if (jTextFieldNome.getText().isEmpty() | jPasswordConfirmacao.getText().isEmpty() | jPasswordSenha.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(rootPane, "Campo(s) vazio(s)");
-            } else {
-                EventoSalvar();
-            }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Verifique senha\nSenhas não são iguais.");
-            jPasswordSenha.requestFocus();
-            jPasswordConfirmacao.setText(null);
-            jPasswordSenha.setText(null);
-        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+    
 
-    }
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        usuarioController.novaUsuario(this);
+    }//GEN-LAST:event_btnNovoActionPerformed
+    
 
-    public void VerificarCamposCheios() {
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        usuarioController.cancelarUsuario(this);
 
-        if (jPasswordSenha.getText().length() >= 10) {
-            jPasswordSenha.setText(null);
-            jPasswordSenha.requestFocus();
-        }
-        if (jPasswordConfirmacao.getText().length() >= 10) {
-            jPasswordConfirmacao.setText(null);
-            jPasswordConfirmacao.requestFocus();
-        }
-        if (jTextFieldNome.getText().length() >= 11) {
-            jTextFieldNome.setText(null);
-            jTextFieldNome.requestFocus();
-        }
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
-    }
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        usuarioController.selecionaUsuario(this);
+    }//GEN-LAST:event_tabelaMouseClicked
 
-    public void EventoSalvar() {
-//        jComboBoxTipo.setText(jComboBoxTipo.getText().toUpperCase());
-//        jTextFieldNome.setText(jTextFieldNome.getText().toUpperCase());
-        jButton_Novo.setEnabled(true);
-        jButton_Salvar.setEnabled(false);
-        jButton_Excluir.setEnabled(false);
-        jComboBoxTipo.setEnabled(false);
-        jTextFieldNome.setEnabled(false);
-        jPasswordConfirmacao.setEnabled(false);
-        jPasswordSenha.setEnabled(false);
-//        BEANS.setSigla_usuario((String) jComboBoxTipo.getSelectedItem());
-//        BEANS.setDesc_usuario(jTextFieldNome.getText());
-//        BEANS.setSenha_usuario(jPasswordSenha.getText());
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        usuarioController.deletarUsuario(this, idUsuario);
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
-        if (flag == 2) {
-//            BEANS.setId_usuario(id);
-//            BEANS.setStatus_usuario(2);
-//            DAO.Alterar(BEANS);
-        } else {
-        }
-//        BEANS.setStatus_usuario(1);
-//        BEANS.setRegistro_usuario(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
-//        BEANS.setUsuario_usuario(Principal.jLabelNomeUsuario.getText());
-
-//        BEANS.setId_referencia(id_referencia);
-//        DAO.Salvar(BEANS);
-        PreencheTabela();
-        jTextFieldNome.setText(null);
-        jPasswordSenha.setText(null);
-        jPasswordConfirmacao.setText(null);
-        jButton_Novo.requestFocus();
-
-    }
-
-    private void jButton_NovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NovoActionPerformed
-        BotaoNovo();
-    }//GEN-LAST:event_jButton_NovoActionPerformed
-
-    public void BotaoNovo() {
-
-        CarregaUltimo();
-        flag = 1;
-        jButton_Novo.setEnabled(false);
-        jButton_Excluir.setEnabled(false);
-        jButton_Salvar.setEnabled(true);
-        jComboBoxTipo.setEnabled(true);
-        jPasswordConfirmacao.setEnabled(true);
-        jPasswordSenha.setEnabled(true);
-        jTextFieldNome.setEnabled(true);
-        PreencheTabela();
-        jTextFieldNome.setText(null);
-        jPasswordSenha.setText(null);
-        jPasswordConfirmacao.setText(null);
-        jComboBoxTipo.setSelectedItem("Usuario");
-
-        jComboBoxTipo.requestFocus();
-    }
-
-    private void jButton_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelarActionPerformed
-        PreencheTabela();
-        flag = 1;
-        jButton_Novo.setEnabled(true);
-        jButton_Salvar.setEnabled(false);
-        jTextFieldNome.setText(null);
-        jPasswordSenha.setText(null);
-        jPasswordConfirmacao.setText(null);
-        jPasswordSenha.setEnabled(false);
-        jPasswordConfirmacao.setEnabled(false);
-        jComboBoxTipo.setEnabled(false);
-        jTextFieldNome.setEnabled(false);
-        jPasswordConfirmacao.setEnabled(false);
-        jPasswordSenha.setEnabled(false);
-        jButton_Excluir.setEnabled(false);
-
-    }//GEN-LAST:event_jButton_CancelarActionPerformed
-
-    private void jTable_ListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ListaMouseClicked
-        if (evt.getButton() == MouseEvent.BUTTON3) {
-        } else {
-            flag = 2;
-            jComboBoxTipo.setEnabled(true);
-            jTextFieldNome.setEnabled(true);
-            jComboBoxTipo.requestFocus();
-            jButton_Salvar.setEnabled(true);
-            jButton_Excluir.setEnabled(true);
-            jButton_Novo.setEnabled(false);
-            jPasswordConfirmacao.setEnabled(true);
-            jPasswordSenha.setEnabled(true);
-            String TipoUsuario = "";
-//                    Principal.jLabelTipoUsuario.getText();
-            if (TipoUsuario == "Manutenção") {
-                id = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 7);
-                id_referencia = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 0);
-                jComboBoxTipo.setSelectedItem((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 2));
-                jTextFieldNome.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 3));
-                String senha = ((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 6));
-                senha = senha.replace(" ", "");
-                jPasswordSenha.setText(senha);
-                jPasswordConfirmacao.setText(senha);
-                this.setTitle("Usuario Id: " + id_referencia);
-            } else {
-                id = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 6);
-                id_referencia = (int) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 0);
-                jComboBoxTipo.setSelectedItem((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 1));
-                jTextFieldNome.setText((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 2));
-                String senha = ((String) jTable_Lista.getValueAt(jTable_Lista.getSelectedRow(), 5));
-                senha = senha.replace(" ", "");
-                jPasswordSenha.setText(senha);
-                jPasswordConfirmacao.setText(senha);
-                this.setTitle("Usuario Id: " + id_referencia);
-            }
-        }
-    }//GEN-LAST:event_jTable_ListaMouseClicked
-
-    private void jButton_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExcluirActionPerformed
-        int resposta = 0;
-        resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir ? ");
-        if (resposta == JOptionPane.YES_OPTION) {
-            jButton_Novo.setEnabled(true);
-            jButton_Salvar.setEnabled(false);
-            jButton_Excluir.setEnabled(false);
-            jPasswordConfirmacao.setEnabled(false);
-            jPasswordSenha.setEnabled(false);
-            jPasswordConfirmacao.setText(null);
-            jPasswordSenha.setText(null);
-            jTextFieldNome.setText(null);
-            jComboBoxTipo.setEnabled(false);
-            jTextFieldNome.setEnabled(false);
-            jPasswordConfirmacao.setEnabled(false);
-            jPasswordSenha.setEnabled(false);
-
-            jPasswordSenha.setText(null);
-            jPasswordConfirmacao.setText(null);
-
-//            BEANS.setUsuario_usuario("");
-//                    Principal.jLabelNomeUsuario.getText());
-//            BEANS.setId_usuario(id);
-//            BEANS.setRegistro_usuario(Principal.jLabel_Data.getText() + " " + Principal.jLabel_Hora.getText());
-//            BEANS.setStatus_usuario(3);
-//            DAO.Excluir(BEANS);
-        }
-        PreencheTabela();
-    }//GEN-LAST:event_jButton_ExcluirActionPerformed
-
-    private void jTable_ListaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ListaMouseEntered
+    private void tabelaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTable_ListaMouseEntered
+    }//GEN-LAST:event_tabelaMouseEntered
 
-    private void jTextFieldNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeKeyPressed
+    private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            jPasswordSenha.requestFocus();
+            txtSenha.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_LEFT) {
-            jComboBoxTipo.requestFocus();
+            cbTipo.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_RIGHT) {
-            jPasswordSenha.requestFocus();
+            txtSenha.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_ESCAPE) {
 //            this.setVisible(false);
 //            Principal.Painel_principal.remove(this);
         }
-    }//GEN-LAST:event_jTextFieldNomeKeyPressed
+    }//GEN-LAST:event_txtNomeKeyPressed
 
-    private void jButton_SalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton_SalvarKeyPressed
+    private void btnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyPressed
+
+    }//GEN-LAST:event_btnSalvarKeyPressed
+
+    private void cbTipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbTipoKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            VerificarCamposVazios();
-        }
-        if (evt.getKeyCode() == evt.VK_ESCAPE) {
-//            this.setVisible(false);
-//            Principal.Painel_principal.remove(this);
-        }
-    }//GEN-LAST:event_jButton_SalvarKeyPressed
-
-    private void jMenuItem_OrdemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_OrdemActionPerformed
-        PreencheTabela();
-    }//GEN-LAST:event_jMenuItem_OrdemActionPerformed
-
-    private void jComboBoxTipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBoxTipoKeyPressed
-        if (evt.getKeyCode() == evt.VK_ENTER) {
-            jTextFieldNome.requestFocus();
+            txtNome.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_RIGHT) {
-            jTextFieldNome.requestFocus();
+            txtNome.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_ESCAPE) {
 //            this.setVisible(false);
 //            Principal.Painel_principal.remove(this);
         }
-    }//GEN-LAST:event_jComboBoxTipoKeyPressed
+    }//GEN-LAST:event_cbTipoKeyPressed
 
-    private void jPasswordSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordSenhaKeyPressed
+    private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            jPasswordConfirmacao.requestFocus();
+            txtConfirma.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_LEFT) {
-            jTextFieldNome.requestFocus();
+            txtNome.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_RIGHT) {
-            jPasswordConfirmacao.requestFocus();
+            txtConfirma.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_ESCAPE) {
 //            this.setVisible(false);
 //            MenuPrincipal.Painel_principal.remove(this);
         }
 
-    }//GEN-LAST:event_jPasswordSenhaKeyPressed
+    }//GEN-LAST:event_txtSenhaKeyPressed
 
-    private void jPasswordConfirmacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordConfirmacaoKeyPressed
+    private void txtConfirmaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmaKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            jButton_Salvar.requestFocus();
+            btnSalvar.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_LEFT) {
-            jPasswordSenha.requestFocus();
+            txtSenha.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_RIGHT) {
-            jButton_Salvar.requestFocus();
+            btnSalvar.requestFocus();
         }
         if (evt.getKeyCode() == evt.VK_ESCAPE) {
 //            this.setVisible(false);
 //            MenuPrincipal.Painel_principal.remove(this);
         }
-    }//GEN-LAST:event_jPasswordConfirmacaoKeyPressed
+    }//GEN-LAST:event_txtConfirmaKeyPressed
 
-    private void jButton_NovoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton_NovoKeyPressed
+    private void btnNovoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoKeyPressed
         if (evt.getKeyCode() == evt.VK_ESCAPE) {
 //            this.setVisible(false);
 //            MenuPrincipal.Painel_principal.remove(this);
         }
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            BotaoNovo();
+            
         }
-    }//GEN-LAST:event_jButton_NovoKeyPressed
+    }//GEN-LAST:event_btnNovoKeyPressed
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        usuarioController.preencheTabela(this);
+    }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void cbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton_Cancelar;
-    private javax.swing.JButton jButton_Excluir;
-    private javax.swing.JButton jButton_Novo;
-    private javax.swing.JButton jButton_Salvar;
-    private javax.swing.JComboBox<String> jComboBoxTipo;
+    private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JComboBox<String> cbTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JRadioButtonMenuItem jMenuItem_Ordem;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordConfirmacao;
-    private javax.swing.JPasswordField jPasswordSenha;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable_Lista;
-    private javax.swing.JTextField jTextFieldNome;
+    private javax.swing.JTable tabela;
+    private javax.swing.JPasswordField txtConfirma;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getBtnAtualizar() {
+        return btnAtualizar;
+    }
+    
+    public void setBtnAtualizar(JButton btnAtualizar) {
+        this.btnAtualizar = btnAtualizar;
+    }
+    
+    public JButton getBtnCancelar() {
+        return btnCancelar;
+    }
+    
+    public void setBtnCancelar(JButton btnCancelar) {
+        this.btnCancelar = btnCancelar;
+    }
+    
+    public JButton getBtnExcluir() {
+        return btnExcluir;
+    }
+    
+    public void setBtnExcluir(JButton btnExcluir) {
+        this.btnExcluir = btnExcluir;
+    }
+    
+    public JButton getBtnNovo() {
+        return btnNovo;
+    }
+    
+    public void setBtnNovo(JButton btnNovo) {
+        this.btnNovo = btnNovo;
+    }
+    
+    public JButton getBtnSalvar() {
+        return btnSalvar;
+    }
+    
+    public void setBtnSalvar(JButton btnSalvar) {
+        this.btnSalvar = btnSalvar;
+    }
+    
+    public JComboBox<String> getCbTipo() {
+        return cbTipo;
+    }
+    
+    public void setCbTipo(JComboBox<String> cbTipo) {
+        this.cbTipo = cbTipo;
+    }
+    
+    public JTable getTabela() {
+        return tabela;
+    }
+    
+    public void setTabela(JTable tabela) {
+        this.tabela = tabela;
+    }
+    
+    public JPasswordField getTxtConfirma() {
+        return txtConfirma;
+    }
+    
+    public void setTxtConfirma(JPasswordField txtConfirma) {
+        this.txtConfirma = txtConfirma;
+    }
+    
+    public JTextField getTxtNome() {
+        return txtNome;
+    }
+    
+    public void setTxtNome(JTextField txtNome) {
+        this.txtNome = txtNome;
+    }
+    
+    public JPasswordField getTxtSenha() {
+        return txtSenha;
+    }
+    
+    public void setTxtSenha(JPasswordField txtSenha) {
+        this.txtSenha = txtSenha;
+    }
+    
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+    
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
 }

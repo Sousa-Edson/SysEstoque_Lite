@@ -6,6 +6,7 @@
 package view;
 
 import static java.lang.Thread.sleep;
+import javax.swing.JOptionPane;
 import utils.ControleCores;
 
 /**
@@ -145,7 +146,7 @@ public class CarregandoSistema extends javax.swing.JFrame {
             }.start();
         } catch (Exception e) {
             System.err.println("erro sem banco de dados");
-             System.exit(0);
+            System.exit(0);
         }
 
     }
