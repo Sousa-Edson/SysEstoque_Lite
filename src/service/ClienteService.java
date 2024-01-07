@@ -24,5 +24,11 @@ public class ClienteService {
         return clienteDAO.listarClientes(ordenarPorId);
     }
 
-    // Outros métodos do serviço conforme necessário
+    public List<Cliente> listarClientesComFIltro(String busca, boolean ordenarPorId) {
+        return clienteDAO.listarClientesComFIltro(busca, ordenarPorId);
+    }
+
+    public Cliente obterClientePorId(int i) {
+        return clienteDAO.obterClientePorId(i);
+    }
 }

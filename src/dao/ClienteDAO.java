@@ -24,6 +24,53 @@ public class ClienteDAO {
         conex = new ConexaoBD();
     }
 
+    public List<Cliente> listarClientesComFIltro(String busca, boolean ordenarPorId) {
+        conex.conexao();
+        List<Cliente> clientes = new ArrayList<>();
+
+        String ordenacao = ordenarPorId ? "ORDER BY sis_ecft DESC" : "ORDER BY ecft_nome ASC";
+
+        String sql = "SELECT ecft_id ,sis_ecft, ecft_tipo, ecft_nome, ecft_cnpj, ecft_inscricao, "
+                + "ecft_descricao, ecft_telefone, ecft_endereco, ecft_no, ecft_cep, "
+                + "ecft_complemento, ecft_bairro, ecft_cidade, ecft_observacao, "
+                + "ecft_usuario, stecft, ecft_registro FROM ecft "
+                + "WHERE (COALESCE(CAST(ecft_nome AS TEXT), '') || ' ' || COALESCE(CAST(ecft_descricao AS TEXT), '')) ILIKE ? " + ordenacao;
+
+        try (PreparedStatement stmt = conex.preparaSql(sql);) {
+            stmt.setString(1, "%" + busca + "%");
+            ResultSet resultado = stmt.executeQuery();
+            while (resultado.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setCliente_id(resultado.getInt("ecft_id"));
+                cliente.setSis_cliente(resultado.getInt("sis_ecft"));
+                cliente.setCliente_tipo(resultado.getString("ecft_tipo"));
+                cliente.setCliente_nome(resultado.getString("ecft_nome"));
+                cliente.setCliente_cnpj(resultado.getString("ecft_cnpj"));
+                cliente.setCliente_inscricao(resultado.getString("ecft_inscricao"));
+                cliente.setCliente_descricao(resultado.getString("ecft_descricao"));
+                cliente.setCliente_telefone(resultado.getString("ecft_telefone"));
+                cliente.setCliente_endereco(resultado.getString("ecft_endereco"));
+                cliente.setCliente_no(resultado.getString("ecft_no"));
+                cliente.setCliente_cep(resultado.getString("ecft_cep"));
+                cliente.setCliente_complemento(resultado.getString("ecft_complemento"));
+                cliente.setCliente_bairro(resultado.getString("ecft_bairro"));
+                cliente.setCliente_cidade(resultado.getString("ecft_cidade"));
+                cliente.setCliente_observacao(resultado.getString("ecft_observacao"));
+                cliente.setCliente_usuario(resultado.getString("ecft_usuario"));
+                cliente.setStcliente(resultado.getInt("stecft"));
+                cliente.setCliente_registro(resultado.getString("ecft_registro"));
+
+                clientes.add(cliente);
+            }
+        } catch (SQLException e) {
+            System.err.println("erro" + e.getMessage());
+        } finally {
+            conex.desconecta();
+        }
+
+        return clientes;
+    }
+
     public List<Cliente> listarClientes(boolean ordenarPorId) {
         conex.conexao();
         List<Cliente> clientes = new ArrayList<>();
@@ -67,5 +114,55 @@ public class ClienteDAO {
         }
 
         return clientes;
+    }
+
+    public Cliente obterClientePorId(int i) {
+        conex.conexao();
+        String query
+                = "SELECT ecft_id ,sis_ecft, ecft_tipo, ecft_nome, ecft_cnpj, ecft_inscricao, "
+                + "ecft_descricao, ecft_telefone, ecft_endereco, ecft_no, ecft_cep, "
+                + "ecft_complemento, ecft_bairro, ecft_cidade, ecft_observacao, "
+                + "ecft_usuario, stecft, ecft_registro FROM ecft where ecft_id= ? ";
+
+        try (PreparedStatement pst = conex.con.prepareStatement(query)) {
+            pst.setInt(1, i);
+
+            try (ResultSet resultado = pst.executeQuery()) {
+                if (resultado.next()) {
+                    Cliente cliente = new Cliente();
+                    cliente.setCliente_id(resultado.getInt("ecft_id"));
+                    cliente.setSis_cliente(resultado.getInt("sis_ecft"));
+                    cliente.setCliente_tipo(resultado.getString("ecft_tipo"));
+                    cliente.setCliente_nome(resultado.getString("ecft_nome"));
+                    cliente.setCliente_cnpj(resultado.getString("ecft_cnpj"));
+                    cliente.setCliente_inscricao(resultado.getString("ecft_inscricao"));
+                    cliente.setCliente_descricao(resultado.getString("ecft_descricao"));
+                    cliente.setCliente_telefone(resultado.getString("ecft_telefone"));
+                    cliente.setCliente_endereco(resultado.getString("ecft_endereco"));
+                    cliente.setCliente_no(resultado.getString("ecft_no"));
+                    cliente.setCliente_cep(resultado.getString("ecft_cep"));
+                    cliente.setCliente_complemento(resultado.getString("ecft_complemento"));
+                    cliente.setCliente_bairro(resultado.getString("ecft_bairro"));
+                    cliente.setCliente_cidade(resultado.getString("ecft_cidade"));
+                    cliente.setCliente_observacao(resultado.getString("ecft_observacao"));
+                    cliente.setCliente_usuario(resultado.getString("ecft_usuario"));
+                    cliente.setStcliente(resultado.getInt("stecft"));
+                    cliente.setCliente_registro(resultado.getString("ecft_registro"));
+
+                    return cliente;
+                } else {
+                    System.out.println("ERRO????");
+                    // Não foi encontrada nenhuma nota com o ID fornecido
+                    return null;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("obterUsuarioPorId:: " + ex.getMessage());
+        } finally {
+            conex.desconecta();
+        }
+
+        // Retorna null se a usuario não for encontrada
+        return null;
     }
 }

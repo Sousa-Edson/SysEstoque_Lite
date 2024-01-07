@@ -5,15 +5,12 @@
 package dao;
 
 import ConectaBanco.ConexaoBD;
-import ModeloBeans.ModeloTabela;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import model.Usuario;
 
 /**

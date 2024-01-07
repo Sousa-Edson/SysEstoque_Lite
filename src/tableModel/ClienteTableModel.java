@@ -13,6 +13,7 @@ import javax.swing.table.AbstractTableModel;
 import model.Cliente;
 
 public class ClienteTableModel extends AbstractTableModel {
+
     private final String[] colunas = {"Id", "Tipo", "Nome", "Descrição", "Telefone", "Observação", "Registro"};
     private final List<Cliente> listaClientes;
 
