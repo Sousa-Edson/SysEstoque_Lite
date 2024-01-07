@@ -65,7 +65,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         pnMenuInferior.setBackground(ControleCores.pegarCorPadrao());
         desktopPrincipal.setBackground(ControleCores.pegarCorPadrao());
         pnMenuPrincipal.setBackground(ControleCores.pegarCorPadrao());
-        
+
     }
 
     /**
@@ -121,31 +121,12 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         menuChamaUnidade = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu10 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jSeparator9 = new javax.swing.JPopupMenu.Separator();
         jMenuItem7 = new javax.swing.JMenuItem();
-        jSeparator10 = new javax.swing.JPopupMenu.Separator();
         jMenuItem8 = new javax.swing.JMenuItem();
-        jMenu11 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jSeparator7 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenu9 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
-        jSeparator11 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jSeparator8 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem14 = new javax.swing.JMenuItem();
-        jSeparator13 = new javax.swing.JPopupMenu.Separator();
         jMenu4 = new javax.swing.JMenu();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jSeparator14 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem15 = new javax.swing.JMenuItem();
-        jSeparator15 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem16 = new javax.swing.JMenuItem();
-        jSeparator16 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem18 = new javax.swing.JMenuItem();
         jMenu15 = new javax.swing.JMenu();
         jMenuItem37 = new javax.swing.JMenuItem();
         jMenuItem38 = new javax.swing.JMenuItem();
@@ -552,133 +533,72 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem2);
 
-        jMenu10.setText("Geral");
-
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Img10.png"))); // NOI18N
-        jMenuItem4.setText("Cadastrar Cliente e/ou Fornecedor / Empresa / Transportadora");
+        jMenuItem4.setText("Cliente");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu10.add(jMenuItem4);
-        jMenu10.add(jSeparator9);
+        jMenu2.add(jMenuItem4);
 
         jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Img10.png"))); // NOI18N
-        jMenuItem7.setText("Cadastrar Natureza");
+        jMenuItem7.setText("Natureza");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem7ActionPerformed(evt);
             }
         });
-        jMenu10.add(jMenuItem7);
-        jMenu10.add(jSeparator10);
+        jMenu2.add(jMenuItem7);
 
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Img10.png"))); // NOI18N
-        jMenuItem8.setText("Cadastrar Usuario");
+        jMenuItem8.setText("Usuario");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem8ActionPerformed(evt);
             }
         });
-        jMenu10.add(jMenuItem8);
-
-        jMenu2.add(jMenu10);
-
-        jMenu11.setText("Movimento");
-
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Img10.png"))); // NOI18N
-        jMenuItem3.setText("Cadastrar Setor");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu11.add(jMenuItem3);
-        jMenu11.add(jSeparator7);
-
-        jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Img10.png"))); // NOI18N
-        jMenuItem9.setText("Cadastrar Movimento");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
-            }
-        });
-        jMenu11.add(jMenuItem9);
-
-        jMenu2.add(jMenu11);
+        jMenu2.add(jMenuItem8);
 
         jMenuBar1.add(jMenu2);
 
+        jMenu9.setText("Nota");
+        jMenu9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu9MouseClicked(evt);
+            }
+        });
+        jMenu9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu9ActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenu9);
+
         jMenu3.setText("Expedição");
-        jMenu3.add(jSeparator11);
-
-        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Img10.png"))); // NOI18N
-        jMenuItem10.setText("Cadastrar Entrada/Saida");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
             }
         });
-        jMenu3.add(jMenuItem10);
-        jMenu3.add(jSeparator8);
-
-        jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Img10.png"))); // NOI18N
-        jMenuItem14.setText("Expedição");
-        jMenuItem14.setToolTipText("");
-        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem14ActionPerformed(evt);
+                jMenu3ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem14);
-        jMenu3.add(jSeparator13);
-
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Consultas");
-        jMenu4.add(jSeparator1);
-
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Img10.png"))); // NOI18N
-        jMenuItem1.setText("Consulta Interna");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu4MouseClicked(evt);
             }
         });
-        jMenu4.add(jMenuItem1);
-        jMenu4.add(jSeparator14);
-
-        jMenuItem15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Img10.png"))); // NOI18N
-        jMenuItem15.setText("Expedição");
-        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+        jMenu4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem15ActionPerformed(evt);
+                jMenu4ActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem15);
-        jMenu4.add(jSeparator15);
-
-        jMenuItem16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Img10.png"))); // NOI18N
-        jMenuItem16.setText("Bandeiras");
-        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem16ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem16);
-        jMenu4.add(jSeparator16);
-
-        jMenuItem18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Img10.png"))); // NOI18N
-        jMenuItem18.setText("Protocolo");
-        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem18ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem18);
-
         jMenuBar1.add(jMenu4);
 
         jMenu15.setText("Internet");
@@ -878,11 +798,6 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        jLabelCodigoTela.setText("ConsultaInterna");
-        jButton1.doClick();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     private void jMenu8MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu8MenuSelected
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu8MenuSelected
@@ -924,35 +839,16 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        jLabelCodigoTela.setText("FCELista");
-        jButton1.doClick();
+        TelaInternaController.chamaNaturezaCadastroInternal(this);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-      TelaInternaController.chamaNaturezaCadastroInternal(this);
+        TelaInternaController.chamaNaturezaCadastroInternal(this);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         TelaInternaController.chamaUsuarioCadastroInternal(this);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        jLabelCodigoTela.setText("SetorCadastro");
-        jButton1.doClick();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        jLabelCodigoTela.setText("MovimentoLista");
-        jButton1.doClick();
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
-
-    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-// jLabelCodigoTela.setText("MovimentoLista");
-//        jButton1.doClick();
-        MenuPrincipal.jLabelCodigoTela2.setText("novo");
-        MenuPrincipal.jLabelCodigoTela.setText("MovimentoCadastroNovo");
-        MenuPrincipal.jButton1.doClick();
-    }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
@@ -983,30 +879,10 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         lblPapelDeParede.setVerticalAlignment((int) CENTER_ALIGNMENT);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
-    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-        MenuPrincipal.jLabelCodigoTela.setText("Expedicao");
-        MenuPrincipal.jButton1.doClick();
-    }//GEN-LAST:event_jMenuItem14ActionPerformed
-
-    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
-        MenuPrincipal.jLabelCodigoTela.setText("Expedicao");
-        MenuPrincipal.jButton1.doClick();
-    }//GEN-LAST:event_jMenuItem15ActionPerformed
-
-    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
-        jLabelCodigoTela.setText("Bandeiras");
-        jButton1.doClick();
-    }//GEN-LAST:event_jMenuItem16ActionPerformed
-
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
         ManipulaProtocolo prot = new ManipulaProtocolo();
         prot.chamaRelatorioEmBranco();
     }//GEN-LAST:event_jMenuItem17ActionPerformed
-
-    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
-        jLabelCodigoTela.setText("Protocolo");
-        jButton1.doClick();
-    }//GEN-LAST:event_jMenuItem18ActionPerformed
 
     private void jMenuItem_EscondeMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_EscondeMenuActionPerformed
         EscondeMenu();
@@ -1050,7 +926,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem28ActionPerformed
 
     private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
-      
+
     }//GEN-LAST:event_jMenuItem21ActionPerformed
 
     private void jMenu14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu14ActionPerformed
@@ -1244,8 +1120,32 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_ConsultaActionPerformed
 
     private void jButton_ExpedicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExpedicaoActionPerformed
-               TelaInternaController.chamaExpedicaoInterna(this);
+        TelaInternaController.chamaExpedicaoInterna(this);
     }//GEN-LAST:event_jButton_ExpedicaoActionPerformed
+
+    private void jMenu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu9MouseClicked
+        TelaInternaController.chamaListaNota();
+    }//GEN-LAST:event_jMenu9MouseClicked
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        TelaInternaController.chamaExpedicaoInterna(this);
+    }//GEN-LAST:event_jMenu3MouseClicked
+
+    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+        TelaInternaController.chamaConsultaInterna(this);
+    }//GEN-LAST:event_jMenu4MouseClicked
+
+    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
+        TelaInternaController.chamaConsultaInterna(this);
+    }//GEN-LAST:event_jMenu4ActionPerformed
+
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+        TelaInternaController.chamaExpedicaoInterna(this);
+    }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void jMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu9ActionPerformed
+        TelaInternaController.chamaListaNota();
+    }//GEN-LAST:event_jMenu9ActionPerformed
     public void GeradorDeCodigo() {
         SequenciadorA = SequenciadorA + 1;
 //    SequenciadorB=SequenciadorB+1;
@@ -1574,8 +1474,6 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     public static javax.swing.JLabel jLabel_Gerador_De_Codigo;
     public static javax.swing.JLabel jLabel_Hora;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu10;
-    private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu14;
@@ -1589,17 +1487,12 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem15;
-    private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
-    private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
@@ -1612,7 +1505,6 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem27;
     private javax.swing.JMenuItem jMenuItem28;
     private javax.swing.JMenuItem jMenuItem29;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;
     private javax.swing.JMenuItem jMenuItem32;
@@ -1628,22 +1520,11 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     public static javax.swing.JMenuItem jMenuItem_EscondeMenu;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JPopupMenu.Separator jSeparator10;
-    private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
-    private javax.swing.JPopupMenu.Separator jSeparator13;
-    private javax.swing.JPopupMenu.Separator jSeparator14;
-    private javax.swing.JPopupMenu.Separator jSeparator15;
-    private javax.swing.JPopupMenu.Separator jSeparator16;
     private javax.swing.JPopupMenu.Separator jSeparator17;
     private javax.swing.JPopupMenu.Separator jSeparator18;
     private javax.swing.JPopupMenu.Separator jSeparator2;
-    private javax.swing.JPopupMenu.Separator jSeparator7;
-    private javax.swing.JPopupMenu.Separator jSeparator8;
-    private javax.swing.JPopupMenu.Separator jSeparator9;
     private javax.swing.JLabel lblPapelDeParede;
     public static javax.swing.JMenuItem menuChamaUnidade;
     private javax.swing.JPanel pnMenuInferior;

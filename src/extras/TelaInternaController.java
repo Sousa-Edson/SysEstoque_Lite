@@ -9,6 +9,7 @@ import model.NotaFiscal;
 import model.Produto;
 import view.internal.ProdutoListaJIF;
 import view.MenuPrincipal;
+import view.internal.ClienteListaInternal;
 import view.internal.ConsultaInterna;
 import view.internal.ExpedicaoInterna;
 import view.internal.LoginJIF;
@@ -35,6 +36,18 @@ public class TelaInternaController {
     private static ExpedicaoInterna expedicaoInterna;
     private static NaturezaCadastroInternal naturezaCadastroInternal;
     private static UsuarioCadastroInternal usuarioCadastroInternal;
+    private static ClienteListaInternal clienteListaInternal;
+
+    public static void chamaClienteListaInternal(MenuPrincipal form) {
+        if (clienteListaInternal == null || !clienteListaInternal.isVisible()) {
+            clienteListaInternal = new ClienteListaInternal();
+            MenuPrincipal.desktopPrincipal.add(clienteListaInternal);
+            InternalFrameUtil.removerIcone(clienteListaInternal);
+            clienteListaInternal.setVisible(true);
+        }
+        clienteListaInternal.toFront();
+        FramePositionUtil.setCenteredPosition(clienteListaInternal);
+    }
 
     public static void chamaUsuarioCadastroInternal(MenuPrincipal form) {
         if (usuarioCadastroInternal == null || !usuarioCadastroInternal.isVisible()) {
