@@ -55,7 +55,7 @@ public class ClienteListaController {
             cliente = clienteService.obterClientePorId((int) form.getTabela().getValueAt(form.getTabela().getSelectedRow(), 0));
             if (evt.getClickCount() == 2) {
                 try {
-                    TelaInternaController.ClienteCadastroInternal();
+                    TelaInternaController.ClienteCadastroInternal(cliente);
 
                 } catch (Exception e) {
                     System.out.println("erro|selecionaUmProduto::: " + e.getMessage());

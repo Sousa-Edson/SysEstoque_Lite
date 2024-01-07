@@ -5,6 +5,7 @@
  */
 package extras;
 
+import model.Cliente;
 import model.NotaFiscal;
 import model.Produto;
 import view.internal.ProdutoListaJIF;
@@ -40,9 +41,9 @@ public class TelaInternaController {
     private static ClienteListaInternal clienteListaInternal;
     private static ClienteCadastroInternal clienteCadastroInternal;
 
-    public static void ClienteCadastroInternal() {
+    public static void ClienteCadastroInternal(Cliente cliente) {
         if (clienteCadastroInternal == null || !clienteCadastroInternal.isVisible()) {
-            clienteCadastroInternal = new ClienteCadastroInternal();
+            clienteCadastroInternal = new ClienteCadastroInternal(cliente);
             MenuPrincipal.desktopPrincipal.add(clienteCadastroInternal);
             InternalFrameUtil.removerIcone(clienteCadastroInternal);
             clienteCadastroInternal.setVisible(true);

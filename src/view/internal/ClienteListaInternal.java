@@ -6,9 +6,11 @@
 package view.internal;
 
 import controller.ClienteListaController;
+import extras.TelaInternaController;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import model.Cliente;
 
 /**
  *
@@ -202,11 +204,7 @@ public class ClienteListaInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-//        BuscaUltimaId();
-//        Principal.jLabelCodigoTela2.setText("novo");
-//        Principal.jLabelCodigoTela.setText("FCECadastro");
-//        Principal.jButton1.doClick();
-        btnEditar.setEnabled(false);
+  TelaInternaController.ClienteCadastroInternal(new Cliente());
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked

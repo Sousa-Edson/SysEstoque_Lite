@@ -9,35 +9,37 @@ package view.internal;
 import ModeloBeans.Beans_ECFT;
 import ConectaBanco.ConexaoBD;
 import ModeloDao.Dao_ECFT;
+import controller.ClienteCadastroController;
 
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import model.Cliente;
 
 /**
  *
  * @author Edson
  */
 public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
- 
+    
     ConexaoBD conex = new ConexaoBD();
     Beans_ECFT BEANS = new Beans_ECFT();
     Dao_ECFT DAO = new Dao_ECFT();
-
+    
     String cnpj;
     String cep;
     String telefone;
-
+    
     String descricao = null;
     int ver = 1;
-
+    
     int tipo_lista = 1;
     int id_referencia;
-
+    
     String data;
-
+    
     String nome = null;
     String armazena_tipo;
     String armazena_descricao;
@@ -48,17 +50,21 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
     String armazena_cfop;
     String armazena_estoque;
     String armazena_observacao;
+    
+    ClienteCadastroController clienteCadastroController;
 
-    public ClienteCadastroInternal() {
+    public ClienteCadastroInternal(Cliente cliente) {
         initComponents();
+        
+        clienteCadastroController = new ClienteCadastroController();
         
         jLabel_Id.setVisible(false);
         jLabel1.setVisible(false);
 //        jLabel_status.setVisible(false);
 //        jLabel_Data_menu.setVisible(false);
+        clienteCadastroController.carregarCampos(this, cliente);
     }
 
-  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -683,8 +689,8 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
 //            jButton_Excluir.setText("Ativar");
         }
     }//GEN-LAST:event_formFocusGained
+    
 
-   
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
 //        Component[] componentes = menu.Barra_Menu.getComponents(); // altere para o nome da variavel do seu painel
 //        for (Component componente : componentes) {
@@ -705,8 +711,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-
-       
+        
 
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
@@ -731,11 +736,10 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
             nome = null;
         }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
-
-
+    
 
     private void jMenuBar1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMenuBar1FocusGained
-       
+        
     }//GEN-LAST:event_jMenuBar1FocusGained
 
     private void btnNovoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoKeyPressed
@@ -743,7 +747,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoKeyPressed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-    
+        
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyPressed
@@ -770,9 +774,9 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
         ClienteListaInternal.btnPesquisa.doClick();
 
     }//GEN-LAST:event_btnSalvarActionPerformed
-
+    
     public void LimpaCampos() {
-
+        
         txtNome.setText("");
         txtDescricao.setText("");
         txtCnpj.setText("");
@@ -789,7 +793,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         if (jLabel_Id.getText() == "Novo") {
-
+            
             txtNome.setText("");
             txtDescricao.setText("");
             txtCnpj.setText("");
@@ -802,10 +806,10 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
             txtBairro.setText("");
             txtCidade.setText("");
             jComboBoxFC.setSelectedItem("FORN/CLIE");
-
+            
         } else {
             //            this.dispose();
-           
+            
         }
 
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -856,7 +860,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboBoxFCKeyPressed
 
     private void txtCidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyPressed
-
+        
         if (evt.getKeyCode() == evt.VK_ESCAPE) {
             btnNovo.setEnabled(true);
             btnSalvar.setEnabled(false);
@@ -876,7 +880,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
             txtCidade.setText(txtCidade.getText().toUpperCase());
             txtBairro.requestFocus();
         }
-
+        
         if (txtCidade.getText().length() > 130) {
             txtCidade.requestFocus();
             txtCidade.setBackground(Color.red);
@@ -919,7 +923,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
             txtBairro.setText(txtBairro.getText().toUpperCase());
             txtComplemento.requestFocus();
         }
-
+        
         if (txtBairro.getText().length() > 130) {
             txtBairro.requestFocus();
             txtBairro.setBackground(Color.red);
@@ -958,7 +962,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
             txtComplemento.setText(txtComplemento.getText().toUpperCase());
             txtCep.requestFocus();
         }
-
+        
         if (txtComplemento.getText().length() > 140) {
             txtComplemento.requestFocus();
             txtComplemento.setBackground(Color.red);
@@ -1022,7 +1026,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
             txtEndereco.setText(txtEndereco.getText().toUpperCase());
             txtTelefone.requestFocus();
         }
-
+        
         if (txtEndereco.getText().length() > 155) {
             txtEndereco.requestFocus();
             txtEndereco.setBackground(Color.red);
@@ -1062,7 +1066,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
 
     private void txtEstadualFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEstadualFocusLost
 //        jTextFieldInscricao.setText(jTextFieldInscricao.getText().toUpperCase());
-       
+
         //206.277.405.117
     }//GEN-LAST:event_txtEstadualFocusLost
 
@@ -1086,7 +1090,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
             txtDescricao.setText(txtDescricao.getText().toUpperCase());
             txtEstadual.requestFocus();
         }
-
+        
         if (txtDescricao.getText().length() > 155) {
             txtDescricao.requestFocus();
             JOptionPane.showMessageDialog(rootPane, "Verifique campo\nCampo ultrapassa limite de caracteres!");
@@ -1110,7 +1114,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtDescricaoFocusLost
 
     private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
-      
+        
     }//GEN-LAST:event_txtNomeKeyPressed
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
@@ -1127,14 +1131,13 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
             txtNome.setBackground(Color.white);
         }
     }//GEN-LAST:event_txtNomeFocusLost
-
-   
+    
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
 //        jFormattedTextFieldCnpj.setText(null);
 // jLabel15.setBackground(Color.green);
 // jLabel15.setForeground(Color.green);
-     
+        
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void jLabel15FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jLabel15FocusLost
@@ -1159,23 +1162,23 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jLabel15MouseDragged
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
-       
+        
     }//GEN-LAST:event_jLabel16MouseClicked
 
     private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
-      
+        
     }//GEN-LAST:event_jLabel19MouseClicked
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-     
+        
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-       
+        
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-      
+        
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void txtCnpjFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCnpjFocusLost
@@ -1183,11 +1186,11 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCnpjFocusLost
 
     private void txtTelefoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefoneFocusLost
-     
+        
     }//GEN-LAST:event_txtTelefoneFocusLost
 
     private void txtCepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCepFocusLost
-    
+        
     }//GEN-LAST:event_txtCepFocusLost
 
     private void txtObservacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObservacaoKeyPressed
@@ -1207,7 +1210,6 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
             txtNumero.setBackground(Color.white);
         }
     }//GEN-LAST:event_txtNumeroFocusLost
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1264,133 +1266,129 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
     public JButton getBtnCancelar() {
         return btnCancelar;
     }
-
+    
     public void setBtnCancelar(JButton btnCancelar) {
         this.btnCancelar = btnCancelar;
     }
-
+    
     public JButton getBtnExcluir() {
         return btnExcluir;
     }
-
+    
     public void setBtnExcluir(JButton btnExcluir) {
         this.btnExcluir = btnExcluir;
     }
-
+    
     public JButton getBtnNovo() {
         return btnNovo;
     }
-
+    
     public void setBtnNovo(JButton btnNovo) {
         this.btnNovo = btnNovo;
     }
-
+    
     public JButton getBtnSalvar() {
         return btnSalvar;
     }
-
+    
     public void setBtnSalvar(JButton btnSalvar) {
         this.btnSalvar = btnSalvar;
     }
-
+    
     public JTextField getTxtBairro() {
         return txtBairro;
     }
-
+    
     public void setTxtBairro(JTextField txtBairro) {
         this.txtBairro = txtBairro;
     }
-
+    
     public JTextField getTxtCep() {
         return txtCep;
     }
-
+    
     public void setTxtCep(JTextField txtCep) {
         this.txtCep = txtCep;
     }
-
+    
     public JTextField getTxtCidade() {
         return txtCidade;
     }
-
+    
     public void setTxtCidade(JTextField txtCidade) {
         this.txtCidade = txtCidade;
     }
-
+    
     public JTextField getTxtCnpj() {
         return txtCnpj;
     }
-
+    
     public void setTxtCnpj(JTextField txtCnpj) {
         this.txtCnpj = txtCnpj;
     }
-
+    
     public JTextField getTxtComplemento() {
         return txtComplemento;
     }
-
+    
     public void setTxtComplemento(JTextField txtComplemento) {
         this.txtComplemento = txtComplemento;
     }
-
+    
     public JTextField getTxtDescricao() {
         return txtDescricao;
     }
-
+    
     public void setTxtDescricao(JTextField txtDescricao) {
         this.txtDescricao = txtDescricao;
     }
-
+    
     public JTextField getTxtEndereco() {
         return txtEndereco;
     }
-
+    
     public void setTxtEndereco(JTextField txtEndereco) {
         this.txtEndereco = txtEndereco;
     }
-
+    
     public JTextField getTxtEstadual() {
         return txtEstadual;
     }
-
+    
     public void setTxtEstadual(JTextField txtEstadual) {
         this.txtEstadual = txtEstadual;
     }
-
-    public static JTextField getTxtNome() {
+    
+    public   JTextField getTxtNome() {
         return txtNome;
     }
-
-    public static void setTxtNome(JTextField txtNome) {
+    
+    public   void setTxtNome(JTextField txtNome) {
         ClienteCadastroInternal.txtNome = txtNome;
     }
-
+    
     public JTextField getTxtNumero() {
         return txtNumero;
     }
-
+    
     public void setTxtNumero(JTextField txtNumero) {
         this.txtNumero = txtNumero;
     }
-
+    
     public JTextArea getTxtObservacao() {
         return txtObservacao;
     }
-
+    
     public void setTxtObservacao(JTextArea txtObservacao) {
         this.txtObservacao = txtObservacao;
     }
-
+    
     public JTextField getTxtTelefone() {
         return txtTelefone;
     }
-
+    
     public void setTxtTelefone(JTextField txtTelefone) {
         this.txtTelefone = txtTelefone;
     }
-
-
-
-
-
+    
 }
