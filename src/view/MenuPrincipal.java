@@ -6,10 +6,7 @@
 //// aqui serve pra buscar jlabel   jLabel_Data2 jLabel_Hora
 package view;
 
-import BackupRestore.Novo.PostgresBackup_X64NOV;
-import BackupRestore.Novo.PostgresBackup_X86NOV;
-import BackupRestore.Novo.PostgresRestore_X64NOV;
-import BackupRestore.Novo.PostgresRestore_X86NOV;
+import BackupRestore.Novo.MainBackup; 
 import utils.ControleCores;
 import utils.UsuarioLogado;
 import extras.TelaInternaController;
@@ -779,10 +776,10 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE); 
+        setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
         Object[] options = {"Sim", "Não"};
         if (JOptionPane.showOptionDialog(null, "Deseja realmente sair?", "Saída",
-                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
                 null, options, options[1]) == 0) {
             System.exit(0);
         } else {
@@ -824,31 +821,19 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem29ActionPerformed
 
     private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
-        try {
-            PostgresBackup_X64NOV.realizaBackup();
-        } catch (IOException ex) {
-            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        MainBackup.postgresBackup_X64NOV();
     }//GEN-LAST:event_jMenuItem20ActionPerformed
 
     private void jMenuItem26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem26ActionPerformed
-        try {
-            PostgresBackup_X86NOV.realizaBackup();
-        } catch (IOException ex) {
-            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        MainBackup.postgresBackup_X86NOV();
     }//GEN-LAST:event_jMenuItem26ActionPerformed
 
     private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
-        PostgresRestore_X64NOV restore = new PostgresRestore_X64NOV();
+        MainBackup.postgresRestore_X64NOV();
     }//GEN-LAST:event_jMenuItem27ActionPerformed
 
     private void jMenuItem28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem28ActionPerformed
-        PostgresRestore_X86NOV restore = new PostgresRestore_X86NOV();
+        MainBackup.postgresRestore_X86NOV();
     }//GEN-LAST:event_jMenuItem28ActionPerformed
 
     private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
