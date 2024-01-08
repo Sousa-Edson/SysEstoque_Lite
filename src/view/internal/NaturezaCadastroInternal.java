@@ -4,10 +4,7 @@
  * and open the template in the editor.
  */
 package view.internal;
-
-import ModeloBeans.Beans_Natureza;
-import ConectaBanco.ConexaoBD;
-import ModeloDao.Dao_Natureza;
+ 
 import controller.NaturezaController;
 import javax.swing.JButton;
 import javax.swing.JComboBox;

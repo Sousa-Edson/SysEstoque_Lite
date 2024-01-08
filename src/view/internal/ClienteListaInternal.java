@@ -17,9 +17,9 @@ import model.Cliente;
  * @author edson
  */
 public class ClienteListaInternal extends javax.swing.JInternalFrame {
-    
+
     ClienteListaController clienteListaController;
-    
+
     public ClienteListaInternal() {
         initComponents();
         clienteListaController = new ClienteListaController();
@@ -43,7 +43,6 @@ public class ClienteListaInternal extends javax.swing.JInternalFrame {
         btnPesquisa = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -118,14 +117,6 @@ public class ClienteListaInternal extends javax.swing.JInternalFrame {
             }
         });
 
-        btnEditar.setText("Editar");
-        btnEditar.setEnabled(false);
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -135,20 +126,18 @@ public class ClienteListaInternal extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPesquisa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLimpar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNovo)
                         .addGap(0, 278, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnEditar, btnLimpar, btnNovo, btnPesquisa});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnLimpar, btnNovo, btnPesquisa});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,8 +147,7 @@ public class ClienteListaInternal extends javax.swing.JInternalFrame {
                     .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisa)
                     .addComponent(btnLimpar)
-                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditar))
+                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
                 .addContainerGap())
@@ -195,7 +183,7 @@ public class ClienteListaInternal extends javax.swing.JInternalFrame {
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            clienteListaController.limparLista(this);
+            clienteListaController.prencherTabela(this);
         }
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
@@ -204,19 +192,14 @@ public class ClienteListaInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-  TelaInternaController.ClienteCadastroInternal(new Cliente());
+        TelaInternaController.ClienteCadastroInternal(null);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         clienteListaController.selecionaUmCliente(this, evt);
     }//GEN-LAST:event_tabelaMouseClicked
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-
-    }//GEN-LAST:event_btnEditarActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnNovo;
     public static javax.swing.JButton btnPesquisa;
@@ -226,52 +209,45 @@ public class ClienteListaInternal extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 
-    public JButton getBtnEditar() {
-        return btnEditar;
-    }
-    
-    public void setBtnEditar(JButton btnEditar) {
-        this.btnEditar = btnEditar;
-    }
-    
+   
     public JButton getBtnLimpar() {
         return btnLimpar;
     }
-    
+
     public void setBtnLimpar(JButton btnLimpar) {
         this.btnLimpar = btnLimpar;
     }
-    
+
     public JButton getBtnNovo() {
         return btnNovo;
     }
-    
+
     public void setBtnNovo(JButton btnNovo) {
         this.btnNovo = btnNovo;
     }
-    
+
     public static JButton getBtnPesquisa() {
         return btnPesquisa;
     }
-    
+
     public static void setBtnPesquisa(JButton btnPesquisa) {
         ClienteListaInternal.btnPesquisa = btnPesquisa;
     }
-    
+
     public JTable getTabela() {
         return tabela;
     }
-    
+
     public void setTabela(JTable tabela) {
         this.tabela = tabela;
     }
-    
+
     public JTextField getTxtPesquisa() {
         return txtPesquisa;
     }
-    
+
     public void setTxtPesquisa(JTextField txtPesquisa) {
         this.txtPesquisa = txtPesquisa;
     }
-    
+
 }

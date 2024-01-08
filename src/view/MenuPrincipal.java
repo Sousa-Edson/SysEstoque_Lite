@@ -6,12 +6,10 @@
 //// aqui serve pra buscar jlabel   jLabel_Data2 jLabel_Hora
 package view;
 
-import Interface.*;
 import BackupRestore.Novo.PostgresBackup_X64NOV;
 import BackupRestore.Novo.PostgresBackup_X86NOV;
 import BackupRestore.Novo.PostgresRestore_X64NOV;
 import BackupRestore.Novo.PostgresRestore_X86NOV;
-import Sistema.ManipulaProtocolo;
 import utils.ControleCores;
 import utils.UsuarioLogado;
 import extras.TelaInternaController;
@@ -23,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -880,8 +879,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
-        ManipulaProtocolo prot = new ManipulaProtocolo();
-        prot.chamaRelatorioEmBranco();
+
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     private void jMenuItem_EscondeMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_EscondeMenuActionPerformed
@@ -1018,15 +1016,46 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem34ActionPerformed
 
     private void jMenuItem38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem38ActionPerformed
+        try {
+            try {
+                java.awt.Desktop.getDesktop().browse(new java.net.URI("https://mail.globo.com/webmail/"));
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
+        } catch (IOException ex) {
+            System.out.println("Erro::" + ex.getMessage());
+
+        }
     }//GEN-LAST:event_jMenuItem38ActionPerformed
 
     private void jMenuItem39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem39ActionPerformed
+        try {
+            try {
+                java.awt.Desktop.getDesktop().browse(new java.net.URI("https://www.fsist.com.br/"));
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
+        } catch (IOException ex) {
+            System.out.println("Erro::" + ex.getMessage());
+
+        }
     }//GEN-LAST:event_jMenuItem39ActionPerformed
 
     private void jMenuItem37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem37ActionPerformed
 
+        try {
+            try {
+                java.awt.Desktop.getDesktop().browse(new java.net.URI("http://www.google.com/"));
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } catch (IOException ex) {
+            System.out.println("Erro::" + ex.getMessage());
+
+        }
     }//GEN-LAST:event_jMenuItem37ActionPerformed
 
     private void jMenuItem35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem35ActionPerformed
@@ -1040,7 +1069,17 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem35ActionPerformed
 
     private void jMenuItem40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem40ActionPerformed
-        // TODO add your handling code here:
+        try {
+            try {
+                java.awt.Desktop.getDesktop().browse(new java.net.URI("http://www.google.com"));
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } catch (IOException ex) {
+            System.out.println("Erro::" + ex.getMessage());
+
+        }
     }//GEN-LAST:event_jMenuItem40ActionPerformed
 
     private void jMenu17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu17MouseClicked
@@ -1385,44 +1424,6 @@ public final class MenuPrincipal extends javax.swing.JFrame {
 
     }
 
-    public void HoraAtual() {
-        Timer timer = new Timer(1000, new hora());
-        timer.start();
-
-        DataAtual();
-
-    }
-
-    class hora implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Calendar now = Calendar.getInstance();
-            MenuMinhaHora = (String.format("%1$tH:%1$tM:%1$tS", now));
-            String MenuMinhaHoraSistema = (String.format("%1$tM:%1$tS", now));
-            MenuMinhaHoraSistema = MenuMinhaHora.replace(":", "");
-            jLabel_Hora.setText(MenuMinhaHora);
-//            ChamadaFormulario.ExecutaReferencia();]
-            DataAtual_Atualizando();
-        }
-
-    }
-
-    public void DataAtual_Atualizando() {
-        String VerHora = jLabel_Hora.getText();
-        // System.err.println("VerHora " + VerHora);
-        if (VerHora.equals("00:00:00")) {
-            DataAtual();
-            JOptionPane.showMessageDialog(rootPane, "Data atual " + MenuMinhaData + " \nHora atual " + MenuMinhaHora);
-            // System.err.println("Carregou DataAtual_Atualizando");
-        } else if (VerHora.equals("12:00:00")) {
-            JOptionPane.showMessageDialog(rootPane, "Data atual " + MenuMinhaData + " \nHora atual " + MenuMinhaHora);
-        } else {
-            //System.err.println("Não carregou DataAtual_Atualizando ");
-        }
-
-    }
-
     public void EscondePrincipal() {
         if (jButton1.isVisible()) {
             jLabelCodigoTela.setVisible(false);
@@ -1542,4 +1543,43 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         return desktopPrincipal;
     }
 
+    public void HoraAtual() {
+        Timer timer = new Timer(1000, new hora());
+        timer.start();
+
+        DataAtual();
+
+    }
+
+    class hora implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Calendar now = Calendar.getInstance();
+            MenuMinhaHora = (String.format("%1$tH:%1$tM:%1$tS", now));
+            String MenuMinhaHoraSistema = (String.format("%1$tM:%1$tS", now));
+            MenuMinhaHoraSistema = MenuMinhaHora.replace(":", "");
+            jLabel_Hora.setText(MenuMinhaHora);
+//            ChamadaFormulario.ExecutaReferencia();]
+            DataAtual_Atualizando();
+        }
+
+    }
+
+    public void DataAtual_Atualizando() {
+        String VerHora = jLabel_Hora.getText();
+        // System.err.println("VerHora " + VerHora);
+        if (VerHora.equals("00:00:00")) {
+            DataAtual();
+            JOptionPane.showMessageDialog(rootPane, "Data atual " + MenuMinhaData + " \nHora atual " + MenuMinhaHora);
+            // System.err.println("Carregou DataAtual_Atualizando");
+        } else if (VerHora.equals("12:00:00")) {
+            JOptionPane.showMessageDialog(rootPane, "Data atual " + MenuMinhaData + " \nHora atual " + MenuMinhaHora);
+        } else if (VerHora.equals("09:00:00")) {
+            JOptionPane.showMessageDialog(rootPane, "Data atual " + MenuMinhaData + " \nHora atual " + MenuMinhaHora);
+        } else {
+            //System.err.println("Não carregou DataAtual_Atualizando ");
+        }
+
+    }
 }

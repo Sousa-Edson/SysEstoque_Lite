@@ -6,13 +6,11 @@
 //// recebe
 package view.internal;
 
-import ModeloBeans.Beans_ECFT;
-import ConectaBanco.ConexaoBD;
-import ModeloDao.Dao_ECFT;
 import controller.ClienteCadastroController;
 
 import java.awt.Color;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -23,45 +21,16 @@ import model.Cliente;
  * @author Edson
  */
 public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
-    
-    ConexaoBD conex = new ConexaoBD();
-    Beans_ECFT BEANS = new Beans_ECFT();
-    Dao_ECFT DAO = new Dao_ECFT();
-    
-    String cnpj;
-    String cep;
-    String telefone;
-    
-    String descricao = null;
-    int ver = 1;
-    
-    int tipo_lista = 1;
-    int id_referencia;
-    
-    String data;
-    
-    String nome = null;
-    String armazena_tipo;
-    String armazena_descricao;
-    String armazena_edicao;
-    String armazena_unidade;
-    String armazena_valor;
-    String armazena_ncm;
-    String armazena_cfop;
-    String armazena_estoque;
-    String armazena_observacao;
-    
+ 
+ 
+
     ClienteCadastroController clienteCadastroController;
 
     public ClienteCadastroInternal(Cliente cliente) {
         initComponents();
-        
+
         clienteCadastroController = new ClienteCadastroController();
-        
-        jLabel_Id.setVisible(false);
-        jLabel1.setVisible(false);
-//        jLabel_status.setVisible(false);
-//        jLabel_Data_menu.setVisible(false);
+
         clienteCadastroController.carregarCampos(this, cliente);
     }
 
@@ -101,27 +70,15 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
         txtBairro = new javax.swing.JTextField();
         txtCidade = new javax.swing.JTextField();
         txtCep = new javax.swing.JTextField();
-        jComboBoxFC = new javax.swing.JComboBox<>();
-        jLabel24 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtObservacao = new javax.swing.JTextArea();
-        jLabel_Data_ent = new javax.swing.JLabel();
+        lblData = new javax.swing.JLabel();
         btnExcluir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel_Id = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        lblId = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -283,7 +240,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCnpj)
+                        .addComponent(txtCnpj, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -456,15 +413,6 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jComboBoxFC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FORN/CLIE", "FORNECEDOR", "CLIENTE", "OUTRO", "TRANSPORTE", "EMPRESA" }));
-        jComboBoxFC.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jComboBoxFCKeyPressed(evt);
-            }
-        });
-
-        jLabel24.setText("Tipo.:");
-
         txtObservacao.setColumns(20);
         txtObservacao.setRows(5);
         txtObservacao.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -480,9 +428,8 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(txtObservacao);
 
-        jLabel_Data_ent.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_Data_ent.setText("data");
-        jLabel_Data_ent.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblData.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblData.setText("data");
 
         btnExcluir.setBackground(new java.awt.Color(255, 0, 0));
         btnExcluir.setText("Excluir");
@@ -527,7 +474,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Id :");
 
-        jLabel_Id.setText("Novo");
+        lblId.setText("0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -538,15 +485,12 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxFC, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+                        .addGap(9, 9, 9)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(202, 202, 202)
-                        .addComponent(jLabel_Data_ent, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -570,17 +514,14 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(jLabel_Id))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBoxFC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel24)
-                        .addComponent(jLabel_Data_ent)))
+                        .addComponent(lblId))
+                    .addComponent(lblData))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovo)
@@ -589,73 +530,6 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
                     .addComponent(btnExcluir))
                 .addContainerGap())
         );
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBoxFC, jLabel24});
-
-        jMenuBar1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jMenuBar1FocusGained(evt);
-            }
-        });
-
-        jMenu1.setText("Arquivo");
-
-        jMenuItem1.setText("Sair");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Editar");
-
-        jMenuItem4.setText("Atualizar");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem4);
-
-        jMenuItem6.setText("Alterar Data");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem6);
-        jMenu2.add(jSeparator1);
-
-        jMenuItem2.setText("Limpa Cnpj");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem2);
-
-        jMenuItem3.setText("Limpa Telefone");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem3);
-
-        jMenuItem5.setText("Limpa Cep");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem5);
-
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -672,82 +546,21 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
-        if (ver == 2) {
-        } else {
-//           
-//            preencherTabela();
-//            ver = 2;
-//            if (jLabel_Id.getText().equals("Novo")) {
-//                jButton_Salvar.setText("Salvar");
-//            } else {
-//                jButton_Salvar.setText("Alterar");
-//            }
-//        }
-//        if (jLabel_status.getText().equals("ATIVO")) {
-//            jButton_Excluir.setText("Excluir");
-//        } else {
-//            jButton_Excluir.setText("Ativar");
-        }
+        
     }//GEN-LAST:event_formFocusGained
-    
+
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
-//        Component[] componentes = menu.Barra_Menu.getComponents(); // altere para o nome da variavel do seu painel
-//        for (Component componente : componentes) {
-//            componente.setEnabled(true);
-//        }
-//        Component[] componentes2 = Painel_principal.getComponents(); // altere para o nome da variavel do seu painel
-//        for (Component componente : componentes2) {
-//            componente.setEnabled(true);
-//        }
-        ver = 1;
-//        FechaForm();
+
     }//GEN-LAST:event_formInternalFrameClosing
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        ver = 1;
-//        FechaForm();
-        this.dispose();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        
-
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        JOptionPane.showMessageDialog(null, "Você quer realmente alterar a data?\nVocê não tem permissão.");
-        while (nome == null || nome.equals("")) {
-            nome = JOptionPane.showInputDialog("Digite sua senha de acesso.");
-            if (nome == null || nome.equals("")) {
-                JOptionPane.showMessageDialog(null, "Você não digitou sua senha.");
-                nome = "VAZIO";
-            }
-        }
-//        JOptionPane.showMessageDialog(null, "Senha " + nome);
-        if (nome.equals("123")) {
-//            JDialog_Calendario calendario = new JDialog_Calendario(menu, rootPaneCheckingEnabled);
-//            calendario.recebe_local("produto");
-//            calendario.setVisible(true);
-//            calendario.setResizable(false);
-//            nome = null;
-        } else {
-            JOptionPane.showMessageDialog(null, "Acesso negado.");
-            nome = null;
-        }
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
-    
-
-    private void jMenuBar1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jMenuBar1FocusGained
-        
-    }//GEN-LAST:event_jMenuBar1FocusGained
 
     private void btnNovoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNovoKeyPressed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        
+        clienteCadastroController.cliqueBotaoNovo(this);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyPressed
@@ -759,81 +572,22 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
             this.dispose();
         }
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            
+
         }
     }//GEN-LAST:event_btnSalvarKeyPressed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        ver = 1;
-        
-        LimpaCampos();
-//        Principal.jLabelCodigoTela.setText("FCEListaAtualizar");
-//        Principal.jButton1.doClick();
-//        Principal.jLabelCodigoTela.setText("AtualizaTudo");
-//      Principal.jButton1.doClick();
-        ClienteListaInternal.btnPesquisa.doClick();
-
+        clienteCadastroController.cliqueBotaoSalvar(this);
     }//GEN-LAST:event_btnSalvarActionPerformed
-    
-    public void LimpaCampos() {
-        
-        txtNome.setText("");
-        txtDescricao.setText("");
-        txtCnpj.setText("");
-        txtTelefone.setText("");
-        txtEstadual.setText("");
-        txtEndereco.setText("");
-        txtNumero.setText("");
-        txtCep.setText("");
-        txtComplemento.setText("");
-        txtBairro.setText("");
-        txtCidade.setText("");
-        jComboBoxFC.setSelectedItem("FORN/CLIE");
-    }
+
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        if (jLabel_Id.getText() == "Novo") {
-            
-            txtNome.setText("");
-            txtDescricao.setText("");
-            txtCnpj.setText("");
-            txtTelefone.setText("");
-            txtEstadual.setText("");
-            txtEndereco.setText("");
-            txtNumero.setText("");
-            txtCep.setText("");
-            txtComplemento.setText("");
-            txtBairro.setText("");
-            txtCidade.setText("");
-            jComboBoxFC.setSelectedItem("FORN/CLIE");
-            
-        } else {
-            //            this.dispose();
-            
-        }
-
+        clienteCadastroController.cliqueEmCancelar(this);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        int resposta = 0;
-        resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir/ativar ? ");
-        if (resposta == JOptionPane.YES_OPTION) {
-            BEANS.setStecft(3);
-//            BEANS.setEcft_usuario(Principal.jLabelNomeUsuario.getText());
-//            BEANS.setEcft_registro(Principal.jLabel_Data.getText());
-            BEANS.setEcft_id(Integer.parseInt(jLabel_Id.getText()));
-            DAO.Excluir(BEANS);
-            btnNovo.setEnabled(true);
-            btnSalvar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-//            Principal.jLabelCodigoTela.setText("FCEListaAtualizar");
-//            Principal.jButton1.doClick();
-//            Principal.jLabelCodigoTela.setText("FechaFCECadastroEditar");
-//            Principal.jButton1.doClick();
-        }
-
-//       
-
+   
+clienteCadastroController.cliqueBotaoExcluir(this);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void txtObservacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtObservacaoFocusLost
@@ -846,21 +600,8 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtObservacaoFocusLost
 
-    private void jComboBoxFCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBoxFCKeyPressed
-        if (evt.getKeyCode() == evt.VK_ENTER) {
-            txtNome.requestFocus();
-        }
-        if (evt.getKeyCode() == evt.VK_ESCAPE) {
-            btnNovo.setEnabled(true);
-            btnSalvar.setEnabled(false);
-//            MenuPrincipal.jButton_Meu_Foco.setText("lec2");
-//            MenuPrincipal.jButton_Meu_Foco.requestFocus();
-            this.dispose();
-        }
-    }//GEN-LAST:event_jComboBoxFCKeyPressed
-
     private void txtCidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyPressed
-        
+
         if (evt.getKeyCode() == evt.VK_ESCAPE) {
             btnNovo.setEnabled(true);
             btnSalvar.setEnabled(false);
@@ -880,7 +621,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
             txtCidade.setText(txtCidade.getText().toUpperCase());
             txtBairro.requestFocus();
         }
-        
+
         if (txtCidade.getText().length() > 130) {
             txtCidade.requestFocus();
             txtCidade.setBackground(Color.red);
@@ -923,7 +664,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
             txtBairro.setText(txtBairro.getText().toUpperCase());
             txtComplemento.requestFocus();
         }
-        
+
         if (txtBairro.getText().length() > 130) {
             txtBairro.requestFocus();
             txtBairro.setBackground(Color.red);
@@ -962,7 +703,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
             txtComplemento.setText(txtComplemento.getText().toUpperCase());
             txtCep.requestFocus();
         }
-        
+
         if (txtComplemento.getText().length() > 140) {
             txtComplemento.requestFocus();
             txtComplemento.setBackground(Color.red);
@@ -1026,7 +767,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
             txtEndereco.setText(txtEndereco.getText().toUpperCase());
             txtTelefone.requestFocus();
         }
-        
+
         if (txtEndereco.getText().length() > 155) {
             txtEndereco.requestFocus();
             txtEndereco.setBackground(Color.red);
@@ -1090,7 +831,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
             txtDescricao.setText(txtDescricao.getText().toUpperCase());
             txtEstadual.requestFocus();
         }
-        
+
         if (txtDescricao.getText().length() > 155) {
             txtDescricao.requestFocus();
             JOptionPane.showMessageDialog(rootPane, "Verifique campo\nCampo ultrapassa limite de caracteres!");
@@ -1114,7 +855,7 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtDescricaoFocusLost
 
     private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
-        
+
     }//GEN-LAST:event_txtNomeKeyPressed
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
@@ -1131,13 +872,13 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
             txtNome.setBackground(Color.white);
         }
     }//GEN-LAST:event_txtNomeFocusLost
-    
+
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
 //        jFormattedTextFieldCnpj.setText(null);
 // jLabel15.setBackground(Color.green);
 // jLabel15.setForeground(Color.green);
-        
+
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void jLabel15FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jLabel15FocusLost
@@ -1162,35 +903,23 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jLabel15MouseDragged
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
-        
+
     }//GEN-LAST:event_jLabel16MouseClicked
 
     private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
-        
+
     }//GEN-LAST:event_jLabel19MouseClicked
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-
     private void txtCnpjFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCnpjFocusLost
-        
+
     }//GEN-LAST:event_txtCnpjFocusLost
 
     private void txtTelefoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefoneFocusLost
-        
+
     }//GEN-LAST:event_txtTelefoneFocusLost
 
     private void txtCepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCepFocusLost
-        
+
     }//GEN-LAST:event_txtCepFocusLost
 
     private void txtObservacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObservacaoKeyPressed
@@ -1217,7 +946,6 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSalvar;
-    public static javax.swing.JComboBox<String> jComboBoxFC;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -1230,25 +958,14 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel_Data_ent;
-    private javax.swing.JLabel jLabel_Id;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblData;
+    private javax.swing.JLabel lblId;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCep;
     private javax.swing.JTextField txtCidade;
@@ -1266,129 +983,145 @@ public class ClienteCadastroInternal extends javax.swing.JInternalFrame {
     public JButton getBtnCancelar() {
         return btnCancelar;
     }
-    
+
     public void setBtnCancelar(JButton btnCancelar) {
         this.btnCancelar = btnCancelar;
     }
-    
+
     public JButton getBtnExcluir() {
         return btnExcluir;
     }
-    
+
     public void setBtnExcluir(JButton btnExcluir) {
         this.btnExcluir = btnExcluir;
     }
-    
+
     public JButton getBtnNovo() {
         return btnNovo;
     }
-    
+
     public void setBtnNovo(JButton btnNovo) {
         this.btnNovo = btnNovo;
     }
-    
+
     public JButton getBtnSalvar() {
         return btnSalvar;
     }
-    
+
     public void setBtnSalvar(JButton btnSalvar) {
         this.btnSalvar = btnSalvar;
     }
-    
+
     public JTextField getTxtBairro() {
         return txtBairro;
     }
-    
+
     public void setTxtBairro(JTextField txtBairro) {
         this.txtBairro = txtBairro;
     }
-    
+
     public JTextField getTxtCep() {
         return txtCep;
     }
-    
+
     public void setTxtCep(JTextField txtCep) {
         this.txtCep = txtCep;
     }
-    
+
     public JTextField getTxtCidade() {
         return txtCidade;
     }
-    
+
     public void setTxtCidade(JTextField txtCidade) {
         this.txtCidade = txtCidade;
     }
-    
+
     public JTextField getTxtCnpj() {
         return txtCnpj;
     }
-    
+
     public void setTxtCnpj(JTextField txtCnpj) {
         this.txtCnpj = txtCnpj;
     }
-    
+
     public JTextField getTxtComplemento() {
         return txtComplemento;
     }
-    
+
     public void setTxtComplemento(JTextField txtComplemento) {
         this.txtComplemento = txtComplemento;
     }
-    
+
     public JTextField getTxtDescricao() {
         return txtDescricao;
     }
-    
+
     public void setTxtDescricao(JTextField txtDescricao) {
         this.txtDescricao = txtDescricao;
     }
-    
+
     public JTextField getTxtEndereco() {
         return txtEndereco;
     }
-    
+
     public void setTxtEndereco(JTextField txtEndereco) {
         this.txtEndereco = txtEndereco;
     }
-    
+
     public JTextField getTxtEstadual() {
         return txtEstadual;
     }
-    
+
     public void setTxtEstadual(JTextField txtEstadual) {
         this.txtEstadual = txtEstadual;
     }
-    
-    public   JTextField getTxtNome() {
+
+    public JTextField getTxtNome() {
         return txtNome;
     }
-    
-    public   void setTxtNome(JTextField txtNome) {
+
+    public void setTxtNome(JTextField txtNome) {
         ClienteCadastroInternal.txtNome = txtNome;
     }
-    
+
     public JTextField getTxtNumero() {
         return txtNumero;
     }
-    
+
     public void setTxtNumero(JTextField txtNumero) {
         this.txtNumero = txtNumero;
     }
-    
+
     public JTextArea getTxtObservacao() {
         return txtObservacao;
     }
-    
+
     public void setTxtObservacao(JTextArea txtObservacao) {
         this.txtObservacao = txtObservacao;
     }
-    
+
     public JTextField getTxtTelefone() {
         return txtTelefone;
     }
-    
+
     public void setTxtTelefone(JTextField txtTelefone) {
         this.txtTelefone = txtTelefone;
     }
-    
+
+    public JLabel getLblData() {
+        return lblData;
+    }
+
+    public void setLblData(JLabel lblData) {
+        this.lblData = lblData;
+    }
+
+    public JLabel getLblId() {
+        return lblId;
+    }
+
+    public void setLblId(JLabel lblId) {
+        this.lblId = lblId;
+    }
+
 }

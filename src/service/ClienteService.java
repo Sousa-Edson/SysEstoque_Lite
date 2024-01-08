@@ -11,6 +11,8 @@ package service;
 import dao.ClienteDAO;
 import java.util.List;
 import model.Cliente;
+import utils.DataHoraAtual;
+import utils.UsuarioLogado;
 
 public class ClienteService {
 
@@ -30,5 +32,28 @@ public class ClienteService {
 
     public Cliente obterClientePorId(int i) {
         return clienteDAO.obterClientePorId(i);
+    }
+
+    public void salvar(Cliente cliente) {
+
+        cliente.setCliente_registro(DataHoraAtual.obterDataHoraFormatada());
+        cliente.setCliente_usuario(UsuarioLogado.getNome());
+        cliente.setCliente_tipo("CLIENTE");
+        cliente.setStcliente(1);
+
+        if (cliente.getCliente_id() == 0) {
+            cliente.setSis_cliente(clienteDAO.carregaUltimo());
+            clienteDAO.salvar(cliente);
+        } else {
+            clienteDAO.atualizar(cliente);
+        }
+    }
+
+    public boolean excluirCliente(Cliente cliente) {
+        cliente.setCliente_registro(DataHoraAtual.obterDataHoraFormatada());
+        cliente.setCliente_usuario(UsuarioLogado.getNome()); 
+        cliente.setStcliente(3);
+        clienteDAO.marcarComoDeletado(cliente);
+        return true;
     }
 }
