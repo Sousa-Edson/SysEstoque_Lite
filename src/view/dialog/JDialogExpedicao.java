@@ -247,6 +247,7 @@ public class JDialogExpedicao extends javax.swing.JDialog {
         jScrollPane1.setViewportView(txtNotaObservacao);
 
         jButtonEnvAgo.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
+        jButtonEnvAgo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-calendário-20.png"))); // NOI18N
         jButtonEnvAgo.setText("Enviado agora");
         jButtonEnvAgo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -255,6 +256,7 @@ public class JDialogExpedicao extends javax.swing.JDialog {
         });
 
         jButtonEnvHoj.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
+        jButtonEnvHoj.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-calendário-20.png"))); // NOI18N
         jButtonEnvHoj.setText("Enviado hoje");
         jButtonEnvHoj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,6 +265,7 @@ public class JDialogExpedicao extends javax.swing.JDialog {
         });
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-salvar-24.png"))); // NOI18N
         jButton1.setText("Lançar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,6 +274,7 @@ public class JDialogExpedicao extends javax.swing.JDialog {
         });
 
         jButtonAlterar.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
+        jButtonAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-lápis-24.png"))); // NOI18N
         jButtonAlterar.setText("Editar");
         jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -496,7 +500,7 @@ public class JDialogExpedicao extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel27)))
-                .addGap(0, 6, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel19)

@@ -233,6 +233,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         });
 
         jButton_Consulta.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
+        jButton_Consulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-pesquisa-36.png"))); // NOI18N
         jButton_Consulta.setText("Consulta");
         jButton_Consulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,6 +242,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         });
 
         jButton_Expedicao.setFont(new java.awt.Font("Fira Sans", 1, 13)); // NOI18N
+        jButton_Expedicao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-empilhadeira-36.png"))); // NOI18N
         jButton_Expedicao.setText("Expedição");
         jButton_Expedicao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,7 +261,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
                     .addComponent(jButton_Consulta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton_Expedicao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblPapelDeParede, javax.swing.GroupLayout.DEFAULT_SIZE, 1102, Short.MAX_VALUE))
+                .addComponent(lblPapelDeParede, javax.swing.GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE))
         );
         pnPrincipalLayout.setVerticalGroup(
             pnPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -66,19 +66,19 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" alignment="0" pref="742" max="32767" attributes="0"/>
                       <Component id="jPanel2" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="btnNovo" min="-2" pref="95" max="-2" attributes="0"/>
+                          <Component id="btnNovo" linkSize="2" min="-2" pref="95" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnSalvar" min="-2" pref="95" max="-2" attributes="0"/>
+                          <Component id="btnSalvar" linkSize="2" min="-2" pref="95" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnCancelar" min="-2" pref="95" max="-2" attributes="0"/>
+                          <Component id="btnCancelar" linkSize="2" min="-2" pref="95" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnExcluir" min="-2" pref="95" max="-2" attributes="0"/>
+                          <Component id="btnExcluir" linkSize="2" min="-2" pref="95" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnAtualizar" min="-2" pref="95" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="243" max="32767" attributes="0"/>
+                          <Component id="btnAtualizar" linkSize="2" min="-2" pref="132" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jLabel3" alignment="1" max="32767" attributes="0"/>
                   </Group>
@@ -93,16 +93,16 @@
                   <Component id="jPanel2" min="-2" pref="54" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnNovo" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                      <Component id="btnSalvar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                      <Component id="btnCancelar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                      <Component id="btnExcluir" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                      <Component id="btnAtualizar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="btnNovo" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSalvar" linkSize="1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="btnCancelar" linkSize="1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="btnExcluir" linkSize="1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="btnAtualizar" linkSize="1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="229" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="221" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -131,6 +131,9 @@
         </Container>
         <Component class="javax.swing.JButton" name="btnSalvar">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icons/icons8-salvar-24.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Salvar"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -141,6 +144,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnCancelar">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icons/icons8-vassoura-20.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
           <Events>
@@ -149,6 +155,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnExcluir">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icons/icons8-remover-20.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Excluir"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -309,6 +318,9 @@
         </Container>
         <Component class="javax.swing.JButton" name="btnNovo">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icons/icons8-novo-24.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Novo"/>
           </Properties>
           <Events>
@@ -318,6 +330,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnAtualizar">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icons/icons8-actualizar-20.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Atualizar"/>
           </Properties>
           <Events>

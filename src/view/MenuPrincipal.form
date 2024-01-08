@@ -619,7 +619,7 @@
                               <Component id="jButton_Expedicao" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblPapelDeParede" pref="1102" max="32767" attributes="0"/>
+                          <Component id="lblPapelDeParede" pref="1085" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -654,7 +654,7 @@
                       </Border>
                     </Property>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Cursor Padr&#xe3;o"/>
+                      <Color id="Default Cursor"/>
                     </Property>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[1028, 772]"/>
@@ -700,6 +700,9 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Fira Sans" size="13" style="1"/>
                     </Property>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/icons/icons8-pesquisa-36.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Consulta"/>
                   </Properties>
                   <Events>
@@ -710,6 +713,9 @@
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Fira Sans" size="13" style="1"/>
+                    </Property>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/icons/icons8-empilhadeira-36.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Expedi&#xe7;&#xe3;o"/>
                   </Properties>
