@@ -78,18 +78,10 @@ public final class MenuPrincipal extends javax.swing.JFrame {
 
         pnMenuPrincipal = new javax.swing.JPanel();
         pnMenuInferior = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jLabel_Hora = new javax.swing.JLabel();
         jLabel_Data = new javax.swing.JLabel();
-        jLabel_Data2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jLabelCodigoTela = new javax.swing.JLabel();
-        jLabelCodigoTela2 = new javax.swing.JLabel();
         jLabelTipoUsuario = new javax.swing.JLabel();
         jLabelNomeUsuario = new javax.swing.JLabel();
-        jLabel_Empresa = new javax.swing.JLabel();
-        jLabel_Gerador_De_Codigo = new javax.swing.JLabel();
         desktopPrincipal = new javax.swing.JDesktopPane();
         pnPrincipal = new javax.swing.JPanel();
         lblPapelDeParede = new javax.swing.JLabel();
@@ -168,13 +160,6 @@ public final class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Botão");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jLabel_Hora.setFont(new java.awt.Font("Fira Sans", 3, 14)); // NOI18N
         jLabel_Hora.setText("00:00:00");
 
@@ -186,66 +171,18 @@ public final class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel_Data2.setText("data");
-
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("jButton3");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jLabelCodigoTela.setText("  ");
-        jLabelCodigoTela.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabelCodigoTela2.setText("  ");
-        jLabelCodigoTela2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
         jLabelTipoUsuario.setFont(new java.awt.Font("Fira Sans", 3, 14)); // NOI18N
         jLabelTipoUsuario.setText("Administrador");
 
         jLabelNomeUsuario.setFont(new java.awt.Font("Fira Sans", 3, 14)); // NOI18N
         jLabelNomeUsuario.setText("Sistema");
 
-        jLabel_Empresa.setText("0");
-
-        jLabel_Gerador_De_Codigo.setText("  ");
-        jLabel_Gerador_De_Codigo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jLabel_Gerador_De_Codigo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_Gerador_De_CodigoMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout pnMenuInferiorLayout = new javax.swing.GroupLayout(pnMenuInferior);
         pnMenuInferior.setLayout(pnMenuInferiorLayout);
         pnMenuInferiorLayout.setHorizontalGroup(
             pnMenuInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnMenuInferiorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelCodigoTela, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelCodigoTela2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_Data2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel_Empresa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_Gerador_De_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(743, Short.MAX_VALUE)
                 .addComponent(jLabelTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -259,19 +196,11 @@ public final class MenuPrincipal extends javax.swing.JFrame {
             pnMenuInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnMenuInferiorLayout.createSequentialGroup()
                 .addGroup(pnMenuInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
                     .addComponent(jLabel_Hora)
                     .addComponent(jLabel_Data)
-                    .addComponent(jLabel_Data2)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jLabelCodigoTela)
-                    .addComponent(jLabelCodigoTela2)
                     .addComponent(jLabelTipoUsuario)
-                    .addComponent(jLabelNomeUsuario)
-                    .addComponent(jLabel_Empresa)
-                    .addComponent(jLabel_Gerador_De_Codigo))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabelNomeUsuario))
+                .addGap(0, 3, Short.MAX_VALUE))
         );
 
         desktopPrincipal.setBackground(new java.awt.Color(204, 204, 255));
@@ -349,7 +278,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
                         .addComponent(jButton_Consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton_Expedicao, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 279, Short.MAX_VALUE)))
+                        .addGap(0, 281, Short.MAX_VALUE)))
                 .addGap(1, 1, 1))
         );
 
@@ -834,7 +763,7 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu5MouseClicked
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        MudaTipoUsuario();
+
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -850,12 +779,11 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
-
-        int i = JOptionPane.showConfirmDialog(null,
-                "Deseja realmente sair?", "Saída",
-                JOptionPane.YES_NO_OPTION);
-        if (i == JOptionPane.YES_OPTION) {
+        setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE); 
+        Object[] options = {"Sim", "Não"};
+        if (JOptionPane.showOptionDialog(null, "Deseja realmente sair?", "Saída",
+                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+                null, options, options[1]) == 0) {
             System.exit(0);
         } else {
             repaint();
@@ -1088,39 +1016,12 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu17MouseClicked
 
     private void jMenu17MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu17MousePressed
-        jLabelCodigoTela.setText("LimpaTudo");
-        jButton1.doClick();
-    }//GEN-LAST:event_jMenu17MousePressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ControlaTela();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jMenu17MousePressed
 
     private void jLabel_DataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_DataMouseClicked
         DataAtual();
     }//GEN-LAST:event_jLabel_DataMouseClicked
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-        //   jLabel_PapelDeParede.setBorder(javax.swing.BorderFactory.createEtchedBorder());;;
-        // jLabel_PapelDeParede.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        //jLabel_PapelDeParede.setMinimumSize(new java.awt.Dimension(1028, 772));
-        //jLabel_PapelDeParede.setPreferredSize(new java.awt.Dimension(1028, 772));
-        //        EscondeMenu();
-        //tela.ChamaMovimentoCadastroNovo();
-        jLabelCodigoTela.setText("MovimentoCadastroEditar");
-        jLabelCodigoTela2.setText("13");
-        jButton1.doClick();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        //        jLabel_PapelDeParede.setIcon(new javax.swing.ImageIcon(getClass().getResource(""))); // NOI18N
-        GeradorDeCodigo();
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jLabel_Gerador_De_CodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_Gerador_De_CodigoMouseClicked
-        GeradorDeCodigo();
-    }//GEN-LAST:event_jLabel_Gerador_De_CodigoMouseClicked
 
     private void pnMenuInferiorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnMenuInferiorMouseClicked
         if (jButton_Consulta.isVisible()) {
@@ -1185,24 +1086,6 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     private void jMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu9ActionPerformed
         TelaInternaController.chamaListaNota();
     }//GEN-LAST:event_jMenu9ActionPerformed
-    public void GeradorDeCodigo() {
-        SequenciadorA = SequenciadorA + 1;
-//    SequenciadorB=SequenciadorB+1;
-        if (SequenciadorA > 9) {
-            SequenciadorA = 1;
-            SequenciadorB = SequenciadorB + 1;
-        }
-
-        if (SequenciadorB > 9) {
-            SequenciadorB = 1;
-        }
-        MinhaReferencia = (String.valueOf(SequenciadorA)) + (String.valueOf(SequenciadorB));
-        String D1 = jLabel_Data2.getText().replace("/", "");
-        String H1 = jLabel_Hora.getText().replace(":", "");
-        MinhaReferencia = D1 + H1 + MinhaReferencia;
-        System.out.println("Interface.Principal.GeradorDeCodigo()  - MinhaReferencia " + MinhaReferencia);
-        jLabel_Gerador_De_Codigo.setText(MinhaReferencia);
-    }
 
     public static ImageIcon stretch(int larg, int alt, ImageIcon i) {
         return new ImageIcon(i.getImage().getScaledInstance(larg, alt, Image.SCALE_DEFAULT));
@@ -1275,8 +1158,6 @@ public final class MenuPrincipal extends javax.swing.JFrame {
     }
 
     public void EscondeMenu() {
-//        ManipulaProtocolo prot = new ManipulaProtocolo();
-//        prot.chamaRelatorioEmBranco();
 
         if (jMenuBar1.isVisible()) {
             jMenuBar1.setVisible(false);
@@ -1295,15 +1176,6 @@ public final class MenuPrincipal extends javax.swing.JFrame {
             jButton_Produto.setVisible(true);
 
         }
-        jLabelCodigoTela.setVisible(false);
-        jLabelCodigoTela2.setVisible(false);
-        jLabel_Data2.setVisible(false);
-        jButton1.setVisible(false);
-        jButton2.setVisible(false);
-        jButton3.setVisible(false);
-        jLabel_Gerador_De_Codigo.setVisible(false);
-        jLabel_Empresa.setVisible(false);
-
         if (jLabelTipoUsuario.getText().equals("Manutenção")) {
             jMenu7.setVisible(true);
             jMenu5.setVisible(true);
@@ -1313,100 +1185,6 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         }
     }
 
-    public void ControlaTela() {
-//        String MeuCodigo = jLabelCodigoTela.getText();
-//        if (MeuCodigo == "TelaTeste1") {
-//
-//        } else if (MeuCodigo == "ListaProduto") {
-//            tela.ChamaProdutoLista();
-//        } else if (MeuCodigo == "AtualizaProdutoLista") {
-//            tela.AtualizaProdutoLista();
-//        } else if (MeuCodigo == "CadastroProduto") {
-//            tela.ChamaCadastroProdutoInterno();
-//        } else if (MeuCodigo == "CadastroProdutoEditar") {
-//            tela.ChamaCadastroProdutoInternoEditar();
-//        } else if (MeuCodigo == "FechaCadastroProdutoEditar") {
-//            tela.FechaCadastroProdutoInternoEditar();
-//        } else if (MeuCodigo == "CadastroUnidade") {
-//            tela.chamaCadastroUnidade();
-////        } else if (MeuCodigo == "CadastroUnidade") {
-////            tela.ChamaCadastroUnidadeEditar();
-//        } else if (MeuCodigo == "ConsultaInterna") {
-//            tela.ChamaConsultaInterna();
-//        } else if (MeuCodigo == "FCELista") {
-//            tela.ChamaFCELista();
-//        } else if (MeuCodigo == "FCEListaAtualizar") {
-//            tela.ChamaFCEListaAtualizar();
-//        } else if (MeuCodigo == "FCECadastro") {
-//            tela.ChamaFCECadastro();
-//        } else if (MeuCodigo == "FCECadastroEditar") {
-//            tela.ChamaFCECadastroEditar();
-//        } else if (MeuCodigo == "FechaFCECadastroEditar") {
-//            tela.FechaFCECadastroEditar();
-//        } else if (MeuCodigo == "NaturezaCadastro") {
-//            tela.ChamaNaturezaCadastro();
-//        } else if (MeuCodigo == "UsuarioCadastro") {
-//            tela.ChamaUsuarioCadastro();
-//        } else if (MeuCodigo == "SetorCadastro") {
-//            tela.ChamaSetorCadastro();
-//        } else if (MeuCodigo == "MovimentoLista") {
-//            tela.ChamaMovimentoLista();
-//        } else if (MeuCodigo == "MovimentoCadastroEditar") {
-//            tela.ChamaMovimentoCadastroEditar();
-//        } else if (MeuCodigo == "MovimentoCadastroNovo") {
-//            tela.ChamaMovimentoCadastroNovo();
-//        } else if (MeuCodigo == "FechaMovimentoCadastro") {
-//            tela.FechaMovimentoCadastro();
-//        } else if (MeuCodigo == "Exibir") {
-//            tela.ChamaExibir();
-//        } else if (MeuCodigo == "FrameExibir") {
-//            tela.ChamaFrameExibir();
-//        } else if (MeuCodigo == "Login") {
-//            tela.ChamaLogin();
-//        } else if (MeuCodigo == "Expedicao") {
-//            tela.ChamaExpedicao();
-//        } else if (MeuCodigo == "Bandeiras") {
-//            tela.ChamaBandeira();
-//        } else if (MeuCodigo == "Protocolo") {
-//            tela.ChamaProtocolo();
-//        } else if (MeuCodigo == "AtualizaTudo") {
-//            tela.ChamaAtualizaTudo();
-//        } else if (MeuCodigo == "LimpaTudo") {
-//            tela.ChamaLimpaTudo();
-//        } else {
-//
-//        }
-//
-    }
-
-//    public void ChamaLoginPrincipal() {
-//        
-//        if (ChamaLoginPrincipal.isVisible()) {
-//            ChamaLoginPrincipal.setVisible(false);
-//            desktopPrincipal.remove(ChamaLoginPrincipal);
-////             EscondeBarraBordasTeste();
-//        } else {
-//            desktopPrincipal.remove(ChamaLoginPrincipal);
-//            desktopPrincipal.add(ChamaLoginPrincipal);
-//
-////            ChamaLoginPrincipal.setBorder(null);//retirar bordas;
-//            ChamaLoginPrincipal.setPosicao();
-////             EscondeBarraBordasTeste();
-//            EscondeBarraBordasLogin();
-//            ChamaLoginPrincipal.setVisible(true);
-//            EscondeBarraBordasLogin();
-//
-////            
-//        }
-//    }
-//    public void EscondeBarraBordasLogin() {
-//        ChamaLoginPrincipal.setBorder(null);//retirar bordas;
-//
-//        ((BasicInternalFrameUI) ChamaLoginPrincipal.getUI()).setNorthPane(null);
-//        ((BasicInternalFrameUI) ChamaLoginPrincipal.getUI()).setSouthPane(null);
-//        ((BasicInternalFrameUI) ChamaLoginPrincipal.getUI()).setEastPane(null);
-//        ((BasicInternalFrameUI) ChamaLoginPrincipal.getUI()).setWestPane(null);
-//    }
     public void MudaTitulo() {
         this.setTitle("     Sys Estoque Versão 6.0   Lite   ");
     }
@@ -1419,60 +1197,43 @@ public final class MenuPrincipal extends javax.swing.JFrame {
         MenuMinhaDataSistema = (formato2.format(dataSistema));
         //MenuMinhaDataSistema = MenuMinhaDataSistema.replace("/", "");
         jLabel_Data.setText(MenuMinhaData);
-        jLabel_Data2.setText(MenuMinhaDataSistema);
         System.out.println("Carregou DataAtual");
 
     }
 
     public void EscondePrincipal() {
-        if (jButton1.isVisible()) {
-            jLabelCodigoTela.setVisible(false);
-            jLabelCodigoTela2.setVisible(false);
-            jLabel_Data2.setVisible(false);
-            jButton1.setVisible(false);
-            jButton2.setVisible(false);
-            jButton3.setVisible(false);
-            jLabel_Gerador_De_Codigo.setVisible(false);
-            jLabel_Empresa.setVisible(false);
-        } else {
-            jLabelCodigoTela.setVisible(!false);
-            jLabelCodigoTela2.setVisible(!false);
-            jLabel_Data2.setVisible(!false);
-            jButton1.setVisible(!false);
-            jButton2.setVisible(!false);
-            jButton3.setVisible(!false);
-            jLabel_Gerador_De_Codigo.setVisible(!false);
-            jLabel_Empresa.setVisible(!false);
-        }
+//        if (jButton1.isVisible()) {
+//            jLabelCodigoTela.setVisible(false);
+//            jLabelCodigoTela2.setVisible(false);
+//            jLabel_Data2.setVisible(false);
+//            jButton1.setVisible(false);
+//            jButton2.setVisible(false);
+//            jButton3.setVisible(false);
+//            jLabel_Gerador_De_Codigo.setVisible(false);
+//            jLabel_Empresa.setVisible(false);
+//        } else {
+//            jLabelCodigoTela.setVisible(!false);
+//            jLabelCodigoTela2.setVisible(!false);
+//            jLabel_Data2.setVisible(!false);
+//            jButton1.setVisible(!false);
+//            jButton2.setVisible(!false);
+//            jButton3.setVisible(!false);
+//            jLabel_Gerador_De_Codigo.setVisible(!false);
+//            jLabel_Empresa.setVisible(!false);
+//        }
 
     }
 
-    public void MudaTipoUsuario() {
-        String MeuTipo = jLabelTipoUsuario.getText();
-        if (MeuTipo == "Manutenção") {
-            jLabelTipoUsuario.setText("Administrador");
-        } else {
-            jLabelTipoUsuario.setText("Manutenção");
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane desktopPrincipal;
-    public static javax.swing.JButton jButton1;
-    public static javax.swing.JButton jButton2;
-    public static javax.swing.JButton jButton3;
     private javax.swing.JButton jButton_Consulta;
     private javax.swing.JButton jButton_Expedicao;
     private javax.swing.JButton jButton_Nota;
     private javax.swing.JButton jButton_Produto;
-    public static javax.swing.JLabel jLabelCodigoTela;
-    public static javax.swing.JLabel jLabelCodigoTela2;
     public static javax.swing.JLabel jLabelNomeUsuario;
     public static javax.swing.JLabel jLabelTipoUsuario;
     public static javax.swing.JLabel jLabel_Data;
-    public static javax.swing.JLabel jLabel_Data2;
-    public static javax.swing.JLabel jLabel_Empresa;
-    public static javax.swing.JLabel jLabel_Gerador_De_Codigo;
     public static javax.swing.JLabel jLabel_Hora;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu12;
