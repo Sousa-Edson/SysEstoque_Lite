@@ -35,7 +35,7 @@ public class ExpedicaoDao {
 
         String sql = "SELECT id_nota, nota_documento, nota_nota, nota_data,nota_situacao,ecft_nome,tipo_prod, tipo_prod, edicao_prod,\n"
                 + "sigla_unidade,nota_observacao,id_referencianota,qtd_mov, qtd_prod, qtd_prod_ex, \n"
-                + "              qtd_calc, qtd_calc_ex,nota_hora ,complemento_mov,destino_mov,desc_unidade\n"
+                + "              qtd_calc, qtd_calc_ex,nota_hora ,complemento_mov,destino_mov,desc_unidade,datavariavel\n"
                 + "FROM movprodutobase\n"
                 + "inner join nota on nota_mov = id_nota\n"
                 + " inner join produto on id_prod_ent = id_prod\n"
@@ -44,14 +44,14 @@ public class ExpedicaoDao {
                 + " inner join natureza on id_natureza=naturezaint\n"
                 + "          where stnota=1 and stmovimento=1   and \n"
                 + "    tipo_natureza='SAIDA'  and  nota_situacao!='4-ENVIADO'and nota_situacao!='5-DEVOLVIDO' \n"
-                + "order by datavariavel asc , id_referencianota asc";
+                + "order by datavariavel asc, id_referencianota asc";//datavariavel asc ,
 
         try (PreparedStatement stmt = conex.preparaSql(sql)) {
             ResultSet resultado = stmt.executeQuery();
 
             while (resultado.next()) {
                 ExpedicaoModel expedicaoModel = new ExpedicaoModel();
-
+                System.out.println(""+resultado.getString("datavariavel"));
                 NotaFiscal notaFiscal = new NotaFiscal();
                 notaFiscal.setId_nota(resultado.getInt("id_nota"));
                 notaFiscal.setNota_data(resultado.getString("nota_data"));

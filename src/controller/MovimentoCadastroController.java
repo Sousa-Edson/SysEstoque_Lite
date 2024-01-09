@@ -28,6 +28,7 @@ import service.ProdutoService;
 import tableModel.ItemTableModel;
 import utils.ControleCores;
 import utils.DataHoraAtual;
+import utils.DateToString;
 import utils.FormatarData;
 import utils.FormatarDinheiro;
 import utils.GeradorCodigoAleatorio;
@@ -192,8 +193,10 @@ public class MovimentoCadastroController {
             ItemTableModel modelo = new ItemTableModel();
             modelo.setMovimentos(itens);
             form.getTabela().setModel(modelo);
-            form.getTabela().getColumnModel().getColumn(0).setPreferredWidth(60);
+            form.getTabela().getColumnModel().getColumn(0).setPreferredWidth(30);
             form.getTabela().getColumnModel().getColumn(0).setResizable(true);
+              form.getTabela().getColumnModel().getColumn(1).setPreferredWidth(30);
+               form.getTabela().getColumnModel().getColumn(2).setMinWidth(360);
             form.getTabela().getTableHeader().setReorderingAllowed(false);
 //        form.getTabela().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         } catch (Exception e) {
@@ -252,8 +255,8 @@ public class MovimentoCadastroController {
 
                 notaFiscal.setNota_hora(ValidarHora.validarHoraRetorno(form.getTxtHora().getText()));
                 notaFiscal.setNota_data(FormatarData.formatarData(form.getDataNota().getDate()));
-                notaFiscal.setDatavariavel(FormatarData.formatarData(form.getDataNota().getDate()));
-
+                notaFiscal.setDatavariavel(DateToString.deDateParaString(form.getDataNota().getDate()));
+                System.out.println("notaFiscal.getDatavariavel():: "+notaFiscal.getDatavariavel());
                 notaFiscal.setNota_situacao(SituacaoEnum.CALCULADO.getNome());// criar um enum para isso       
                 notaFiscal.setNota_operacao("" + (TipoMovimentacao) form.getCbTipoMovimentacao().getSelectedItem());// criar um enum para isso
                 System.out.println("OP:: " + notaFiscal.getNota_operacao());
