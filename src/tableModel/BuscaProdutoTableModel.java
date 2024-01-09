@@ -16,7 +16,7 @@ import model.Produto;
 public class BuscaProdutoTableModel extends AbstractTableModel {
 
     private List<Produto> produtos;
-    private final String[] colunas = {"Id", "Produto", "Saldo", "Unid", "Valor", "Obs", "Registro", "", ""};
+    private final String[] colunas = {"Id", "Produto", "Saldo", "Unid", "Valor", "Obs", "Registro"};
 
     public BuscaProdutoTableModel() {
         this.produtos = new ArrayList<>();
@@ -51,7 +51,7 @@ public class BuscaProdutoTableModel extends AbstractTableModel {
             case 0:
                 return produto.getId_prod();
             case 1:
-                return produto.getNome_prod();
+                return produto.getTipo_prod()+" "+produto.getNome_prod()+" "+produto.getEdicao_prod();
             case 2:
                 return produto.getSaldo_prod();
             case 3:
@@ -61,11 +61,7 @@ public class BuscaProdutoTableModel extends AbstractTableModel {
             case 5:
                 return produto.getObs_prod();
             case 6:
-                return produto.getData_reg();
-            case 7:
-                return produto.getUsu_prod();
-            case 8:
-                return produto.getSis_prod();
+                return produto.getData_reg(); 
             default:
                 return null;
         }
