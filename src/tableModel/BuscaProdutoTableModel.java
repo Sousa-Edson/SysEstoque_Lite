@@ -12,6 +12,7 @@ import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import model.Produto;
+import utils.FormatarNumero;
 
 public class BuscaProdutoTableModel extends AbstractTableModel {
 
@@ -53,7 +54,7 @@ public class BuscaProdutoTableModel extends AbstractTableModel {
             case 1:
                 return produto.getTipo_prod()+" "+produto.getNome_prod()+" "+produto.getEdicao_prod();
             case 2:
-                return produto.getSaldo_prod();
+                return  FormatarNumero.formatarNumero(produto.getSaldo_prod());
             case 3:
                 return produto.getUnidade().getSigla_unidade();
             case 4:

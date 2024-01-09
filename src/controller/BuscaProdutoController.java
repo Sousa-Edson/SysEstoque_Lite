@@ -36,6 +36,7 @@ public class BuscaProdutoController {
         form.getTabela().setModel(modelo);
         form.getTabela().getColumnModel().getColumn(0).setPreferredWidth(60);
         form.getTabela().getColumnModel().getColumn(0).setResizable(true);
+          form.getTabela().getColumnModel().getColumn(1).setMinWidth(360);
         form.getTabela().getTableHeader().setReorderingAllowed(false);
 //        jTable_Lista.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         form.getTabela().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
