@@ -32,7 +32,7 @@ public class ExpedicaoInternaController {
         form.getTabela().getColumnModel().getColumn(0).setResizable(true);
 
         form.getTabela().getTableHeader().setReorderingAllowed(false);
-//        getjTable_Produto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+ 
         form.getTabela().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
     }
