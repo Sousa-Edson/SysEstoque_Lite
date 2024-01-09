@@ -222,7 +222,7 @@ public class NotaFiscalDAO {
         preparedStatement.setString(5, notaFiscal.getNota_data());
         preparedStatement.setString(6, notaFiscal.getNota_nota());
         preparedStatement.setString(7, notaFiscal.getNota_hora());
-        preparedStatement.setString(8, notaFiscal.getNota_observacao());
+        preparedStatement.setString(8, notaFiscal.getNota_observacao().toUpperCase());
         preparedStatement.setString(9, notaFiscal.getNota_chave());
         preparedStatement.setString(10, notaFiscal.getNota_total());
         preparedStatement.setString(11, notaFiscal.getNota_registro());
