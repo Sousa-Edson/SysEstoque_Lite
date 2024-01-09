@@ -51,7 +51,7 @@ public class ExpedicaoDao {
 
             while (resultado.next()) {
                 ExpedicaoModel expedicaoModel = new ExpedicaoModel();
-                System.out.println(""+resultado.getString("datavariavel"));
+                
                 NotaFiscal notaFiscal = new NotaFiscal();
                 notaFiscal.setId_nota(resultado.getInt("id_nota"));
                 notaFiscal.setNota_data(resultado.getString("nota_data"));

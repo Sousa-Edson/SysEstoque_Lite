@@ -318,7 +318,7 @@ public class NotaFiscalDAO {
             pst.setString(14, notaFiscal.getTransporteModel().getNumeracao());
             pst.setString(15, notaFiscal.getTransporteModel().getPesobruto());
             pst.setString(16, notaFiscal.getTransporteModel().getPesoliquido());
-            pst.setString(17, notaFiscal.getNota_data());
+            pst.setString(17, notaFiscal.getDatavariavel());
 
             // Parâmetro WHERE para a condição de atualização
             pst.setInt(18, notaFiscal.getId_nota());

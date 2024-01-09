@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import model.NotaFiscal;
 import service.NotaFiscalService;
 import utils.DataHoraAtual;
+import utils.DateToString;
 import utils.FormatarData;
 import utils.StringToDate;
 
@@ -592,6 +593,8 @@ public class JDialogExpedicao extends javax.swing.JDialog {
             nota.setNota_nota(txtNotaNumero.getText());
             nota.setNota_chave(txtChaveNota.getText());
             nota.setNota_observacao(txtNotaObservacao.getText());
+
+            nota.setDatavariavel(DateToString.deDateParaString(dcDataNota.getDate()));
 
             nota.getTransporteModel().setMotorista(vol_motorista.getText());
             nota.getTransporteModel().setPlaca(vol_placa.getText());
