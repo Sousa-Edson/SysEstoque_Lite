@@ -277,6 +277,8 @@ public class JDialogComplementar extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        pnPrincipalLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnInserirProduto, txtComplemento, txtQuantidade});
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -313,10 +315,10 @@ public class JDialogComplementar extends javax.swing.JDialog {
     }//GEN-LAST:event_txtComplementoKeyPressed
 
     private void btnInserirProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnInserirProdutoKeyPressed
-//        if (evt.getKeyCode() == evt.VK_ENTER) {
-////            adicionarItem();
-//          
-//        }
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            adicionarItem();
+          
+        }
     }//GEN-LAST:event_btnInserirProdutoKeyPressed
 
     /**
