@@ -61,11 +61,11 @@ public class ExpedicaoTableModel extends AbstractTableModel {
             case 5:
                 return expedicaoModel.getProduto().getTipo_prod() + " " + expedicaoModel.getProduto().getNome_prod() + " " + expedicaoModel.getProduto().getEdicao_prod() + "";
             case 6:
-                return FormatarNumero.formatarNumero(expedicaoModel.getQtd_prod());
-            case 7:
-                return expedicaoModel.getProduto().getUnidade().getSigla_unidade();
-            case 8:
                 return expedicaoModel.getComplemento_mov();
+            case 7:
+                return FormatarNumero.formatarNumero(expedicaoModel.getQtd_prod());
+            case 8:
+                return expedicaoModel.getProduto().getUnidade().getSigla_unidade();
             case 9:
                 return expedicaoModel.getNotaFiscal().getNota_observacao();
             default:

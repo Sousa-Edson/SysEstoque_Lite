@@ -33,7 +33,7 @@ public class ExpedicaoDao {
         conex.conexao();
         List<ExpedicaoModel> listaExpedicao = new ArrayList<>();
 
-        String sql = "SELECT id_nota, nota_documento, nota_nota, nota_data,nota_situacao,ecft_nome,tipo_prod, tipo_prod, edicao_prod,\n"
+        String sql = "SELECT id_nota, nota_documento, nota_nota, nota_data,nota_situacao,ecft_nome,tipo_prod, nome_prod, edicao_prod,\n"
                 + "sigla_unidade,nota_observacao,id_referencianota,qtd_mov, qtd_prod, qtd_prod_ex, \n"
                 + "              qtd_calc, qtd_calc_ex,nota_hora ,complemento_mov,destino_mov,desc_unidade,datavariavel\n"
                 + "FROM movprodutobase\n"
@@ -67,7 +67,7 @@ public class ExpedicaoDao {
 
                 Produto produto = new Produto();
                 produto.setTipo_prod(resultado.getString("tipo_prod"));
-                produto.setNome_prod(resultado.getString("tipo_prod"));
+                produto.setNome_prod(resultado.getString("nome_prod"));
                 produto.setEdicao_prod(resultado.getString("edicao_prod"));
 
                 Unidade unidade = new Unidade();
