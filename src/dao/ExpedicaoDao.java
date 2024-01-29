@@ -43,7 +43,7 @@ public class ExpedicaoDao {
                 + " inner join unidade on id_unidade=idunid\n"
                 + " inner join natureza on id_natureza=naturezaint\n"
                 + "          where stnota=1 and stmovimento=1   and \n"
-                + "    tipo_natureza='SAIDA'  and  nota_situacao!='4-ENVIADO'and nota_situacao!='5-DEVOLVIDO' \n"
+                + "    nota_operacao='SAIDA'  and  nota_situacao!='4-ENVIADO' and nota_situacao!='5-DEVOLVIDO' \n"
                 + "order by datavariavel asc, id_referencianota asc";//datavariavel asc ,
 
         try (PreparedStatement stmt = conex.preparaSql(sql)) {

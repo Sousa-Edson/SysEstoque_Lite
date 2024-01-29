@@ -74,7 +74,7 @@ public class Natureza {
 
     @Override
     public String toString() {
-        return desc_natureza;
+        return desc_natureza+" - "+tipo_natureza;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class Natureza {
             return false;
         }
         final Natureza other = (Natureza) obj;
-        return Objects.equals(this.desc_natureza, other.desc_natureza);
+        return Objects.equals(this.desc_natureza+" - "+this.tipo_natureza, other.desc_natureza+" - "+other.tipo_natureza);
     }
 
 }

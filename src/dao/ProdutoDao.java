@@ -309,10 +309,10 @@ public class ProdutoDao {
         try {
             java.sql.PreparedStatement pst = conex.con.prepareStatement("update produto as prod set \n"
                     + "saldo_prod=( select  sum(qtd_mov) as qtd_prod  from movprodutobase as base\n"
-                    + " where id_prod_ent=sis_prod and stmovimento=1 and stsaldo=1 \n"
-                    + " GROUP BY   prod.sis_prod order by sis_prod asc )\n"
+                    + " where id_prod_ent=id_prod and stmovimento=1 and stsaldo=1 \n"
+                    + " GROUP BY   prod.id_prod order by id_prod asc )\n"
                     + " from movprodutobase as base\n"
-                    + "where prod.sis_prod='" + MeuExecutaSaldo + "'  and base.stsaldo=1");
+                    + "where prod.id_prod='" + MeuExecutaSaldo + "'  and base.stsaldo=1");
             pst.execute();
             System.out.println("aquiExecutaSaldo() ok");
              JOptionPane.showMessageDialog(null, "Varredura completa :: " + SelecionaProdutoId);

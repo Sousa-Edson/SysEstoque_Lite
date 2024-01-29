@@ -9,7 +9,6 @@ import javax.swing.ListSelectionModel;
 import model.Natureza;
 import service.NaturezaService;
 import tableModel.NaturezaTableModel;
-import view.internal.ConsultaInterna;
 import view.internal.NaturezaCadastroInternal;
 
 /**
