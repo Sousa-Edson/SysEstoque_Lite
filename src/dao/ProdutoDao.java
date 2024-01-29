@@ -215,8 +215,7 @@ public class ProdutoDao {
         return null;
     }
 
-    // ... outros métodos, se necessário
-    // novo
+    
     public List<Produto> listarProdutosPorBusca(String minhaBusca) {
         List<Produto> produtos = new ArrayList<>();
         conex.conexao();
